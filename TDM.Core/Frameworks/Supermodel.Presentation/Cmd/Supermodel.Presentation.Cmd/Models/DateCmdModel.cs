@@ -42,7 +42,7 @@ namespace Supermodel.Presentation.Cmd.Models
         #endregion
 
         #region Properties
-        protected static StringWithColor Placeholder { get; } = new StringWithColor("MM/dd/YYYY", ConsoleColor.DarkYellow);
+        protected static StringWithColor Placeholder { get; } = new("MM/dd/YYYY", ConsoleColor.DarkYellow);
         #endregion
     }
 }

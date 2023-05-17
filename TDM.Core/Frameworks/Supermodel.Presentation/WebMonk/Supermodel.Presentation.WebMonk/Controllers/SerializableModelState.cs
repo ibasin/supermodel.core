@@ -16,8 +16,8 @@ namespace Supermodel.Presentation.WebMonk.Controllers
             protected class TmpSerializableModelState
             {
                 #region Properties
-                public List<TmpValidationResult> ValidationResultList { get; set; } = new List<TmpValidationResult>();
-                public Dictionary<string, object> MessageBodyValueProviderDict { get; set; } = new Dictionary<string, object>();
+                public List<TmpValidationResult> ValidationResultList { get; set; } = new();
+                public Dictionary<string, object> MessageBodyValueProviderDict { get; set; } = new();
                 #endregion
             }
             protected class TmpValidationResult : ValidationResult
@@ -99,8 +99,8 @@ namespace Supermodel.Presentation.WebMonk.Controllers
             #endregion
             
             #region Properties
-            public ValidationResultList ValidationResultList { get; set; } = new ValidationResultList();
-            public Dictionary<string, object> MessageBodyValueProviderDict { get; set; } = new Dictionary<string, object>();
+            public ValidationResultList ValidationResultList { get; set; } = new();
+            public Dictionary<string, object> MessageBodyValueProviderDict { get; set; } = new();
             #endregion
         }
 }

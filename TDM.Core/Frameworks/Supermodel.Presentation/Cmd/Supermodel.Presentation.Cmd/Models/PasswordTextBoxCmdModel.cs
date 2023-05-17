@@ -68,7 +68,7 @@ namespace Supermodel.Presentation.Cmd.Models
 
         #region Properties
         public PlaceholderBehaviorEnum PlaceholderBehavior { get; set; } = PlaceholderBehaviorEnum.Default;
-        protected static StringWithColor DotDotDot { get; } = new StringWithColor("*******", CmdScaffoldingSettings.Placeholder);
+        protected static StringWithColor DotDotDot { get; } = new("*******", CmdScaffoldingSettings.Placeholder);
         #endregion
     }
 }

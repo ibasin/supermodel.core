@@ -72,7 +72,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models.Base
 
         #region Properties
         public object DivTagAttributesAsObj { set => DivTagAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
-        public AttributesDict DivTagAttributesAsDict { get; set; } = new AttributesDict();
+        public AttributesDict DivTagAttributesAsDict { get; set; } = new();
         #endregion
     }
 }

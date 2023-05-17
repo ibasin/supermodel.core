@@ -84,7 +84,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
             #endregion
 
             #region Properties
-            public List<Datum> Data { get; } = new List<Datum>();
+            public List<Datum> Data { get; } = new();
             public bool IsHorizontal { get; set; }
             public GridEnum Grid { get; set; } = GridEnum.Horizontal;
             public bool ShowLegend { get; set; } = true;

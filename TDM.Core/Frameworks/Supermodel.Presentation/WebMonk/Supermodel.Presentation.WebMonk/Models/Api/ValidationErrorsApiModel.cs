@@ -16,7 +16,7 @@ namespace Supermodel.Presentation.WebMonk.Models.Api
             #region Properties
             public string Name { get; set; } = "";
             // ReSharper disable once CollectionNeverQueried.Global
-            public List<string> ErrorMessages { get; set; } = new List<string>();
+            public List<string> ErrorMessages { get; set; } = new();
             #endregion
         }
         #endregion

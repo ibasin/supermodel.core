@@ -130,7 +130,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
             #endregion
 
             #region Properties
-            public List<Datum> Data { get; } = new List<Datum>();
+            public List<Datum> Data { get; } = new();
             public GridEnum Grid { get; set; } = GridEnum.Horizontal;
             public XAxisTimeCombinationsEnum XAxisFormat { get; set; } = XAxisTimeCombinationsEnum.DayMonth;
             public string XAxisCustomFormat { get; set; } = ""; //https://github.com/d3/d3-time-format#locale_format

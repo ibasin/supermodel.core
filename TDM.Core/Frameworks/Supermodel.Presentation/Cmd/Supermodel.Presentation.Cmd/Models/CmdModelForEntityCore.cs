@@ -27,7 +27,7 @@ namespace Supermodel.Presentation.Cmd.Models
         #region Standard Properties for Mvc Models
         [ScaffoldColumn(false)] public virtual long Id { get; set; }
  
-        [ScaffoldColumn(false), NotRMapped] public virtual StringWithColor Label => new StringWithColor(LabelInternal);
+        [ScaffoldColumn(false), NotRMapped] public virtual StringWithColor Label => new(LabelInternal);
         [ScaffoldColumn(false), NotRMapped] protected abstract string LabelInternal { get; }
         
         [ScaffoldColumn(false), NotRMapped] public virtual bool IsDisabled => false;

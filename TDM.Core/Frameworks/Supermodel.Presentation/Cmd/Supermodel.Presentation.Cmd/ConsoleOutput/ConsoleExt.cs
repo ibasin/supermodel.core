@@ -31,7 +31,7 @@ namespace Supermodel.Presentation.Cmd.ConsoleOutput
             #endregion
 
             #region Static constants
-            public static SelectListItem Empty { get; } = new SelectListItem("", "----");
+            public static SelectListItem Empty { get; } = new("", "----");
             #endregion
         }
         #endregion

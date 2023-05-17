@@ -120,7 +120,7 @@ namespace Supermodel.Presentation.Cmd.ConsoleOutput
         public string Content { get; }
         public ImmutableArray<ColorChange> ColorChanges { get; }
 
-        public static StringWithColor Empty { get; } = new StringWithColor("");
+        public static StringWithColor Empty { get; } = new("");
         #endregion
     }
 }
