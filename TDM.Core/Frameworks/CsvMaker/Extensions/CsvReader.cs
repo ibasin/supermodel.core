@@ -29,7 +29,7 @@ namespace CsvMaker.Extensions
         {
             if (me == null) throw new ArgumentNullException(nameof(me));
             
-            foreach (var property in me.GetType().GetPropertiesInOrder())
+            foreach (var property in me.GetType().GetPropertiesInOrderForReader())
             {
                 if (typeof(ICsvReaderCustom).IsAssignableFrom(property.PropertyType))
                 {
@@ -60,7 +60,7 @@ namespace CsvMaker.Extensions
         {
             if (me == null) throw new ArgumentNullException(nameof(me));
             
-            foreach (var property in me.GetType().GetPropertiesInOrder())
+            foreach (var property in me.GetType().GetPropertiesInOrderForReader())
             {
                 //We use existing object if it exists, otherwise we just create a blank object for our purposes
                 var propertyObj = me.PropertyGet(property.Name);
