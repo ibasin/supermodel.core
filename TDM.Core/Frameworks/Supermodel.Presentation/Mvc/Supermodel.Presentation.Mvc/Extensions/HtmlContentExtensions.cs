@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using System.Text.Encodings.Web;
 
 namespace Supermodel.Presentation.Mvc.Extensions

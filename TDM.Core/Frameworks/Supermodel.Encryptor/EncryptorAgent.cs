@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -37,8 +35,9 @@ namespace Supermodel.Encryptor
             {
                 using (var decryptor = aesAlg.CreateDecryptor(key, iv))
                 {
-                    using (var memoryStream = new MemoryStream(code) { Position = 0 })
+                    using (var memoryStream = new MemoryStream(code))
                     {
+                        memoryStream.Position = 0;
                         using (var csr = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
                         {
                             var dataFragments = new List<byte[]>();

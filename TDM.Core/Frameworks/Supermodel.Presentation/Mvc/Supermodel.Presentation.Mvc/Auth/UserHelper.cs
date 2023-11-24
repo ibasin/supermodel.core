@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Supermodel.Persistence.DataContext;
 using Supermodel.Persistence.Entities;
 using Supermodel.Persistence.Repository;

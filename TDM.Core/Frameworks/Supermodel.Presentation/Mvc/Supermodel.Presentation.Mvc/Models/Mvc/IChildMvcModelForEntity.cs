@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Persistence.Entities;
+﻿using Supermodel.Persistence.Entities;
 
 namespace Supermodel.Presentation.Mvc.Models.Mvc
 {

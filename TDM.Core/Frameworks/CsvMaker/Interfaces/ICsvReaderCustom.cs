@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using CsvMaker.CsvString;
+﻿using CsvMaker.CsvString;
 
 namespace CsvMaker.Interfaces
 {

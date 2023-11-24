@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models.Base;
 using WebMonk.RazorSharp.HtmlTags;

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Text;
+﻿using System.Text;
 
 namespace Supermodel.Presentation.Mvc.Bootstrap4.D3.Models.Base
 {

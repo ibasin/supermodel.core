@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Linq;
+﻿using System.Linq;
 using Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base;
 using WebMonk.Context;
 using WebMonk.Extensions;

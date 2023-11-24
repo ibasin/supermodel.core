@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 using Supermodel.ReflectionMapper;
 

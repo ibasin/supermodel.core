@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.ReflectionMapper;
+﻿using Supermodel.ReflectionMapper;
 using System;
 using System.Threading.Tasks;
 using Supermodel.DataAnnotations.Misc;

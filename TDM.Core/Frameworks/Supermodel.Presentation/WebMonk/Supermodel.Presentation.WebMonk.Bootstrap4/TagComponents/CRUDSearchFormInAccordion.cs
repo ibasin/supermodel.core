@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Supermodel.DataAnnotations.Enums;
 using Supermodel.Presentation.WebMonk.Bootstrap4.TagComponents.Base;

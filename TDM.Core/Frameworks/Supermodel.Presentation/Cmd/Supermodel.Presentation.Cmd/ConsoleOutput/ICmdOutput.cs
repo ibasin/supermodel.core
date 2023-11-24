@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.Cmd.ConsoleOutput
+﻿namespace Supermodel.Presentation.Cmd.ConsoleOutput
 {
     public interface ICmdOutput
     {

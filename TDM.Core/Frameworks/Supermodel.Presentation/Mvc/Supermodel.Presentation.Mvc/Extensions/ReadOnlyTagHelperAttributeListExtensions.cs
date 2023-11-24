@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Supermodel.DataAnnotations.Misc;
 

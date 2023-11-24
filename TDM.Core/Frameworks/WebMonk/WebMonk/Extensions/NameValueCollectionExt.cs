@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using WebMonk.Misc;
 
@@ -31,9 +29,9 @@ namespace WebMonk.Extensions
         public static QueryStringDict ToQueryStringDictionary(this NameValueCollection me)
         {
             var values = new QueryStringDict();
-            foreach (string key in me.Keys) 
+            foreach (string key in me.Keys)
             {
-                if (!values.ContainsKey(key)) values.Add(key, me[key]);
+                values.TryAdd(key, me[key]);
             }
             return values;
         }

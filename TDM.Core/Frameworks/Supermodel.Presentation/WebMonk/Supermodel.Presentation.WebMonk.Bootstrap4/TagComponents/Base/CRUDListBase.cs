@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.Presentation.WebMonk.Bootstrap4.Models;

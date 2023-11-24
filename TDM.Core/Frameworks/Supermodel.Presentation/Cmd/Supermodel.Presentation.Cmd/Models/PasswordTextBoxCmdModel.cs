@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Supermodel.Presentation.Cmd.ConsoleOutput;
 using Supermodel.Presentation.Cmd.Rendering;

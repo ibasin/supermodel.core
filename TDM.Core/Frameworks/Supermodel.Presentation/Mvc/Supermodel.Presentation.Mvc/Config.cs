@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.Mvc
+﻿namespace Supermodel.Presentation.Mvc
 {
     public static class Config
     {

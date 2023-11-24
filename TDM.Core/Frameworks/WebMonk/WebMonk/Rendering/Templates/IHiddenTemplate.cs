@@ -1,7 +1,5 @@
 ﻿using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-#nullable enable
-
 namespace WebMonk.Rendering.Templates
 {
     public interface IHiddenTemplate

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using Supermodel.Persistence.Entities;
 
 namespace Supermodel.Presentation.Cmd.Extensions

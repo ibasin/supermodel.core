@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.WebMonk.Views.Interfaces
+﻿namespace Supermodel.Presentation.WebMonk.Views.Interfaces
 {
     public enum ListMode
     {

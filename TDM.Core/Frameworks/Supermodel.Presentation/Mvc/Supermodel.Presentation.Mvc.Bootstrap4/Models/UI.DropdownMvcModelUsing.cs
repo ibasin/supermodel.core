@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Supermodel.DataAnnotations.Misc;
 using Supermodel.Presentation.Mvc.Bootstrap4.Models.Base;

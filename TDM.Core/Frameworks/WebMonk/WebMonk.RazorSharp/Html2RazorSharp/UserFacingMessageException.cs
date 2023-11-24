@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 
 namespace WebMonk.RazorSharp.Html2RazorSharp
 {

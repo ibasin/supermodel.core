@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.DataAnnotations.Misc;
+﻿using Supermodel.DataAnnotations.Misc;
 using Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 

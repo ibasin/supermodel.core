@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models
 {

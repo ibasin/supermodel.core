@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +15,7 @@ namespace Supermodel.Presentation.WebMonk.Controllers.Api
         where TDataContext : class, IDataContext, new()
         where TEntity : class, IEntity, new()
         where TApiModel : ApiModelForEntity<TEntity>, new()
-        where TSearchApiModel : SearchApiModel, new()
-    { }
+        where TSearchApiModel : SearchApiModel, new();
 
     public abstract class EnhancedCRUDApiController<TEntity, TDetailApiModel, TListApiModel, TSearchApiModel, TDataContext> : CRUDApiController<TEntity, TDetailApiModel, TListApiModel, TDataContext>
         where TDataContext : class, IDataContext, new()

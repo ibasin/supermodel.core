@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Supermodel.Presentation.Mvc.Bootstrap4.SuperHtmlHelpers;
 using Supermodel.Presentation.Mvc.Bootstrap4.TagHelpers.Base;

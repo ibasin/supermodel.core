@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Persistence.Entities.ValueTypes
+﻿namespace Supermodel.Persistence.Entities.ValueTypes
 {
     public interface IValueObject { }
 }

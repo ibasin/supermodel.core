@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Supermodel.Persistence.DataContext;
 using Supermodel.Persistence.Entities;
 using Supermodel.Persistence.UnitOfWork;

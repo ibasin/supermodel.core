@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.DataAnnotations.Misc;
 using Supermodel.DataAnnotations.Validations;

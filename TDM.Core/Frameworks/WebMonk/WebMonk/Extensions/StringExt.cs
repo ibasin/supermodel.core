@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace WebMonk.Extensions
+﻿namespace WebMonk.Extensions
 {
     public static class StringExt
     {

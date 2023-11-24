@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.IO;
+﻿using System.IO;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Supermodel.Persistence.Repository;

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using Supermodel.Presentation.Cmd.ConsoleOutput;
 
 namespace Supermodel.Presentation.Cmd.Models

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.DataAnnotations.Exceptions;
+﻿using Supermodel.DataAnnotations.Exceptions;
 using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 

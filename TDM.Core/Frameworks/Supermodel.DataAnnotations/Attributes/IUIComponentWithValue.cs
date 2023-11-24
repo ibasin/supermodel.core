@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.DataAnnotations.Attributes
+﻿namespace Supermodel.DataAnnotations.Attributes
 {
     public interface IUIComponentWithValue
     {

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
@@ -16,7 +14,7 @@ namespace Supermodel.Presentation.Mvc.Auth
     public abstract class SupermodelApiAuthenticationHandlerBase : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         #region Constructors
-        protected SupermodelApiAuthenticationHandlerBase(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock){}
+        protected SupermodelApiAuthenticationHandlerBase(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder) : base(options, logger, encoder){}
         #endregion
 
         #region Overrides

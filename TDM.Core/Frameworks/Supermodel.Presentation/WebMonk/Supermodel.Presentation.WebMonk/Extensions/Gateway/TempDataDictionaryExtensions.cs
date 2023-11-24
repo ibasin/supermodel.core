@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using WebMonk.Session;
+﻿using WebMonk.Session;
 
 namespace Supermodel.Presentation.WebMonk.Extensions.Gateway
 {

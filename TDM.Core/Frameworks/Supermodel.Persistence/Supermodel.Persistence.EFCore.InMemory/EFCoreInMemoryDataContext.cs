@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Supermodel.Persistence.Repository;
 
 namespace Supermodel.Persistence.EFCore.InMemory

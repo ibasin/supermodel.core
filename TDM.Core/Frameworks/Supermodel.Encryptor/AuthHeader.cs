@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Encryptor
+﻿namespace Supermodel.Encryptor
 {
     public class AuthHeader
     {

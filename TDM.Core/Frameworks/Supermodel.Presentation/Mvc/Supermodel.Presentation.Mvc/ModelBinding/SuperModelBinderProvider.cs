@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Presentation.Mvc.ModelBinding

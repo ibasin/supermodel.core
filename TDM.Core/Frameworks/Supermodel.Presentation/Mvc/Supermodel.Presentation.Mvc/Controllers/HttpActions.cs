@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.Mvc.Controllers
+﻿namespace Supermodel.Presentation.Mvc.Controllers
 {
     public class HttpDelete { }
     public class HttpGet { }

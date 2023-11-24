@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Threading;
 
 namespace Supermodel.DataAnnotations.LogicalContext

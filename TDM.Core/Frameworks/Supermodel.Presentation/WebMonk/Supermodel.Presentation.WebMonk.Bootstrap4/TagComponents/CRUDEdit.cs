@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.DataAnnotations.Enums;
+﻿using Supermodel.DataAnnotations.Enums;
 using Supermodel.Presentation.WebMonk.Models;
 using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;

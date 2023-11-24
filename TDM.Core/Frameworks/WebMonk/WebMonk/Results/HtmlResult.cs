@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Net;
+﻿using System.Net;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
 namespace WebMonk.Results

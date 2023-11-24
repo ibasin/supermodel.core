@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.DataAnnotations;
+﻿using Supermodel.DataAnnotations;
 
 namespace WebMonk.RazorSharp.HtmlTags.BaseTags
 {

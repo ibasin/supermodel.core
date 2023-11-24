@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Presentation.WebMonk.Bootstrap4.TagComponents.Base;
+﻿using Supermodel.Presentation.WebMonk.Bootstrap4.TagComponents.Base;
 using System;
 using System.Collections.Generic;
 using Supermodel.Presentation.WebMonk.Models.Mvc;

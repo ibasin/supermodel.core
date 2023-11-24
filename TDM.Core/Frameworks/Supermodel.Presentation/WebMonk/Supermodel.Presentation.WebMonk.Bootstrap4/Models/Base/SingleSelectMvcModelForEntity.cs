@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.Threading.Tasks;
 using Supermodel.Persistence.Entities;
 using Supermodel.Persistence.Repository;

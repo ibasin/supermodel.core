@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Supermodel.Presentation.WebMonk.Models.Mvc;
 using Supermodel.Presentation.WebMonk.Views.Interfaces;
@@ -10,8 +8,7 @@ namespace Supermodel.Presentation.WebMonk.Views
 {
     public abstract class EnhancedCRUDMvcViewBase<TMvcModel, TSearchMvcModel> : EnhancedCRUDMvcViewBase<TMvcModel, TMvcModel, TSearchMvcModel>
         where TMvcModel : class, IMvcModelForEntity, new()
-        where TSearchMvcModel : class, IMvcModel, new()
-    { }
+        where TSearchMvcModel : class, IMvcModel, new();
 
     public abstract class EnhancedCRUDMvcViewBase<TDetailMvcModel, TListMvcModel, TSearchMvcModel> : CRUDMvcViewBase<TDetailMvcModel, TListMvcModel>, IEnhancedCRUDMvcView<TDetailMvcModel, TListMvcModel, TSearchMvcModel>
         where TDetailMvcModel : class, IMvcModelForEntity, new()

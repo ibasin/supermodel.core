@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using WebMonk.ValueProviders;
 
 namespace WebMonk.Exceptions

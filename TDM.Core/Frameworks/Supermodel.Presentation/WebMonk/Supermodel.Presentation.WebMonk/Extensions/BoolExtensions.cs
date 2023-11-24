@@ -1,6 +1,4 @@
-﻿#nullable enable 
-
-namespace Supermodel.Presentation.WebMonk.Extensions
+﻿namespace Supermodel.Presentation.WebMonk.Extensions
 {
     public static class BoolExtensions
     {

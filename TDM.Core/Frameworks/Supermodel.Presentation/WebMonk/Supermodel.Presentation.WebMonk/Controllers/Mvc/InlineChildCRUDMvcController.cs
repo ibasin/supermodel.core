@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using Supermodel.Persistence.DataContext;
 using Supermodel.Persistence.Entities;
 using Supermodel.Presentation.WebMonk.Models.Mvc;
@@ -16,8 +14,7 @@ namespace Supermodel.Presentation.WebMonk.Controllers.Mvc
         where TParentEntity : class, IEntity, new()
         where TChildDetailMvcModel : class, IChildMvcModelForEntity<TChildEntity, TParentEntity>, new()
         where TParentController : MvcController
-        where TDataContext : class, IDataContext, new()
-    { }
+        where TDataContext : class, IDataContext, new();
     #pragma warning restore 618
 
     #region This is just for use with InlineChildCRUDMvcController

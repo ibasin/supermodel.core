@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace Supermodel.Presentation.WebMonk.Auth
