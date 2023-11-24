@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Supermodel.Presentation.Cmd.Models;
@@ -31,7 +29,7 @@ namespace Supermodel.Presentation.Cmd.ConsoleOutput
             #endregion
 
             #region Static constants
-            public static SelectListItem Empty { get; } = new SelectListItem("", "----");
+            public static SelectListItem Empty { get; } = new("", "----");
             #endregion
         }
         #endregion

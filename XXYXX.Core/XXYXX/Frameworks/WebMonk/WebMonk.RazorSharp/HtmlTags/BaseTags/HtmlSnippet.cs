@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace WebMonk.RazorSharp.HtmlTags.BaseTags
+﻿namespace WebMonk.RazorSharp.HtmlTags.BaseTags
 {
     public abstract class HtmlSnippet : HtmlStack { }
 }

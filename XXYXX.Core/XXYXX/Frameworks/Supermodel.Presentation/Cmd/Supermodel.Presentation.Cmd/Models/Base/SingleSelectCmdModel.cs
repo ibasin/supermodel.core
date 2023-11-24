@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Supermodel.Presentation.Cmd.ConsoleOutput;
@@ -22,7 +20,7 @@ namespace Supermodel.Presentation.Cmd.Models.Base
             public string Label { get; }
             public bool IsDisabled { get; }
         }
-        public List<Option> Options { get; protected set; } = new List<Option>();
+        public List<Option> Options { get; protected set; } = new();
         #endregion
 
         #region Static Dropdown and Radio helpers

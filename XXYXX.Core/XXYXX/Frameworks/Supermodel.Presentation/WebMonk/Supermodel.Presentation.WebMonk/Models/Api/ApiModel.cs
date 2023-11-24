@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.WebMonk.Models.Api
+﻿namespace Supermodel.Presentation.WebMonk.Models.Api
 {
-    public abstract class ApiModel {}
+    public abstract class ApiModel;
 }

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Presentation.WebMonk.Models;
+﻿using Supermodel.Presentation.WebMonk.Models;
 using System;
 using System.Threading.Tasks;
 using Supermodel.DataAnnotations.Misc;

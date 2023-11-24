@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Presentation.Cmd.Models.Base;
+﻿using Supermodel.Presentation.Cmd.Models.Base;
 
 namespace Supermodel.Presentation.Cmd.Models
 {

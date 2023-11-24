@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace WebMonk.ValueProviders
+﻿namespace WebMonk.ValueProviders
 {
     public class RouteValueProvider : ValueProvider { }
 }

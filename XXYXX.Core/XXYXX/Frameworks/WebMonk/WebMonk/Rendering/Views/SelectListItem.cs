@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace WebMonk.Rendering.Views
+﻿namespace WebMonk.Rendering.Views
 {
     public class SelectListItem
     {

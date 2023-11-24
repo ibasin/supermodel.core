@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.DataAnnotations.Misc;
+﻿using Supermodel.DataAnnotations.Misc;
 using Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
@@ -19,7 +17,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models
 
             #region Properties
             public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
-            public AttributesDict HtmlAttributesAsDict { get; set; } = new AttributesDict();
+            public AttributesDict HtmlAttributesAsDict { get; set; } = new();
             #endregion
         }
     }

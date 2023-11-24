@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.Threading.Tasks;
 using Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base;
 using WebMonk.RazorSharp.HtmlTags;

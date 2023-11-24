@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.WebMonk
+﻿namespace Supermodel.Presentation.WebMonk
 {
     public static class Config
     {

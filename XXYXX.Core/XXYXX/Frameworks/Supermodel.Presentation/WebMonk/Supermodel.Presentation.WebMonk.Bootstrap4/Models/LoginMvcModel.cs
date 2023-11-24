@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Supermodel.Presentation.WebMonk.Models.Mvc;
 
 namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models
@@ -9,8 +7,8 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models
     {
         public class LoginMvcModel : MvcModel, ILoginMvcModel
         {
-            public TextBoxMvcModel Username { get; set; } = new TextBoxMvcModel();
-            public PasswordTextBoxMvcModel Password { get; set; } = new PasswordTextBoxMvcModel();
+            public TextBoxMvcModel Username { get; set; } = new();
+            public PasswordTextBoxMvcModel Password { get; set; } = new();
 
             [ScaffoldColumn(false)] public string UsernameStr
             {

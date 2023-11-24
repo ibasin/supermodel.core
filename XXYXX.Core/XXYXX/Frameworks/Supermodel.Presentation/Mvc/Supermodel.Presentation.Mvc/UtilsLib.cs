@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Text;
+﻿using System.Text;
 using Microsoft.AspNetCore.Html;
 using Supermodel.DataAnnotations.Misc;
 using Supermodel.Presentation.Mvc.Extensions;

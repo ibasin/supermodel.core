@@ -1,8 +1,6 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 
 namespace Supermodel.Presentation.Cmd.ConsoleOutput
 {
-    public class ShiftEscException : Exception { }
+    public class ShiftEscException : Exception;
 }

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.WebMonk.Models.Mvc
+﻿namespace Supermodel.Presentation.WebMonk.Models.Mvc
 {
     public interface IMvcModelForEntity : IViewModelForEntity, IMvcModel
     {

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web;
 using Supermodel.DataAnnotations;
 using WebMonk.RazorSharp.Extensions;

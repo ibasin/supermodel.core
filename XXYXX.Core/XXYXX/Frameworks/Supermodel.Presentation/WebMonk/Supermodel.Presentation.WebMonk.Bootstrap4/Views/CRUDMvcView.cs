@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.Persistence.DataContext;
@@ -14,8 +12,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Views
 {
     public abstract class CRUDMvcView<TMvcModel, TDataContext> : CRUDMvcView<TMvcModel, TMvcModel, TDataContext> 
         where TMvcModel : class, IMvcModelForEntity, new() 
-        where TDataContext : class, IDataContext, new()
-    { }
+        where TDataContext : class, IDataContext, new();
 
     
     public abstract class CRUDMvcView<TDetailMvcModel, TListMvcModel, TDataContext> : CRUDMvcViewBase<TDetailMvcModel, TListMvcModel>

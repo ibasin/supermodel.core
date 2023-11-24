@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using CsvMaker.CsvString;
 using CsvMaker.Extensions;

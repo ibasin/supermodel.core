@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace Supermodel.Presentation.WebMonk.Auth
@@ -11,8 +9,8 @@ namespace Supermodel.Presentation.WebMonk.Auth
         {
             return new List<Claim> 
             { 
-                new Claim(ClaimTypes.NameIdentifier, id.ToString(), ClaimValueTypes.Integer64),
-                new Claim(ClaimTypes.Name, label, ClaimValueTypes.String) 
+                new(ClaimTypes.NameIdentifier, id.ToString(), ClaimValueTypes.Integer64),
+                new(ClaimTypes.Name, label, ClaimValueTypes.String) 
             };
         }
     }

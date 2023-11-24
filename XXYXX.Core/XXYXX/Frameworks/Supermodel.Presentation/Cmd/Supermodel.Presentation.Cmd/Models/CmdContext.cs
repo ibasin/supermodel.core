@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using Supermodel.DataAnnotations.Validations;
 
 namespace Supermodel.Presentation.Cmd.Models
@@ -45,7 +43,7 @@ namespace Supermodel.Presentation.Cmd.Models
         #endregion
 
         #region Properties
-        public static ValidationResultList ValidationResultList { get; set; } = new ValidationResultList();
+        public static ValidationResultList ValidationResultList { get; set; } = new();
         
         public static string? PropertyDisplayName { get; set; }
         public static bool IsPropertyRequired { get; set; }

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Supermodel.Presentation.WebMonk.Models.Mvc;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.WebMonk.Bootstrap4.Views
+﻿namespace Supermodel.Presentation.WebMonk.Bootstrap4.Views
 {
     public enum PaginationMode
     {

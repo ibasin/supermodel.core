@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Supermodel.Presentation.Cmd.ConsoleOutput;
 using Supermodel.Presentation.Cmd.Models.Base;
@@ -42,7 +40,7 @@ namespace Supermodel.Presentation.Cmd.Models
         #endregion
 
         #region Properties
-        protected static StringWithColor Placeholder { get; } = new StringWithColor("MM/dd/YYYY", ConsoleColor.DarkYellow);
+        protected static StringWithColor Placeholder { get; } = new("MM/dd/YYYY", ConsoleColor.DarkYellow);
         #endregion
     }
 }

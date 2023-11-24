@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Supermodel.Presentation.Mvc.Bootstrap4.Models
 {

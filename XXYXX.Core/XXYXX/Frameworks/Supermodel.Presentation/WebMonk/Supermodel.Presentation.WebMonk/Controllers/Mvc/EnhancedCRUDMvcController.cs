@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -26,8 +24,7 @@ namespace Supermodel.Presentation.WebMonk.Controllers.Mvc
         where TMvcModel : class, IMvcModelForEntity, new()
         where TSearchMvcModel : class, IMvcModel, new()
         where TDataContext : class, IDataContext, new()
-        where TMvcView : class, IEnhancedCRUDMvcView<TMvcModel, TMvcModel, TSearchMvcModel>, new()
-    { }
+        where TMvcView : class, IEnhancedCRUDMvcView<TMvcModel, TMvcModel, TSearchMvcModel>, new();
 
     public abstract class EnhancedCRUDMvcController<TEntity, TDetailMvcModel, TListMvcModel, TSearchMvcModel, TMvcView, TDataContext> : CRUDMvcController<TEntity, TDetailMvcModel, TListMvcModel, TMvcView, TDataContext>
         where TEntity : class, IEntity, new()

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using HttpBatchHandler.Events;
 using Microsoft.AspNetCore.Http.Features;

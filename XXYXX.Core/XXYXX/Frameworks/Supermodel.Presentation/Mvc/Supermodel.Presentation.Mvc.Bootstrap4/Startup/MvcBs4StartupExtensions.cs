@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -105,7 +103,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.Startup
                 var messageHtml = MessageHtml
                     .Replace("[%HeaderSnippet%]", SuperBs4HeadTagHelper.GetSupermodelSnippetStatic(urlHelper))
                     .Replace("[%BodySnippet%]", SuperBs4BodyTagHelper.GetSupermodelSnippetStatic(urlHelper))
-                    .Replace("[%MessageSnippet%]", Bs4.Message.ReadMessageText(context.Request.Query["msgGuid"]))
+                    .Replace("[%MessageSnippet%]", Bs4.Message.ReadMessageText(context.Request.Query["msgGuid"]!))
                     .Replace("[%HomePageSnippet%]", urlHelper.Content("~/"));
 
                 context.Response.ContentType = "text/html";

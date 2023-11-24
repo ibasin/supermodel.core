@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models.Base;
 using WebMonk.RazorSharp.HtmlTags;
@@ -84,7 +82,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
             #endregion
 
             #region Properties
-            public List<Datum> Data { get; } = new List<Datum>();
+            public List<Datum> Data { get; } = new();
             public bool IsHorizontal { get; set; }
             public GridEnum Grid { get; set; } = GridEnum.Horizontal;
             public bool ShowLegend { get; set; } = true;

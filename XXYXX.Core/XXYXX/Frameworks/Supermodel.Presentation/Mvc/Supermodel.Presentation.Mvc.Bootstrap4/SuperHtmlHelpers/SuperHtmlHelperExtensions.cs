@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.Mvc.Bootstrap4.SuperHtmlHelpers
+﻿namespace Supermodel.Presentation.Mvc.Bootstrap4.SuperHtmlHelpers
 {
     public static class SuperHtmlHelperExtensions
     {

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Linq;
+﻿using System.Linq;
 using Supermodel.DataAnnotations.Misc;
 using WebMonk.Context;
 using WebMonk.Extensions;

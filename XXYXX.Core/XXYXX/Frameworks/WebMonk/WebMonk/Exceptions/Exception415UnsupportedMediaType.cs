@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace WebMonk.Exceptions
+﻿namespace WebMonk.Exceptions
 {
     public class Exception415UnsupportedMediaType : WebMonkException
     {

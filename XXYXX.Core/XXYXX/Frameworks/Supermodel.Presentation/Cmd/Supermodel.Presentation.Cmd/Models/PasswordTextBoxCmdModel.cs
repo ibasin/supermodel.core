@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Supermodel.Presentation.Cmd.ConsoleOutput;
 using Supermodel.Presentation.Cmd.Rendering;
@@ -68,7 +66,7 @@ namespace Supermodel.Presentation.Cmd.Models
 
         #region Properties
         public PlaceholderBehaviorEnum PlaceholderBehavior { get; set; } = PlaceholderBehaviorEnum.Default;
-        protected static StringWithColor DotDotDot { get; } = new StringWithColor("*******", CmdScaffoldingSettings.Placeholder);
+        protected static StringWithColor DotDotDot { get; } = new("*******", CmdScaffoldingSettings.Placeholder);
         #endregion
     }
 }

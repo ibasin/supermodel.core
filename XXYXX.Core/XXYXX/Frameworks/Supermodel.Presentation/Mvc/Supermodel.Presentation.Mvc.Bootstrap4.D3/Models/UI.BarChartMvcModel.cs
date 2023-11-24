@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Supermodel.Presentation.Mvc.Bootstrap4.D3.Models.Base;
 

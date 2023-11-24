@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.Cmd.Models.Interfaces
+﻿namespace Supermodel.Presentation.Cmd.Models.Interfaces
 {
     public interface ICmdEditor
     {

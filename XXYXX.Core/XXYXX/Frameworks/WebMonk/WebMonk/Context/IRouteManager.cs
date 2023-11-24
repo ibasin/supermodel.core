@@ -1,7 +1,5 @@
 ﻿using WebMonk.ValueProviders;
 
-#nullable enable
-
 namespace WebMonk.Context
 {
     public interface IRouteManager

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.DataAnnotations.Enums
+﻿namespace Supermodel.DataAnnotations.Enums
 {
     public enum ValidationSummaryVisible
     {

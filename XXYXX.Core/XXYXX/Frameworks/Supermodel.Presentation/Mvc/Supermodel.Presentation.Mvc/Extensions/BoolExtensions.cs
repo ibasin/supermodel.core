@@ -1,6 +1,4 @@
-﻿#nullable enable 
-
-namespace Supermodel.Presentation.Mvc.Extensions
+﻿namespace Supermodel.Presentation.Mvc.Extensions
 {
     public static class BoolExtensions
     {

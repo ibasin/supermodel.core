@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Specialized;
 
 namespace Supermodel.Presentation.WebMonk.Extensions

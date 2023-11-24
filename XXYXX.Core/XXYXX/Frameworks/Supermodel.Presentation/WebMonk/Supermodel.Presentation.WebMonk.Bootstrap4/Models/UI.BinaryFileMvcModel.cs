@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -137,7 +135,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models
 
             #region Properties
             public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
-            public AttributesDict HtmlAttributesAsDict { get; set; } = new AttributesDict();
+            public AttributesDict HtmlAttributesAsDict { get; set; } = new();
             #endregion
         }
     }

@@ -85,7 +85,7 @@ namespace Supermodel.Presentation.WebMonk.Batch
         public Uri UrlReferrer { get; set; }
         public Uri Url { get; set; }
         public Version ProtocolVersion { get; set; }
-        public NameValueCollection Headers { get; set; } = new NameValueCollection();
+        public NameValueCollection Headers { get; set; } = new();
         public string HttpMethod { get; set; }
         public Stream InputStream { get; set; }
         public bool IsSecureConnection { get; set; }

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using WebMonk.ModeBinding;
+﻿using WebMonk.ModeBinding;
 
 namespace WebMonk.Context
 {

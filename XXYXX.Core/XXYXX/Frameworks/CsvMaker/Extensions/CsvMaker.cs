@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -40,7 +38,7 @@ namespace CsvMaker.Extensions
             sb ??= new StringBuilder();
 
             var firstColumn = true;
-            foreach (var property in me.GetType().GetPropertiesInOrder())
+            foreach (var property in me.GetType().GetPropertiesInOrderForMaker())
             {
                 if (firstColumn) firstColumn = false;
                 else sb.Append(", ");
@@ -74,7 +72,7 @@ namespace CsvMaker.Extensions
             sb ??= new StringBuilder();
 
             var firstColumn = true;
-            foreach (var property in me.GetType().GetPropertiesInOrder())
+            foreach (var property in me.GetType().GetPropertiesInOrderForMaker())
             {
                 if (firstColumn) firstColumn = false;
                 else sb.Append(",");
@@ -89,7 +87,7 @@ namespace CsvMaker.Extensions
                     else
                     {
                         //Need to add commas for the properties that exist in the type. We start with one because we already added one comma if this is not a first one
-                        for (var i = 1; i < property.PropertyType.GetPropertiesInOrder().Count(); i++) sb.Append(",");
+                        for (var i = 1; i < property.PropertyType.GetPropertiesInOrderForMaker().Count(); i++) sb.Append(",");
                     }
                 }
                 else

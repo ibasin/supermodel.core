@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -120,7 +118,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base
         #endregion
 
         #region Properties
-        public List<Option> Options { get; protected set; } = new List<Option>();
+        public List<Option> Options { get; protected set; } = new();
         public string DisabledSuffix { get; set; } = " [DISABLED]";
         #endregion
     }

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Supermodel.DataAnnotations.Misc;
 using Supermodel.Presentation.WebMonk.Extensions;
@@ -27,7 +25,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base
             public string Label { get; }
             public bool IsDisabled { get; }
         }
-        public List<Option> Options { get; protected set; } = new List<Option>();
+        public List<Option> Options { get; protected set; } = new();
         #endregion
 
         #region Static Dropdown and Radio helpers

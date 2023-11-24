@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Supermodel.DataAnnotations.Misc;
@@ -55,7 +53,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models
                 }
 
                 //Get the dropdown
-                var sortBySelectList = new List<SelectListItem> { new SelectListItem ( "", "Select Sort Order" ) };
+                var sortBySelectList = new List<SelectListItem> { new( "", "Select Sort Order" ) };
                 foreach (var sortByOption in sortByOptions) sortBySelectList.Add(new SelectListItem(sortByOption.Value, $"Sort By: {sortByOption.Key}"));
 
                 //Create an empty dict or a copy of it

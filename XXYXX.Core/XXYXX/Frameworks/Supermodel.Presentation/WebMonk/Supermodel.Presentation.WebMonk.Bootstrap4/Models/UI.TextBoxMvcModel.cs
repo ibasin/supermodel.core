@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.ReflectionMapper;
+﻿using Supermodel.ReflectionMapper;
 using System;
 using System.Threading.Tasks;
 using Supermodel.DataAnnotations.Misc;
@@ -87,7 +85,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models
                 }
                 else 
                 {
-                    throw new Exception($"TextBoxMvcModel.MapFromCustom: Unknown type {typeof(T).GetTypeFriendlyDescription()}");
+                    throw new Exception($"TextBoxMvcModel InitFor<T>: Unknown type {typeof(T).GetTypeFriendlyDescription()}");
                 }
                 
                 //this is for fluent initialization
@@ -256,7 +254,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models
             public string? Step { get; set; }
 
             public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
-            public AttributesDict HtmlAttributesAsDict { get; set; } = new AttributesDict();
+            public AttributesDict HtmlAttributesAsDict { get; set; } = new();
 
             public string? DisplayNumericFormat { get; set; }
             #endregion

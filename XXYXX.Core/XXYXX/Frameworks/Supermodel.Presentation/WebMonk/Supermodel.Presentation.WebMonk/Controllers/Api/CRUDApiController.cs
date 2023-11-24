@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,8 +21,7 @@ namespace Supermodel.Presentation.WebMonk.Controllers.Api
     public abstract class CRUDApiController<TEntity, TApiModel, TDataContext> : CRUDApiController<TEntity, TApiModel, TApiModel, TDataContext>
         where TDataContext : class, IDataContext, new()
         where TEntity : class, IEntity, new()
-        where TApiModel : ApiModelForEntity<TEntity>, new()
-    { }
+        where TApiModel : ApiModelForEntity<TEntity>, new();
 
     public abstract class CRUDApiController<TEntity, TDetailApiModel, TListApiModel, TDataContext> : ApiControllerBase
         where TDataContext : class, IDataContext, new()

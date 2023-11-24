@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.WebMonk.Models.Api
+﻿namespace Supermodel.Presentation.WebMonk.Models.Api
 {
     public class ValidateLoginResponseApiModel
     {

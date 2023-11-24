@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -1099,7 +1097,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.SuperHtmlHelpers
                 }
             }
         }
-        protected static long? ParseNullableLong(string str)
+        protected static long? ParseNullableLong(string? str)
         {
             if (long.TryParse(str, out var result)) return result;
             return null;

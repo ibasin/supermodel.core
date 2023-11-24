@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Globalization;
 using Supermodel.Presentation.WebMonk.Extensions;
 using WebMonk.Context;

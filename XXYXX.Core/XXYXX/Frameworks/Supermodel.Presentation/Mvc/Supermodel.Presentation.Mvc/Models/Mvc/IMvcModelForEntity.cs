@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Presentation.Mvc.Models.Mvc
+﻿namespace Supermodel.Presentation.Mvc.Models.Mvc
 {
     public interface IMvcModelForEntity : IMvcModel, IViewModelForEntity
     {

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Web;
+﻿using System.Web;
 
 namespace WebMonk.RazorSharp.Extensions
 {

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Web;
+﻿using System.Web;
 using Supermodel.Presentation.WebMonk.Extensions.Gateway;
 using WebMonk.Context;
 using WebMonk.RazorSharp.HtmlTags;

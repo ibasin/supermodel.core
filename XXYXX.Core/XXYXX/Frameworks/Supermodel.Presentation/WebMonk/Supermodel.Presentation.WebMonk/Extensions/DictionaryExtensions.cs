@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.DataAnnotations.Misc;
+﻿using Supermodel.DataAnnotations.Misc;
 
 namespace Supermodel.Presentation.WebMonk.Extensions
 {

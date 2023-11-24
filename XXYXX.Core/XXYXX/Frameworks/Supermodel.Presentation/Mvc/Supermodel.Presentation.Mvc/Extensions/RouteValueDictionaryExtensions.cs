@@ -1,6 +1,4 @@
-﻿#nullable enable 
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Routing;
 
 namespace Supermodel.Presentation.Mvc.Extensions
