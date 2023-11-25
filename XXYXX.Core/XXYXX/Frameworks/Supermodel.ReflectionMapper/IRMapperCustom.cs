@@ -7,6 +7,5 @@ namespace Supermodel.ReflectionMapper
         #nullable  disable
         Task MapFromCustomAsync<T>(T other);
         Task<T> MapToCustomAsync<T>(T other);
-        #nullable enable
     }
 }

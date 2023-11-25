@@ -37,7 +37,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base
 
             return (T)newEntity;        
         }
-        #nullable enable
+
         #endregion
     }
 }

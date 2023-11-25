@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace WMDomain.Entities
+﻿namespace WMDomain.Entities
 {
     public enum PriorityEnum
     {

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public enum PriorityEnum
     {

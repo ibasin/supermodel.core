@@ -37,7 +37,7 @@ namespace Supermodel.Presentation.Cmd.Models.Base
 
             return (T)newEntity;        
         }
-#nullable enable
+
         #endregion
     }
 }

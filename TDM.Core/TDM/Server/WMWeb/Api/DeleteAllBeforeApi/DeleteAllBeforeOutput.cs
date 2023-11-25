@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace WMWeb.Api.DeleteAllBeforeApi
+﻿namespace WMWeb.Api.DeleteAllBeforeApi
 {
     public class DeleteAllBeforeOutput
     {

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Mobile.CodeGen
+﻿namespace Supermodel.Mobile.CodeGen
 {
     public enum ControllerKindEnum
     {
