@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using WebMonk.HttpRequestHandlers;
+﻿using WebMonk.HttpRequestHandlers;
 
 namespace WebWM.Mvc
 {

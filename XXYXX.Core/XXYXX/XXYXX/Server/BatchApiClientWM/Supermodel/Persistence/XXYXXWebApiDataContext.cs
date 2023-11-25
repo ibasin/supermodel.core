@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
+﻿using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
 
 namespace BatchApiClientWM.Supermodel.Persistence
 {

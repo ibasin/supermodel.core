@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using BatchApiClientWM.Supermodel.Auth;
 using BatchApiClientWM.Supermodel.Persistence;

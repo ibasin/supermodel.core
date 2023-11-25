@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Mobile.CodeGen;
+﻿using Supermodel.Mobile.CodeGen;
 using System;
 using System.IO;
 

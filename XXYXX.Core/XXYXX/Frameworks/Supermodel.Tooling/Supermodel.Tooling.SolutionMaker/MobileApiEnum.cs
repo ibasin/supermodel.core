@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
 
-#nullable enable
-
 namespace Supermodel.Tooling.SolutionMaker
 {
     public enum MobileApiEnum 

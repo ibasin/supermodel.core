@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using Supermodel.Encryptor;
 using Supermodel.Mobile.Runtime.Common.XForms.Pages.Login;
 

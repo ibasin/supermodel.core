@@ -1,5 +1,3 @@
-#nullable enable
-
 using Domain.Supermodel.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

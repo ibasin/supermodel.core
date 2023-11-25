@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 
 namespace Supermodel.Tooling.SolutionMaker
 {

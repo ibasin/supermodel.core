@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace Supermodel.Tooling.SolutionMaker
+﻿namespace Supermodel.Tooling.SolutionMaker
 {
     public interface ISolutionMakerParams
     {

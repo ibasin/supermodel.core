@@ -1,7 +1,5 @@
 ﻿using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
 
-#nullable enable
-
 namespace BatchApiClientMVC.Supermodel.Persistence
 {
     public class XXYXXWebApiDataContext: WebApiDataContext
