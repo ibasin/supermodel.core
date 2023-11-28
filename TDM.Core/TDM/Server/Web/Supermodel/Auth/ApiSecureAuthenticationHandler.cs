@@ -29,7 +29,7 @@ namespace Web.Supermodel.Auth
         #endregion
 
         #region Constructors
-        public ApiSecureAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock){}
+        public ApiSecureAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder) : base(options, logger, encoder){}
         #endregion
 
         #region Overrides

@@ -19,7 +19,7 @@ namespace MvcCoreTester.Auth
         public static readonly string SecretToken = "[SECRET_TOKEN]";
         #endregion
 
-        public SecureAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock){}
+        public SecureAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder) : base(options, logger, encoder){}
 
         protected override Task<List<Claim>> AuthenticateBasicAndGetClaimsAsync(string username, string password)
         {

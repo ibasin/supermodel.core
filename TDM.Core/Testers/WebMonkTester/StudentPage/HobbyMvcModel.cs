@@ -8,7 +8,7 @@ namespace WebMonkTester.StudentPage
 {
     public class HobbyMvcModel : IAsyncValidatableObject
     {
-        #region 
+        #region Validation
         public Task<ValidationResultList> ValidateAsync(ValidationContext validationContext)
         {
             var vrl = new ValidationResultList();
