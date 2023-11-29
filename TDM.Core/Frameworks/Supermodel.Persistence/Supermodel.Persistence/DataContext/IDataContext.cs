@@ -13,8 +13,8 @@ namespace Supermodel.Persistence.DataContext
         #region Methods
         Task SeedDataAsync();
         
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());
-        Task<int> FinalSaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = new());
+        Task<int> FinalSaveChangesAsync(CancellationToken cancellationToken = new());
 
         IQueryable<TEntity> Items<TEntity>() where TEntity : class, IEntity, new();
         

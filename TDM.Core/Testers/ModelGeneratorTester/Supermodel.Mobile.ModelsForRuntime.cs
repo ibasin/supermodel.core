@@ -26,7 +26,7 @@ namespace Supermodel.ApiClient.Models
 		public string LastName { get; set; }
 		public string SocialSecurity { get; set; }
 		public int? Age { get; set; }
-		public BinaryFile Image { get; set; } = new BinaryFile();
+		public BinaryFile Image { get; set; } = new();
 		public GenderEnum? Gender { get; set; }
 		public School School { get; set; }
 		public string Notes { get; set; }

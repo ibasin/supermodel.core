@@ -70,7 +70,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.Models
                 return guid;
             }
             
-            private static ConcurrentDictionary<Guid, Message> Messages { get; }  = new ConcurrentDictionary<Guid, Message>();
+            private static ConcurrentDictionary<Guid, Message> Messages { get; }  = new();
             #endregion
         }
     }

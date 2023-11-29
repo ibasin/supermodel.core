@@ -27,6 +27,6 @@ namespace EFCoreTester.Entities
 
         public string Name { get; set; } = "";
         public virtual USAddress Address { get; set; } = default!; 
-        public virtual List<Book> Books { get; set; } = new List<Book>();
+        public virtual List<Book> Books { get; set; } = new();
     }
 }

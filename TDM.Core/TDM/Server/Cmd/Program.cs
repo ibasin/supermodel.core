@@ -39,8 +39,8 @@ namespace Cmd
                     Name = "List #1",
                     ToDoItems = new List<ToDoItem>
                     {
-                        new ToDoItem { Name = "Item 1"},
-                        new ToDoItem { Name = "Item 2"},
+                        new() { Name = "Item 1"},
+                        new() { Name = "Item 2"},
                     }
                 });
 
@@ -49,9 +49,9 @@ namespace Cmd
                     Name = "Groceries",
                     ToDoItems = new List<ToDoItem>
                     {
-                        new ToDoItem { Name = "Bread"},
-                        new ToDoItem { Name = "Eggs"},
-                        new ToDoItem { Name = "Milk"},
+                        new() { Name = "Bread"},
+                        new() { Name = "Eggs"},
+                        new() { Name = "Milk"},
                     }
                 });
 
@@ -60,9 +60,9 @@ namespace Cmd
                     Name = "Supplies",
                     ToDoItems = new List<ToDoItem>
                     {
-                        new ToDoItem { Name = "Pens"},
-                        new ToDoItem { Name = "Pencils"},
-                        new ToDoItem { Name = "Staplers"},
+                        new() { Name = "Pens"},
+                        new() { Name = "Pencils"},
+                        new() { Name = "Staplers"},
                     }
                 });
             }

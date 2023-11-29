@@ -30,7 +30,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.Models.Base
             public string Label { get; }
             public bool IsDisabled { get; }
         }
-        public List<Option> Options { get; protected set; } = new List<Option>();
+        public List<Option> Options { get; protected set; } = new();
         #endregion
 
         #region Static Dropdown and Radio helpers
@@ -44,7 +44,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.Models.Base
             htmlAttributesAsDict ??= new AttributesDict();
             htmlAttributesAsDict.AddOrAppendCssClass("form-control");
 
-            var selectListItemList = new List<SelectListItem> { new SelectListItem { Value = "", Text = "" } };
+            var selectListItemList = new List<SelectListItem> { new() { Value = "", Text = "" } };
             foreach (var option in singleSelect.Options)
             {
                 var isSelectedOption = singleSelect.SelectedValue != null && string.CompareOrdinal(singleSelect.SelectedValue, option.Value) == 0;

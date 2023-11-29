@@ -42,10 +42,10 @@ namespace WebMonkTester.StudentPage
         #endregion
 
         #region Properties
-        [DisplayName("Za Street")] public Bs4.TextBoxMvcModel Street{ get; set; } = new Bs4.TextBoxMvcModel();
-        public  Bs4.TextBoxMvcModel  City { get; set; } = new Bs4.TextBoxMvcModel();
-        public  Bs4.TextBoxMvcModel  State { get; set; } = new Bs4.TextBoxMvcModel();
-        [Required] public  Bs4.TextBoxMvcModel  Zip { get; set; } = new Bs4.TextBoxMvcModel();
+        [DisplayName("Za Street")] public Bs4.TextBoxMvcModel Street{ get; set; } = new();
+        public  Bs4.TextBoxMvcModel  City { get; set; } = new();
+        public  Bs4.TextBoxMvcModel  State { get; set; } = new();
+        [Required] public  Bs4.TextBoxMvcModel  Zip { get; set; } = new();
         #endregion
     }
 }

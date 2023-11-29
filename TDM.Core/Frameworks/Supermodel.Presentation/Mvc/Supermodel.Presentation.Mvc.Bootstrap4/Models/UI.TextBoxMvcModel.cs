@@ -332,7 +332,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.Models
             public string Step { get; set; } = "";
 
             public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
-            public AttributesDict HtmlAttributesAsDict { get; set; } = new AttributesDict();
+            public AttributesDict HtmlAttributesAsDict { get; set; } = new();
 
             public string? DisplayNumericFormat { get; set; }
             #endregion

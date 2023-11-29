@@ -17,7 +17,7 @@ namespace WMWeb.Api.ToDoListApi
         [Required] public long ListOwnerId { get; set; }
         [Required] public string Name { get; set; } = "";
 
-        public ListViewModel<ToDoItemApiModel, ToDoItem> ToDoItems { get; set; } = new ListViewModel<ToDoItemApiModel, ToDoItem>();
+        public ListViewModel<ToDoItemApiModel, ToDoItem> ToDoItems { get; set; } = new();
         #endregion
     }
 }

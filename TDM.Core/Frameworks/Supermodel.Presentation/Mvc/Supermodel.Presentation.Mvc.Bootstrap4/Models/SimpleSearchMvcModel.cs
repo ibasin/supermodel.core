@@ -5,7 +5,7 @@
         public class SimpleSearchMvcModel : MvcModel
         {
             #region Properties
-            public TextBoxMvcModel SearchTerm { get; set; } = new TextBoxMvcModel();
+            public TextBoxMvcModel SearchTerm { get; set; } = new();
             #endregion
         }
     }

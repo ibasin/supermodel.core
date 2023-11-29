@@ -21,7 +21,7 @@ namespace MvcCoreTester.Models
         #endregion 
 
         #region Properties
-        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new Bs4.TextBoxMvcModel();
+        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new();
         #endregion
     }
 

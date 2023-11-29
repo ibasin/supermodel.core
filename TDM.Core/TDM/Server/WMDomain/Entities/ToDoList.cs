@@ -52,7 +52,7 @@ namespace WMDomain.Entities
         public virtual TDMUser? ListOwner { get; set; }
 
         [Required] public string Name { get; set; } = "";
-        public virtual List<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
+        public virtual List<ToDoItem> ToDoItems { get; set; } = new();
         #endregion
     }
 }

@@ -31,8 +31,8 @@ namespace MvcCoreTester.Models
         #endregion
 
         #region Properties
-        [ListColumn, Required] public Bs4.TextBoxMvcModel Name { get; set; } = new Bs4.TextBoxMvcModel();
-        [ListColumn, Required] public  Bs4.TextBoxMvcModel Credits { get; set; } = new Bs4.TextBoxMvcModel();
+        [ListColumn, Required] public Bs4.TextBoxMvcModel Name { get; set; } = new();
+        [ListColumn, Required] public  Bs4.TextBoxMvcModel Credits { get; set; } = new();
         #endregion
 
     }

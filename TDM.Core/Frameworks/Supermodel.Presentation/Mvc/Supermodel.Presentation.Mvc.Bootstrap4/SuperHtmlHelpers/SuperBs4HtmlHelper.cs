@@ -981,7 +981,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.SuperHtmlHelpers
 
             //Get the dropdown
             var selectedValue = RequestHttpContext.Current.Request.Query["smSortBy"];
-            var sortBySelectList = new List<SelectListItem> { new SelectListItem { Value = "", Text = "Select Sort Order" } };
+            var sortBySelectList = new List<SelectListItem> { new() { Value = "", Text = "Select Sort Order" } };
             foreach (var sortByOption in sortByOptions) 
             {
                 sortBySelectList.Add(new SelectListItem { Value = sortByOption.Value, Text = "Sort By: " + sortByOption.Key, Selected = sortByOption.Value == selectedValue});

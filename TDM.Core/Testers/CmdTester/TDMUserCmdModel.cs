@@ -25,19 +25,19 @@ namespace CmdTester
         #endregion
 
         #region Properties
-        [Required] public TextBoxCmdModel FirstName { get; set; } = new TextBoxCmdModel();
-        [Required] public TextBoxCmdModel LastName { get; set; } = new TextBoxCmdModel();
-        [Email, Required] public TextBoxCmdModel Username { get; set; } = new TextBoxCmdModel();
+        [Required] public TextBoxCmdModel FirstName { get; set; } = new();
+        [Required] public TextBoxCmdModel LastName { get; set; } = new();
+        [Email, Required] public TextBoxCmdModel Username { get; set; } = new();
         
-        [Required, NotRMapped] public DateCmdModel DOB { get; set; } = new DateCmdModel { DateTimeValue = DateTime.Today };
-        [NotRMapped] public CheckboxCmdModel Admin {get; set; } = new CheckboxCmdModel();
-        [Required, NotRMapped] public DropdownCmdModelUsingEnum<GenderEnum> Sex { get; set; } = new DropdownCmdModelUsingEnum<GenderEnum>();
+        [Required, NotRMapped] public DateCmdModel DOB { get; set; } = new() { DateTimeValue = DateTime.Today };
+        [NotRMapped] public CheckboxCmdModel Admin {get; set; } = new();
+        [Required, NotRMapped] public DropdownCmdModelUsingEnum<GenderEnum> Sex { get; set; } = new();
 
         [SkipForDisplay, ForceRequiredLabel, NotRMapped, MustEqualTo(nameof(ConfirmPassword), ErrorMessage = "Passwords do not match")]
-        public PasswordTextBoxCmdModel NewPassword { get; set; } = new PasswordTextBoxCmdModel();
+        public PasswordTextBoxCmdModel NewPassword { get; set; } = new();
 
         [SkipForDisplay, ForceRequiredLabel, NotRMapped, MustEqualTo(nameof(NewPassword), ErrorMessage = "Passwords do not match")]
-        public PasswordTextBoxCmdModel ConfirmPassword { get; set; } = new PasswordTextBoxCmdModel();
+        public PasswordTextBoxCmdModel ConfirmPassword { get; set; } = new();
         #endregion
     }
 }

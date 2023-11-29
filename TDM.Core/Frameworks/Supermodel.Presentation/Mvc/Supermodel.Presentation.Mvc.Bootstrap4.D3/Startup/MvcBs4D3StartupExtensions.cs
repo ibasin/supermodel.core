@@ -58,7 +58,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.D3.Startup
         #endregion
 
         #region Properties
-        public static Dictionary<string, byte[]> Files { get; } = new Dictionary<string, byte[]>();
+        public static Dictionary<string, byte[]> Files { get; } = new();
         #endregion
     }
 }

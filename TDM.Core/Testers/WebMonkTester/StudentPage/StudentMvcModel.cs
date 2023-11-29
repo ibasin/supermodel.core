@@ -19,10 +19,10 @@ namespace WebMonkTester.StudentPage
         //#endregion
         
         #region Properties
-        [Required] public Bs4.TextBoxMvcModel FirstName { get; set; } = new Bs4.TextBoxMvcModel();
-        [ScaffoldColumn(false)] public Bs4.TextBoxMvcModel LastName { get; set; } = new Bs4.TextBoxMvcModel();
-        [DisplayName("Grade Point Average"), Required] public Bs4.TextBoxMvcModel GPA { get; set; } = new Bs4.TextBoxMvcModel { Type = "number" };
-        public Bs4.TextBoxMvcModel AnnualIncome { get; set; } = new Bs4.TextBoxMvcModel();
+        [Required] public Bs4.TextBoxMvcModel FirstName { get; set; } = new();
+        [ScaffoldColumn(false)] public Bs4.TextBoxMvcModel LastName { get; set; } = new();
+        [DisplayName("Grade Point Average"), Required] public Bs4.TextBoxMvcModel GPA { get; set; } = new() { Type = "number" };
+        public Bs4.TextBoxMvcModel AnnualIncome { get; set; } = new();
         [DataType(DataType.MultilineText)] public string Notes { get; set; } = "";
 
         public bool MinorityStudent { get; set; } = true;
@@ -30,7 +30,7 @@ namespace WebMonkTester.StudentPage
         [Required] public byte[] Picture { get; set; } = Array.Empty<byte>();
         [ScaffoldColumn(false)] public string PictureFileName { get; set; } = "";
 
-        public AddressMvcModel Address { get; set; } = new AddressMvcModel 
+        public AddressMvcModel Address { get; set; } = new()
         { 
             Street = new Bs4.TextBoxMvcModel { Value = "2565 Pennington Place", Type = "text" },
             City = new Bs4.TextBoxMvcModel { Value = "Vienna", Type = "text" },
@@ -38,10 +38,10 @@ namespace WebMonkTester.StudentPage
             Zip = new Bs4.TextBoxMvcModel { Value = "22181", Type = "text" },
         };
 
-        public List<string> Classes { get; set; } = new List<string> { "Math", "Science", "English" };
+        public List<string> Classes { get; set; } = new() { "Math", "Science", "English" };
         public string[] ClassesArr { get; set; } = new string[] { "Math", "Science", "English" };
-        public List<HobbyMvcModel> Hobbies { get; set; } = new List<HobbyMvcModel> { new HobbyMvcModel { Name = "Model Airplanes" }, { new HobbyMvcModel { Name = "Stamp Collecting" } } };
-        public Dictionary<string, string> Dict { get; set; }  = new Dictionary<string, string> { { "A", "Alpha" }, { "B", "Beta"} };
+        public List<HobbyMvcModel> Hobbies { get; set; } = new() { new HobbyMvcModel { Name = "Model Airplanes" }, { new HobbyMvcModel { Name = "Stamp Collecting" } } };
+        public Dictionary<string, string> Dict { get; set; }  = new() { { "A", "Alpha" }, { "B", "Beta"} };
         #endregion
     }
 }

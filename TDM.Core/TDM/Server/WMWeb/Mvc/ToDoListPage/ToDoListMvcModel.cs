@@ -16,8 +16,8 @@ namespace WMWeb.Mvc.ToDoListPage
         #endregion
 
         #region Properties
-        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new Bs4.TextBoxMvcModel();
-        [ScaffoldColumn(false), NotRMappedTo] public ListViewModel<ToDoItemMvcModel, ToDoItem> ToDoItems { get; set; } = new ListViewModel<ToDoItemMvcModel, ToDoItem>();
+        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new();
+        [ScaffoldColumn(false), NotRMappedTo] public ListViewModel<ToDoItemMvcModel, ToDoItem> ToDoItems { get; set; } = new();
         #endregion
     }
 }

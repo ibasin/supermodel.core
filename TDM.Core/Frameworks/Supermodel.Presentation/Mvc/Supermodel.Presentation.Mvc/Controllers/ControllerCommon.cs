@@ -24,7 +24,7 @@ namespace Supermodel.Presentation.Mvc.Controllers
             #endregion
             
             #region Properties
-            public List<string> ErrorMessages { get; set; } = new List<string>();
+            public List<string> ErrorMessages { get; set; } = new();
             public string? AttemptedValue { get; set; }
             #endregion
         }

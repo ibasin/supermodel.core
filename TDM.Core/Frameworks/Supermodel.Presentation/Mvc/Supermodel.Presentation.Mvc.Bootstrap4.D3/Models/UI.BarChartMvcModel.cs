@@ -64,7 +64,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.D3.Models
             #endregion
 
             #region Properties
-            public List<Datum> Data { get; } = new List<Datum>();
+            public List<Datum> Data { get; } = new();
             public bool IsHorizontal { get; set; }
             public string LabelsNumberFormat { get; set; } = ""; //https://github.com/d3/d3-format/blob/master/README.md
             #endregion

@@ -9,8 +9,8 @@ namespace Supermodel.Presentation.Mvc.Auth
         {
             return new List<Claim> 
             { 
-                new Claim(ClaimTypes.NameIdentifier, id.ToString(), ClaimValueTypes.Integer64),
-                new Claim(ClaimTypes.Name, label, ClaimValueTypes.String) 
+                new(ClaimTypes.NameIdentifier, id.ToString(), ClaimValueTypes.Integer64),
+                new(ClaimTypes.Name, label, ClaimValueTypes.String) 
             };
         }
     }

@@ -136,7 +136,7 @@ namespace Supermodel.Persistence.EFCore
             }
             return new EFCoreSimpleDataRepo<TEntity>();        
         }
-        protected List<IRepoFactory> CustomRepoFactoryList { get; } = new List<IRepoFactory>();
+        protected List<IRepoFactory> CustomRepoFactoryList { get; } = new();
 
         public IDataContextTransaction BeginTransaction()
         {
@@ -162,7 +162,7 @@ namespace Supermodel.Persistence.EFCore
         #endregion
 
         #region Save Changes Methods
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
             try
             {
@@ -225,7 +225,7 @@ namespace Supermodel.Persistence.EFCore
             }
         }
 
-        public async Task<int> FinalSaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public async Task<int> FinalSaveChangesAsync(CancellationToken cancellationToken = new())
         {
             int result;
             try
@@ -271,7 +271,7 @@ namespace Supermodel.Persistence.EFCore
         }
 
         [Obsolete("SaveChangesAsync with acceptAllChangesOnSuccess parameter is not supported in Supermodel, please use SaveChangesAsync without acceptAllChangesOnSuccess instead.", true)]
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new())
         {
             throw new SupermodelException("SaveChangesAsync(acceptAllChangesOnSuccess): Supermodel does not support SaveChangesAsync with acceptAllChangesOnSuccess parameter");
         }
@@ -295,7 +295,7 @@ namespace Supermodel.Persistence.EFCore
             IsCompletedAndFinalized = true;
         }
 
-        public ConcurrentDictionary<string, object?> CustomValues { get; } = new ConcurrentDictionary<string, object?>();
+        public ConcurrentDictionary<string, object?> CustomValues { get; } = new();
 
         public string ConnectionString { get; }
 

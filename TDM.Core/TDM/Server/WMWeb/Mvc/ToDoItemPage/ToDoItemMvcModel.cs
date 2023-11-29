@@ -22,10 +22,10 @@ namespace WMWeb.Mvc.ToDoItemPage
         #endregion
 
         #region Properties
-        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new Bs4.TextBoxMvcModel();
-        public Bs4.DropdownMvcModelUsingEnum<PriorityEnum> Priority { get; set; } = new Bs4.DropdownMvcModelUsingEnum<PriorityEnum>();
-        public Bs4.DateMvcModel DueOn { get; set; } = new Bs4.DateMvcModel();
-        public Bs4.CheckboxMvcModel Completed { get; set; } = new Bs4.CheckboxMvcModel();
+        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new();
+        public Bs4.DropdownMvcModelUsingEnum<PriorityEnum> Priority { get; set; } = new();
+        public Bs4.DateMvcModel DueOn { get; set; } = new();
+        public Bs4.CheckboxMvcModel Completed { get; set; } = new();
         #endregion
     }
 }

@@ -22,7 +22,7 @@ namespace WMDomain.Entities
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
 
-        public virtual List<ToDoList> ToDoLists { get; set; } = new List<ToDoList>();
+        public virtual List<ToDoList> ToDoLists { get; set; } = new();
         #endregion
     }
 }

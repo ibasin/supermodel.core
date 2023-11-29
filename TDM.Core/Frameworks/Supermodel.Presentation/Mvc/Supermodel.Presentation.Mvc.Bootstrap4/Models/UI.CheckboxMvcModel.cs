@@ -140,7 +140,7 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.Models
             public string Type { get; set; } = "checkbox";
 
             public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
-            public AttributesDict HtmlAttributesAsDict { get; set; } = new AttributesDict();
+            public AttributesDict HtmlAttributesAsDict { get; set; } = new();
             #endregion
         }        
     }

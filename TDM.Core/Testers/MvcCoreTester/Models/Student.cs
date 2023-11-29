@@ -58,7 +58,7 @@ namespace MvcCoreTester.Models
         //#endregion
 
         #region Properties
-        [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; } = new List<Bs4.AccordionPanel>
+        [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; } = new()
         {
             new Bs4.AccordionPanel("Filter", "Filter", 100, 100, false),
         };
@@ -66,14 +66,14 @@ namespace MvcCoreTester.Models
         //[Email] public Super.Bs4.TextBoxMvcModel Email { get; set; } = new Super.Bs4.TextBoxMvcModel();
         public Bs4.AutocompleteTextBoxMvcModel<Student, StudentAutocompleteApiController, DataContext> Name { get; set; } = new ();
         public Bs4.AutocompleteTextBoxMvcModel<Student, Student2AutocompleteApiController, DataContext> Name2 { get; set; } = new ();
-        public Bs4.TextBoxMvcModel FirstName { get; set; } = new Bs4.TextBoxMvcModel();
-        public Bs4.TextBoxMvcModel LastName { get; set; } = new Bs4.TextBoxMvcModel();
-        public Bs4.DropdownMvcModelUsingEnum<GenderEnum> Gender { get; set; } = new Bs4.DropdownMvcModelUsingEnum<GenderEnum>();
+        public Bs4.TextBoxMvcModel FirstName { get; set; } = new();
+        public Bs4.TextBoxMvcModel LastName { get; set; } = new();
+        public Bs4.DropdownMvcModelUsingEnum<GenderEnum> Gender { get; set; } = new();
         //public Bs4.RadioSelectMvcModelUsingEnum<GenderEnum> Gender { get; set; } = new Bs4.RadioSelectMvcModelUsingEnum<GenderEnum>();
-        public Bs4.DropdownMvcModelUsing<SchoolMvcModel> School { get; set; } = new Bs4.DropdownMvcModelUsing<SchoolMvcModel>();
-        public Bs4.CheckboxMvcModel ClearanceRequired { get; set; } = new Bs4.CheckboxMvcModel();
-        [MustBeLessOrEqualThan(nameof(MaxAge))] public Bs4.TextBoxMvcModel MinAge { get; set; } = new Bs4.TextBoxMvcModel { Type = "number" };
-        [MustBeGreaterOrEqualThan(nameof(MinAge))] public Bs4.TextBoxMvcModel MaxAge { get; set; } = new Bs4.TextBoxMvcModel { Type = "number" };
+        public Bs4.DropdownMvcModelUsing<SchoolMvcModel> School { get; set; } = new();
+        public Bs4.CheckboxMvcModel ClearanceRequired { get; set; } = new();
+        [MustBeLessOrEqualThan(nameof(MaxAge))] public Bs4.TextBoxMvcModel MinAge { get; set; } = new() { Type = "number" };
+        [MustBeGreaterOrEqualThan(nameof(MinAge))] public Bs4.TextBoxMvcModel MaxAge { get; set; } = new() { Type = "number" };
         #endregion
     }
 
@@ -84,28 +84,28 @@ namespace MvcCoreTester.Models
         #endregion
 
         #region Properties
-        [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; set; } = new List<Bs4.AccordionPanel>
+        [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; set; } = new()
         {
             new Bs4.AccordionPanel("General", "General", 100, 100, true),
             new Bs4.AccordionPanel("Security", "Security", 200, 200, false)
         };
         
-        [Required, ListColumn(OrderBy = nameof(FirstName))] public Bs4.TextBoxMvcModel FirstName { get; set; } = new Bs4.TextBoxMvcModel();
-        [Required, ListColumn(OrderBy = nameof(LastName)), DisplayName("Surname")] public Bs4.TextBoxMvcModel LastName { get; set; } = new Bs4.TextBoxMvcModel();
-        public Bs4.PasswordTextBoxMvcModel SocialSecurity { get; set; } = new Bs4.PasswordTextBoxMvcModel();
-        [Required, ListColumn(OrderBy = nameof(Age))] public Bs4.TextBoxMvcModel Age { get; set; } = new Bs4.TextBoxMvcModel();
-        [RMapTo(".Image"), NotRMappedTo] public Bs4.ImageMvcModel Picture { get; set; } = new Bs4.ImageMvcModel { HtmlAttributesAsObj = new { width = 200 } };
-        [HideLabel(KeepLabelSpace = true)] public Bs4.BinaryFileMvcModel Image { get; set; } = new Bs4.BinaryFileMvcModel();
+        [Required, ListColumn(OrderBy = nameof(FirstName))] public Bs4.TextBoxMvcModel FirstName { get; set; } = new();
+        [Required, ListColumn(OrderBy = nameof(LastName)), DisplayName("Surname")] public Bs4.TextBoxMvcModel LastName { get; set; } = new();
+        public Bs4.PasswordTextBoxMvcModel SocialSecurity { get; set; } = new();
+        [Required, ListColumn(OrderBy = nameof(Age))] public Bs4.TextBoxMvcModel Age { get; set; } = new();
+        [RMapTo(".Image"), NotRMappedTo] public Bs4.ImageMvcModel Picture { get; set; } = new() { HtmlAttributesAsObj = new { width = 200 } };
+        [HideLabel(KeepLabelSpace = true)] public Bs4.BinaryFileMvcModel Image { get; set; } = new();
         //[Required, RMapTo(".Gender")] public Super.Bs4.DropdownMvcModelUsingEnum<GenderEnum> Gender2 { get; set; } = new Super.Bs4.DropdownMvcModelUsingEnum<GenderEnum>();
-        [Required, ListColumn(OrderBy = nameof(Gender))] public Bs4.RadioSelectMvcModelUsingEnum<GenderEnum> Gender { get; set; } = new Bs4.RadioSelectMvcModelUsingEnum<GenderEnum>();
-        [Required, ListColumn(OrderBy = nameof(School))] public Bs4.DropdownMvcModelUsing<SchoolMvcModel> School { get; set; } = new Bs4.DropdownMvcModelUsing<SchoolMvcModel>();
+        [Required, ListColumn(OrderBy = nameof(Gender))] public Bs4.RadioSelectMvcModelUsingEnum<GenderEnum> Gender { get; set; } = new();
+        [Required, ListColumn(OrderBy = nameof(School))] public Bs4.DropdownMvcModelUsing<SchoolMvcModel> School { get; set; } = new();
         //public Bs4.RadioSelectMvcModelUsing<SchoolMvcModel> School { get; set; } = new Bs4.RadioSelectMvcModelUsing<SchoolMvcModel>();
-        public Bs4.TextAreaMvcModel Notes { get; set; } = new Bs4.TextAreaMvcModel();
-        [Required, ListColumn(OrderBy = nameof(DateOfBirthday))] public Bs4.DateMvcModel DateOfBirthday { get; set; } = new Bs4.DateMvcModel();
+        public Bs4.TextAreaMvcModel Notes { get; set; } = new();
+        [Required, ListColumn(OrderBy = nameof(DateOfBirthday))] public Bs4.DateMvcModel DateOfBirthday { get; set; } = new();
         //[Required, ListColumn(OrderBy = nameof(DateOfBirthday))] public Bs4.DateTimeMvcModel DateOfBirthday { get; set; } = new Bs4.DateTimeMvcModel();
-        [ScreenOrder(200)] public Bs4.CheckboxMvcModel SecurityClearance { get; set; } = new Bs4.CheckboxMvcModel();
+        [ScreenOrder(200)] public Bs4.CheckboxMvcModel SecurityClearance { get; set; } = new();
 
-        public virtual ListViewModel<ClassMvcModel, Class> Classes { get; set; } = new ListViewModel<ClassMvcModel, Class>();
+        public virtual ListViewModel<ClassMvcModel, Class> Classes { get; set; } = new();
         #endregion
     }
 
@@ -116,14 +116,14 @@ namespace MvcCoreTester.Models
         #endregion
 
         #region Properties
-        [ListColumn(OrderBy = nameof(FirstName))] public Bs4.TextBoxMvcModel FirstName { get; set; } = new Bs4.TextBoxMvcModel();
-        [ListColumn(Header = "Surname", OrderBy = "LastName,FirstName")] public Bs4.TextBoxMvcModel LastName { get; set; } = new Bs4.TextBoxMvcModel();
-        [ListColumn(OrderBy = nameof(Age))] public Bs4.TextBoxMvcModel Age { get; set; } = new Bs4.TextBoxMvcModel();
-        [ListColumn(OrderBy = nameof(Gender))] public Bs4.RadioSelectMvcModelUsingEnum<GenderEnum> Gender { get; set; } = new Bs4.RadioSelectMvcModelUsingEnum<GenderEnum>();
-        [ListColumn(OrderBy = nameof(School))] public Bs4.RadioSelectMvcModelUsing<SchoolMvcModel> School { get; set; } = new Bs4.RadioSelectMvcModelUsing<SchoolMvcModel>();
-        [ListColumn] public Bs4.TextAreaMvcModel Notes { get; set; } = new Bs4.TextAreaMvcModel();
-        [ListColumn(OrderBy = nameof(DateOfBirthday))] public Bs4.DateTimeMvcModel DateOfBirthday { get; set; } = new Bs4.DateTimeMvcModel();
-        [ListColumn(OrderBy = nameof(SecurityClearance))] public Bs4.CheckboxMvcModel SecurityClearance { get; set; } = new Bs4.CheckboxMvcModel();
+        [ListColumn(OrderBy = nameof(FirstName))] public Bs4.TextBoxMvcModel FirstName { get; set; } = new();
+        [ListColumn(Header = "Surname", OrderBy = "LastName,FirstName")] public Bs4.TextBoxMvcModel LastName { get; set; } = new();
+        [ListColumn(OrderBy = nameof(Age))] public Bs4.TextBoxMvcModel Age { get; set; } = new();
+        [ListColumn(OrderBy = nameof(Gender))] public Bs4.RadioSelectMvcModelUsingEnum<GenderEnum> Gender { get; set; } = new();
+        [ListColumn(OrderBy = nameof(School))] public Bs4.RadioSelectMvcModelUsing<SchoolMvcModel> School { get; set; } = new();
+        [ListColumn] public Bs4.TextAreaMvcModel Notes { get; set; } = new();
+        [ListColumn(OrderBy = nameof(DateOfBirthday))] public Bs4.DateTimeMvcModel DateOfBirthday { get; set; } = new();
+        [ListColumn(OrderBy = nameof(SecurityClearance))] public Bs4.CheckboxMvcModel SecurityClearance { get; set; } = new();
         #endregion
     }
 
@@ -152,7 +152,7 @@ namespace MvcCoreTester.Models
         public string LastName { get; set; } = "";
         public string SocialSecurity { get; set; } = "";
         public int? Age { get; set; }
-        public virtual BinaryFile Image { get; set; } = new BinaryFile();
+        public virtual BinaryFile Image { get; set; } = new();
         [Required] public GenderEnum? Gender { get; set; } = GenderEnum.Unknown;
         [Required] public virtual School? School { get; set; }
         public string? Notes { get; set; }
@@ -160,7 +160,7 @@ namespace MvcCoreTester.Models
         // ReSharper disable once InconsistentNaming
         [Required] public DateTime? DateOfBirthday { get; set; }
 
-        public virtual List<Class> Classes { get; set; } = new List<Class>();
+        public virtual List<Class> Classes { get; set; } = new();
         #endregion
     }
 }

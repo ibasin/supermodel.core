@@ -21,7 +21,7 @@ namespace Web.ViewModels
         [Required] public long ListOwnerId { get; set; }
         [Required] public string Name { get; set; } = "";
 
-        public ListViewModel<ToDoItemApiModel, ToDoItem> ToDoItems { get; set; } = new ListViewModel<ToDoItemApiModel, ToDoItem>();
+        public ListViewModel<ToDoItemApiModel, ToDoItem> ToDoItems { get; set; } = new();
         #endregion
     }
     
@@ -37,8 +37,8 @@ namespace Web.ViewModels
         #endregion
 
         #region Properties
-        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new Bs4.TextBoxMvcModel();
-        [ScaffoldColumn(false), NotRMappedTo] public ListViewModel<ToDoItemMvcModel, ToDoItem> ToDoItems { get; set; } = new ListViewModel<ToDoItemMvcModel, ToDoItem>();
+        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new();
+        [ScaffoldColumn(false), NotRMappedTo] public ListViewModel<ToDoItemMvcModel, ToDoItem> ToDoItems { get; set; } = new();
         #endregion
     }
 }
