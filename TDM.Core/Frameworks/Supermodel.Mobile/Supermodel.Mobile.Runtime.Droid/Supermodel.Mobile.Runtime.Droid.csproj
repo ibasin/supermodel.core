@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>5.0.0.2515</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
@@ -71,6 +74,10 @@
     <ProjectReference Include="..\..\Supermodel.Encryptor\Supermodel.Encryptor.csproj">
       <Project>{E955F92E-87EE-40B9-B44D-8D4010CD2FC4}</Project>
       <Name>Supermodel.Encryptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Supermodel.Mobile.Runtime.Common\Supermodel.Mobile.Runtime.Common.csproj">
+      <Project>{A5CF47DA-3F39-4FF4-A120-9B5DC7EEB97D}</Project>
+      <Name>Supermodel.Mobile.Runtime.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
