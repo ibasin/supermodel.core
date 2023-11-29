@@ -17,7 +17,7 @@ namespace MvcCoreTester.DataContexts
 
     public class DataContext : EFCoreSQLiteDataContext
     {
-        public DataContext() : base($"$Filename={DbFilePath}EFCoreTester.db"){}
+        public DataContext() : base($"Filename={DbFilePath}EFCoreTester.db"){}
         //public SqliteDbContext() : base("Filename=EFCoreTester.db", new CustomRepoFactory()){}
         //public SqliteDbContext() : base("DataSource=:memory:", new CustomRepoFactory()){}
 
