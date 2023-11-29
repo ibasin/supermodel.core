@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using WebMonk.HttpRequestHandlers;
+﻿using WebMonk.HttpRequestHandlers;
 
 namespace HTML2RazorSharpWM.Mvc.Util
 {

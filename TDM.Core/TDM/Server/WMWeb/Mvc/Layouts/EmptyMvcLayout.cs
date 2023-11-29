@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Presentation.WebMonk.Bootstrap4.Models;
+﻿using Supermodel.Presentation.WebMonk.Bootstrap4.Models;
 using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 using WebMonk.Rendering.Views;

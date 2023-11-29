@@ -17,7 +17,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
         {
             TextEntry = new ExtEntry { HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand, Border = false, TextAlignment = TextAlignment.End, WidthRequest = 1, FontSize = XFormsSettings.LabelFontSize, TextColor = XFormsSettings.ValueTextColor };
             TextEntry.SetBinding(Entry.TextProperty, "Text");
-            TextEntry.PropertyChanged += (sender, args) =>
+            TextEntry.PropertyChanged += (_, _) =>
             {
                 if (_currentValue != TextEntry.Text)
                 {
@@ -26,7 +26,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
                 }
             };
             StackLayoutView.Children.Add(TextEntry);
-            Tapped += (sender, args) => TextEntry.Focus();
+            Tapped += (_, _) => TextEntry.Focus();
         }
         #endregion
 

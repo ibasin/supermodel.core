@@ -67,7 +67,7 @@ namespace Supermodel.ReflectionMapper
         
         public static string? GetEnumMemberAttributeValueOrNull(this Enum value)
         {
-            if (_enumMemberDict.ContainsKey(value)) return _enumMemberDict[value];
+            if (_enumMemberDict.TryGetValue(value, out var @null)) return @null;
 
             //Tries to find a EnumMemberAttribute for a potential serialization name for the enum
             var type = value.GetType();

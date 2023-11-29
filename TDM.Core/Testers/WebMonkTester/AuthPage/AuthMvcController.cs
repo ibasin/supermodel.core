@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using WebMonk.Context;
 using WebMonk.Extensions;
 using WebMonk.HttpRequestHandlers.Controllers;

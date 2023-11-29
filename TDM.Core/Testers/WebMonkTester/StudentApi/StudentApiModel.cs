@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-#nullable enable
-
 namespace WebMonkTester.StudentApi
 {
     public class StudentApiModel

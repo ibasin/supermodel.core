@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WebMonk.Extensions;
 using WebMonk.HttpRequestHandlers.Controllers;
 using WebMonk.Results;

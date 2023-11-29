@@ -1,5 +1,3 @@
-#nullable enable
-
 using System;
 using System.Net.Http;
 using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;

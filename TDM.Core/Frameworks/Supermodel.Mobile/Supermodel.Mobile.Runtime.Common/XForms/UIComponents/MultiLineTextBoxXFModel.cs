@@ -24,7 +24,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 		        TextColor = XFormsSettings.ValueTextColor
             };
 		    Editor.SetBinding(Entry.TextProperty, "Text");
-		    Editor.PropertyChanged += (sender, args) =>
+		    Editor.PropertyChanged += (_, _) =>
 		    {
 		        if (_currentValue != Editor.Text)
 		        {
@@ -38,7 +38,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
             StackLayoutView.Children.Add(Editor);
 		    SetHeight(XFormsSettings.MultiLineTextBoxCellHeight);
 		    StackLayoutView.HeightRequest = XFormsSettings.MultiLineTextBoxCellHeight;
-		    Tapped += (sender, args) => Editor.Focus();
+		    Tapped += (_, _) => Editor.Focus();
 		}
         #endregion
 

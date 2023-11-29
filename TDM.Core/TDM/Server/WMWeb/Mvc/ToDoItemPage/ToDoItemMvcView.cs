@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Presentation.WebMonk.Bootstrap4.Views;
+﻿using Supermodel.Presentation.WebMonk.Bootstrap4.Views;
 
 namespace WMWeb.Mvc.ToDoItemPage
 {

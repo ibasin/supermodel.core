@@ -33,17 +33,17 @@ namespace MvcCoreTester.Controllers
             if (!string.IsNullOrEmpty(searchBy.FirstName.Value)) items = items.Where(x => x.FirstName.ToLower().Contains(searchBy.FirstName.Value.ToLower()));
             if (!string.IsNullOrEmpty(searchBy.LastName.Value)) items = items.Where(x => x.LastName.ToLower().Contains(searchBy.LastName.Value.ToLower()));
             if (searchBy.Gender.SelectedEnum.HasValue) items = items.Where(x => x.Gender == searchBy.Gender.SelectedEnum);
-            if (searchBy.School.SelectedId.HasValue) items = items.Where(x => x.School.Id == searchBy.School.SelectedId);
+            if (searchBy.School.SelectedId.HasValue) items = items.Where(x => x.School!.Id == searchBy.School.SelectedId);
             if (searchBy.ClearanceRequired.ValueBool) items = items.Where(x => x.SecurityClearance.HasValue && x.SecurityClearance.Value);
             if (!string.IsNullOrEmpty(searchBy.MinAge.Value)) items = items.Where(x => x.Age >= int.Parse(searchBy.MinAge.Value));
             if (!string.IsNullOrEmpty(searchBy.MaxAge.Value)) items = items.Where(x => x.Age <= int.Parse(searchBy.MaxAge.Value));
             return items;
         }
 
-        protected override IOrderedQueryable<Student> ApplySortBy(IQueryable<Student> items, string sortBy)
+        protected override IOrderedQueryable<Student> ApplySortBy(IQueryable<Student> items, string? sortBy)
         {
-            if (sortBy?.ToLower() == "school") return items.OrderBy(x => x.School.Name);
-            if (sortBy?.ToLower() == "-school") return items.OrderByDescending(x => x.School.Name);
+            if (sortBy?.ToLower() == "school") return items.OrderBy(x => x.School!.Name);
+            if (sortBy?.ToLower() == "-school") return items.OrderByDescending(x => x.School!.Name);
             return base.ApplySortBy(items, sortBy);
         }
 

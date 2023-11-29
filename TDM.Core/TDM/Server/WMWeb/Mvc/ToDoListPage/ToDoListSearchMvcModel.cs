@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Presentation.WebMonk.Bootstrap4.Models;
+﻿using Supermodel.Presentation.WebMonk.Bootstrap4.Models;
 using WMDomain.Entities;
 using WMDomain.Supermodel.Persistence;
 using WMWeb.Api.ToDoListAutocompleteApi;

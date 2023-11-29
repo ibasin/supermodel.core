@@ -37,7 +37,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 
             OnClicked = onClicked;
 
-            Tapped += (sender, args) => { OnClicked?.Invoke((IBasicCRUDDetailPage)ParentPage); };
+            Tapped += (_, _) => { OnClicked?.Invoke((IBasicCRUDDetailPage)ParentPage); };
         }
         #endregion
 

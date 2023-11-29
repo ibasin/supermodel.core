@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Supermodel.Presentation.WebMonk.Models.Api;
 using WMDomain.Entities;

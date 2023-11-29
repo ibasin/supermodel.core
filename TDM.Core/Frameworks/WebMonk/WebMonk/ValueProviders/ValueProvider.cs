@@ -66,9 +66,8 @@ namespace WebMonk.ValueProviders
         }
         public virtual IValueProvider.Result GetValueOrDefault(string key)
         {
-            if (Values.ContainsKey(key)) 
+            if (Values.TryGetValue(key, out var value)) 
             {
-                var value = Values[key];
                 if (HttpContext.Current.BlockDangerousValueProviderValues && IsDangerousValue(value)) throw new HttpRequestValidationException("Attempt to pass a dangerous value is blocked");
                 return new IValueProvider.Result(GetType(), value);
             }

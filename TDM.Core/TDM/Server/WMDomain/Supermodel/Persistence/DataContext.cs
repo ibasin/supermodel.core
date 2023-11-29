@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Persistence.EFCore.SQLite;
+﻿using Supermodel.Persistence.EFCore.SQLite;
 using System.Threading.Tasks;
 //using Supermodel.Persistence.EFCore.SQLServer;
 

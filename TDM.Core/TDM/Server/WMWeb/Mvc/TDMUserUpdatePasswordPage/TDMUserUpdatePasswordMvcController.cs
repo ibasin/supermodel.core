@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Supermodel.Presentation.WebMonk.Auth;
 using Supermodel.Presentation.WebMonk.Controllers.Mvc;

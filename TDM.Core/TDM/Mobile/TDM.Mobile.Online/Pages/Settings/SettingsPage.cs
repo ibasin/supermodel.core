@@ -21,7 +21,7 @@ namespace TDM.Mobile.Pages.Settings
             
             if (Device.RuntimePlatform == Device.iOS) cell.TextColor = Color.FromHex("#007AFF");
 
-            cell.Tapped += async (sender, args) =>
+            cell.Tapped += async (_, _) =>
             {
                 if (!FormsApplication<TDMApp>.RunningApp.AuthHeaderGenerator.UserId.HasValue) throw new Exception("AuthHeaderGenerator.UserId must have value");
                 var model = new TDMUserUpdatePassword { Id = FormsApplication<TDMApp>.RunningApp.AuthHeaderGenerator.UserId.Value };

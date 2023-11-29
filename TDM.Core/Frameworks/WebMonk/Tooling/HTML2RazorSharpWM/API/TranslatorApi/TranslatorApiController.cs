@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Supermodel.Presentation.WebMonk.Controllers.Api;
 using WebMonk.Filters;

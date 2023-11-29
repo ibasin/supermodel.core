@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Supermodel.Presentation.WebMonk.Bootstrap4.Views;
+﻿using Supermodel.Presentation.WebMonk.Bootstrap4.Views;
 using WebMonk.Rendering.Views;
 using WMWeb.Mvc.Layouts;
 

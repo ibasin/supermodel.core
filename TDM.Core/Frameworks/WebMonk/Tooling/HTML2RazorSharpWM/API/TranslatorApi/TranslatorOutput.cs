@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace HTML2RazorSharpWM.API.TranslatorApi
+﻿namespace HTML2RazorSharpWM.API.TranslatorApi
 {
     public class TranslatorOutput
     {

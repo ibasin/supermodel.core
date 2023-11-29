@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using WebMonk.RazorSharp.HtmlTags;
+﻿using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 using WebMonk.Rendering.Views;
 

@@ -32,16 +32,16 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents.Base
             try
             {
                 if (typeof(T) == typeof(int)) return Task.FromResult((T)(object)int.Parse(me.Text));
-                if (typeof(T) == typeof(int?)) return Task.FromResult((T)(object)(string.IsNullOrEmpty(me.Text) ? (int?)null : int.Parse(me.Text)));
+                if (typeof(T) == typeof(int?)) return Task.FromResult((T)(object)(string.IsNullOrEmpty(me.Text) ? null : int.Parse(me.Text)));
 
                 if (typeof(T) == typeof(long)) return Task.FromResult((T)(object)long.Parse(me.Text));
-                if (typeof(T) == typeof(long?)) return Task.FromResult((T)(object)(string.IsNullOrEmpty(me.Text) ? (long?)null : long.Parse(me.Text)));
+                if (typeof(T) == typeof(long?)) return Task.FromResult((T)(object)(string.IsNullOrEmpty(me.Text) ? null : long.Parse(me.Text)));
             
                 if (typeof(T) == typeof(double)) return Task.FromResult((T)(object)double.Parse(me.Text));
-                if (typeof(T) == typeof(double?)) return Task.FromResult((T)(object)(string.IsNullOrEmpty(me.Text) ? (double?)null : double.Parse(me.Text)));
+                if (typeof(T) == typeof(double?)) return Task.FromResult((T)(object)(string.IsNullOrEmpty(me.Text) ? null : double.Parse(me.Text)));
 
                 if (typeof(T) == typeof(float)) return Task.FromResult((T)(object)float.Parse(me.Text));
-                if (typeof(T) == typeof(float?)) return Task.FromResult((T)(object)(string.IsNullOrEmpty(me.Text) ? (float?)null : float.Parse(me.Text)));
+                if (typeof(T) == typeof(float?)) return Task.FromResult((T)(object)(string.IsNullOrEmpty(me.Text) ? null : float.Parse(me.Text)));
             }
             catch (FormatException)
             {

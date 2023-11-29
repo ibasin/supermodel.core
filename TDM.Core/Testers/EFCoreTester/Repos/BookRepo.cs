@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using EFCoreTester.Entities;
+﻿using EFCoreTester.Entities;
 using Supermodel.Persistence.EFCore;
 
 namespace EFCoreTester.Repos

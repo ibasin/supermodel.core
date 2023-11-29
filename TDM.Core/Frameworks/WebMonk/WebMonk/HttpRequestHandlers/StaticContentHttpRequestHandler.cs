@@ -46,7 +46,7 @@ namespace WebMonk.HttpRequestHandlers
             var localPath = $"wwwroot{HttpContext.Current.RouteManager.LocalPath}";
             var fullPath = Path.Combine(execDir, localPath);
             
-            var file = CachedFiles.ContainsKey(localPath)? CachedFiles[localPath] : null;
+            var file = CachedFiles.TryGetValue(localPath, out var cachedFile)? cachedFile : null;
             if (file == null)
             {
                 if (!File.Exists(fullPath)) return IHttpRequestHandler.HttpRequestHandlerResult.False;

@@ -14,7 +14,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 		public DateXFModel()
 		{
 			DatePicker = new ExtDatePicker{ HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand, Border = false, TextAlignment = TextAlignment.End, FontSize = XFormsSettings.LabelFontSize, TextColor = XFormsSettings.ValueTextColor };
-		    DatePicker.PropertyChanged += (sender, args) =>
+		    DatePicker.PropertyChanged += (_, _) =>
 		    {
 		        if (_currentValue != DatePicker.Date)
 		        {
@@ -24,7 +24,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 		    };
 
             StackLayoutView.Children.Add(DatePicker);
-            Tapped += (sender, args) => DatePicker.Focus();
+            Tapped += (_, _) => DatePicker.Focus();
 		}
         #endregion
 

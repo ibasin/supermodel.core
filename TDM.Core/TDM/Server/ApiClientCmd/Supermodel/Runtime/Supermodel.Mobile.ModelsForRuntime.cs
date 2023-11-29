@@ -46,9 +46,9 @@ namespace Supermodel.ApiClient.Models
 	public partial class TDMUserUpdatePassword : Model
 	{
 		#region Properties
-		public String OldPassword { get; set; }
-		public String NewPassword { get; set; }
-		public String ConfirmPassword { get; set; }
+		public String? OldPassword { get; set; }
+		public String? NewPassword { get; set; }
+		public String? ConfirmPassword { get; set; }
 		#endregion
 	}
 	#endregion
@@ -81,7 +81,7 @@ namespace Supermodel.ApiClient.Models
 	public partial class ToDoItem
 	{
 		#region Properties
-		public String Name { get; set; }
+		public String? Name { get; set; }
 		public PriorityEnum? Priority { get; set; }
 		public DateTime? DueOn { get; set; }
 		public Boolean Completed { get; set; }

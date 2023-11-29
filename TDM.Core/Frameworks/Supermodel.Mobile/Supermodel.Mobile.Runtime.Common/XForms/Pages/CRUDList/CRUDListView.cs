@@ -20,7 +20,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.Pages.CRUDList
 
             ListPanel = new ViewWithActivityIndicator<ListView>(new ListView
             {
-                ItemTemplate = new TModel().GetListCellDataTemplate((sender, args) => 
+                ItemTemplate = new TModel().GetListCellDataTemplate((sender, _) => 
                 { 
                     var model = (TModel)((MenuItem)sender).CommandParameter;
                     selectItem(model);

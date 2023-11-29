@@ -15,7 +15,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 		{
 			Switch = new Switch { HorizontalOptions = LayoutOptions.EndAndExpand, VerticalOptions = LayoutOptions.Center, OnColor = XFormsSettings.SwitchOnColor };
 			Switch.SetBinding(Switch.IsToggledProperty, "IsToggled");
-		    Switch.PropertyChanged += (sender, args) =>
+		    Switch.PropertyChanged += (_, _) =>
 		    {
 		        if (_currentValue != Switch.IsToggled)
 		        {
@@ -24,7 +24,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 		        }
 		    };
             StackLayoutView.Children.Add(Switch);
-            Tapped += (sender, args) =>
+            Tapped += (_, _) =>
             {
                 Switch.Focus();
                 Switch.IsToggled = !Switch.IsToggled; //Surenra's change

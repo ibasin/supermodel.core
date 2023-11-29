@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Domain.Entities;
 using Domain.Supermodel.Persistence;

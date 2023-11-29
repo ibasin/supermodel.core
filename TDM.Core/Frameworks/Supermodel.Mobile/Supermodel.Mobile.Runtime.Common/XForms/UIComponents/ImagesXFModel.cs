@@ -44,23 +44,23 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
                     Text = file.Title,
                     Placeholder = "Image Title",
                 };
-                cell.TextEntry.TextChanged += (sender, args) => { file.Title = cell.Text; };
+                cell.TextEntry.TextChanged += (_, _) => { file.Title = cell.Text; };
 
                 var deleteAction = new MenuItem { Text = "Delete", IsDestructive = true };
-                deleteAction.Clicked += (sender, e) => { ImageDeletedHandler(file, cell); };
+                deleteAction.Clicked += (_, _) => { ImageDeletedHandler(file, cell); };
                 cell.ContextActions.Add(deleteAction);
 
                 //This we do for Android -- otherwise the tap is not recognized
                 //This is instead of cell.Tapped += (sender, args) => { ImageTappedHandler(index); };
                 var tapGestureRecognizer = new TapGestureRecognizer();
-                tapGestureRecognizer.Tapped += (s, e) => { ImageTappedHandler(index); };
+                tapGestureRecognizer.Tapped += (_, _) => { ImageTappedHandler(index); };
                 cell.Image.GestureRecognizers.Add(tapGestureRecognizer);
 
                 Cells.Add(cell);
                 imageIndex++;
             }
             AddNewCell.ParentPage = parentPage;
-            AddNewCell.Tapped += (sender, args) => { AddNewTapped(); };
+            AddNewCell.Tapped += (_, _) => { AddNewTapped(); };
             Cells.Add(AddNewCell);
             return Cells;
         }
@@ -121,10 +121,10 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
                         Text = file.Title,
                         Placeholder = "Image Title",
                     };
-                    cell.TextEntry.TextChanged += (sender, args) => { file.Title = cell.Text; };
+                    cell.TextEntry.TextChanged += (_, _) => { file.Title = cell.Text; };
 
                     var deleteAction = new MenuItem { Text = "Delete", IsDestructive = true };
-                    deleteAction.Clicked += (sender, e) => { ImageDeletedHandler(file, cell); };
+                    deleteAction.Clicked += (_, _) => { ImageDeletedHandler(file, cell); };
                     cell.ContextActions.Add(deleteAction);
 
                     var tableView = (ViewWithActivityIndicator<TableView>)ParentPage.PropertyGet("DetailView");
@@ -135,7 +135,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
                     //This we do for Android -- otherwise the tap is not recognized
                     //This is instead of cell.Tapped += (sender, args) => { ImageTappedHandler(index); };
                     var tapGestureRecognizer = new TapGestureRecognizer();
-                    tapGestureRecognizer.Tapped += (s, e) => { ImageTappedHandler(index); };
+                    tapGestureRecognizer.Tapped += (_, _) => { ImageTappedHandler(index); };
                     cell.Image.GestureRecognizers.Add(tapGestureRecognizer);
 
                     section.Insert(index, cell);
@@ -218,7 +218,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
             if (!string.IsNullOrEmpty(CloseIconFileName)) button.ImageSource = new FileImageSource { File = CloseIconFileName };
             else button.Text = "✖";
 
-            button.Clicked += async (sender, args) =>
+            button.Clicked += async (_, _) =>
             {
                 await ParentPage.Navigation.PopModalAsync(true);
             };

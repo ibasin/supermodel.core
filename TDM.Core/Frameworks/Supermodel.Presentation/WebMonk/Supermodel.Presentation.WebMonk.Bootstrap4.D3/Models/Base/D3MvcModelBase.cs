@@ -43,7 +43,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models.Base
             var svgTagAttributesDict = new AttributesDict(DivTagAttributesAsDict);
 
             //If id is not already there, we use one from our property name
-            if (svgTagAttributesDict.ContainsKey("id")) svgId = svgTagAttributesDict["id"]!;
+            if (svgTagAttributesDict.TryGetValue("id", out var value)) svgId = value!;
             else svgTagAttributesDict["id"] = svgId;
 
             return new Tags 

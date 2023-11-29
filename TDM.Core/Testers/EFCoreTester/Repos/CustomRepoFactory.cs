@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using EFCoreTester.Entities;
+﻿using EFCoreTester.Entities;
 using Supermodel.Persistence.Entities;
 using Supermodel.Persistence.Repository;
 

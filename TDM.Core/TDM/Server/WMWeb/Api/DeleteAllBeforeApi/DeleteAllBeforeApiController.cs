@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Supermodel.Persistence.EFCore;
 using Supermodel.Persistence.Repository;

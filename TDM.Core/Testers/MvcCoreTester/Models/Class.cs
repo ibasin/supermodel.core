@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Supermodel.DataAnnotations.Attributes;
 using Supermodel.Persistence.Entities;
 using Supermodel.Presentation.Mvc.Bootstrap4.Models;

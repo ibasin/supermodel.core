@@ -11,7 +11,7 @@ namespace Supermodel.Mobile.Runtime.iOS.Services
             if (_player == null || !_player.Playing)
             {
                 _player = AVAudioPlayer.FromData(NSData.FromArray(wavSound));
-                _player.Play();
+                _player!.Play();
             }
         }
 

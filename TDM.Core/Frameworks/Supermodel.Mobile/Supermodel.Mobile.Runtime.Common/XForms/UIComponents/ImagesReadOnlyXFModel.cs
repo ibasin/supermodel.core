@@ -23,7 +23,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
                     ImageSource = ImageSource.FromStream(() => new MemoryStream(file.BinaryFile.BinaryContent)),
                     Text = file.Title
                 };
-                cell.Tapped += (sender, args) => { ImageTappedHandler(index);};
+                cell.Tapped += (_, _) => { ImageTappedHandler(index);};
                 cells.Add(cell);
                 imageIndex ++;
             }

@@ -44,7 +44,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels
             foreach (var childModel in childModels)
             {
                 DataTemplate dataTemplate;
-                if (onTappedAsync != null) dataTemplate = childModel.GetListCellDataTemplate(async (sender, args) => { await onTappedAsync(page, childModel); }, null);
+                if (onTappedAsync != null) dataTemplate = childModel.GetListCellDataTemplate(async (_, _) => { await onTappedAsync(page, childModel); }, null);
                 else dataTemplate = childModel.GetListCellDataTemplate(null, null);
 
                 var cell = dataTemplate.CreateContent() as Cell;
@@ -53,7 +53,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels
 
                 if (onTappedAsync != null)
                 {
-                    cell.Tapped += async (sender, args) =>
+                    cell.Tapped += async (_, _) =>
                     {
                         await onTappedAsync(page, childModel);
                     };
@@ -74,8 +74,8 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels
             {
                 //var dataTemplate = childModel.GetListCellDataTemplate(null);
 
-                var dataTemplate = childModel.GetListCellDataTemplate(onTappedAsync == null ? (EventHandler)null : async (sender, args) => { await onTappedAsync(page, childModel); }, 
-                                                                      async (sender, args) =>
+                var dataTemplate = childModel.GetListCellDataTemplate(onTappedAsync == null ? null : async (_, _) => { await onTappedAsync(page, childModel); }, 
+                                                                      async (sender, _) =>
                 {
                     bool connectionLost;
                     do
@@ -163,7 +163,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels
 
                 if (onTappedAsync != null)
                 {
-                    cell.Tapped += async (sender, args) =>
+                    cell.Tapped += async (_, _) =>
                     {
                         await onTappedAsync((Page)crudPage, childModel);
                     };

@@ -42,7 +42,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 			    FontSize = XFormsSettings.LabelFontSize,
 			    TextColor = XFormsSettings.ValueTextColor
             };
-		    Picker.PropertyChanged += (sender, args) =>
+		    Picker.PropertyChanged += (_, _) =>
 		    {
 		        if (_currentValue != Picker.SelectedIndex)
 		        {
@@ -52,11 +52,11 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 		    };
 
             StackLayoutView.Children.Add(Picker);
-			Tapped += (sender, args) => Picker.Focus();
+			Tapped += (_, _) => Picker.Focus();
 			Options.CollectionChanged += OptionsChangedHandler;
 			SelectedValue = "";
 
-		    Picker.SelectedIndexChanged += (source, args) => { UpdateTextColor(); };
+		    Picker.SelectedIndexChanged += (_, _) => { UpdateTextColor(); };
 		}
         #endregion
 
@@ -141,7 +141,7 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents
 
 	    protected int? SelectedIndex
 		{
-			get => Picker.SelectedIndex == -1 ? (int?)null : Picker.SelectedIndex;
+			get => Picker.SelectedIndex == -1 ? null : Picker.SelectedIndex;
 	        set
 			{
 			    _currentValue = value;
