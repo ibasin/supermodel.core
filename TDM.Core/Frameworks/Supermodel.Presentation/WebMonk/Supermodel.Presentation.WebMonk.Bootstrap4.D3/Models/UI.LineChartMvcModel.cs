@@ -34,30 +34,20 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
                 [Description("MONTH_YEAR")] MonthYear,
                 [Description("CUSTOM")] Custom,
             }
-            public class Datum
+            public class Datum(string topicName, string name, DateTime date, double value)
             {
-                #region Constructors
-                public Datum(string topicName, string name, DateTime date, double value)
-                {
-                    TopicName = topicName;
-                    Name = name;
-                    Date = date;
-                    Value = value;
-                }
-                #endregion
-        
                 #region Properties
-                [JsonProperty("topicName")] public string TopicName { get; }
-                [JsonProperty("name")] public string Name { get; }
-                [JsonProperty("date")] public DateTime Date { get; }
-                [JsonProperty("value")] public double Value { get; }
+                [JsonProperty("topicName")] public string TopicName { get; } = topicName;
+                [JsonProperty("name")] public string Name { get; } = name;
+                [JsonProperty("date")] public DateTime Date { get; } = date;
+                [JsonProperty("value")] public double Value { get; } = value;
+
                 #endregion
             }
-            private class FullDatum
+            private class FullDatum(List<Datum> data)
             {
-                public FullDatum(List<Datum> data) { Data = data; }
                 // ReSharper disable once MemberCanBePrivate.Local
-                [JsonProperty("data")] public List<Datum> Data { get; }
+                [JsonProperty("data")] public List<Datum> Data { get; } = data;
             }
             #endregion
             

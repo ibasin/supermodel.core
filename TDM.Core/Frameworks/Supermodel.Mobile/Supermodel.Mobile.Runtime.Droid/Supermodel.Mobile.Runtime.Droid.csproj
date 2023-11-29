@@ -72,10 +72,6 @@
       <Project>{E955F92E-87EE-40B9-B44D-8D4010CD2FC4}</Project>
       <Name>Supermodel.Encryptor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Supermodel.Mobile.Runtime.Common\Supermodel.Mobile.Runtime.Common.csproj">
-      <Project>{370FB0BD-1083-429B-A031-6EB2F7867009}</Project>
-      <Name>Supermodel.Mobile.Runtime.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="LICENSE.txt" />

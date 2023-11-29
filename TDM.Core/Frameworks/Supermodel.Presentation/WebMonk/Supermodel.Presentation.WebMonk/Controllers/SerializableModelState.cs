@@ -18,11 +18,9 @@ namespace Supermodel.Presentation.WebMonk.Controllers
                 public Dictionary<string, object> MessageBodyValueProviderDict { get; set; } = new();
                 #endregion
             }
-            protected class TmpValidationResult : ValidationResult
-            {
-                [JsonConstructor]
-                public TmpValidationResult(string errorMessage, IEnumerable<string> memberNames) : base(errorMessage, memberNames) { }
-            }
+
+            [method: JsonConstructor]
+            protected class TmpValidationResult(string errorMessage, IEnumerable<string> memberNames) : ValidationResult(errorMessage, memberNames);
             #endregion
             
             #region Constructors

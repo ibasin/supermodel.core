@@ -12,35 +12,24 @@ namespace Supermodel.Presentation.WebMonk.Extensions.Gateway
         #endregion
     }
     
-    public class SupermodelNamespaceTempDataDictionaryExtensions
+    public class SupermodelNamespaceTempDataDictionaryExtensions(TempDataDictionary tempData)
     {
-        #region Constructors
-        public SupermodelNamespaceTempDataDictionaryExtensions(TempDataDictionary tempData)
-        {
-            _tempData = tempData;
-        }
-        #endregion
-
         #region Methods/Properties
         public string? NextPageStartupScript
         {
-            get => (string?)_tempData["sm-startupScript"];
-            set => _tempData["sm-startupScript"] = value;
+            get => (string?)tempData["sm-startupScript"];
+            set => tempData["sm-startupScript"] = value;
         }
         public string? NextPageAlertMessage
         {
-            get => (string?)_tempData["sm-alertMessage"];
-            set => _tempData["sm-alertMessage"] = value;
+            get => (string?)tempData["sm-alertMessage"];
+            set => tempData["sm-alertMessage"] = value;
         }
         public string? NextPageModalMessage
         {
-            get => (string?)_tempData["sm-modalMessage"];
-            set => _tempData["sm-modalMessage"] = value;
+            get => (string?)tempData["sm-modalMessage"];
+            set => tempData["sm-modalMessage"] = value;
         }
-        #endregion
-
-        #region Fields
-        private readonly TempDataDictionary _tempData;
         #endregion
     }
 }

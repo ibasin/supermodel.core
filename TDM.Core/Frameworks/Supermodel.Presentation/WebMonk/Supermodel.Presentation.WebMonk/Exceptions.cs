@@ -2,13 +2,8 @@
 
 namespace Supermodel.Presentation.WebMonk
 {
-    public class ModelStateInvalidException : Exception
+    public class ModelStateInvalidException(object model) : Exception
     {
-        public ModelStateInvalidException(object model)
-        {
-            Model = model;
-        }
-
-        public object Model { get; protected set; }
+        public object Model { get; protected set; } = model;
     }
 }

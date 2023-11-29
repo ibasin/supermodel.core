@@ -104,7 +104,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Views
         protected virtual bool ReadOnly { get; } = false;
 
         //override this to get accordion
-        protected virtual List<Bs4.AccordionPanel>? GetAccordionPanels(TDetailMvcModel model)
+        protected virtual IEnumerable<Bs4.AccordionPanel>? GetAccordionPanels(TDetailMvcModel model)
         {
             return null; 
         }

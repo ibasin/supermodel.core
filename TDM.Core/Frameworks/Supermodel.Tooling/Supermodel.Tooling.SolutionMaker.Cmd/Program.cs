@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+#pragma warning disable CS0162 // Unreachable code detected
 
 namespace Supermodel.Tooling.SolutionMaker.Cmd
 {
@@ -13,28 +14,27 @@ namespace Supermodel.Tooling.SolutionMaker.Cmd
                 SolutionMaker.Version = "3.0.000 Beta1";
 
                 //*******Un-comment and run this once to refresh the solution zip
-                //Console.WriteLine($"v{SolutionMaker.Version}");
-                //Console.WriteLine();
+                Console.WriteLine($"v{SolutionMaker.Version}");
+                Console.WriteLine();
 
-                //Console.Write("Deleting XXYXX\\Frameworks directory... ");
-                //Directory.Delete(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks", true);
-                //Console.WriteLine("Done!");
+                Console.Write("Deleting XXYXX\\Frameworks directory... ");
+                Directory.Delete(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks", true);
+                Console.WriteLine("Done!");
 
-                //Console.Write("Copying Frameworks directory from TDM.Core to XXYXX... ");
-                //CopyDirectory(@"..\..\..\..\..\..\Frameworks", @"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks");
-                //Console.WriteLine("Done!");
+                Console.Write("Copying Frameworks directory from TDM.Core to XXYXX... ");
+                CopyDirectory(@"..\..\..\..\..\..\Frameworks", @"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks");
+                Console.WriteLine("Done!");
 
-                ////Adjust versions in XXYXX and in TDM
-                //File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
-                //File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
-                //Console.WriteLine("Version.txt files updated successfully!");
+                //Adjust versions in XXYXX and in TDM
+                File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
+                File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
+                Console.WriteLine("Version.txt files updated successfully!");
 
-                //SolutionMaker.CreateSnapshot(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX", @"..\..\..\");
-                //Console.WriteLine($"{SolutionMaker.ZipFileName} created successfully!");
+                SolutionMaker.CreateSnapshot(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX", @"..\..\..\");
+                Console.WriteLine($"{SolutionMaker.ZipFileName} created successfully!");
 
-                //return;
+                return;
                 //********Un-comment and run this once to refresh the solution zip
-
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Clear();
@@ -67,7 +67,7 @@ namespace Supermodel.Tooling.SolutionMaker.Cmd
                     Console.Write(" already exists.\nWould you like to replace it? (y/n): ");
                     
                     var input = Console.ReadLine();
-                    if (input == null) return;
+                    //if (input == null) return;
                     input = input.Trim().ToLower();
                     if (input != "y") return;
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -81,7 +81,7 @@ namespace Supermodel.Tooling.SolutionMaker.Cmd
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.Write($"Solution {solutionMakerParams.SolutionName} generated successfully! Open it now? (y/n): ");
                 var startSolution = Console.ReadLine();
-                if (startSolution != null && startSolution.Trim().ToLower() == "y") 
+                if (/*startSolution != null &&*/ startSolution.Trim().ToLower() == "y") 
                 {
                     new Process
                     {

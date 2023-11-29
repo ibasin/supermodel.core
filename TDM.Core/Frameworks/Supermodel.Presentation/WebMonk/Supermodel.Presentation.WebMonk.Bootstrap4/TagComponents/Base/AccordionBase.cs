@@ -11,7 +11,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.TagComponents.Base
         {
             return new Div(new { @class="card" })
             {
-                new Div(new { @class="card-header", id="heading_{panel.ElementId}" })
+                new Div(new { @class="card-header", id=$"heading_{panel.ElementId}" })
                 {
                     new H5(new { @class="mb-0" })
                     {

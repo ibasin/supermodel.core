@@ -10,9 +10,8 @@ namespace Supermodel.Presentation.Cmd.Models.Base
     public abstract class SingleSelectCmdModelUsingEnum<TEnum> : SingleSelectCmdModel where TEnum : struct, IConvertible
     {
         #region Nested Options class
-        public class EnumOption : Option
+        public class EnumOption(TEnum value, string label, bool isDisabled) : Option(value.ToString(CultureInfo.InvariantCulture), label, isDisabled)
         {
-            public EnumOption(TEnum value, string label, bool isDisabled) : base(value.ToString(CultureInfo.InvariantCulture), label, isDisabled) { }
             public EnumOption(TEnum value) : this(value, value.GetDescription(), value.IsDisabled()) { }
             public TEnum EnumValue => (TEnum)Enum.Parse(typeof(TEnum), Value);
         }

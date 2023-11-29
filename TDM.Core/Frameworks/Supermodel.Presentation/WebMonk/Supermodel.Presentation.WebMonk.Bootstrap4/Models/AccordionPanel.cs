@@ -2,22 +2,13 @@
 {
     public static partial class Bs4
     {
-        public class AccordionPanel 
+        public class AccordionPanel(string elementId, string title, int screenOrderFrom, int screenOrderTo, bool expanded)
         {
-            public AccordionPanel(string elementId, string title, int screenOrderFrom, int screenOrderTo, bool expanded)
-            {
-                ElementId = elementId;
-                Title = title;
-                ScreenOrderFrom = screenOrderFrom;
-                ScreenOrderTo = screenOrderTo;
-                Expanded = expanded;
-            }
-        
-            public string ElementId { get; }
-            public string Title { get; }
-            public int ScreenOrderFrom { get;}
-            public int ScreenOrderTo { get; }
-            public bool Expanded { get; }
+            public string ElementId { get; } = elementId;
+            public string Title { get; } = title;
+            public int ScreenOrderFrom { get;} = screenOrderFrom;
+            public int ScreenOrderTo { get; } = screenOrderTo;
+            public bool Expanded { get; } = expanded;
         }
     }
 }

@@ -11,7 +11,6 @@ namespace MvcCoreTester
 {
     public class Program
     {
-        //public static void Main(string[] args)
         public static async Task Main(string[] args)
         {
             if (Debugger.IsAttached || !await EFCoreUnitOfWorkContext.Database.CanConnectAsync())
@@ -26,10 +25,10 @@ namespace MvcCoreTester
                 Console.WriteLine("Done!");
             }
 
-            Host.CreateDefaultBuilder(args)
+            await Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
                 .Build()
-                .Run();
+                .RunAsync();
         }
     }
 }

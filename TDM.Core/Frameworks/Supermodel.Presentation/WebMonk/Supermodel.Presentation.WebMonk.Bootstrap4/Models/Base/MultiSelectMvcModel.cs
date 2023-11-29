@@ -19,19 +19,12 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base
     public abstract class MultiSelectMvcModel : IComparable, ISelfModelBinder, IEditorTemplate, IDisplayTemplate, IHiddenTemplate
     {
         #region Nested Option class
-        public class Option
+        public class Option(string value, string label, bool isDisabled, bool selected = false)
         {
-            public Option(string value, string label, bool isDisabled, bool selected = false)
-            {
-                Value = value;
-                Label = label;
-                IsDisabled = isDisabled;
-                Selected = selected;
-            }
-            public string Value { get; private set; }
-            public string Label { get; private set; }
-            public bool IsDisabled { get; private set; }
-            public bool Selected { get; set; }
+            public string Value { get; private set; } = value;
+            public string Label { get; private set; } = label;
+            public bool IsDisabled { get; private set; } = isDisabled;
+            public bool Selected { get; set; } = selected;
             public bool IsShown => Selected || !IsDisabled;
         }
         #endregion 

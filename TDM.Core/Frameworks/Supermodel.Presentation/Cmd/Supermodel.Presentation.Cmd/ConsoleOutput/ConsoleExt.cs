@@ -8,24 +8,19 @@ namespace Supermodel.Presentation.Cmd.ConsoleOutput
     public static class ConsoleExt
     {
         #region EmbeddedTypes
-        public class SelectListItem
+        public class SelectListItem(string value, string label)
         {
             #region Constructors
-            public SelectListItem(string value, string label)
+
+            public SelectListItem(string value) : this(value, value)
             {
-                Value = value;
-                Label = label;
-            }
-            public SelectListItem(string value)
-            {
-                Value = value;
-                Label = value;
             }
             #endregion
 
             #region Properties
-            public string Value { get; }
-            public string Label { get; }
+            public string Value { get; } = value;
+            public string Label { get; } = label;
+
             #endregion
 
             #region Static constants

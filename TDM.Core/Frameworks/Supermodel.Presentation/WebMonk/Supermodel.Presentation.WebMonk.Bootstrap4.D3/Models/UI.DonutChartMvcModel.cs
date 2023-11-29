@@ -11,21 +11,13 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
         public class DonutChartMvcModel : BrightChartsD3MvcModelBase
         {
             #region Embedded Types
-            public class Datum
+            public class Datum(long id, string name, double quantity)
             {
-                #region Constructors
-                public Datum(long id, string name, double quantity)
-                {
-                    Id = id;
-                    Name = name; 
-                    Quantity = quantity;
-                }
-                #endregion
-        
                 #region Properties
-                [JsonProperty("id")] public long Id { get; }
-                [JsonProperty("name")] public string Name { get; }
-                [JsonProperty("quantity")] public double Quantity { get; }
+                [JsonProperty("id")] public long Id { get; } = id;
+                [JsonProperty("name")] public string Name { get; } = name;
+                [JsonProperty("quantity")] public double Quantity { get; } = quantity;
+
                 #endregion
             }
             #endregion

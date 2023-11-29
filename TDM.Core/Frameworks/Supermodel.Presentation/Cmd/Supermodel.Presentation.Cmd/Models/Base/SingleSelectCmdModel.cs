@@ -8,17 +8,11 @@ namespace Supermodel.Presentation.Cmd.Models.Base
     public abstract class SingleSelectCmdModel : UIComponentBase
     {
         #region Option nested class
-        public class Option
+        public class Option(string value, string label, bool isDisabled = false)
         {
-            public Option(string value, string label, bool isDisabled = false)
-            {
-                Value = value;
-                Label = label;
-                IsDisabled = isDisabled;
-            }
-            public string Value { get; }
-            public string Label { get; }
-            public bool IsDisabled { get; }
+            public string Value { get; } = value;
+            public string Label { get; } = label;
+            public bool IsDisabled { get; } = isDisabled;
         }
         public List<Option> Options { get; protected set; } = new();
         #endregion

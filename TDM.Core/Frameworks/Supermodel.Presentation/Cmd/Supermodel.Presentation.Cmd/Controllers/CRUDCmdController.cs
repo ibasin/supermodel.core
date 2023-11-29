@@ -19,15 +19,12 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Presentation.Cmd.Controllers
 {
-    public class CRUDCmdController<TEntity, TCmdModel, TDataContext> : CRUDCmdController<TEntity, TCmdModel, TCmdModel, TDataContext>
+    public class CRUDCmdController<TEntity, TCmdModel, TDataContext>
+        (string detailTitle, string? listTitle = null) : CRUDCmdController<TEntity, TCmdModel, TCmdModel, TDataContext>(
+            detailTitle, listTitle)
         where TEntity : class, IEntity, new()
         where TCmdModel : CmdModelForEntity<TEntity>, new()
-        where TDataContext : class, IDataContext, new()
-    { 
-        #region Constructors
-        public CRUDCmdController(string detailTitle, string? listTitle = null) : base(detailTitle, listTitle) { }
-        #endregion
-    }
+        where TDataContext : class, IDataContext, new();
 
     public class CRUDCmdController<TEntity, TDetailMvcModel, TListMvcModel, TDataContext>
         where TEntity : class, IEntity, new()

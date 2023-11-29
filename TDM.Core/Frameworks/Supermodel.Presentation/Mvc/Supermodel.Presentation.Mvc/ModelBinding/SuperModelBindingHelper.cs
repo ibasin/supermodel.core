@@ -59,7 +59,8 @@ namespace Supermodel.Presentation.Mvc.ModelBinding
                     valueProvider,
                     objectModelValidator,
                     // Includes everything by default.
-                    propertyFilter: (m) => true);
+                    // ReSharper disable once UnusedParameter.Local
+                    propertyFilter: m => true);
             }
 
             /// <summary>
@@ -188,7 +189,8 @@ namespace Supermodel.Presentation.Mvc.ModelBinding
                     valueProvider,
                     objectModelValidator,
                     // Includes everything by default.
-                    propertyFilter: (m) => true);
+                    // ReSharper disable once UnusedParameter.Local
+                    propertyFilter: m => true);
             }
 
             /// <summary>

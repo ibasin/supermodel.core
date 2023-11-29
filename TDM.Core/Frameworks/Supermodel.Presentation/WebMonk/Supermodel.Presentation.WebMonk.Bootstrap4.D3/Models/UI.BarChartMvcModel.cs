@@ -11,19 +11,12 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
         public class BarChartMvcModel : BrightChartsD3MvcModelBase
         {
             #region Embedded Types
-            public class Datum
+            public class Datum(string name, double value)
             {
-                #region Constructors
-                public Datum(string name, double value)
-                {
-                    Name = name;
-                    Value = value;
-                }
-                #endregion
-        
                 #region Properties
-                [JsonProperty("name")] public string Name { get; }
-                [JsonProperty("value")] public double Value { get; }
+                [JsonProperty("name")] public string Name { get; } = name;
+                [JsonProperty("value")] public double Value { get; } = value;
+
                 #endregion
             }
             #endregion

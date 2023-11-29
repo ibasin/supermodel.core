@@ -2,14 +2,10 @@
 
 namespace Supermodel.Presentation.Cmd.ConsoleOutput
 {
-    public readonly struct FBColors
+    public readonly struct FBColors(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor = null)
     {
         #region Constructors
-        public FBColors(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor = null)
-        {
-            ForegroundColor = foregroundColor;
-            BackgroundColor = backgroundColor;
-        }
+
         public static FBColors FromCurrent()
         {
             return new FBColors(Console.ForegroundColor, Console.BackgroundColor);
@@ -52,8 +48,9 @@ namespace Supermodel.Presentation.Cmd.ConsoleOutput
         #endregion
 
         #region Properties
-        public ConsoleColor? ForegroundColor { get; }
-        public ConsoleColor? BackgroundColor { get; }
+        public ConsoleColor? ForegroundColor { get; } = foregroundColor;
+        public ConsoleColor? BackgroundColor { get; } = backgroundColor;
+
         #endregion
     }
 }
