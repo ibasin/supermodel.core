@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Presentation.WebMonk.Models.Api
+﻿namespace Supermodel.Presentation.WebMonk.Models.Api;
+
+public class ValidateLoginResponseApiModel
 {
-    public class ValidateLoginResponseApiModel
-    {
-        public long? UserId { get; set; }
-        public string? UserLabel { get; set; }
-    }
+    public long? UserId { get; set; }
+    public string? UserLabel { get; set; }
 }

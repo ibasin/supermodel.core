@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Supermodel.Tooling.SolutionMaker
+namespace Supermodel.Tooling.SolutionMaker;
+
+public class CreatorException : Exception
 {
-    public class CreatorException : Exception
-    {
-        public CreatorException(string msg) : base(msg) { }
-    }
+    public CreatorException(string msg) : base(msg) { }
 }

@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Presentation.WebMonk.Models.Mvc
+﻿namespace Supermodel.Presentation.WebMonk.Models.Mvc;
+
+public interface IMvcModelForEntity : IViewModelForEntity, IMvcModel
 {
-    public interface IMvcModelForEntity : IViewModelForEntity, IMvcModel
-    {
-        string Label { get; }
-        bool IsDisabled { get; }
-    }
+    string Label { get; }
+    bool IsDisabled { get; }
 }

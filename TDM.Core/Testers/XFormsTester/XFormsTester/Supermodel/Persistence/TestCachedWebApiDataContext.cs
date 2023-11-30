@@ -1,6 +1,5 @@
-﻿namespace XFormsTester.Supermodel.Persistence
+﻿namespace XFormsTester.Supermodel.Persistence;
+
+class TestCachedWebApiDataContext
 {
-    class TestCachedWebApiDataContext
-    {
-    }
 }

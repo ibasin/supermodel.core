@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Supermodel.Presentation.WebMonk
+namespace Supermodel.Presentation.WebMonk;
+
+public class ModelStateInvalidException(object model) : Exception
 {
-    public class ModelStateInvalidException(object model) : Exception
-    {
-        public object Model { get; protected set; } = model;
-    }
+    public object Model { get; protected set; } = model;
 }

@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using WebMonk.ValueProviders;
 
-namespace WebMonk.Context
+namespace WebMonk.Context;
+
+public interface IValueProviderManager
 {
-    public interface IValueProviderManager
-    {
-        Task<List<IValueProvider>> GetValueProvidersListAsync();
-        List<IValueProvider>? GetCachedValueProvidersList();
-    }
+    Task<List<IValueProvider>> GetValueProvidersListAsync();
+    List<IValueProvider>? GetCachedValueProvidersList();
 }

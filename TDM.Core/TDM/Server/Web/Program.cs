@@ -7,32 +7,31 @@ using Microsoft.Extensions.Hosting;
 using Supermodel.Persistence.EFCore;
 using Supermodel.Persistence.UnitOfWork;
 
-namespace Web
-{
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            if (Debugger.IsAttached || !await EFCoreUnitOfWorkContext.Database.CanConnectAsync())
-            {
-                Console.Write("Recreating the database... ");
-                await using (new UnitOfWork<DataContext>())
-                {
-                    await EFCoreUnitOfWorkContext.Database.EnsureDeletedAsync();
-                    await EFCoreUnitOfWorkContext.Database.EnsureCreatedAsync();
-                    await UnitOfWorkContext.SeedDataAsync();
-                }
-                Console.WriteLine("Done!");
-            }
+namespace Web;
 
-            await CreateHostBuilder(args).Build().RunAsync();
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        if (Debugger.IsAttached || !await EFCoreUnitOfWorkContext.Database.CanConnectAsync())
+        {
+            Console.Write("Recreating the database... ");
+            await using (new UnitOfWork<DataContext>())
+            {
+                await EFCoreUnitOfWorkContext.Database.EnsureDeletedAsync();
+                await EFCoreUnitOfWorkContext.Database.EnsureCreatedAsync();
+                await UnitOfWorkContext.SeedDataAsync();
+            }
+            Console.WriteLine("Done!");
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        await CreateHostBuilder(args).Build().RunAsync();
     }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 }

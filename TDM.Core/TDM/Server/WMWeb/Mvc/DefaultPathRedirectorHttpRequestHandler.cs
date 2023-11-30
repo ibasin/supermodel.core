@@ -1,9 +1,8 @@
 ﻿using WebMonk.HttpRequestHandlers;
 
-namespace WMWeb.Mvc
+namespace WMWeb.Mvc;
+
+public class DefaultPathRedirectorHttpRequestHandler : DefaultPathRedirectorHttpRequestHandlerBase
 {
-    public class DefaultPathRedirectorHttpRequestHandler : DefaultPathRedirectorHttpRequestHandlerBase
-    {
-        public DefaultPathRedirectorHttpRequestHandler() : base("/Home/Index") { }
-    }
+    public DefaultPathRedirectorHttpRequestHandler() : base("/Home/Index") { }
 }

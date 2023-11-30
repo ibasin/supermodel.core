@@ -1,9 +1,8 @@
 ﻿using WebMonk.HttpRequestHandlers;
 
-namespace WebMonkTester.DefaultPath
+namespace WebMonkTester.DefaultPath;
+
+public class DefaultPathRedirector : DefaultPathRedirectorHttpRequestHandlerBase
 {
-    public class DefaultPathRedirector : DefaultPathRedirectorHttpRequestHandlerBase
-    {
-        public DefaultPathRedirector() : base("/Student/RedirectToDetail") { }
-    }
+    public DefaultPathRedirector() : base("/Student/RedirectToDetail") { }
 }

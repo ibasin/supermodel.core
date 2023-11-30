@@ -1,6 +1,5 @@
 ﻿using System;
 
-namespace Supermodel.DataAnnotations.Attributes
-{
-    public class SkipForEditAttribute : Attribute { }
-}
+namespace Supermodel.DataAnnotations.Attributes;
+
+public class SkipForEditAttribute : Attribute { }

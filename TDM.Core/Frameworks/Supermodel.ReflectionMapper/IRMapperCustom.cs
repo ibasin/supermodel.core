@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 
-namespace Supermodel.ReflectionMapper
+namespace Supermodel.ReflectionMapper;
+
+public interface IRMapperCustom
 {
-    public interface IRMapperCustom
-    {
-        #nullable  disable
-        Task MapFromCustomAsync<T>(T other);
-        Task<T> MapToCustomAsync<T>(T other);
-    }
+#nullable  disable
+    Task MapFromCustomAsync<T>(T other);
+    Task<T> MapToCustomAsync<T>(T other);
 }

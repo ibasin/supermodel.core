@@ -14,75 +14,74 @@ using Supermodel.Persistence.Repository;
 using Supermodel.Persistence.UnitOfWork;
 using Supermodel.Presentation.Mvc.Auth;
 
-namespace Web.Supermodel.Auth
+namespace Web.Supermodel.Auth;
+
+public class ApiSecureAuthenticationHandler: SupermodelApiAuthenticationHandlerBase
 {
-    public class ApiSecureAuthenticationHandler: SupermodelApiAuthenticationHandlerBase
+    #region Shared Constants
+    public static readonly byte[] Key = { 0xAA, 0x68, 0x12, 0xB1, 0x35, 0x22, 0x51, 0xA0, 0xB2, 0x41, 0x27, 0x5C, 0x23, 0x9C, 0xF0, 0xDD };
+    public static readonly string HeaderName = "X-TDM-Authorization";
+    // ReSharper disable StringLiteralTypo
+    public static readonly string SecretToken = "[SECRET_TOKEN]";
+    // ReSharper restore StringLiteralTypo
+    #endregion
+
+    #region Constructors
+    public ApiSecureAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder) : base(options, logger, encoder){}
+    #endregion
+
+    #region Overrides
+    protected override Task<List<Claim>> AuthenticateBasicAndGetClaimsAsync(string username, string password)
     {
-        #region Shared Constants
-        public static readonly byte[] Key = { 0xAA, 0x68, 0x12, 0xB1, 0x35, 0x22, 0x51, 0xA0, 0xB2, 0x41, 0x27, 0x5C, 0x23, 0x9C, 0xF0, 0xDD };
-        public static readonly string HeaderName = "X-TDM-Authorization";
-        // ReSharper disable StringLiteralTypo
-        public static readonly string SecretToken = "[SECRET_TOKEN]";
-        // ReSharper restore StringLiteralTypo
-        #endregion
+        throw new InvalidOperationException(); 
+    }
+    protected override async Task<List<Claim>> AuthenticateEncryptedAndGetClaimsAsync(string[] args)
+    {
+        if (args.Length != 4) return new List<Claim>();
 
-        #region Constructors
-        public ApiSecureAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder) : base(options, logger, encoder){}
-        #endregion
-
-        #region Overrides
-        protected override Task<List<Claim>> AuthenticateBasicAndGetClaimsAsync(string username, string password)
+        await using (new UnitOfWork<DataContext>(ReadOnly.Yes))
         {
-            throw new InvalidOperationException(); 
-        }
-        protected override async Task<List<Claim>> AuthenticateEncryptedAndGetClaimsAsync(string[] args)
-        {
-            if (args.Length != 4) return new List<Claim>();
+            var utcNow = DateTime.UtcNow;
 
-            await using (new UnitOfWork<DataContext>(ReadOnly.Yes))
+            var username = args[0];
+            var password = args[1];
+            var secretTokenHash = args[2];
+            var secretTokenHashSalt = args[3];
+
+            var repo = LinqRepoFactory.Create<TDMUser>();
+            var lowerCaseUsername =  username.ToLower();
+            var user = repo.Items.SingleOrDefault(u => u.Username.ToLower() == lowerCaseUsername);
+
+            var secretTokenValid = false;
+
+            if (user != null && !string.IsNullOrEmpty(user.Username))
             {
-                var utcNow = DateTime.UtcNow;
+                var dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow.AddMinutes(-5));
+                if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
 
-                var username = args[0];
-                var password = args[1];
-                var secretTokenHash = args[2];
-                var secretTokenHashSalt = args[3];
+                dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow);
+                if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
 
-                var repo = LinqRepoFactory.Create<TDMUser>();
-                var lowerCaseUsername =  username.ToLower();
-                var user = repo.Items.SingleOrDefault(u => u.Username.ToLower() == lowerCaseUsername);
+                dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow.AddMinutes(5));
+                if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
+            }
 
-                var secretTokenValid = false;
-
-                if (user != null && !string.IsNullOrEmpty(user.Username))
-                {
-                    var dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow.AddMinutes(-5));
-                    if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
-
-                    dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow);
-                    if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
-
-                    dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow.AddMinutes(5));
-                    if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
-                }
-
-                if (user != null && user.PasswordEquals(password) && secretTokenValid)
-                {
-                    var claims = AuthClaimsHelper.CreateNewClaimsListWithIdAndLabel(user.Id, $"{user.FirstName} {user.LastName}");
-                    //claims.Add(new Claim(ClaimTypes.Role, "Adder", ClaimValueTypes.String));
-                    return claims;
-                }
-                else
-                {
-                    return new List<Claim>();
-                }
+            if (user != null && user.PasswordEquals(password) && secretTokenValid)
+            {
+                var claims = AuthClaimsHelper.CreateNewClaimsListWithIdAndLabel(user.Id, $"{user.FirstName} {user.LastName}");
+                //claims.Add(new Claim(ClaimTypes.Role, "Adder", ClaimValueTypes.String));
+                return claims;
+            }
+            else
+            {
+                return new List<Claim>();
             }
         }
-        #endregion
-
-        #region Properties
-        protected override byte[] EncryptionKey => Key;
-        protected override string AuthHeaderName => HeaderName;
-        #endregion
     }
+    #endregion
+
+    #region Properties
+    protected override byte[] EncryptionKey => Key;
+    protected override string AuthHeaderName => HeaderName;
+    #endregion
 }

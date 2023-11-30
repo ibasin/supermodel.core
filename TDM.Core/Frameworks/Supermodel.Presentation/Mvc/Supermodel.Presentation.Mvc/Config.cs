@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Presentation.Mvc
+﻿namespace Supermodel.Presentation.Mvc;
+
+public static class Config
 {
-    public static class Config
-    {
-        public static string InlinePrefix { get; set; } = "smInline";
-        public static string ModelState { get; set; } = "ModelState";
-    }
+    public static string InlinePrefix { get; set; } = "smInline";
+    public static string ModelState { get; set; } = "ModelState";
 }

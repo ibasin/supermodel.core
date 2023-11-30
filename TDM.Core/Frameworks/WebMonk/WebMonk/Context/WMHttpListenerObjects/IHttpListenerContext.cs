@@ -1,10 +1,9 @@
 ﻿#nullable disable
 
-namespace WebMonk.Context.WMHttpListenerObjects
+namespace WebMonk.Context.WMHttpListenerObjects;
+
+public interface IHttpListenerContext
 {
-    public interface IHttpListenerContext
-    {
-         IHttpListenerRequest Request { get; }
-         IHttpListenerResponse Response { get; }
-    }
+    IHttpListenerRequest Request { get; }
+    IHttpListenerResponse Response { get; }
 }

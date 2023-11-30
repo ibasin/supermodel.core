@@ -7,334 +7,332 @@ using Supermodel.DataAnnotations.Misc;
 using WebMonk.RazorSharp.Exceptions;
 using WebMonk.RazorSharp.Extensions;
 
-namespace WebMonk.RazorSharp.HtmlTags.BaseTags
+namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
+
+public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
 {
-    public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
+    #region Constructors
+    public Tag(string? name, object? attributes = null)
     {
-        #region Constructors
-        public Tag(string? name, object? attributes = null)
+        Name = name;
+        Attributes = AttributesDict.AnonymousObjectToAttributesDict(attributes ?? new AttributesDict());
+    }
+    #endregion
+
+    #region Overrides
+    public virtual StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
+    {
+        sb ??= new StringBuilderWithIndents();
+
+        if (ContainsInnerHtml())
         {
-            Name = name;
-            Attributes = AttributesDict.AnonymousObjectToAttributesDict(attributes ?? new AttributesDict());
+            sb.AppendLineIndentPlus($"<{Name}{GenerateMyAttributesString()}>");
+            foreach (var tag in this) sb = tag.ToHtml(sb);
+            sb.AppendLineIndentMinus($"</{Name}>");
         }
-        #endregion
-
-        #region Overrides
-        public virtual StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
+        else
         {
-            sb ??= new StringBuilderWithIndents();
+            sb.AppendLine($"<{Name}{GenerateMyAttributesString()}></{Name}>");
+        }
 
-            if (ContainsInnerHtml())
+        return sb;
+    }
+    public override string ToString()
+    {
+        return ToHtml().ToString().Trim();
+    }
+    #endregion
+
+    #region Linq-like methods
+    public virtual int CountWhere(Func<Tag, bool> predicate)
+    {
+        return GetTagsInOrder().Count(predicate);
+    }
+    public virtual IEnumerable<Tag> Where(Func<Tag, bool> predicate)
+    {
+        return GetTagsInOrder().Where(predicate);
+    }
+
+    public virtual Tag SingleWhere(Func<Tag, bool> predicate)
+    {
+        return GetTagsInOrder().Single(predicate);
+    }
+    public virtual Tag? SingleOrDefaultWhere(Func<Tag, bool> predicate)
+    {
+        return GetTagsInOrder().SingleOrDefault(predicate);
+    }
+
+    public virtual Tag FirstWhere(Func<Tag, bool> predicate)
+    {
+        return GetTagsInOrder().First(predicate);
+    }
+    public virtual Tag? FirstOrDefaultWhere(Func<Tag, bool> predicate)
+    {
+        return GetTagsInOrder().FirstOrDefault(predicate);
+    }
+
+    public virtual bool AnyWhere(Func<Tag, bool> predicate)
+    {
+        return GetTagsInOrder().Any(predicate);
+    }
+    public virtual bool AllWhere(Func<Tag, bool> predicate)
+    {
+        return GetTagsInOrder().All(predicate);
+    }
+
+    public virtual int RemoveWhere(Func<Tag, bool> predicate)
+    {
+        var removalCount = 0;
+        var remainingChildren = new List<IGenerateHtml>();
+
+        foreach (var iGenerateHtml in this)
+        {
+            if (iGenerateHtml is Tag tag)
             {
-                sb.AppendLineIndentPlus($"<{Name}{GenerateMyAttributesString()}>");
-                foreach (var tag in this) sb = tag.ToHtml(sb);
-                sb.AppendLineIndentMinus($"</{Name}>");
+                if (predicate(tag)) removalCount++;
+                else remainingChildren.Add(iGenerateHtml);
             }
             else
             {
-                sb.AppendLine($"<{Name}{GenerateMyAttributesString()}></{Name}>");
+                remainingChildren.Add(iGenerateHtml);
             }
-
-            return sb;
-        }
-        public override string ToString()
-        {
-            return ToHtml().ToString().Trim();
-        }
-        #endregion
-
-        #region Linq-like methods
-        public virtual int CountWhere(Func<Tag, bool> predicate)
-        {
-            return GetTagsInOrder().Count(predicate);
-        }
-        public virtual IEnumerable<Tag> Where(Func<Tag, bool> predicate)
-        {
-            return GetTagsInOrder().Where(predicate);
         }
 
-        public virtual Tag SingleWhere(Func<Tag, bool> predicate)
+        foreach (var remainingChild in remainingChildren)
         {
-            return GetTagsInOrder().Single(predicate);
-        }
-        public virtual Tag? SingleOrDefaultWhere(Func<Tag, bool> predicate)
-        {
-            return GetTagsInOrder().SingleOrDefault(predicate);
+            removalCount += remainingChild.RemoveWhere(predicate);
         }
 
-        public virtual Tag FirstWhere(Func<Tag, bool> predicate)
-        {
-            return GetTagsInOrder().First(predicate);
-        }
-        public virtual Tag? FirstOrDefaultWhere(Func<Tag, bool> predicate)
-        {
-            return GetTagsInOrder().FirstOrDefault(predicate);
-        }
+        Clear();
+        AddRange(remainingChildren);
 
-        public virtual bool AnyWhere(Func<Tag, bool> predicate)
-        {
-            return GetTagsInOrder().Any(predicate);
-        }
-        public virtual bool AllWhere(Func<Tag, bool> predicate)
-        {
-            return GetTagsInOrder().All(predicate);
-        }
+        return removalCount;
+    }
+    public virtual int RemoveFirstWhere(Func<Tag, bool> predicate)
+    {
+        var removalCount = 0;
+        var remainingChildren = new List<IGenerateHtml>();
 
-        public virtual int RemoveWhere(Func<Tag, bool> predicate)
+        foreach (var iGenerateHtml in this)
         {
-            var removalCount = 0;
-            var remainingChildren = new List<IGenerateHtml>();
-
-            foreach (var iGenerateHtml in this)
+            if (iGenerateHtml is Tag tag)
             {
-                if (iGenerateHtml is Tag tag)
-                {
-                    if (predicate(tag)) removalCount++;
-                    else remainingChildren.Add(iGenerateHtml);
-                }
-                else
-                {
-                    remainingChildren.Add(iGenerateHtml);
-                }
+                if (predicate(tag) && removalCount == 0) removalCount++;
+                else remainingChildren.Add(iGenerateHtml);
             }
+            else
+            {
+                remainingChildren.Add(iGenerateHtml);
+            }
+        }
 
+        if (removalCount == 0)
+        {
             foreach (var remainingChild in remainingChildren)
             {
-                removalCount += remainingChild.RemoveWhere(predicate);
+                removalCount += remainingChild.RemoveFirstWhere(predicate);
+                if (removalCount > 0) break;
             }
-
-            Clear();
-            AddRange(remainingChildren);
-
-            return removalCount;
-        }
-        public virtual int RemoveFirstWhere(Func<Tag, bool> predicate)
-        {
-            var removalCount = 0;
-            var remainingChildren = new List<IGenerateHtml>();
-
-            foreach (var iGenerateHtml in this)
-            {
-                if (iGenerateHtml is Tag tag)
-                {
-                    if (predicate(tag) && removalCount == 0) removalCount++;
-                    else remainingChildren.Add(iGenerateHtml);
-                }
-                else
-                {
-                    remainingChildren.Add(iGenerateHtml);
-                }
-            }
-
-            if (removalCount == 0)
-            {
-                foreach (var remainingChild in remainingChildren)
-                {
-                    removalCount += remainingChild.RemoveFirstWhere(predicate);
-                    if (removalCount > 0) break;
-                }
-            }
-
-            Clear();
-            AddRange(remainingChildren);
-
-            return removalCount;
         }
 
-        public virtual int InsertBeforeWhere(Func<Tag, bool> predicate, IGenerateHtml tags)
-        {
-            var insertCount = 0;
+        Clear();
+        AddRange(remainingChildren);
 
-            for (var i = 0; i < Count; i++)
-            {
-                var iGenerateHtml = this[i];
-                if (iGenerateHtml is Tag tag && predicate(tag))
-                {
-                    Insert(i, tags);
-                    i++;
-                    insertCount++;
-                }
-            }
-
-            foreach (var child in this)
-            {
-                insertCount += child.InsertBeforeWhere(predicate, tags);
-            }
-
-            return insertCount;
-        }
-        public virtual int InsertAfterWhere(Func<Tag, bool> predicate, IGenerateHtml tags)
-        {
-            var insertCount = 0;
-
-            for (var i = 0; i < Count; i++)
-            {
-                var iGenerateHtml = this[i];
-                if (iGenerateHtml is Tag tag && predicate(tag))
-                {
-                    Insert(i + 1, tags);
-                    i++;
-                    insertCount++;
-                }
-            }
-
-            foreach (var child in this)
-            {
-                insertCount += child.InsertAfterWhere(predicate, tags);
-            }
-
-            return insertCount;
-        }
-
-        public virtual int InsertBeforeFirstWhere(Func<Tag, bool> predicate, IGenerateHtml tags)
-        {
-            var insertCount = 0;
-
-            for (var i = 0; i < Count; i++)
-            {
-                var iGenerateHtml = this[i];
-                if (iGenerateHtml is Tag tag && predicate(tag))
-                {
-                    Insert(i, tags);
-                    insertCount++;
-                    return insertCount; //1
-                }
-            }
-
-            foreach (var child in this)
-            {
-                insertCount += child.InsertBeforeFirstWhere(predicate, tags);
-                if (insertCount > 0) return insertCount; //1
-            }
-
-            return insertCount; //0
-        }
-        public virtual int InsertAfterFirstWhere(Func<Tag, bool> predicate, IGenerateHtml tags)
-        {
-            var insertCount = 0;
-
-            for (var i = 0; i < Count; i++)
-            {
-                var iGenerateHtml = this[i];
-                if (iGenerateHtml is Tag tag && predicate(tag))
-                {
-                    Insert(i + 1, tags);
-                    insertCount++;
-                    return insertCount; //1
-                }
-            }
-
-            foreach (var child in this)
-            {
-                insertCount += child.InsertBeforeFirstWhere(predicate, tags);
-                if (insertCount > 0) return insertCount; //1
-            }
-
-            return insertCount; //0
-        }
-        #endregion
-
-        #region Methods
-        public Tag AddOrUpdateAttr(object? additionalAttributes)
-        {
-            if (additionalAttributes == null) return this;
-            var additionalAttributesDict = AttributesDict.AnonymousObjectToAttributesDict(additionalAttributes);
-            foreach (var key in additionalAttributesDict.Keys)
-            {
-                Attributes[key] = additionalAttributesDict[key];
-            }
-            return this;
-        }
-
-        //if updating the next two methods, update the same methods in HtmlAttrAttribute class
-        public string GenerateMyAttributesString()
-        {
-            if (Attributes.All(x => x.Value == null)) return "";
-            var sb = new StringBuilder(" ");
-            foreach (var pair in Attributes.Where(x => x.Value != null))
-            {
-                sb.Append($"{pair.Key.Replace("_", "-").HtmlEncode().Trim()}=\"{pair.Value?.HtmlAttributeEncode().Trim()}\" ");
-            }
-            return $" {sb.ToString().Trim()}";
-        }
-
-        public IGenerateHtml FillBodySectionWith(IGenerateHtml replacement)
-        {
-            FillSectionWith(BodySectionPlaceholder.BodySection, replacement);
-            return this;
-        }
-        public IGenerateHtml FillSectionWith(string sectionId, IGenerateHtml replacement)
-        {
-            if (!TryFillSectionWith(sectionId, replacement)) throw new RazorSharpException($"Unable to find placeholder with uniqueIdentifier = '{sectionId}'");
-            return this;
-        }
-        public bool TryFillSectionWith(string sectionId, IGenerateHtml replacement)
-        {
-            for(var i = 0; i < Count; i++)
-            {
-                if (this[i] is SectionPlaceholder placeholder)
-                {
-                    if (placeholder.UniqueIdentifier == sectionId)
-                    {
-                        this[i] = replacement;
-                        return true;
-                    }
-                }
-                if (this[i].TryFillSectionWith(sectionId, replacement)) return true;
-            }
-            return false;
-        }
-
-        public IGenerateHtml DisableAllControls()
-        {
-            if (Name == "fieldset" || Name == "input" || Name == "textarea" || Name == "select") AddOrUpdateAttr(new { disabled = "disabled" });
-            foreach (var html in this) html.DisableAllControls();
-            return this;
-        }
-        public IGenerateHtml DisableAllControlsIf(bool condition)
-        {
-           if (condition) DisableAllControls();
-           return this;
-        }
-        public bool ContainsInnerHtml()
-        {
-            return Count > 0;
-        }
-        
-        public virtual IEnumerable<Tag> GetTagsInOrder()
-        {
-            var tagsList = new List<Tag> { this };
-            tagsList.AddRange(this.SelectMany(x => x.GetTagsInOrder()));
-            return tagsList;
-        }
-        public virtual List<Tag> NormalizeAndFlatten()
-        {
-            var childrenList = new List<Tag>();
-            foreach (var iGenerateHtml in this)
-            {
-                if (iGenerateHtml is Tag tag)
-                {
-                    tag.NormalizeAndFlatten();
-                    childrenList.Add(tag);
-                }
-                else 
-                {
-                    childrenList.AddRange(iGenerateHtml.NormalizeAndFlatten());
-                }
-            }
-
-            Clear();
-            AddRange(childrenList);
-
-            return new List<Tag> { this };
-        }
-        #endregion
-
-        #region Properties
-        public string? Name { get; set; }
-        public string? Id { get; set; }
-        public AttributesDict Attributes { get; }
-        #endregion
+        return removalCount;
     }
-}
 
+    public virtual int InsertBeforeWhere(Func<Tag, bool> predicate, IGenerateHtml tags)
+    {
+        var insertCount = 0;
+
+        for (var i = 0; i < Count; i++)
+        {
+            var iGenerateHtml = this[i];
+            if (iGenerateHtml is Tag tag && predicate(tag))
+            {
+                Insert(i, tags);
+                i++;
+                insertCount++;
+            }
+        }
+
+        foreach (var child in this)
+        {
+            insertCount += child.InsertBeforeWhere(predicate, tags);
+        }
+
+        return insertCount;
+    }
+    public virtual int InsertAfterWhere(Func<Tag, bool> predicate, IGenerateHtml tags)
+    {
+        var insertCount = 0;
+
+        for (var i = 0; i < Count; i++)
+        {
+            var iGenerateHtml = this[i];
+            if (iGenerateHtml is Tag tag && predicate(tag))
+            {
+                Insert(i + 1, tags);
+                i++;
+                insertCount++;
+            }
+        }
+
+        foreach (var child in this)
+        {
+            insertCount += child.InsertAfterWhere(predicate, tags);
+        }
+
+        return insertCount;
+    }
+
+    public virtual int InsertBeforeFirstWhere(Func<Tag, bool> predicate, IGenerateHtml tags)
+    {
+        var insertCount = 0;
+
+        for (var i = 0; i < Count; i++)
+        {
+            var iGenerateHtml = this[i];
+            if (iGenerateHtml is Tag tag && predicate(tag))
+            {
+                Insert(i, tags);
+                insertCount++;
+                return insertCount; //1
+            }
+        }
+
+        foreach (var child in this)
+        {
+            insertCount += child.InsertBeforeFirstWhere(predicate, tags);
+            if (insertCount > 0) return insertCount; //1
+        }
+
+        return insertCount; //0
+    }
+    public virtual int InsertAfterFirstWhere(Func<Tag, bool> predicate, IGenerateHtml tags)
+    {
+        var insertCount = 0;
+
+        for (var i = 0; i < Count; i++)
+        {
+            var iGenerateHtml = this[i];
+            if (iGenerateHtml is Tag tag && predicate(tag))
+            {
+                Insert(i + 1, tags);
+                insertCount++;
+                return insertCount; //1
+            }
+        }
+
+        foreach (var child in this)
+        {
+            insertCount += child.InsertBeforeFirstWhere(predicate, tags);
+            if (insertCount > 0) return insertCount; //1
+        }
+
+        return insertCount; //0
+    }
+    #endregion
+
+    #region Methods
+    public Tag AddOrUpdateAttr(object? additionalAttributes)
+    {
+        if (additionalAttributes == null) return this;
+        var additionalAttributesDict = AttributesDict.AnonymousObjectToAttributesDict(additionalAttributes);
+        foreach (var key in additionalAttributesDict.Keys)
+        {
+            Attributes[key] = additionalAttributesDict[key];
+        }
+        return this;
+    }
+
+    //if updating the next two methods, update the same methods in HtmlAttrAttribute class
+    public string GenerateMyAttributesString()
+    {
+        if (Attributes.All(x => x.Value == null)) return "";
+        var sb = new StringBuilder(" ");
+        foreach (var pair in Attributes.Where(x => x.Value != null))
+        {
+            sb.Append($"{pair.Key.Replace("_", "-").HtmlEncode().Trim()}=\"{pair.Value?.HtmlAttributeEncode().Trim()}\" ");
+        }
+        return $" {sb.ToString().Trim()}";
+    }
+
+    public IGenerateHtml FillBodySectionWith(IGenerateHtml replacement)
+    {
+        FillSectionWith(BodySectionPlaceholder.BodySection, replacement);
+        return this;
+    }
+    public IGenerateHtml FillSectionWith(string sectionId, IGenerateHtml replacement)
+    {
+        if (!TryFillSectionWith(sectionId, replacement)) throw new RazorSharpException($"Unable to find placeholder with uniqueIdentifier = '{sectionId}'");
+        return this;
+    }
+    public bool TryFillSectionWith(string sectionId, IGenerateHtml replacement)
+    {
+        for(var i = 0; i < Count; i++)
+        {
+            if (this[i] is SectionPlaceholder placeholder)
+            {
+                if (placeholder.UniqueIdentifier == sectionId)
+                {
+                    this[i] = replacement;
+                    return true;
+                }
+            }
+            if (this[i].TryFillSectionWith(sectionId, replacement)) return true;
+        }
+        return false;
+    }
+
+    public IGenerateHtml DisableAllControls()
+    {
+        if (Name == "fieldset" || Name == "input" || Name == "textarea" || Name == "select") AddOrUpdateAttr(new { disabled = "disabled" });
+        foreach (var html in this) html.DisableAllControls();
+        return this;
+    }
+    public IGenerateHtml DisableAllControlsIf(bool condition)
+    {
+        if (condition) DisableAllControls();
+        return this;
+    }
+    public bool ContainsInnerHtml()
+    {
+        return Count > 0;
+    }
+        
+    public virtual IEnumerable<Tag> GetTagsInOrder()
+    {
+        var tagsList = new List<Tag> { this };
+        tagsList.AddRange(this.SelectMany(x => x.GetTagsInOrder()));
+        return tagsList;
+    }
+    public virtual List<Tag> NormalizeAndFlatten()
+    {
+        var childrenList = new List<Tag>();
+        foreach (var iGenerateHtml in this)
+        {
+            if (iGenerateHtml is Tag tag)
+            {
+                tag.NormalizeAndFlatten();
+                childrenList.Add(tag);
+            }
+            else 
+            {
+                childrenList.AddRange(iGenerateHtml.NormalizeAndFlatten());
+            }
+        }
+
+        Clear();
+        AddRange(childrenList);
+
+        return new List<Tag> { this };
+    }
+    #endregion
+
+    #region Properties
+    public string? Name { get; set; }
+    public string? Id { get; set; }
+    public AttributesDict Attributes { get; }
+    #endregion
+}

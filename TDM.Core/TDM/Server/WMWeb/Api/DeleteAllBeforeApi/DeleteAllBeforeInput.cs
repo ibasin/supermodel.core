@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace WMWeb.Api.DeleteAllBeforeApi
+namespace WMWeb.Api.DeleteAllBeforeApi;
+
+public class DeleteAllBeforeInput
 {
-    public class DeleteAllBeforeInput
-    {
-        public DateTime OlderThanUtc { get; set; }
-    }
+    public DateTime OlderThanUtc { get; set; }
 }

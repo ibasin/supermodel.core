@@ -1,9 +1,8 @@
-﻿namespace Domain.Entities
+﻿namespace Domain.Entities;
+
+public enum PriorityEnum
 {
-    public enum PriorityEnum
-    {
-        High,
-        Medium,
-        Low
-    }
+    High,
+    Medium,
+    Low
 }

@@ -7,30 +7,29 @@ using TDM.Mobile.AppCore;
 using TDM.Mobile.Pages.ChangePassword;
 using Xamarin.Forms;
 
-namespace TDM.Mobile.Pages.Settings
+namespace TDM.Mobile.Pages.Settings;
+
+public class SettingsPage : ContentPage
 {
-    public class SettingsPage : ContentPage
+    #region Constructors
+    public SettingsPage()
     {
-        #region Constructors
-        public SettingsPage()
-        {
-            TDMApp.RunningApp.SettingsPage = this;
+        TDMApp.RunningApp.SettingsPage = this;
 
-            var section = new TableSection();
-            var cell = new TextCell { Text = "Change Password >" };
+        var section = new TableSection();
+        var cell = new TextCell { Text = "Change Password >" };
             
-            if (Device.RuntimePlatform == Device.iOS) cell.TextColor = Color.FromHex("#007AFF");
+        if (Device.RuntimePlatform == Device.iOS) cell.TextColor = Color.FromHex("#007AFF");
 
-            cell.Tapped += async (_, _) =>
-            {
-                if (!FormsApplication<TDMApp>.RunningApp.AuthHeaderGenerator.UserId.HasValue) throw new Exception("AuthHeaderGenerator.UserId must have value");
-                var model = new TDMUserUpdatePassword { Id = FormsApplication<TDMApp>.RunningApp.AuthHeaderGenerator.UserId.Value };
-                await FormsApplication<TDMApp>.RunningApp.LoginPage.Navigation.PushAsync(await new ChangePasswordPage().InitAsync(new ObservableCollection<TDMUserUpdatePassword> { model }, "Change Password", model));
-            };
-            section.Add(cell);
+        cell.Tapped += async (_, _) =>
+        {
+            if (!FormsApplication<TDMApp>.RunningApp.AuthHeaderGenerator.UserId.HasValue) throw new Exception("AuthHeaderGenerator.UserId must have value");
+            var model = new TDMUserUpdatePassword { Id = FormsApplication<TDMApp>.RunningApp.AuthHeaderGenerator.UserId.Value };
+            await FormsApplication<TDMApp>.RunningApp.LoginPage.Navigation.PushAsync(await new ChangePasswordPage().InitAsync(new ObservableCollection<TDMUserUpdatePassword> { model }, "Change Password", model));
+        };
+        section.Add(cell);
 
-            Content = new ViewWithActivityIndicator<TableView>(new TableView { Intent = TableIntent.Form, HasUnevenRows = true, Root = new TableRoot{ section } });
-        }
-        #endregion
+        Content = new ViewWithActivityIndicator<TableView>(new TableView { Intent = TableIntent.Form, HasUnevenRows = true, Root = new TableRoot{ section } });
     }
+    #endregion
 }

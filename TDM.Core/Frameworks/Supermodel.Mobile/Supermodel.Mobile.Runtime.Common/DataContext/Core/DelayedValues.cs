@@ -1,66 +1,65 @@
 ﻿using System.Collections.Generic;
 using Supermodel.Mobile.Runtime.Common.Models;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Core
+namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
+
+public abstract class DelayedValue
 {
-    public abstract class DelayedValue
-    {
-        public abstract void SetValue(object value);
-        public abstract object GetValue();
-    }
+    public abstract void SetValue(object value);
+    public abstract object GetValue();
+}
     
-    public class DelayedModel<TModel> : DelayedValue where TModel : class, IModel, new() 
+public class DelayedModel<TModel> : DelayedValue where TModel : class, IModel, new() 
+{
+    #region Overrides
+    public override void SetValue(object value)
     {
-        #region Overrides
-        public override void SetValue(object value)
-        {
-            Value = (TModel)value;
-        }
-
-        public override object GetValue()
-        {
-            return Value;
-        }
-        #endregion
-
-        #region Properties
-        public TModel Value { get; set; }
-        #endregion
+        Value = (TModel)value;
     }
 
-    public class DelayedModels<TModel> : DelayedValue where TModel : class, IModel, new()
+    public override object GetValue()
     {
-        #region Overrides
-        public override void SetValue(object value)
-        {
-            Values = (List<TModel>)value;
-        }
-        public override object GetValue()
-        {
-            return Values;
-        }
-        #endregion
-
-        #region Properties
-        public List<TModel> Values { get; set; }
-        #endregion
+        return Value;
     }
+    #endregion
 
-    public class DelayedCount : DelayedValue
+    #region Properties
+    public TModel Value { get; set; }
+    #endregion
+}
+
+public class DelayedModels<TModel> : DelayedValue where TModel : class, IModel, new()
+{
+    #region Overrides
+    public override void SetValue(object value)
     {
-        #region Overrides
-        public override void SetValue(object value)
-        {
-            Value = (long?) value;
-        }
-        public override object GetValue()
-        {
-            return Value;
-        }
-        #endregion
-
-        #region Properties
-        public long? Value { get; set; }
-        #endregion
+        Values = (List<TModel>)value;
     }
+    public override object GetValue()
+    {
+        return Values;
+    }
+    #endregion
+
+    #region Properties
+    public List<TModel> Values { get; set; }
+    #endregion
+}
+
+public class DelayedCount : DelayedValue
+{
+    #region Overrides
+    public override void SetValue(object value)
+    {
+        Value = (long?) value;
+    }
+    public override object GetValue()
+    {
+        return Value;
+    }
+    #endregion
+
+    #region Properties
+    public long? Value { get; set; }
+    #endregion
 }

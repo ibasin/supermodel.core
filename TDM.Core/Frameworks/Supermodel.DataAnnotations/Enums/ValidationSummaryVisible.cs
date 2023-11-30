@@ -1,7 +1,6 @@
-﻿namespace Supermodel.DataAnnotations.Enums
+﻿namespace Supermodel.DataAnnotations.Enums;
+
+public enum ValidationSummaryVisible
 {
-    public enum ValidationSummaryVisible
-    {
-        Always, Never, IfNoVisibleErrors
-    }
+    Always, Never, IfNoVisibleErrors
 }

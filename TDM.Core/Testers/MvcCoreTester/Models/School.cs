@@ -3,32 +3,31 @@ using Supermodel.Persistence.Entities;
 using Supermodel.Presentation.Mvc.Bootstrap4.Models;
 using Supermodel.Presentation.Mvc.Models.Api;
 
-namespace MvcCoreTester.Models
+namespace MvcCoreTester.Models;
+
+public class SchoolApiModel : ApiModelForEntity<School>
 {
-    public class SchoolApiModel : ApiModelForEntity<School>
-    {
-        #region Properties
-        [Required] public string Name { get; set; } = "";
-        #endregion
-    }
+    #region Properties
+    [Required] public string Name { get; set; } = "";
+    #endregion
+}
     
-    public class SchoolMvcModel : Bs4.MvcModelForEntity<School>
-    {
-        #region Overrides
-        public override string Label => Name.Value;
-        #endregion 
+public class SchoolMvcModel : Bs4.MvcModelForEntity<School>
+{
+    #region Overrides
+    public override string Label => Name.Value;
+    #endregion 
 
-        #region Properties
-        [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new();
-        #endregion
-    }
+    #region Properties
+    [Required] public Bs4.TextBoxMvcModel Name { get; set; } = new();
+    #endregion
+}
 
-    public class School : Entity
-    {
-        #region Properties
-        [Required] public string Name { get; set; } = "";
+public class School : Entity
+{
+    #region Properties
+    [Required] public string Name { get; set; } = "";
 
-        //public virtual List<Student> Students { get; set; } = new List<Student>();
-        #endregion
-    }
+    //public virtual List<Student> Students { get; set; } = new List<Student>();
+    #endregion
 }

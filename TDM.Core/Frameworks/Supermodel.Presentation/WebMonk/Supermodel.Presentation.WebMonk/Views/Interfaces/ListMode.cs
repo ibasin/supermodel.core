@@ -1,11 +1,10 @@
-﻿namespace Supermodel.Presentation.WebMonk.Views.Interfaces
+﻿namespace Supermodel.Presentation.WebMonk.Views.Interfaces;
+
+public enum ListMode
 {
-    public enum ListMode
-    {
-        NoList,
-        Simple,
-        MultiColumn,
-        MultiColumnNoActions,
-        EditableMultiColumn
-    }
+    NoList,
+    Simple,
+    MultiColumn,
+    MultiColumnNoActions,
+    EditableMultiColumn
 }

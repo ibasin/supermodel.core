@@ -1,9 +1,8 @@
 using System.ComponentModel;
 
-namespace Supermodel.Mobile.Runtime.Common.Models
+namespace Supermodel.Mobile.Runtime.Common.Models;
+
+public interface ISupermodelNotifyPropertyChanged : INotifyPropertyChanged
 {
-    public interface ISupermodelNotifyPropertyChanged : INotifyPropertyChanged
-    {
-        void OnPropertyChanged(string propertyName);
-    }
+    void OnPropertyChanged(string propertyName);
 }

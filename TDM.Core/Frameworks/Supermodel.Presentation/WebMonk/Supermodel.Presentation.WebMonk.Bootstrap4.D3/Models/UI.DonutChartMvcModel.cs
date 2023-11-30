@@ -4,28 +4,28 @@ using Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models.Base;
 using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
-{
-    public static partial class D3
-    {
-        public class DonutChartMvcModel : BrightChartsD3MvcModelBase
-        {
-            #region Embedded Types
-            public class Datum(long id, string name, double quantity)
-            {
-                #region Properties
-                [JsonProperty("id")] public long Id { get; } = id;
-                [JsonProperty("name")] public string Name { get; } = name;
-                [JsonProperty("quantity")] public double Quantity { get; } = quantity;
+namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models;
 
-                #endregion
-            }
+public static partial class D3
+{
+    public class DonutChartMvcModel : BrightChartsD3MvcModelBase
+    {
+        #region Embedded Types
+        public class Datum(long id, string name, double quantity)
+        {
+            #region Properties
+            [JsonProperty("id")] public long Id { get; } = id;
+            [JsonProperty("name")] public string Name { get; } = name;
+            [JsonProperty("quantity")] public double Quantity { get; } = quantity;
+
             #endregion
+        }
+        #endregion
             
-            #region Overrides
-            public override IGenerateHtml GenerateD3Script(string containerId)
-            {
-                var script = $@"
+        #region Overrides
+        public override IGenerateHtml GenerateD3Script(string containerId)
+        {
+            var script = $@"
                     $(function() {{
                         {containerId}_Donut();
                     }});
@@ -41,19 +41,19 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
                         {ShowLegendIfApplicable(containerId)}
                     }};";
 
-                return new Script {new Txt(script)};
-            }
-            public override bool ContainsData()
-            {
-                return Data.Count > 0;
-            }
-            #endregion
+            return new Script {new Txt(script)};
+        }
+        public override bool ContainsData()
+        {
+            return Data.Count > 0;
+        }
+        #endregion
 
-            #region Methods
-            protected virtual string ShowLegendIfApplicable(string containerId)
-            {
-                if (!ShowLegend) return "";
-                return $@"                            
+        #region Methods
+        protected virtual string ShowLegendIfApplicable(string containerId)
+        {
+            if (!ShowLegend) return "";
+            return $@"                            
                     let legend = britecharts.legend();
                     {SetHorizontalLegend()}
 
@@ -65,23 +65,22 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.D3.Models
                         .on('customMouseOut', function() {{
                             legend.clearHighlight();
                         }});";
-            }
-            protected virtual string SetHorizontalLegend()
-            {
-                if (!IsHorizontalLegend) return "";
-                return $@"
+        }
+        protected virtual string SetHorizontalLegend()
+        {
+            if (!IsHorizontalLegend) return "";
+            return $@"
                     legend
                         .isHorizontal(true)
                         .markerSize(8)
                         .height(40);";
-            }
-            #endregion
-
-            #region Properties
-            public List<Datum> Data { get; } = new();
-            public bool ShowLegend { get; set; } = true;
-            public bool IsHorizontalLegend { get; set; }
-            #endregion
         }
+        #endregion
+
+        #region Properties
+        public List<Datum> Data { get; } = new();
+        public bool ShowLegend { get; set; } = true;
+        public bool IsHorizontalLegend { get; set; }
+        #endregion
     }
 }

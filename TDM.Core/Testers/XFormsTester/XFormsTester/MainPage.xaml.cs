@@ -1,17 +1,16 @@
 ﻿using System.ComponentModel;
 using Xamarin.Forms;
 
-namespace XFormsTester
+namespace XFormsTester;
+
+// Learn more about making custom code visible in the Xamarin.Forms previewer
+// by visiting https://aka.ms/xamarinforms-previewer
+[DesignTimeVisible(false)]
+// ReSharper disable once RedundantExtendsListEntry
+public partial class MainPage : ContentPage
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
-    [DesignTimeVisible(false)]
-    // ReSharper disable once RedundantExtendsListEntry
-    public partial class MainPage : ContentPage
+    public MainPage()
     {
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

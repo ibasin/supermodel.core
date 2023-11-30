@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace Supermodel.Mobile.CodeGen
+namespace Supermodel.Mobile.CodeGen;
+
+public class MobileModelAttributeAttribute : Attribute
 {
-    public class MobileModelAttributeAttribute : Attribute
+    public MobileModelAttributeAttribute(string attrContent)
     {
-        public MobileModelAttributeAttribute(string attrContent)
-        {
-            AttrContent = attrContent;
-        }
-        
-        public string AttrContent { get; }
+        AttrContent = attrContent;
     }
+        
+    public string AttrContent { get; }
 }

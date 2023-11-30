@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.DataContext.WebApi
+﻿namespace Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
+
+public class ValidateLoginResponse
 {
-    public class ValidateLoginResponse
-    {
-        public long? UserId { get; set; }
-        public string UserLabel { get; set; }
-    }
+    public long? UserId { get; set; }
+    public string UserLabel { get; set; }
 }

@@ -2,10 +2,9 @@
 using Supermodel.Persistence.Entities;
 using Supermodel.Persistence.Repository;
 
-namespace Supermodel.Persistence.EFCore
+namespace Supermodel.Persistence.EFCore;
+
+public interface IEFCoreDataRepo<TEntity> : ILinqDataRepo<TEntity> where TEntity : class, IEntity, new()
 {
-    public interface IEFCoreDataRepo<TEntity> : ILinqDataRepo<TEntity> where TEntity : class, IEntity, new()
-    {
-        DbSet<TEntity> DbSet { get; }
-    }
+    DbSet<TEntity> DbSet { get; }
 }

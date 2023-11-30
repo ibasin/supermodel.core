@@ -4,16 +4,15 @@ using WebMonk.HttpRequestHandlers.Controllers;
 using WebMonk.Results;
 using WMWeb.Mvc.HomePage;
 
-namespace WMWeb.Mvc.WarningTestPage
+namespace WMWeb.Mvc.WarningTestPage;
+
+[Authorize]
+public class HomeMvcController : MvcController
 {
-    [Authorize]
-    public class HomeMvcController : MvcController
+    #region Action Methods
+    public ActionResult GetIndex()
     {
-        #region Action Methods
-        public ActionResult GetIndex()
-        {
-            return new HomeMvcView().RenderIndex().ToHtmlResult();
-        }
-        #endregion
+        return new HomeMvcView().RenderIndex().ToHtmlResult();
     }
+    #endregion
 }

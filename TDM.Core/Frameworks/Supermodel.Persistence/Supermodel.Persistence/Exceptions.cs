@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Supermodel.Persistence
+namespace Supermodel.Persistence;
+
+public class UnableToDeleteException : Exception
 {
-    public class UnableToDeleteException : Exception
-    {
-        public UnableToDeleteException(string errorMessageToDisplay) : base(errorMessageToDisplay) {}
-    }
+    public UnableToDeleteException(string errorMessageToDisplay) : base(errorMessageToDisplay) {}
 }

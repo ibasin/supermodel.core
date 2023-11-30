@@ -9,61 +9,60 @@ using Supermodel.Persistence.EFCore;
 using Supermodel.Persistence.Repository;
 using Supermodel.Persistence.UnitOfWork;
 
-namespace Cmd
+namespace Cmd;
+
+public class Program
 {
-    public class Program
+    public static async Task Main(string[] args)
     {
-        public static async Task Main(string[] args)
+        if (Debugger.IsAttached || !await EFCoreUnitOfWorkContext.Database.CanConnectAsync())
         {
-            if (Debugger.IsAttached || !await EFCoreUnitOfWorkContext.Database.CanConnectAsync())
+            Console.Write("Recreating the database... ");
+            await using (new UnitOfWork<DataContext>())
             {
-                Console.Write("Recreating the database... ");
-                await using (new UnitOfWork<DataContext>())
+                await EFCoreUnitOfWorkContext.Database.EnsureDeletedAsync();
+                await EFCoreUnitOfWorkContext.Database.EnsureCreatedAsync();
+                await UnitOfWorkContext.SeedDataAsync();
+            }
+            Console.WriteLine("Done!");
+        }
+
+        await using(new UnitOfWork<DataContext>())
+        {
+            var repo = (EFCoreSimpleDataRepo<TDMUser>)RepoFactory.Create<TDMUser>();
+            var user = repo.Items.Single(x => x.Username == "ilya.basin@noblis.org");
+
+            user.ToDoLists.Add(new ToDoList
+            {
+                Name = "List #1",
+                ToDoItems = new List<ToDoItem>
                 {
-                    await EFCoreUnitOfWorkContext.Database.EnsureDeletedAsync();
-                    await EFCoreUnitOfWorkContext.Database.EnsureCreatedAsync();
-                    await UnitOfWorkContext.SeedDataAsync();
+                    new() { Name = "Item 1"},
+                    new() { Name = "Item 2"},
                 }
-                Console.WriteLine("Done!");
-            }
+            });
 
-            await using(new UnitOfWork<DataContext>())
+            user.ToDoLists.Add(new ToDoList
             {
-                var repo = (EFCoreSimpleDataRepo<TDMUser>)RepoFactory.Create<TDMUser>();
-                var user = repo.Items.Single(x => x.Username == "ilya.basin@noblis.org");
-
-                user.ToDoLists.Add(new ToDoList
+                Name = "Groceries",
+                ToDoItems = new List<ToDoItem>
                 {
-                    Name = "List #1",
-                    ToDoItems = new List<ToDoItem>
-                    {
-                        new() { Name = "Item 1"},
-                        new() { Name = "Item 2"},
-                    }
-                });
+                    new() { Name = "Bread"},
+                    new() { Name = "Eggs"},
+                    new() { Name = "Milk"},
+                }
+            });
 
-                user.ToDoLists.Add(new ToDoList
+            user.ToDoLists.Add(new ToDoList
+            {
+                Name = "Supplies",
+                ToDoItems = new List<ToDoItem>
                 {
-                    Name = "Groceries",
-                    ToDoItems = new List<ToDoItem>
-                    {
-                        new() { Name = "Bread"},
-                        new() { Name = "Eggs"},
-                        new() { Name = "Milk"},
-                    }
-                });
-
-                user.ToDoLists.Add(new ToDoList
-                {
-                    Name = "Supplies",
-                    ToDoItems = new List<ToDoItem>
-                    {
-                        new() { Name = "Pens"},
-                        new() { Name = "Pencils"},
-                        new() { Name = "Staplers"},
-                    }
-                });
-            }
+                    new() { Name = "Pens"},
+                    new() { Name = "Pencils"},
+                    new() { Name = "Staplers"},
+                }
+            });
         }
     }
 }

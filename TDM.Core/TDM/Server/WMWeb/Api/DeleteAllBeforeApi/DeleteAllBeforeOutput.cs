@@ -1,7 +1,6 @@
-﻿namespace WMWeb.Api.DeleteAllBeforeApi
+﻿namespace WMWeb.Api.DeleteAllBeforeApi;
+
+public class DeleteAllBeforeOutput
 {
-    public class DeleteAllBeforeOutput
-    {
-        public long DeletedCount { get; set; }
-    }
+    public long DeletedCount { get; set; }
 }

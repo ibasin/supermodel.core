@@ -1,9 +1,8 @@
 ﻿using Supermodel.Presentation.Mvc.Models.Api;
 
-namespace Supermodel.Presentation.Mvc.Controllers.Api
+namespace Supermodel.Presentation.Mvc.Controllers.Api;
+
+public class SimpleSearchApiModel : SearchApiModel
 {
-    public class SimpleSearchApiModel : SearchApiModel
-    {
-        public string SearchTerm { get; set; } = "";
-    }
+    public string SearchTerm { get; set; } = "";
 }

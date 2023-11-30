@@ -1,21 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Supermodel.ReflectionMapper
+namespace Supermodel.ReflectionMapper;
+
+public static class CollectionExtensions
 {
-    public static class CollectionExtensions
+    public static void ClearCollection(this ICollection me)
     {
-        public static void ClearCollection(this ICollection me)
-        {
-            me.ExecuteMethod(nameof(ICollection<object?>.Clear));
-        }
-        public static void AddToCollection(this ICollection me, object? item)
-        {
-            me.ExecuteMethod(nameof(ICollection<object?>.Add), item);
-        }
-        public static void RemoveFromCollection(this ICollection me, object? item)
-        {
-            me.ExecuteMethod(nameof(ICollection<object?>.Remove), item);
-        }
+        me.ExecuteMethod(nameof(ICollection<object?>.Clear));
+    }
+    public static void AddToCollection(this ICollection me, object? item)
+    {
+        me.ExecuteMethod(nameof(ICollection<object?>.Add), item);
+    }
+    public static void RemoveFromCollection(this ICollection me, object? item)
+    {
+        me.ExecuteMethod(nameof(ICollection<object?>.Remove), item);
     }
 }

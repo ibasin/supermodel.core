@@ -1,11 +1,10 @@
 ﻿using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
 
-namespace XFormsTester.Supermodel.Persistence
+namespace XFormsTester.Supermodel.Persistence;
+
+public class TestWebApiDataContext: WebApiDataContext
 {
-    public class TestWebApiDataContext: WebApiDataContext
-    {
-        #region Overrides
-        public override string BaseUrl => "http://localhost:62268/";
-        #endregion
-    }
+    #region Overrides
+    public override string BaseUrl => "http://localhost:62268/";
+    #endregion
 }

@@ -14,77 +14,76 @@ using Supermodel.DataAnnotations.Attributes;
 // ReSharper restore RedundantUsingDirective
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.ApiClient.Models
+namespace Supermodel.ApiClient.Models;
+
+#region StudentApiController
+[RestUrl("StudentApi")]
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class Student : Model
 {
-	#region StudentApiController
-	[RestUrl("StudentApi")]
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class Student : Model
-	{
-		#region Properties
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string SocialSecurity { get; set; }
-		public int? Age { get; set; }
-		public BinaryFile Image { get; set; } = new();
-		public GenderEnum? Gender { get; set; }
-		public School School { get; set; }
-		public string Notes { get; set; }
-		public bool? SecurityClearance { get; set; }
-		public DateTime? DateOfBirthday { get; set; }
-		#endregion
-	}
-	
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class StudentSearch
-	{
-		#region Properties
-		public string Term { get; set; }
-		#endregion
-	}
-	#endregion
-	
-	#region AdderApiController
-	//Extension method for AdderApi command
-	public static class AdderApiCommandExt
-	{
-		public static async Task<Output> AdderApiAsync(this WebApiDataContext me, Input input)
-		{
-			return await me.ExecutePostAsync<Input, Output>("AdderApi", input);
-		}
-	}
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class Input
-	{
-		#region Properties
-		public int Op1 { get; set; }
-		public int Op2 { get; set; }
-		#endregion
-	}
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class Output
-	{
-		#region Properties
-		public int PlusResult { get; set; }
-		#endregion
-	}
-	#endregion
-	
-	#region Types models depend on and types that were specifically marked with [IncludeInApiClient]
-	public enum GenderEnum
-	{
-		Male = 0,
-		Female = 1,
-		[Disabled] Unknown = 2
-	}
-	
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class School
-	{
-		#region Properties
-		public string Name { get; set; }
-		public long Id { get; set; }
-		#endregion
-	}
-	#endregion
+    #region Properties
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string SocialSecurity { get; set; }
+    public int? Age { get; set; }
+    public BinaryFile Image { get; set; } = new();
+    public GenderEnum? Gender { get; set; }
+    public School School { get; set; }
+    public string Notes { get; set; }
+    public bool? SecurityClearance { get; set; }
+    public DateTime? DateOfBirthday { get; set; }
+    #endregion
 }
+	
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class StudentSearch
+{
+    #region Properties
+    public string Term { get; set; }
+    #endregion
+}
+#endregion
+	
+#region AdderApiController
+//Extension method for AdderApi command
+public static class AdderApiCommandExt
+{
+    public static async Task<Output> AdderApiAsync(this WebApiDataContext me, Input input)
+    {
+        return await me.ExecutePostAsync<Input, Output>("AdderApi", input);
+    }
+}
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class Input
+{
+    #region Properties
+    public int Op1 { get; set; }
+    public int Op2 { get; set; }
+    #endregion
+}
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class Output
+{
+    #region Properties
+    public int PlusResult { get; set; }
+    #endregion
+}
+#endregion
+	
+#region Types models depend on and types that were specifically marked with [IncludeInApiClient]
+public enum GenderEnum
+{
+    Male = 0,
+    Female = 1,
+    [Disabled] Unknown = 2
+}
+	
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class School
+{
+    #region Properties
+    public string Name { get; set; }
+    public long Id { get; set; }
+    #endregion
+}
+#endregion

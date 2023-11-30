@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Controllers
+namespace Web.Controllers;
+
+[Authorize]
+public class HomeController : Controller
 {
-    [Authorize]
-    public class HomeController : Controller
+    #region Action Methods
+    public IActionResult Index()
     {
-        #region Action Methods
-        public IActionResult Index()
-        {
-            // ReSharper disable once Mvc.ViewNotResolved
-            return View();
-        }
-        #endregion
+        // ReSharper disable once Mvc.ViewNotResolved
+        return View();
     }
+    #endregion
 }

@@ -1,10 +1,9 @@
 ﻿using System.Text;
 
-namespace CsvMaker.Interfaces
+namespace CsvMaker.Interfaces;
+
+public interface ICsvMakerCustom
 {
-    public interface ICsvMakerCustom
-    {
-        StringBuilder ToCsvRowCustom(StringBuilder? sb = null);
-        StringBuilder ToCsvHeaderCustom(StringBuilder? sb = null);
-    }
+    StringBuilder ToCsvRowCustom(StringBuilder? sb = null);
+    StringBuilder ToCsvHeaderCustom(StringBuilder? sb = null);
 }

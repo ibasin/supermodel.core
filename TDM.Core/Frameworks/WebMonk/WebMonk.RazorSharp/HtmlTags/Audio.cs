@@ -1,11 +1,10 @@
 ﻿using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace WebMonk.RazorSharp.HtmlTags
+namespace WebMonk.RazorSharp.HtmlTags;
+
+public class Audio : InlineTag
 {
-    public class Audio : InlineTag
-    {
-        #region Constructors
-        public Audio(object? attributes = null, bool generateInline = false) : base("audio", attributes, generateInline) { }
-        #endregion
-    }
+    #region Constructors
+    public Audio(object? attributes = null, bool generateInline = false) : base("audio", attributes, generateInline) { }
+    #endregion
 }

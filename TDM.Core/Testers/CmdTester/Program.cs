@@ -7,79 +7,78 @@ using Supermodel.Presentation.Cmd.Controllers;
 using WMDomain.Entities;
 using WMDomain.Supermodel.Persistence;
 
-namespace CmdTester
+namespace CmdTester;
+
+class Program
 {
-    class Program
+    static async Task Main()
     {
-        static async Task Main()
-        {
-            //Console.Write("Enter Password: ");
-            //var pwd = ConsoleExt.ReadPassword(new StringWithColor("*******", ConsoleColor.DarkYellow));
-            //Console.WriteLine(pwd);
-            //Console.ReadLine();
+        //Console.Write("Enter Password: ");
+        //var pwd = ConsoleExt.ReadPassword(new StringWithColor("*******", ConsoleColor.DarkYellow));
+        //Console.WriteLine(pwd);
+        //Console.ReadLine();
             
-            if (Debugger.IsAttached || !await EFCoreUnitOfWorkContext.Database.CanConnectAsync())
+        if (Debugger.IsAttached || !await EFCoreUnitOfWorkContext.Database.CanConnectAsync())
+        {
+            Console.Write("Recreating the database... ");
+            await using (new UnitOfWork<DataContext>())
             {
-                Console.Write("Recreating the database... ");
-                await using (new UnitOfWork<DataContext>())
-                {
-                    await EFCoreUnitOfWorkContext.Database.EnsureDeletedAsync();
-                    await EFCoreUnitOfWorkContext.Database.EnsureCreatedAsync();
-                    await UnitOfWorkContext.SeedDataAsync();
-                }
-                Console.WriteLine("Done!");
+                await EFCoreUnitOfWorkContext.Database.EnsureDeletedAsync();
+                await EFCoreUnitOfWorkContext.Database.EnsureCreatedAsync();
+                await UnitOfWorkContext.SeedDataAsync();
             }
-
-            var controller = new CRUDCmdController<TDMUser, TDMUserCmdModel, DataContext>("User");
-            await controller.RunCRUDAsync();
-            //await controller.ListAsync();
-            //Console.WriteLine();
-            //await controller.ViewDetailAsync(1);
-            //Console.WriteLine();
-            //await controller.AddDetailAsync();
-            //Console.WriteLine();
-            //await controller.ListAsync();
-            //Console.WriteLine();
-            //await controller.EditDetailAsync(1);
-            //Console.WriteLine();
-            //await controller.ListAsync();
-            //Console.WriteLine();
-            //await controller.DeleteDetailAsync(1);
-            //Console.WriteLine();
-            //await controller.ListAsync();
-
-
-            //var ilya = new StringWithColor("Ilya", ConsoleColor.Red);
-            //var basin = new StringWithColor("Basin", ConsoleColor.Blue);
-
-            //var ilyaBasin = ilya + " " + basin;
-            //ilyaBasin.WriteToConsole();
-
-            //Console.Write("Edit text: ");
-            //var text = ConsoleExt.ReadPasswordLine();
-            //Console.WriteLine(text);
-
-            //var ilya = new Student();
-            //CmdContext.ValidationResultList.Clear();
-            //CmdContext.ValidationResultList.AddValidationResult(ilya, "Bad First Name", x => x.FirstName);
-            //CmdContext.ValidationResultList.AddValidationResult(ilya, "Bad DOB", x => x.DateOfBirth);
-
-            //CmdRender.DisplayForModel(ilya);
-            //Console.WriteLine();
-            //ilya = CmdRender.EditForModel(ilya);
-            //Console.WriteLine();
-            //CmdRender.DisplayForModel(ilya);
-
-            //var optionsList = new List<ConsoleExt.SelectListItem>
-            //{
-            //    new ConsoleExt.SelectListItem("A", "Letter A"),
-            //    new ConsoleExt.SelectListItem("B", "Letter B"),
-            //    new ConsoleExt.SelectListItem("C", "Letter C"),
-            //    new ConsoleExt.SelectListItem("D", "Letter D"),
-
-            //};
-            //var x = ConsoleExt.EditDropdownList("A", optionsList, new FBColors(ConsoleColor.Cyan));
-            //Console.WriteLine(x);
+            Console.WriteLine("Done!");
         }
+
+        var controller = new CRUDCmdController<TDMUser, TDMUserCmdModel, DataContext>("User");
+        await controller.RunCRUDAsync();
+        //await controller.ListAsync();
+        //Console.WriteLine();
+        //await controller.ViewDetailAsync(1);
+        //Console.WriteLine();
+        //await controller.AddDetailAsync();
+        //Console.WriteLine();
+        //await controller.ListAsync();
+        //Console.WriteLine();
+        //await controller.EditDetailAsync(1);
+        //Console.WriteLine();
+        //await controller.ListAsync();
+        //Console.WriteLine();
+        //await controller.DeleteDetailAsync(1);
+        //Console.WriteLine();
+        //await controller.ListAsync();
+
+
+        //var ilya = new StringWithColor("Ilya", ConsoleColor.Red);
+        //var basin = new StringWithColor("Basin", ConsoleColor.Blue);
+
+        //var ilyaBasin = ilya + " " + basin;
+        //ilyaBasin.WriteToConsole();
+
+        //Console.Write("Edit text: ");
+        //var text = ConsoleExt.ReadPasswordLine();
+        //Console.WriteLine(text);
+
+        //var ilya = new Student();
+        //CmdContext.ValidationResultList.Clear();
+        //CmdContext.ValidationResultList.AddValidationResult(ilya, "Bad First Name", x => x.FirstName);
+        //CmdContext.ValidationResultList.AddValidationResult(ilya, "Bad DOB", x => x.DateOfBirth);
+
+        //CmdRender.DisplayForModel(ilya);
+        //Console.WriteLine();
+        //ilya = CmdRender.EditForModel(ilya);
+        //Console.WriteLine();
+        //CmdRender.DisplayForModel(ilya);
+
+        //var optionsList = new List<ConsoleExt.SelectListItem>
+        //{
+        //    new ConsoleExt.SelectListItem("A", "Letter A"),
+        //    new ConsoleExt.SelectListItem("B", "Letter B"),
+        //    new ConsoleExt.SelectListItem("C", "Letter C"),
+        //    new ConsoleExt.SelectListItem("D", "Letter D"),
+
+        //};
+        //var x = ConsoleExt.EditDropdownList("A", optionsList, new FBColors(ConsoleColor.Cyan));
+        //Console.WriteLine(x);
     }
 }

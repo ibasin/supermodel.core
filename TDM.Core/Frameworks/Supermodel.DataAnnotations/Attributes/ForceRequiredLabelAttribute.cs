@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace Supermodel.DataAnnotations.Attributes
-{
-    [AttributeUsage(AttributeTargets.Property)]
-    public class ForceRequiredLabelAttribute : Attribute { }
-}
+namespace Supermodel.DataAnnotations.Attributes;
+
+[AttributeUsage(AttributeTargets.Property)]
+public class ForceRequiredLabelAttribute : Attribute { }

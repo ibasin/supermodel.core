@@ -1,146 +1,142 @@
-namespace BrowserEmulator
+namespace BrowserEmulator;
+
+/// <summary>
+/// Summary description for ParseHTML.
+/// </summary>
+public class ParseHTML : Parse
 {
-	/// <summary>
-	/// Summary description for ParseHTML.
-	/// </summary>
-
-	public class ParseHTML : Parse
+    public AttributeList GetTag()
     {
-		public AttributeList GetTag()
+        AttributeList tag = new AttributeList();
+        tag.Name = m_tag;
+
+        foreach (Attribute x in List)
         {
-			AttributeList tag = new AttributeList();
-			tag.Name = m_tag;
+            tag.Add((Attribute)x.Clone());
+        }
 
-			foreach (Attribute x in List)
-            {
-				tag.Add((Attribute)x.Clone());
-			}
+        return tag;
+    }
 
-			return tag;
-		}
-
-		public string BuildTag()
+    public string BuildTag()
+    {
+        string buffer = "<";
+        buffer += m_tag;
+        int i = 0;
+        while (this[i] != null) // has attributes
         {
-			string buffer = "<";
-			buffer += m_tag;
-			int i = 0;
-			while (this[i] != null) // has attributes
+            buffer += " ";
+            if (this[i].Value == null)
             {
-				buffer += " ";
-				if (this[i].Value == null)
-                {
-					if (this[i].Delim != 0) buffer += this[i].Delim;
-					buffer += this[i].Name;
-					if (this[i].Delim != 0) buffer += this[i].Delim;
-				}
-                else
-                {
-					buffer += this[i].Name;
-					if (this[i].Value != null)
-                    {
-						buffer += "=";
-						if (this[i].Delim != 0) buffer += this[i].Delim;
-						buffer += this[i].Value;
-						if (this[i].Delim != 0) buffer += this[i].Delim;
-					}
-				}
-				i++;
-			}
-			buffer += ">";
-			return buffer;
-		}
-
-		protected void ParseTag()
-        {
-			m_tag = "";
-			Clear();
-
-			// Is it a comment?
-			if ((GetCurrentChar() == '!') && (GetCurrentChar(1) == '-') && (GetCurrentChar(2) == '-'))
+                if (this[i].Delim != 0) buffer += this[i].Delim;
+                buffer += this[i].Name;
+                if (this[i].Delim != 0) buffer += this[i].Delim;
+            }
+            else
             {
-				while (!Eof())
+                buffer += this[i].Name;
+                if (this[i].Value != null)
                 {
-					if ((GetCurrentChar() == '-') && (GetCurrentChar(1) == '-') && (GetCurrentChar(2) == '>')) break;
-					if (GetCurrentChar() != '\r') m_tag += GetCurrentChar();
-					Advance();
-				}
-				m_tag += "--";
-				Advance();
-				Advance();
-				Advance();
-				ParseDelim = (char)0;
-				return;
-			}
-
-			// Find the tag name
-			while (!Eof())
-            {
-				if (IsWhiteSpace(GetCurrentChar()) || (GetCurrentChar() == '>')) break;
-				m_tag += GetCurrentChar();
-				Advance();
-			}
-
-			EatWhiteSpace();
-
-			// Get the attributes
-			while (GetCurrentChar() != '>')
-            {
-				ParseName = "";
-				ParseValue = "";
-				ParseDelim = (char)0;
-
-				ParseAttributeName();
-
-				if (GetCurrentChar() == '>')
-                {
-					AddAttribute();
-					break;
-				}
-
-				// Get the value(if any)
-				ParseAttributeValue();
-				AddAttribute();
-			}
-			Advance();
-		}
-
-		public char Parse()
-        {
-			if (idleNextParse)
-            {
-				idleNextParse = false;
-				return (char)0;
-			}
-
-			if (GetCurrentChar() == '<')
-            {
-				Advance();
-
-				char ch = char.ToUpper(GetCurrentChar());
-				if (ch >= 'A' && ch <= 'Z' || ch == '!' || ch == '/' || ch == '_') 
-                {
-					ParseTag();
-					return (char)0;
-				}
-                else
-                {
-                    return AdvanceCurrentChar();
+                    buffer += "=";
+                    if (this[i].Delim != 0) buffer += this[i].Delim;
+                    buffer += this[i].Value;
+                    if (this[i].Delim != 0) buffer += this[i].Delim;
                 }
-			}
+            }
+            i++;
+        }
+        buffer += ">";
+        return buffer;
+    }
+
+    protected void ParseTag()
+    {
+        m_tag = "";
+        Clear();
+
+        // Is it a comment?
+        if ((GetCurrentChar() == '!') && (GetCurrentChar(1) == '-') && (GetCurrentChar(2) == '-'))
+        {
+            while (!Eof())
+            {
+                if ((GetCurrentChar() == '-') && (GetCurrentChar(1) == '-') && (GetCurrentChar(2) == '>')) break;
+                if (GetCurrentChar() != '\r') m_tag += GetCurrentChar();
+                Advance();
+            }
+            m_tag += "--";
+            Advance();
+            Advance();
+            Advance();
+            ParseDelim = (char)0;
+            return;
+        }
+
+        // Find the tag name
+        while (!Eof())
+        {
+            if (IsWhiteSpace(GetCurrentChar()) || (GetCurrentChar() == '>')) break;
+            m_tag += GetCurrentChar();
+            Advance();
+        }
+
+        EatWhiteSpace();
+
+        // Get the attributes
+        while (GetCurrentChar() != '>')
+        {
+            ParseName = "";
+            ParseValue = "";
+            ParseDelim = (char)0;
+
+            ParseAttributeName();
+
+            if (GetCurrentChar() == '>')
+            {
+                AddAttribute();
+                break;
+            }
+
+            // Get the value(if any)
+            ParseAttributeValue();
+            AddAttribute();
+        }
+        Advance();
+    }
+
+    public char Parse()
+    {
+        if (idleNextParse)
+        {
+            idleNextParse = false;
+            return (char)0;
+        }
+
+        if (GetCurrentChar() == '<')
+        {
+            Advance();
+
+            char ch = char.ToUpper(GetCurrentChar());
+            if (ch >= 'A' && ch <= 'Z' || ch == '!' || ch == '/' || ch == '_') 
+            {
+                ParseTag();
+                return (char)0;
+            }
             else
             {
                 return AdvanceCurrentChar();
             }
-		}
-
-		public void UndoParseTag()
+        }
+        else
         {
-			idleNextParse = true;
-		}
+            return AdvanceCurrentChar();
+        }
+    }
 
-        // ReSharper disable once InconsistentNaming
-        private bool idleNextParse;
-	}
+    public void UndoParseTag()
+    {
+        idleNextParse = true;
+    }
+
+    // ReSharper disable once InconsistentNaming
+    private bool idleNextParse;
 }
-
-

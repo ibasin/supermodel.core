@@ -13,86 +13,85 @@ using Supermodel.DataAnnotations.Attributes;
 // ReSharper restore RedundantUsingDirective
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.ApiClient.Models
+namespace Supermodel.ApiClient.Models;
+
+#region DeleteAllBeforeApiController
+//Extension method for DeleteAllBeforeApi command
+public static class DeleteAllBeforeApiCommandExt
 {
-	#region DeleteAllBeforeApiController
-	//Extension method for DeleteAllBeforeApi command
-	public static class DeleteAllBeforeApiCommandExt
-	{
-		public static async Task<DeleteAllBeforeOutput> DeleteAllBeforeApiAsync(this WebApiDataContext me, DeleteAllBeforeInput input)
-		{
-			return await me.ExecutePostAsync<DeleteAllBeforeInput, DeleteAllBeforeOutput>("DeleteAllBeforeApi", input);
-		}
-	}
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class DeleteAllBeforeInput
-	{
-		#region Properties
-		public DateTime OlderThanUtc { get; set; } = new();
-		#endregion
-	}
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class DeleteAllBeforeOutput
-	{
-		#region Properties
-		public Int64 DeletedCount { get; set; }
-		#endregion
-	}
-	#endregion
-	
-	#region TDMUserUpdatePasswordApiController
-	[RestUrl("TDMUserUpdatePassword")]
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class TDMUserUpdatePassword : Model
-	{
-		#region Properties
-		public String? OldPassword { get; set; }
-		public String? NewPassword { get; set; }
-		public String? ConfirmPassword { get; set; }
-		#endregion
-	}
-	#endregion
-	
-	#region ToDoListApiController
-	[RestUrl("ToDoList")]
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class ToDoList : Model
-	{
-		#region Properties
-		public DateTime CreatedOnUtc { get; set; } = new();
-		public DateTime ModifiedOnUtc { get; set; } = new();
-		public Int64 ListOwnerId { get; set; }
-		public String Name { get; set; }
-		public List<ToDoItem> ToDoItems { get; set; } = new();
-		#endregion
-	}
-	
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class SimpleSearch
-	{
-		#region Properties
-		public String SearchTerm { get; set; }
-		#endregion
-	}
-	#endregion
-	
-	#region Types models depend on and types that were specifically marked with [IncludeInApiClient]
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class ToDoItem
-	{
-		#region Properties
-		public String? Name { get; set; }
-		public PriorityEnum? Priority { get; set; }
-		public DateTime? DueOn { get; set; }
-		public Boolean Completed { get; set; }
-		public Int64 Id { get; set; }
-		#endregion
-	}
-	public enum PriorityEnum
-	{
-		High = 0,
-		Medium = 1,
-		Low = 2
-	}
-	#endregion
+    public static async Task<DeleteAllBeforeOutput> DeleteAllBeforeApiAsync(this WebApiDataContext me, DeleteAllBeforeInput input)
+    {
+        return await me.ExecutePostAsync<DeleteAllBeforeInput, DeleteAllBeforeOutput>("DeleteAllBeforeApi", input);
+    }
 }
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class DeleteAllBeforeInput
+{
+    #region Properties
+    public DateTime OlderThanUtc { get; set; } = new();
+    #endregion
+}
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class DeleteAllBeforeOutput
+{
+    #region Properties
+    public Int64 DeletedCount { get; set; }
+    #endregion
+}
+#endregion
+	
+#region TDMUserUpdatePasswordApiController
+[RestUrl("TDMUserUpdatePassword")]
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class TDMUserUpdatePassword : Model
+{
+    #region Properties
+    public String? OldPassword { get; set; }
+    public String? NewPassword { get; set; }
+    public String? ConfirmPassword { get; set; }
+    #endregion
+}
+#endregion
+	
+#region ToDoListApiController
+[RestUrl("ToDoList")]
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class ToDoList : Model
+{
+    #region Properties
+    public DateTime CreatedOnUtc { get; set; } = new();
+    public DateTime ModifiedOnUtc { get; set; } = new();
+    public Int64 ListOwnerId { get; set; }
+    public String Name { get; set; }
+    public List<ToDoItem> ToDoItems { get; set; } = new();
+    #endregion
+}
+	
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class SimpleSearch
+{
+    #region Properties
+    public String SearchTerm { get; set; }
+    #endregion
+}
+#endregion
+	
+#region Types models depend on and types that were specifically marked with [IncludeInApiClient]
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class ToDoItem
+{
+    #region Properties
+    public String? Name { get; set; }
+    public PriorityEnum? Priority { get; set; }
+    public DateTime? DueOn { get; set; }
+    public Boolean Completed { get; set; }
+    public Int64 Id { get; set; }
+    #endregion
+}
+public enum PriorityEnum
+{
+    High = 0,
+    Medium = 1,
+    Low = 2
+}
+#endregion

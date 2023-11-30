@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Presentation.WebMonk
+﻿namespace Supermodel.Presentation.WebMonk;
+
+public static class Config
 {
-    public static class Config
-    {
-        public static string InlinePrefix { get; set; } = "smInline";
-        public static string ModelState { get; set; } = "ModelState";
-    }
+    public static string InlinePrefix { get; set; } = "smInline";
+    public static string ModelState { get; set; } = "ModelState";
 }

@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 
-namespace Supermodel.Mobile.Runtime.Common.XForms.Views
+namespace Supermodel.Mobile.Runtime.Common.XForms.Views;
+
+public interface IHaveActivityIndicator
 {
-    public interface IHaveActivityIndicator
-    {
-        Task WaitForPageToBecomeActiveAsync();
-        bool ActivityIndicatorOn { get; set; }
-        string Message { get; set; }
-    }
+    Task WaitForPageToBecomeActiveAsync();
+    bool ActivityIndicatorOn { get; set; }
+    string Message { get; set; }
 }

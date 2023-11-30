@@ -8,33 +8,32 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Supermodel.Presentation.Mvc.Auth;
 
-namespace MvcCoreTester.Auth
+namespace MvcCoreTester.Auth;
+
+public class BasicAuthenticationHandler : SupermodelApiAuthenticationHandlerBase
 {
-    public class BasicAuthenticationHandler : SupermodelApiAuthenticationHandlerBase
+    public BasicAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder) : base(options, logger, encoder){}
+
+    protected override Task<List<Claim>> AuthenticateBasicAndGetClaimsAsync(string username, string password)
     {
-        public BasicAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder) : base(options, logger, encoder){}
-
-        protected override Task<List<Claim>> AuthenticateBasicAndGetClaimsAsync(string username, string password)
+        if (username.ToLower() == "ilya.basin@gmail.org" && password == "0")
         {
-            if (username.ToLower() == "ilya.basin@gmail.org" && password == "0")
-            {
-                var claims = AuthClaimsHelper.CreateNewClaimsListWithIdAndLabel(1, "Ilya Basin");
-                claims.Add(new Claim(ClaimTypes.Role, "Adder", ClaimValueTypes.String));
-                return Task.FromResult(claims);
-            }
-            else
-            {
-                return Task.FromResult(new List<Claim>());
-            }
+            var claims = AuthClaimsHelper.CreateNewClaimsListWithIdAndLabel(1, "Ilya Basin");
+            claims.Add(new Claim(ClaimTypes.Role, "Adder", ClaimValueTypes.String));
+            return Task.FromResult(claims);
         }
-
-        protected override Task<List<Claim>> AuthenticateEncryptedAndGetClaimsAsync(string[] args)
+        else
         {
-            throw new InvalidOperationException(); 
+            return Task.FromResult(new List<Claim>());
         }
-
-        #region Properties
-        protected override byte[] EncryptionKey => throw new InvalidOperationException(); 
-        #endregion
     }
+
+    protected override Task<List<Claim>> AuthenticateEncryptedAndGetClaimsAsync(string[] args)
+    {
+        throw new InvalidOperationException(); 
+    }
+
+    #region Properties
+    protected override byte[] EncryptionKey => throw new InvalidOperationException(); 
+    #endregion
 }

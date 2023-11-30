@@ -5,18 +5,17 @@ using MvcCoreTester.Auth;
 using MvcCoreTester.DataContexts;
 using Supermodel.Presentation.Mvc.Bootstrap4.Startup;
 
-namespace MvcCoreTester
-{
-    public class Startup
-    {
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSupermodelMvcBs4Services<SecureAuthenticationHandler>();
-        }
+namespace MvcCoreTester;
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseSupermodelMvcBs4Middleware<DataContext>(env);
-        }
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSupermodelMvcBs4Services<SecureAuthenticationHandler>();
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseSupermodelMvcBs4Middleware<DataContext>(env);
     }
 }

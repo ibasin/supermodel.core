@@ -1,11 +1,10 @@
 ﻿using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace WebMonk.RazorSharp.HtmlTags
+namespace WebMonk.RazorSharp.HtmlTags;
+
+public class Pre : TagWithWhiteSpaceText
 {
-    public class Pre : TagWithWhiteSpaceText
-    {
-        #region Constructors
-        public Pre(object? attributes = null) : base("pre", attributes) { }
-        #endregion
-    }
+    #region Constructors
+    public Pre(object? attributes = null) : base("pre", attributes) { }
+    #endregion
 }

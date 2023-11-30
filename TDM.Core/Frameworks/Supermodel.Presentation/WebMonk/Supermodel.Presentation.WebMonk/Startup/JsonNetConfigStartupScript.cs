@@ -3,18 +3,17 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WebMonk.Startup;
 
-namespace Supermodel.Presentation.WebMonk.Startup
+namespace Supermodel.Presentation.WebMonk.Startup;
+
+public class JsonNetConfigStartupScript : WebMonkStartupScript
 {
-    public class JsonNetConfigStartupScript : WebMonkStartupScript
+    public override Task ExecuteStartupTaskAsync()
     {
-        public override Task ExecuteStartupTaskAsync()
+        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Converters = { new StringEnumConverter() },
-                MissingMemberHandling = MissingMemberHandling.Error,
-            };            
-            return Task.CompletedTask;
-        }
+            Converters = { new StringEnumConverter() },
+            MissingMemberHandling = MissingMemberHandling.Error,
+        };            
+        return Task.CompletedTask;
     }
 }

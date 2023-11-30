@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace Supermodel.DataAnnotations.Validations
+namespace Supermodel.DataAnnotations.Validations;
+
+public interface IAsyncValidatableObject
 {
-    public interface IAsyncValidatableObject
-    {
-        Task<ValidationResultList> ValidateAsync(ValidationContext validationContext);
-    }
+    Task<ValidationResultList> ValidateAsync(ValidationContext validationContext);
 }

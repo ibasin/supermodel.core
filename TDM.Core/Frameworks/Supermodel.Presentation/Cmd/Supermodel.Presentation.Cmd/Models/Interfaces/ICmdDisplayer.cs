@@ -1,7 +1,6 @@
-﻿namespace Supermodel.Presentation.Cmd.Models.Interfaces
+﻿namespace Supermodel.Presentation.Cmd.Models.Interfaces;
+
+public interface ICmdDisplayer
 {
-    public interface ICmdDisplayer
-    {
-        void Display(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue);    
-    }
+    void Display(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue);    
 }

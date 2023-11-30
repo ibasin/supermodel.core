@@ -1,9 +1,8 @@
 ﻿using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace WebMonk.Rendering.Views
+namespace WebMonk.Rendering.Views;
+
+public interface IMvcLayout
 {
-    public interface IMvcLayout
-    {
-        IGenerateHtml RenderDefaultLayout();
-    }
+    IGenerateHtml RenderDefaultLayout();
 }

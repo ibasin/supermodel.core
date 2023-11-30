@@ -1,9 +1,8 @@
 ﻿using WebMonk.HttpRequestHandlers;
 
-namespace WebMonk.Results
+namespace WebMonk.Results;
+
+public abstract class ActionResult : IHttpRequestHandler.HttpRequestHandlerResult
 {
-    public abstract class ActionResult : IHttpRequestHandler.HttpRequestHandlerResult
-    {
-        protected ActionResult() : base(true) { }
-    }
+    protected ActionResult() : base(true) { }
 }

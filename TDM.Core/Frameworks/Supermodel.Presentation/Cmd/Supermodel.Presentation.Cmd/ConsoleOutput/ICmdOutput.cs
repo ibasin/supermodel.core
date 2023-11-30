@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Presentation.Cmd.ConsoleOutput
+﻿namespace Supermodel.Presentation.Cmd.ConsoleOutput;
+
+public interface ICmdOutput
 {
-    public interface ICmdOutput
-    {
-        void WriteToConsole();
-        void WriteLineToConsole();
-    }
+    void WriteToConsole();
+    void WriteLineToConsole();
 }

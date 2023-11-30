@@ -12,54 +12,53 @@ using TDM.Mobile.Pages.Settings;
 using TDM.Mobile.Supermodel.Persistence;
 using Xamarin.Forms;
 
-namespace TDM.Mobile.AppCore
+namespace TDM.Mobile.AppCore;
+
+public class TDMApp : SupermodelXamarinFormsApp
 {
-    public class TDMApp : SupermodelXamarinFormsApp
+    #region Constructors
+    public TDMApp()
     {
-        #region Constructors
-        public TDMApp()
-        {
-            XFormsSettings.LabelFontSize = XFormsSettings.ValueFontSize = 18;
+        XFormsSettings.LabelFontSize = XFormsSettings.ValueFontSize = 18;
 
-            LoginPage = new LoginPage();
-            MainPage = new NavigationPage(LoginPage);
+        LoginPage = new LoginPage();
+        MainPage = new NavigationPage(LoginPage);
 
-            #pragma warning disable 4014
-            LoginPage.AutoLoginIfPossibleAsync();
-            #pragma warning restore 4014
-        }
-        #endregion
-
-        #region Overrides
-        public override void HandleUnauthorized()
-        {
-            LoginPage = new LoginPage();
-            MainPage = new NavigationPage(FormsApplication<TDMApp>.RunningApp.LoginPage);
-        }
-
-        public override byte[] LocalStorageEncryptionKey { get; } = { 0x5A, 0x56, 0x8D, 0x33, 0x9C, 0xF6, 0x76, 0x84, 0xC7, 0x00, 0xAA, 0x9D, 0x71, 0x68, 0xE0, 0xCB }; //Randomly genrated by Supermodel VS plugin
-        #endregion
-
-        #region Methods
-        public static TDMApp RunningApp => FormsApplication<TDMApp>.RunningApp;
-        public async Task DeleteAllDataAsync()
-        {
-            new TDMSynchronizer().LastSynchDateTimeUtc = null; //This actually persists it
-            await using (NewUnitOfWork<TDMSqliteDataContext>())
-            {
-                var allToDoLists = await RepoFactory.Create<ToDoList>().GetAllAsync();
-                foreach (var toDoList in allToDoLists) toDoList.Delete();
-            }
-        }
-        #endregion
-
-        #region Properties
-        public LoginPage LoginPage { get; set; }
-        public MyToDoListListPage MyToDoListListPage { get; set; }
-        public MyToDoListDetailPage MyToDoListDetailPage { get; set; }
-        public MyToDoListItemDetailPage MyToDoListItemDetailPage { get; set; }
-        public SettingsPage SettingsPage { get; set; }
-        public ChangePasswordPage ChangePasswordPage { get; set; }
-        #endregion
+#pragma warning disable 4014
+        LoginPage.AutoLoginIfPossibleAsync();
+#pragma warning restore 4014
     }
+    #endregion
+
+    #region Overrides
+    public override void HandleUnauthorized()
+    {
+        LoginPage = new LoginPage();
+        MainPage = new NavigationPage(FormsApplication<TDMApp>.RunningApp.LoginPage);
+    }
+
+    public override byte[] LocalStorageEncryptionKey { get; } = { 0x5A, 0x56, 0x8D, 0x33, 0x9C, 0xF6, 0x76, 0x84, 0xC7, 0x00, 0xAA, 0x9D, 0x71, 0x68, 0xE0, 0xCB }; //Randomly genrated by Supermodel VS plugin
+    #endregion
+
+    #region Methods
+    public static TDMApp RunningApp => FormsApplication<TDMApp>.RunningApp;
+    public async Task DeleteAllDataAsync()
+    {
+        new TDMSynchronizer().LastSynchDateTimeUtc = null; //This actually persists it
+        await using (NewUnitOfWork<TDMSqliteDataContext>())
+        {
+            var allToDoLists = await RepoFactory.Create<ToDoList>().GetAllAsync();
+            foreach (var toDoList in allToDoLists) toDoList.Delete();
+        }
+    }
+    #endregion
+
+    #region Properties
+    public LoginPage LoginPage { get; set; }
+    public MyToDoListListPage MyToDoListListPage { get; set; }
+    public MyToDoListDetailPage MyToDoListDetailPage { get; set; }
+    public MyToDoListItemDetailPage MyToDoListItemDetailPage { get; set; }
+    public SettingsPage SettingsPage { get; set; }
+    public ChangePasswordPage ChangePasswordPage { get; set; }
+    #endregion
 }

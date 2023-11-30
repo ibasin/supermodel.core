@@ -1,9 +1,8 @@
-﻿namespace WMDomain.Entities
+﻿namespace WMDomain.Entities;
+
+public enum PriorityEnum
 {
-    public enum PriorityEnum
-    {
-        High,
-        Medium,
-        Low
-    }
+    High,
+    Medium,
+    Low
 }

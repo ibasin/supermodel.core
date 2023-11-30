@@ -1,11 +1,10 @@
 ﻿using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace WebMonk.RazorSharp.HtmlTags
+namespace WebMonk.RazorSharp.HtmlTags;
+
+public class Head : Tag
 {
-    public class Head : Tag
-    {
-        #region Constructors
-        public Head(object? attributes = null) : base("head", attributes) { }
-        #endregion
-    }
+    #region Constructors
+    public Head(object? attributes = null) : base("head", attributes) { }
+    #endregion
 }

@@ -1,4 +1,3 @@
-﻿namespace Supermodel.Persistence.DataContext
-{
-    public enum OperationEnum { Add, Delete, Update }
-}
+﻿namespace Supermodel.Persistence.DataContext;
+
+public enum OperationEnum { Add, Delete, Update }
