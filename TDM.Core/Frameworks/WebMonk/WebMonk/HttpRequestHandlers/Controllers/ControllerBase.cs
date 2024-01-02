@@ -81,7 +81,7 @@ public abstract class ControllerBase : IHttpRequestHandler
 
         #region Execute Action Method
         //get the result of Task<ActionResult> after awaiting it
-        var task = ((Task)actionMethodInfo.Invoke(GetControllerInstance(), parameters));
+        var task = (Task)actionMethodInfo.Invoke(GetControllerInstance(), parameters);
         await task.ConfigureAwait(false);
         var actionResult = (ActionResult)task.GetType().GetProperty("Result")!.GetValue(task);
         #endregion

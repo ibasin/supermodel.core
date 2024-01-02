@@ -31,6 +31,11 @@ public static partial class Bs4
             Pop<Div>();
 
             if (!skipHeaderAndFooter) Pop<CRUDEditContainer>();
+
+            //Remove disabling fieldset for accordion, for accordion we disable each individual panel
+            // ReSharper disable once VirtualMemberCallInConstructor
+            var fieldset = FirstWhere(x => x.Name == "fieldset");
+            fieldset.Attributes.Remove("disabled");
         }
         #endregion
     }

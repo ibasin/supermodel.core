@@ -291,9 +291,9 @@ public class WebServer
                 continue;
             }
             var httpListenerContextWrapper = new HttpListenerContextWrapper(httpListenerContext);
-#pragma warning disable 4014
+            #pragma warning disable 4014
             ProcessHttpRequestAsync(httpListenerContextWrapper, cancellationToken);
-#pragma warning restore 4014
+            #pragma warning restore 4014
         }
     }
 

@@ -18,6 +18,7 @@ public static partial class Bs4
         public CRUDEditContainer(IViewModelForEntity model, string pageTitle, bool readOnly = false, ValidationSummaryVisible validationSummaryVisible = ValidationSummaryVisible.IfNoVisibleErrors) :
             this(model, new Txt(pageTitle), readOnly, false, validationSummaryVisible)
         { }
+
         public CRUDEditContainer(IViewModelForEntity model, IGenerateHtml? pageTitle = null, bool readOnly = false, bool skipBackButton = false, ValidationSummaryVisible validationSummaryVisible = ValidationSummaryVisible.IfNoVisibleErrors)
         {
             //Start form

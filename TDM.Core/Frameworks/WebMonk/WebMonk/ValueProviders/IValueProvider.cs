@@ -21,14 +21,14 @@ public interface IValueProvider
         #endregion
 
         #region Methods
-#nullable disable
+        #nullable disable
         public T Update<T>(T oldValue)
         {
             if (ValueMissing) return oldValue;
             else return (T)NewValue;
         }
         public T GetNewValue<T>() => (T)NewValue;
-#nullable enable
+        #nullable enable
         #endregion
 
         #region Properties

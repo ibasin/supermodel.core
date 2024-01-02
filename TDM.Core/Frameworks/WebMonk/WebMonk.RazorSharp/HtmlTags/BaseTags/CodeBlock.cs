@@ -14,7 +14,7 @@ public class CodeBlock : IGenerateHtml
     }
     #endregion
 
-    #region IGenerateHtml implemntation
+    #region IGenerateHtml implementation
     public StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
     {
         return Html.ToHtml(sb);

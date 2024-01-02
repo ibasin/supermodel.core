@@ -264,7 +264,7 @@ public class Tags : List<IGenerateHtml>, IGenerateAndContainHtml
 
         foreach (var child in this)
         {
-            insertCount += child.InsertBeforeFirstWhere(predicate, tags);
+            insertCount += child.InsertAfterFirstWhere(predicate, tags);
             if (insertCount > 0) return insertCount; //1
         }
 

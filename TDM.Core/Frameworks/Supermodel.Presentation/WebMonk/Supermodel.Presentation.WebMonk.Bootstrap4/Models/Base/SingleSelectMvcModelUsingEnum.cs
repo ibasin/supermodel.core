@@ -34,7 +34,7 @@ public abstract class SingleSelectMvcModelUsingEnum<TEnum> : SingleSelectMvcMode
     }
     #endregion
 
-    #region ICstomMapper implementations
+    #region IRMCstomMapper implementations
     public override Task MapFromCustomAsync<T>(T other)
     {
         if (typeof(T) != typeof(TEnum) && typeof(T) != typeof(TEnum?)) throw new PropertyCantBeAutomappedException($"{GetType().Name} can't be automapped to {typeof(T).Name}");
@@ -42,7 +42,7 @@ public abstract class SingleSelectMvcModelUsingEnum<TEnum> : SingleSelectMvcMode
         return Task.CompletedTask;
     }
     // ReSharper disable once RedundantAssignment
-#nullable disable
+    #nullable disable
     public override Task<T> MapToCustomAsync<T>(T other)
     {
         if (typeof(T) != typeof(TEnum) && typeof(T) != typeof(TEnum?)) throw new PropertyCantBeAutomappedException($"{GetType().Name} can't be automapped to {typeof(T).Name}");
@@ -50,7 +50,7 @@ public abstract class SingleSelectMvcModelUsingEnum<TEnum> : SingleSelectMvcMode
         other = (T)(object)SelectedEnum; //This assignment does not do anything but we still do it for consistency
         return Task.FromResult(other);
     }
-#nullable enable
+    #nullable enable
     #endregion
 
     #region Properties

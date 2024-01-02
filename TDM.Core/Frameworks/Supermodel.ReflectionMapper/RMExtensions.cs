@@ -581,7 +581,10 @@ public static class RMExtensions
             var otherIEnumerable = (IEnumerable)other;
 
             var otherIEnumerableEnumerator = otherIEnumerable.GetEnumerator();
+            using var otherIEnumerableEnumeratorDisposer = otherIEnumerableEnumerator as IDisposable;
+
             var myIEnumerableEnumerator = myIEnumerable.GetEnumerator();
+            using var myIEnumerableEnumeratorDisposer = myIEnumerableEnumerator as IDisposable;
 
             while (true)
             {

@@ -171,12 +171,12 @@ public abstract class EFCoreDataContext : DbContext, IDataContext
             return await base.SaveChangesAsync(true, cancellationToken);
         }
         // ReSharper disable RedundantCatchClause
-#pragma warning disable 168
+        #pragma warning disable 168
         catch (Exception ex)
         {
             throw; //we need this for debugging
         }
-#pragma warning restore 168
+        #pragma warning restore 168
         // ReSharper restore RedundantCatchClause
     }
 

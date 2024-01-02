@@ -1,13 +1,14 @@
-﻿using Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base;
+﻿using System;
+using Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
 namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models;
 
 public static partial class Bs4
 {
-    public class CheckboxListMvcModelUsing<TMvcModel> : MultiSelectMvcModelUsing<TMvcModel> where TMvcModel : MvcModelForEntityCore
+    public class CheckboxListMvcModelUsingEnum<TEnum> : MultiSelectMvcModelUsingEnum<TEnum> where TEnum : struct, IConvertible
     {
-        #region IEditorTemplate implementation
+        #region IEditorTemplate implemetation
         public override IGenerateHtml EditorTemplate(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, object? attributes = null)
         {
             return CheckboxListEditorTemplate(Orientation, screenOrderFrom, screenOrderTo, attributes);
