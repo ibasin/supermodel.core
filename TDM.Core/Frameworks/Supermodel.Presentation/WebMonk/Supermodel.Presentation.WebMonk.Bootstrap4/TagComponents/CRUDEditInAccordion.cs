@@ -26,6 +26,7 @@ public static partial class Bs4
             foreach (var panel in panels)
             {
                 var body = model.EditorTemplate(panel.ScreenOrderFrom, panel.ScreenOrderTo).DisableAllControlsIf(readOnly);
+                // ReSharper disable once VirtualMemberCallInConstructor
                 Append(GetAccordionSection(accordionId, panel, body));
             }
             Pop<Div>();

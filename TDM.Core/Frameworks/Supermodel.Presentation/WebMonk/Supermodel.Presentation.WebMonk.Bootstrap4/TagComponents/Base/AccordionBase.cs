@@ -7,7 +7,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.TagComponents.Base;
 public abstract class AccordionBase : HtmlSnippet
 {
     #region Protected Helpers
-    protected IGenerateHtml GetAccordionSection(string accordionId, Bs4.AccordionPanel panel, IGenerateHtml body)
+    protected virtual IGenerateHtml GetAccordionSection(string accordionId, Bs4.AccordionPanel panel, IGenerateHtml body)
     {
         return new Div(new { @class="card" })
         {
@@ -23,7 +23,7 @@ public abstract class AccordionBase : HtmlSnippet
             },
             new Div(new { id=$"collapse_{panel.ElementId}", @class=$"collapse {(panel.Expanded? "show" : "")}", aria_labelledby=$"heading_{panel.ElementId}", data_parent=$"#{accordionId}" })
             {
-                new Div(new { @class="card-body" }) 
+                new Div(new { @class="card-body" })
                 { 
                     body
                 }

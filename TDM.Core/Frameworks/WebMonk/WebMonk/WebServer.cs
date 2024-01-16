@@ -86,6 +86,12 @@ public class WebServer
         //Add non-abstract classes that implement IHttpRequestHandler
         foreach (var assembly in httpRequestHandlerAssemblies)
         {
+            //We specifically skip Microsoft.Data.SqlClient assembly because of the
+            //problem in .net 8.0. See https://github.com/dotnet/runtime/issues/86969
+            //If you ever change this, also change GetAndSortHttpRequestHandlers method
+
+            if (assembly.FullName == "Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5") continue;
+            
             var typesImplementingIWebMonkStartupScript = assembly
                 .GetTypes()
                 .Where(x => x.IsClass && 
@@ -112,6 +118,11 @@ public class WebServer
         //Add non-abstract classes that implement IHttpRequestHandler
         foreach (var assembly in httpRequestHandlerAssemblies)
         {
+            //We specifically skip Microsoft.Data.SqlClient assembly because of the
+            //problem in .net 8.0. See https://github.com/dotnet/runtime/issues/86969
+            //If you ever change this, also change GetAndSortWebMonkStartupScripts method
+            if (assembly.FullName == "Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5") continue;
+            
             var typesImplementingIHttpRequestHandler = assembly
                 .GetTypes()
                 .Where(x => x.IsClass && 

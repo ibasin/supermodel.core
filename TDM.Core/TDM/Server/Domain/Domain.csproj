@@ -18,6 +18,6 @@
     <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="6.16.1" />
+    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.101.2" />
   </ItemGroup>
 </Project>

@@ -28,6 +28,7 @@ public static partial class Bs4
             foreach (var panel in panels)
             {
                 var body = searchModel.EditorTemplate(panel.ScreenOrderFrom, panel.ScreenOrderTo);
+                // ReSharper disable once VirtualMemberCallInConstructor
                 Append(GetAccordionSection(accordionId, panel, body));
             }
 
