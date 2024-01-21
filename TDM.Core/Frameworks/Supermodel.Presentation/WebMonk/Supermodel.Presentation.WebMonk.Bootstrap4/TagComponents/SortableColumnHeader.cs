@@ -30,7 +30,7 @@ public static partial class Bs4
             var controller = HttpContext.Current.RouteManager.GetController();
             var action = HttpContext.Current.RouteManager.GetAction();
 
-            var id = HttpContext.Current.ValueProviderManager.GetCachedValueProvidersList().GetValueOrDefault<long?>("id").GetNewValue<long?>();
+            var id = HttpContext.Current.ValueProviderManager.GetCachedValueProvidersList().GetValueOrDefault<long?>("id").GetCastValue<long?>();
 
             var queryStringDict = query.ToQueryStringDictionary();
             queryStringDict["smSkip"] = "0";

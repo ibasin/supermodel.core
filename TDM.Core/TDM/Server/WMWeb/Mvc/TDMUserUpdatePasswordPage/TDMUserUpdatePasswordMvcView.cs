@@ -8,8 +8,8 @@ public class TDMUserUpdatePasswordMvcView : CRUDMvcView<TDMUserUpdatePasswordMvc
 {
     public override ListMode ListMode { get; } = ListMode.NoList;
 
-    protected override bool ShowDefaultDetailPageTitle => false;
-    protected override string? DetailPageTitle { get; } = "Update Password";
+    protected override bool ShowDefaultEditPageTitle => false;
+    protected override string? EditPageTitle { get; } = "Update Password";
 }
     
 //public class TDMUserUpdatePasswordMvcView : CRUDMvcViewBase<TDMUserUpdatePasswordMvcModel>

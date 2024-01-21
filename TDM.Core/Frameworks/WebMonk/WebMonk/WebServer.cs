@@ -88,8 +88,7 @@ public class WebServer
         {
             //We specifically skip Microsoft.Data.SqlClient assembly because of the
             //problem in .net 8.0. See https://github.com/dotnet/runtime/issues/86969
-            //If you ever change this, also change GetAndSortHttpRequestHandlers method
-
+            //If you ever change this, search solution for 23ec7fc2d6eaa4a5 (PublicKeyToken)
             if (assembly.FullName == "Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5") continue;
             
             var typesImplementingIWebMonkStartupScript = assembly
@@ -120,7 +119,7 @@ public class WebServer
         {
             //We specifically skip Microsoft.Data.SqlClient assembly because of the
             //problem in .net 8.0. See https://github.com/dotnet/runtime/issues/86969
-            //If you ever change this, also change GetAndSortWebMonkStartupScripts method
+            //If you ever change this, search solution for 23ec7fc2d6eaa4a5 (PublicKeyToken)
             if (assembly.FullName == "Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5") continue;
             
             var typesImplementingIHttpRequestHandler = assembly
@@ -379,7 +378,7 @@ public class WebServer
     {
         var valueProviders = await HttpContext.Current.ValueProviderManager.GetValueProvidersListAsync().ConfigureAwait(false);
         var httpMethodOverrideResult = valueProviders.GetValueOrDefault<string?>("X-HTTP-Method-Override");
-        HttpContext.Current.RouteManager.OverridenHttpMethod = httpMethodOverrideResult.Update(HttpContext.Current.RouteManager.OverridenHttpMethod);
+        HttpContext.Current.RouteManager.OverridenHttpMethod = httpMethodOverrideResult.UpdateInternal(HttpContext.Current.RouteManager.OverridenHttpMethod);
     }
     protected virtual void RunNetsh(string arguments)
     {

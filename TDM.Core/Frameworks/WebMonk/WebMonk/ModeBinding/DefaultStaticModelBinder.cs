@@ -32,7 +32,7 @@ public class DefaultStaticModelBinder : IStaticModelBinder
         if (!ignoreRootObjectISelfModelBinder && typeof(ISelfModelBinder).IsAssignableFrom(modelType)) model = await BindToIModelBinderObjectAsync(rootType, modelType, model, valueProviders).ConfigureAwait(false);
 
         //string
-        else if (modelType == typeof(string)) model = valueProviders.GetValueOrDefault<string>(name).Update(model);
+        else if (modelType == typeof(string)) model = valueProviders.GetValueOrDefault<string>(name).UpdateInternal(model);
             
         //integer types
         else if (modelType == typeof(int)) model = BindToSimpleType<int>(rootType, model, valueProviders, name);
@@ -100,24 +100,13 @@ public class DefaultStaticModelBinder : IStaticModelBinder
     {
         try
         {
-            return valueProviders.GetValueOrDefault(name, modelType).Update(model);
+            return valueProviders.GetValueOrDefault(name, modelType).UpdateInternal(model);
         }
         catch (WebMonkInvalidFormatException)
         {
             var label = rootType.GetDisplayNameForProperty(name);
             HttpContext.Current.ValidationResultList.Add(new ValidationResult($"Invalid format for {label}", new [] { name }));
             return Type.Missing;
-            //DO NOT DELETE UNTIL WE ARE SURE IT WORKS FOR SEARCH MVC MODEL
-            //if (ex.ValueProviderType == typeof(RouteValueProvider) || ex.ValueProviderType == typeof(QueryStringValueProvider))
-            //{
-            //    throw;
-            //}
-            //else
-            //{
-            //    var label = rootType.GetDisplayNameForProperty(name);
-            //    HttpContext.Current.ValidationResultList.Add(new ValidationResult($"Invalid format for {label}", new [] { name }));
-            //    return Type.Missing;
-            //}
         }
     }
         

@@ -61,12 +61,12 @@ public class RouteManager : IRouteManager
 
     public string GetController()
     {
-        var controller = RouteValueProvider.GetValueOrDefault<string>("__controller__").GetNewValue<string>();
+        var controller = RouteValueProvider.GetValueOrDefault<string>("__controller__").GetCastValue<string>();
         return controller;
     }
     public string? GetAction()
     {
-        var action = RouteValueProvider.GetValueOrDefault<string?>("__action__").GetNewValue<string?>();
+        var action = RouteValueProvider.GetValueOrDefault<string?>("__action__").GetCastValue<string?>();
         return action;
     }
 

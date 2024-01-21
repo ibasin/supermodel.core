@@ -208,7 +208,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                value=propertyValueResult.Update(value);
+                value=propertyValueResult.UpdateInternal(value);
             }
 
             return value;
@@ -431,7 +431,7 @@ public static class Render
             {
                 var valueProviders = HttpContext.Current.ValueProviderManager.GetCachedValueProvidersList() ?? throw new WebMonkException("This should never happen: valueProviders == null");
                 var propertyValueResult = valueProviders.GetValueOrDefault<bool?>(name);
-                @checked = propertyValueResult.GetNewValue<bool?>() == true;
+                @checked = propertyValueResult.GetCastValue<bool?>() == true;
             }
             else
             {
@@ -791,7 +791,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                propertyValue = propertyValueResult.Update(propertyValue);
+                propertyValue = propertyValueResult.UpdateInternal(propertyValue);
             }
         }
         else
@@ -832,7 +832,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                propertyValue = propertyValueResult.Update(propertyValue);
+                propertyValue = propertyValueResult.UpdateInternal(propertyValue);
             }
         }
         else
@@ -875,7 +875,7 @@ public static class Render
         {
             var valueProviders = HttpContext.Current.ValueProviderManager.GetCachedValueProvidersList() ?? throw new WebMonkException("This should never happen: valueProviders == null");
             var propertyValueResult = valueProviders.GetValueOrDefault<bool?>(name);
-            @checked = propertyValueResult.GetNewValue<bool?>() == true;
+            @checked = propertyValueResult.GetCastValue<bool?>() == true;
         }
         else
         {
@@ -938,7 +938,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                propertyValue = propertyValueResult.Update(propertyValue);
+                propertyValue = propertyValueResult.UpdateInternal(propertyValue);
             }
         }
         else
@@ -991,7 +991,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                propertyValue = propertyValueResult.Update(propertyValue);
+                propertyValue = propertyValueResult.UpdateInternal(propertyValue);
             }
         }
 

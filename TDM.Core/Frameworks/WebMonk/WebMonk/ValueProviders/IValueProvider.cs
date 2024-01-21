@@ -10,30 +10,30 @@ public interface IValueProvider
     public readonly struct Result
     {
         #region Constructors
-        public Result(Type? valueProviderType, object? newValue, bool valueMissing = false)
+        public Result(/*Type? valueProviderType,*/ object? value, bool valueMissing = false)
         {
-            if (!valueMissing && valueProviderType == null) throw new ArgumentException("If value is not missing, must provide valueProviderType");
-            if (valueMissing && newValue != null) throw new ArgumentException("newValue must be null if valueMissing is true");
-            ValueProviderType = valueProviderType;
-            NewValue = newValue;
+            //if (!valueMissing && valueProviderType == null) throw new ArgumentException("If value is not missing, must provide valueProviderType");
+            if (valueMissing && value != null) throw new ArgumentException("newValue must be null if valueMissing is true");
+            //ValueProviderType = valueProviderType;
+            Value = value;
             ValueMissing = valueMissing;
         }
         #endregion
 
         #region Methods
         #nullable disable
-        public T Update<T>(T oldValue)
+        public T UpdateInternal<T>(T oldValue)
         {
             if (ValueMissing) return oldValue;
-            else return (T)NewValue;
+            else return (T)Value;
         }
-        public T GetNewValue<T>() => (T)NewValue;
+        public T GetCastValue<T>() => (T)Value;
         #nullable enable
         #endregion
 
         #region Properties
-        public Type? ValueProviderType { get; }
-        public object? NewValue { get; }
+        //public Type? ValueProviderType { get; }
+        public object? Value { get; }
         public bool ValueMissing { get; }
         #endregion
     }

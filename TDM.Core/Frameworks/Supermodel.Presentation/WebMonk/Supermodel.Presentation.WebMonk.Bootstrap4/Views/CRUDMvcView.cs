@@ -63,12 +63,17 @@ public abstract class CRUDMvcView<TDetailMvcModel, TListMvcModel, TDataContext> 
         {
             throw new InvalidOperationException("Detail is not valid for EditableMultiColumn or MultiColumnNoActions ListModels");
         }
-            
-        var detailPageTitle = DetailPageTitle;
-        if (ShowDefaultDetailPageTitle)
+
+        string? detailPageTitle;
+        if (model.IsNewModel())
         {
-            if (model.IsNewModel()) detailPageTitle = "Create New";
-            else detailPageTitle = model.Label;
+            if (ShowDefaultCreatePageTitle) detailPageTitle = "Create New";
+            else detailPageTitle = CreatePageTitle;
+        }
+        else
+        {
+            if (ShowDefaultEditPageTitle) detailPageTitle = model.Label;
+            else detailPageTitle = EditPageTitle;
         }
             
         var accordionPanels = GetAccordionPanels(model);
@@ -95,8 +100,11 @@ public abstract class CRUDMvcView<TDetailMvcModel, TListMvcModel, TDataContext> 
     #region Overrides
     protected virtual string? ListPageTitle { get; } = null;
 
-    protected virtual bool ShowDefaultDetailPageTitle { get; } = true;
-    protected virtual string? DetailPageTitle { get; } = null;
+    protected virtual bool ShowDefaultEditPageTitle { get; } = true;
+    protected virtual string? EditPageTitle { get; } = null;
+
+    protected virtual bool ShowDefaultCreatePageTitle { get; } = true;
+    protected virtual string? CreatePageTitle { get; } = null;
         
     protected virtual bool ListSkipDelete { get; } = false;
     protected virtual bool ListSkipAddNew { get; } = false;

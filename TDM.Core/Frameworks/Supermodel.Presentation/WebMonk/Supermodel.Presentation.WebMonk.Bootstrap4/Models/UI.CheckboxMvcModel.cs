@@ -72,7 +72,7 @@ public static partial class Bs4
             if (string.IsNullOrEmpty(prefix)) throw new WebMonkException("prefix is not set");
             var name = prefix.ToHtmlName();
 
-            ValueBool = valueProviders.GetValueOrDefault<bool>(name).Update(ValueBool);
+            ValueBool = valueProviders.GetValueOrDefault<bool>(name).UpdateInternal(ValueBool);
 
             return Task.FromResult((object?)this);
         }

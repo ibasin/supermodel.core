@@ -111,9 +111,9 @@ public abstract class ApiController : ControllerBase
                 //Then we bind to body as json
                 var messageBodyValueProvider = valueProviders.GetFirstOrDefaultValueProviderOfType<MessageBodyValueProvider>() ?? throw new WebMonkException("Unable to find MessageBodyValueProvider");
                 var bodyResult = messageBodyValueProvider.GetValueOrDefault(""); //get the entire body
-                if (!bodyResult.ValueMissing && bodyResult.NewValue != null)
+                if (!bodyResult.ValueMissing && bodyResult.Value != null)
                 {
-                    var body = bodyResult.GetNewValue<string>();
+                    var body = bodyResult.GetCastValue<string>();
                     if (!string.IsNullOrEmpty(body)) parameterValue = JsonConvert.DeserializeObject(body, parameterInfo.ParameterType);
                 }
             }
