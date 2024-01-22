@@ -34,8 +34,15 @@ public static partial class Bs4
             if (string.IsNullOrEmpty(prefix)) throw new WebMonkException("prefix is not set");
             var name = prefix.ToHtmlName();
 
-            BinaryContent = valueProviders.GetValueOrDefault<byte[]>(name).GetCastValue<byte[]>();
-            FileName = valueProviders.GetValueOrDefault<string>($"{name}{IValueProvider.FileNameSuffix}").GetCastValue<string>();
+            var binaryContent = valueProviders.GetValueOrDefault<byte[]>(name).GetCastValue<byte[]>();
+            var fileName = valueProviders.GetValueOrDefault<string>($"{name}{IValueProvider.FileNameSuffix}").GetCastValue<string>();
+
+            //if we are submitting nothing, do not change the original data of the component            
+            if (!string.IsNullOrEmpty(fileName) && binaryContent != null && binaryContent.Length > 0)
+            {
+                BinaryContent = binaryContent;
+                FileName = fileName;
+            }
 
             //Because this is not a IUIComponentWithValue, we have to validate Required attribute here
             if (string.IsNullOrEmpty(FileName) || BinaryContent == null || BinaryContent.Length == 0)

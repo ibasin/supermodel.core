@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
@@ -176,8 +177,12 @@ public abstract class ChildCRUDController<TChildEntity, TChildDetailMvcModel, TP
 
             var file = (BinaryFileModelBase?)mvcModelItem.PropertyGet(pn);
             if (file == null || file.IsEmpty) return new StatusCodeResult((int)HttpStatusCode.NotFound);
-            const string mimeType = "application/octet-stream";
-            return File(file.BinaryContent, mimeType, file.FileName);
+
+            if (SuggestOpenBinaryFilesInline) Response.Headers.Append("Content-Disposition", "inline; filename=" + file.FileName);
+            else Response.Headers.Append("Content-Disposition", "attachment; filename=" + file.FileName);
+
+            var contentType = MimeTypes.GetMimeType(file.FileName);
+            return File(file.BinaryContent, contentType);
         }
     }
 
@@ -243,6 +248,8 @@ public abstract class ChildCRUDController<TChildEntity, TChildDetailMvcModel, TP
     {
         return GetItems().SingleAsync(x => x.Id == id);
     }
+
+    protected virtual bool SuggestOpenBinaryFilesInline => false;
 
     //this method will catch validation exceptions that happen during mapping from mvc to domain (when it runs validation for mvc model by creating a domain object)
     protected virtual async Task<Tuple<TChildEntity, TChildDetailMvcModel>> TryUpdateEntityAsync(TChildEntity entityItem, string prefix, long? parentId)

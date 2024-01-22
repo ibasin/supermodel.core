@@ -7,11 +7,12 @@ namespace WebMonk.Results;
 public class BinaryFileResult : ActionResult
 {
     #region Constructors
-    public BinaryFileResult(byte[] body, string fileName, string contentType = "application/octet-stream")
+    public BinaryFileResult(byte[] body, string fileName, string contentType = "application/octet-stream", bool suggestOpenInline = false)
     {
         Body = body;
         FileName = fileName;
         ContentType = contentType;
+        SuggestOpenInline = suggestOpenInline;
     }
     #endregion
         
@@ -22,7 +23,9 @@ public class BinaryFileResult : ActionResult
 
         response.ContentType = ContentType;
         response.StatusCode = (int)StatusCode;
-        response.AddHeader("Content-Disposition", $"Attachment; filename=\"{FileName}\"");
+        
+        if (SuggestOpenInline) response.AddHeader("Content-Disposition", $"inline; filename=\"{FileName}\"");
+        else response.AddHeader("Content-Disposition", $"attachment; filename=\"{FileName}\"");
 
         await response.OutputStream.WriteAsync(Body, 0, Body.Length).ConfigureAwait(false);
     }
@@ -32,6 +35,7 @@ public class BinaryFileResult : ActionResult
     public byte[] Body { get; }
     public string FileName { get; }
     public string ContentType { get; }
+    public bool SuggestOpenInline { get; }
     public HttpStatusCode StatusCode { get; set; } = HttpStatusCode.OK;
     #endregion
 }

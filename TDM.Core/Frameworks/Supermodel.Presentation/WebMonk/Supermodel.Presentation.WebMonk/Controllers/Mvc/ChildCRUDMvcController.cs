@@ -174,7 +174,9 @@ public abstract class ChildCRUDMvcController<TChildEntity, TChildDetailMvcModel,
 
             var file = (BinaryFileModelBase?)mvcModelItem.PropertyGet(pn);
             if (file == null || file.IsEmpty) return new StatusCodeResult(HttpStatusCode.NotFound);
-            return new BinaryFileResult(file.BinaryContent!, file.FileName!);
+
+            var contentType = MimeTypes.GetMimeType(file.FileName!);
+            return new BinaryFileResult(file.BinaryContent!, file.FileName!, contentType, SuggestOpenBinaryFilesInline);
         }
     }
     public virtual async Task<ActionResult> DeleteBinaryFileAsync(long id, string pn)
@@ -247,6 +249,8 @@ public abstract class ChildCRUDMvcController<TChildEntity, TChildDetailMvcModel,
     {
         return GetItems().SingleAsync(x => x.Id == id);
     }
+
+    protected virtual bool SuggestOpenBinaryFilesInline => false;
 
     //this method will catch validation exceptions that happen during mapping from mvc to domain (when it runs validation for mvc model by creating a domain object)
     protected virtual async Task<Tuple<TChildEntity, TChildDetailMvcModel>> TryUpdateEntityAsync(TChildEntity entityItem, string prefix, long? parentId)
