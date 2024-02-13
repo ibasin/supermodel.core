@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
@@ -58,7 +59,7 @@ public class BinaryFile : ValueObject, IComparable
     [JsonIgnore, NotMapped] public string Extension => Path.GetExtension(FileName);
     [JsonIgnore, NotMapped] public string FileNameWithoutExtension => Path.GetFileNameWithoutExtension(FileName);
 
-    public string FileName { get; set; } = "";
+    [MaxLength(100)] public string FileName { get; set; } = "";
     public byte[] BinaryContent { get; set; } = Array.Empty<byte>();
     #endregion
 }

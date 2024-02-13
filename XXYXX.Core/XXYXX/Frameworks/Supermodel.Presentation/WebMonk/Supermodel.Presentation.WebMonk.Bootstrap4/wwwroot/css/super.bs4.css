@@ -13,3 +13,7 @@
 td div.form-group.row label.col-sm-2.col-form-label.display-marker {
     padding-top: 0 !important;
 }
+
+.invalid-feedback {
+    margin-top: .5rem !important;
+}

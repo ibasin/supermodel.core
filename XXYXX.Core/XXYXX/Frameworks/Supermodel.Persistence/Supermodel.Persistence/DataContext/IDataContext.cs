@@ -6,35 +6,34 @@ using System.Threading.Tasks;
 using Supermodel.Persistence.Entities;
 using Supermodel.Persistence.Repository;
 
-namespace Supermodel.Persistence.DataContext
+namespace Supermodel.Persistence.DataContext;
+
+public interface IDataContext : IAsyncDisposable
 {
-    public interface IDataContext : IAsyncDisposable
-    {
-        #region Methods
-        Task SeedDataAsync();
+    #region Methods
+    Task SeedDataAsync();
         
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());
-        Task<int> FinalSaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = new());
+    Task<int> FinalSaveChangesAsync(CancellationToken cancellationToken = new());
 
-        IQueryable<TEntity> Items<TEntity>() where TEntity : class, IEntity, new();
+    IQueryable<TEntity> Items<TEntity>() where TEntity : class, IEntity, new();
         
-        IDataRepo<TEntity> CreateRepo<TEntity>() where TEntity : class, IEntity, new();
-        IDataRepo CreateRepoForRuntimeType(Type modelType);
+    IDataRepo<TEntity> CreateRepo<TEntity>() where TEntity : class, IEntity, new();
+    IDataRepo CreateRepoForRuntimeType(Type modelType);
 
-        IDataContextTransaction BeginTransaction();
-        #endregion
+    IDataContextTransaction BeginTransaction();
+    #endregion
 
-        #region Properties
-        bool CommitOnDispose { get; set; }
+    #region Properties
+    bool CommitOnDispose { get; set; }
         
-        bool IsReadOnly { get; }
-        void MakeReadOnly();
+    bool IsReadOnly { get; }
+    void MakeReadOnly();
         
-        bool IsCompletedAndFinalized { get; }
-        void MakeCompletedAndFinalized();
-        ConcurrentDictionary<string, object?> CustomValues { get; }
+    bool IsCompletedAndFinalized { get; }
+    void MakeCompletedAndFinalized();
+    ConcurrentDictionary<string, object?> CustomValues { get; }
 
-        TEntity CloneDetached<TEntity>(TEntity entity) where TEntity : class, IEntity, new();
-        #endregion
-    }
+    TEntity CloneDetached<TEntity>(TEntity entity) where TEntity : class, IEntity, new();
+    #endregion
 }

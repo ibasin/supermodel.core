@@ -1,17 +1,16 @@
-﻿namespace Supermodel.Tooling.SolutionMaker
+﻿namespace Supermodel.Tooling.SolutionMaker;
+
+public interface ISolutionMakerParams
 {
-    public interface ISolutionMakerParams
-    {
-        #region Properties
-        string SolutionName { get; } 
-        string SolutionDirectory { get; }
+    #region Properties
+    string SolutionName { get; } 
+    string SolutionDirectory { get; }
 
-        WebFrameworkEnum WebFramework { get; }
-        MobileApiEnum MobileApi { get; }
+    WebFrameworkEnum WebFramework { get; }
+    MobileApiEnum MobileApi { get; }
 
-        DatabaseEnum Database { get; }
+    DatabaseEnum Database { get; }
 
-        string CalculateFullPath();
-        #endregion
-    }
+    string CalculateFullPath();
+    #endregion
 }

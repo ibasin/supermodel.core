@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Supermodel.DataAnnotations.Validations;
 
@@ -9,7 +8,7 @@ public class ValidationResultException : Exception
     #region Constructors
     public ValidationResultException(string errorMessage, IEnumerable<string> memberNames)
     {
-        ValidationResultList = new ValidationResultList { new ValidationResult(errorMessage, memberNames) };
+        ValidationResultList = new ValidationResultList { new(errorMessage, memberNames) };
     }
     public ValidationResultException(ValidationResultList validationResultList)
     {

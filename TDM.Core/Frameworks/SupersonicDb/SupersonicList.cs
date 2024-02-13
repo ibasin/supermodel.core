@@ -600,7 +600,7 @@ public class SupersonicList<TItem> : IQueryable<TItem> where TItem : class
 
     #region Properties
     protected List<TItem> ClusteredIndex { get; set; }
-    internal Dictionary<string, Index<TItem>> Indexes { get; set; } = new Dictionary<string, Index<TItem>>();
+    internal Dictionary<string, Index<TItem>> Indexes { get; set; } = new();
 
     public bool AllIndexesDisabled => Indexes.Values.All(x => x.IsDisabled);
 

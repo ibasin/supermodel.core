@@ -1,14 +1,8 @@
 ﻿using System;
 
-namespace Supermodel.Presentation.Cmd
-{
-    public class ModelStateInvalidException : Exception
-    {
-        public ModelStateInvalidException(object model)
-        {
-            Model = model;
-        }
+namespace Supermodel.Presentation.Cmd;
 
-        public object Model { get; protected set; }
-    }
+public class ModelStateInvalidException(object model) : Exception
+{
+    public object Model { get; protected set; } = model;
 }

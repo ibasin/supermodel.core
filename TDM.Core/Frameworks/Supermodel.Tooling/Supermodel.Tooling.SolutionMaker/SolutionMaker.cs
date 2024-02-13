@@ -532,7 +532,7 @@ public static class SolutionMaker
     #endregion
 
     #region Properties and Contants
-    public static Random Random { get; } = new Random(Guid.NewGuid().GetHashCode());
+    public static Random Random { get; } = new(Guid.NewGuid().GetHashCode());
     public const string ZipFileName = "SupermodelSolutionTemplate.XXYXX.zip";
     public static string Version { get; set; } = "";
     #endregion

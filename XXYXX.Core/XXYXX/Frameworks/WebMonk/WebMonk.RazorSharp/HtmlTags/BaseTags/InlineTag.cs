@@ -1,50 +1,49 @@
 ﻿using Supermodel.DataAnnotations;
 
-namespace WebMonk.RazorSharp.HtmlTags.BaseTags
+namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
+
+public class InlineTag : Tag
 {
-    public class InlineTag : Tag
+    #region Constructors
+    public InlineTag(string? name, object? attributes, bool generateInline) : base(name, attributes) 
+    { 
+        GenerateInline = generateInline;
+    }
+    #endregion
+
+    #region Overrides
+    public override StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
     {
-        #region Constructors
-        public InlineTag(string? name, object? attributes, bool generateInline) : base(name, attributes) 
-        { 
-            GenerateInline = generateInline;
-        }
-        #endregion
-
-        #region Overrides
-        public override StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
+        if (GenerateInline)
         {
-            if (GenerateInline)
+            sb ??= new StringBuilderWithIndents();
+
+            if (ContainsInnerHtml())
             {
-                sb ??= new StringBuilderWithIndents();
+                sb.TrimEndWhitespace();
+                sb.Append($"<{Name}{GenerateMyAttributesString()}>");
 
-                if (ContainsInnerHtml())
-                {
-                    sb.TrimEndWhitespace();
-                    sb.Append($"<{Name}{GenerateMyAttributesString()}>");
-
-                    foreach (var tag in this) sb = tag.ToHtml(sb);
+                foreach (var tag in this) sb = tag.ToHtml(sb);
                     
-                    sb.TrimEndWhitespace();
-                    sb.Append($"</{Name}>");
-                }
-                else
-                {
-                    sb.TrimEndWhitespace();
-                    sb.Append($"<{Name}{GenerateMyAttributesString()}></{Name}>");
-                }
-
-                return sb;
+                sb.TrimEndWhitespace();
+                sb.Append($"</{Name}>");
             }
             else
             {
-                return base.ToHtml(sb);
+                sb.TrimEndWhitespace();
+                sb.Append($"<{Name}{GenerateMyAttributesString()}></{Name}>");
             }
-        }
-        #endregion
 
-        #region Properies
-        public bool GenerateInline { get; }
-        #endregion
+            return sb;
+        }
+        else
+        {
+            return base.ToHtml(sb);
+        }
     }
+    #endregion
+
+    #region Properies
+    public bool GenerateInline { get; }
+    #endregion
 }

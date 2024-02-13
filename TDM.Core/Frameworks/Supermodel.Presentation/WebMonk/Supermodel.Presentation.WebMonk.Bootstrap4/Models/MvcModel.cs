@@ -68,9 +68,24 @@ public static partial class Bs4
             {
                 //skip if this property is not for edit
                 if (propertyInfo.HasAttribute<SkipForEditAttribute>()) continue;
-                    
-                //Div 1
+
+                //get html attribute
                 var htmlAttrAttribute = propertyInfo.GetAttribute<HtmlAttrAttribute>();
+
+                //if we want a hidden field
+                if (propertyInfo.HasAttribute<HiddenOnlyAttribute>())
+                {
+                    var hiddenTags = Render.Hidden(this, propertyInfo.Name);
+                    foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.Name == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
+                    {
+                        tag.AddOrUpdateAttr(htmlAttrAttribute?.Attributes);
+                        tag.AddOrUpdateAttr(attributes);
+                    }
+                    result.Append(hiddenTags);
+                    continue;
+                }
+
+                //Div 1
                 result.AppendAndPush(new Div(new { @class="form-group row" }))
                     .AddOrUpdateAttr(htmlAttrAttribute?.Attributes)
                     .AddOrUpdateAttr(attributes);
@@ -146,8 +161,23 @@ public static partial class Bs4
                 //skip if this property is not for display
                 if (propertyInfo.HasAttribute<SkipForDisplayAttribute>()) continue;
 
-                //Div 1
+                //get html attribute
                 var htmlAttrAttribute = propertyInfo.GetAttribute<HtmlAttrAttribute>();
+
+                //if we want a hidden field
+                if (propertyInfo.HasAttribute<HiddenOnlyAttribute>())
+                {
+                    var hiddenTags = Render.Hidden(this, propertyInfo.Name);
+                    foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.Name == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
+                    {
+                        tag.AddOrUpdateAttr(htmlAttrAttribute?.Attributes);
+                        tag.AddOrUpdateAttr(attributes);
+                    }
+                    result.Append(hiddenTags);
+                    continue;
+                }
+
+                //Div 1
                 result.AppendAndPush(new Div(new { @class="form-group row" }))
                     .AddOrUpdateAttr(htmlAttrAttribute?.Attributes)
                     .AddOrUpdateAttr(attributes);
@@ -383,7 +413,7 @@ public static partial class Bs4
         #endregion
 
         #region Properties
-        [ScaffoldColumn(false), NotRMapped] public virtual NumberOfColumnsEnum NumberOfColumns => NumberOfColumnsEnum.One;
+        [ScaffoldColumn(false), NotRMapped] public NumberOfColumnsEnum NumberOfColumns { get; set; } = NumberOfColumnsEnum.One;
         #endregion
     }
 }

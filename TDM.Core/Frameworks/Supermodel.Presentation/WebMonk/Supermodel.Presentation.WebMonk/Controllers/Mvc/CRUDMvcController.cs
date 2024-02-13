@@ -199,7 +199,9 @@ public abstract class CRUDMvcController<TEntity, TDetailMvcModel, TListMvcModel,
 
             var file = (BinaryFileModelBase?)mvcModelItem.PropertyGet(pn);
             if (file == null || file.IsEmpty) return new StatusCodeResult(HttpStatusCode.NotFound);
-            return new BinaryFileResult(file.BinaryContent!, file.FileName!);
+
+            var contentType = MimeTypes.GetMimeType(file.FileName!);
+            return new BinaryFileResult(file.BinaryContent!, file.FileName!, contentType, SuggestOpenBinaryFilesInline);
         }
     }
     public virtual async Task<ActionResult> DeleteBinaryFileAsync(long id, string pn)
@@ -272,6 +274,8 @@ public abstract class CRUDMvcController<TEntity, TDetailMvcModel, TListMvcModel,
     {
         return ControllerCommon.GetItems<TEntity>();
     }
+
+    protected virtual bool SuggestOpenBinaryFilesInline => false;
 
     protected virtual Task<ActionResult> HandleInlineEditValidationErrorsAsync(long id)
     {

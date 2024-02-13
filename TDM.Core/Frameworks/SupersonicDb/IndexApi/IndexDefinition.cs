@@ -29,7 +29,7 @@ internal class IndexDefinition
 
     #region Properties
     public string Name { get; set; }
-    public List<PropDefinition> Props { get; set; } = new List<PropDefinition>();
+    public List<PropDefinition> Props { get; set; } = new();
     public bool IsUnique { get; set; }
     #endregion
 }

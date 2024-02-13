@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.UnitOfWork
+﻿namespace Supermodel.Mobile.Runtime.Common.UnitOfWork;
+
+public enum ReadOnly
 {
-    public enum ReadOnly
-    {
-        No,
-        Yes,
-    }
+    No,
+    Yes,
 }

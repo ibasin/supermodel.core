@@ -36,7 +36,7 @@ public static class ObjectAttributeReaderExtensions
 
         return value.ToString();
     }
-    private static readonly ConcurrentDictionary<Enum, string> _enumDescDict = new ConcurrentDictionary<Enum, string>();
+    private static readonly ConcurrentDictionary<Enum, string> _enumDescDict = new();
 
     public static int GetScreenOrder(this object value)
     {
@@ -86,6 +86,6 @@ public static class ObjectAttributeReaderExtensions
         _enumMemberDict[value] = null;
         return null;
     }
-    private static readonly ConcurrentDictionary<Enum, string?> _enumMemberDict = new ConcurrentDictionary<Enum, string?>();
+    private static readonly ConcurrentDictionary<Enum, string?> _enumMemberDict = new();
 
 }

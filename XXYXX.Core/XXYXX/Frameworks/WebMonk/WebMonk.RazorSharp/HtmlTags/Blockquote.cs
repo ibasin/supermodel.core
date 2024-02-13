@@ -1,11 +1,10 @@
 ﻿using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace WebMonk.RazorSharp.HtmlTags
+namespace WebMonk.RazorSharp.HtmlTags;
+
+public class Blockquote : Tag
 {
-    public class Blockquote : Tag
-    {
-        #region Constructors
-        public Blockquote(object? attributes = null) : base("Blockquote", attributes) { }
-        #endregion
-    }
+    #region Constructors
+    public Blockquote(object? attributes = null) : base("Blockquote", attributes) { }
+    #endregion
 }

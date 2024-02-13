@@ -29,8 +29,7 @@ public abstract class EnhancedCRUDMvcView<TDetailMvcModel, TListMvcModel, TSearc
             
         var result = new HtmlStack();
 
-        if (FilterTitle != null) result.Append(new Bs4.CRUDSearchForm(model, FilterTitle, resetButton:ResetButtonOnFilter));
-        else result.Append(new Bs4.CRUDSearchForm(model, resetButton:ResetButtonOnFilter));
+        result.Append(RenderFilter(model));
 
         return ApplyToDefaultLayout(result);
     }
@@ -38,11 +37,7 @@ public abstract class EnhancedCRUDMvcView<TDetailMvcModel, TListMvcModel, TSearc
     {
         var result = new HtmlStack();
 
-        if (ShowFilterOnList) 
-        {
-            if (FilterTitle != null) result.Append(new Bs4.CRUDSearchForm(models.Criteria, FilterTitle, resetButton:ResetButtonOnFilter));
-            else result.Append(new Bs4.CRUDSearchForm(models.Criteria, resetButton:ResetButtonOnFilter));
-        }
+        if (ShowFilterOnList) result.Append(RenderFilter(models.Criteria));
 
         if (ListPageTitle != null) result.Append(new H2 { new Txt(ListPageTitle) });
             
@@ -55,12 +50,12 @@ public abstract class EnhancedCRUDMvcView<TDetailMvcModel, TListMvcModel, TSearc
             }
             case ListMode.Simple:
             {
-                result.Append(new Bs4.CRUDList(models, (IGenerateHtml?)null, ListSkipAddNew || ReadOnly, ListSkipDelete || ReadOnly, ReadOnly));
+                result.Append(new Bs4.CRUDList(models, (IGenerateHtml?)null, ListSkipAddNew || ReadOnlyView, ListSkipDelete || ReadOnlyView, ReadOnlyView));
                 break;
             }
             case ListMode.MultiColumn:
             {
-                result.Append(new Bs4.CRUDMultiColumnList(models, (IGenerateHtml?)null, ListSkipAddNew || ReadOnly, ListSkipDelete || ReadOnly, ReadOnly));
+                result.Append(new Bs4.CRUDMultiColumnList(models, (IGenerateHtml?)null, ListSkipAddNew || ReadOnlyView, ListSkipDelete || ReadOnlyView, ReadOnlyView));
                 break;
             }
             case ListMode.MultiColumnNoActions:
@@ -70,7 +65,7 @@ public abstract class EnhancedCRUDMvcView<TDetailMvcModel, TListMvcModel, TSearc
             }
             case ListMode.EditableMultiColumn:
             {
-                if (ReadOnly) throw new InvalidOperationException("ReadOnly is not compatible with EditableMultiColumn ListModel");
+                if (ReadOnlyView) throw new InvalidOperationException("ReadOnlyView is not compatible with EditableMultiColumn ListModel");
                 result.Append(new Bs4.CRUDMultiColumnEditableList(models, typeof(TDataContext), (IGenerateHtml?)null, ListSkipAddNew, ListSkipDelete));
                 break;
             }
@@ -85,15 +80,25 @@ public abstract class EnhancedCRUDMvcView<TDetailMvcModel, TListMvcModel, TSearc
 
         return ApplyToDefaultLayout(result);
     }
+
+    protected virtual IGenerateHtml RenderFilter(TSearchMvcModel model)
+    {
+        var result = new HtmlStack();
+
+        if (FilterTitle != null) result.Append(new Bs4.CRUDSearchForm(model, FilterTitle, resetButton: ResetButtonOnFilter));
+        else result.Append(new Bs4.CRUDSearchForm(model, resetButton: ResetButtonOnFilter));
+
+        return result;
+    }
     #endregion
 
     #region Disabled View Methods
-    public override IGenerateHtml RenderList(List<TListMvcModel> models) { throw new InvalidOperationException(); }
+    public override IGenerateHtml RenderList(List<TListMvcModel> models) { throw new InvalidOperationException("Must call this overload: RenderList(ListWithCriteria<TListMvcModel, TSearchMvcModel> models, int totalCount)"); }
     #endregion
 
     #region Overrides
     protected virtual PaginationMode PaginationMode { get; } = PaginationMode.TopAndBottom;
-    protected virtual bool ShowFilterOnList { get; } = true;
+    protected virtual bool ShowFilterOnList { get; } = typeof(TSearchMvcModel) != typeof(Bs4.DummySearchMvcModel);
     protected virtual bool IncludeSearchViewMethod { get; } = false;
     protected virtual bool ResetButtonOnFilter { get; } = false;
     protected virtual string? FilterTitle { get; } = null;

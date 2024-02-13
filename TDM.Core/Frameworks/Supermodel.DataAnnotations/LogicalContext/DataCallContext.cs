@@ -21,6 +21,6 @@ public static class DataCallContext
     #endregion
 
     #region Private Variables
-    private static readonly AsyncLocal<ConcurrentDictionary<string, object?>> _logicalData = new AsyncLocal<ConcurrentDictionary<string, object?>>();
+    private static readonly AsyncLocal<ConcurrentDictionary<string, object?>> _logicalData = new();
     #endregion
 }

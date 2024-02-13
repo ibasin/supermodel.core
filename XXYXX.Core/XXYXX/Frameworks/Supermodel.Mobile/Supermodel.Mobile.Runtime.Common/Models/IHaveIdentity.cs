@@ -1,7 +1,6 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.Models
+﻿namespace Supermodel.Mobile.Runtime.Common.Models;
+
+public interface IHaveIdentity
 {
-    public interface IHaveIdentity
-    {
-        string Identity { get; }
-    }
+    string Identity { get; }
 }

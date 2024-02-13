@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 
-namespace Supermodel.DataAnnotations
+namespace Supermodel.DataAnnotations;
+
+public interface IAsyncInit
 {
-    public interface IAsyncInit
-    {
-        bool AsyncInitialized { get; }
-        Task InitAsync();
-    }
+    bool AsyncInitialized { get; }
+    Task InitAsync();
 }

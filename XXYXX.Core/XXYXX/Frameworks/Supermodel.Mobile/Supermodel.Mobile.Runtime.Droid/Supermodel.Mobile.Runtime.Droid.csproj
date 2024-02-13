@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>11</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>11</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>5.0.0.2622</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
@@ -73,7 +78,7 @@
       <Name>Supermodel.Encryptor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Supermodel.Mobile.Runtime.Common\Supermodel.Mobile.Runtime.Common.csproj">
-      <Project>{370FB0BD-1083-429B-A031-6EB2F7867009}</Project>
+      <Project>{A5CF47DA-3F39-4FF4-A120-9B5DC7EEB97D}</Project>
       <Name>Supermodel.Mobile.Runtime.Common</Name>
     </ProjectReference>
   </ItemGroup>

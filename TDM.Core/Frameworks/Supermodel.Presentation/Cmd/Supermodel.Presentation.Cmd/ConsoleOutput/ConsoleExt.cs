@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Supermodel.Presentation.Cmd.Models;
 
 namespace Supermodel.Presentation.Cmd.ConsoleOutput;
@@ -685,9 +686,13 @@ public static class ConsoleExt
     #region Low Level Dropdown List
     public static string EditDropdownList(string value, IEnumerable<SelectListItem> options)
     {
-        var savedCursorVisible = Console.CursorVisible;
-        Console.CursorVisible = false;
-            
+        var savedCursorVisible = true;
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            savedCursorVisible = Console.CursorVisible;
+            Console.CursorVisible = false;
+        }
+
         var optionsArray = options.ToArray();
         var selectedOption = optionsArray.Single(x => x.Value == value);
         bool originalValue = true;
@@ -715,7 +720,7 @@ public static class ConsoleExt
                     continue;
                 }
                     
-                Console.WriteLine(); 
+                Console.WriteLine();
                 Console.CursorVisible = savedCursorVisible;
                 return selectedOption!.Value;
             }
@@ -725,7 +730,7 @@ public static class ConsoleExt
                     
                 selectedOption = optionsArray.Single(x => x.Value == value);
                 PrintOption(selectedOption, maxLenPlus2, cursorLeft, cursorTop);
-                Console.WriteLine(); 
+                Console.WriteLine();
                 Console.CursorVisible = savedCursorVisible;
                 return selectedOption.Value;
             }

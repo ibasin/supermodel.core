@@ -91,7 +91,7 @@ internal class Term
     #endregion
 
     #region Properties
-    public List<Factor> Factors { get; set; } = new List<Factor>();
+    public List<Factor> Factors { get; set; } = new();
 
     public List<Factor> EqualityFactors
     {

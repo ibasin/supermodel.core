@@ -489,7 +489,7 @@ internal class Index<TItem> where TItem : class
     }
     internal List<Term> ParseTerm(Expression expression, out string errorMessage)
     {
-        var terms = new List<Term> { new Term() };
+        var terms = new List<Term> { new() };
 
         if (expression is BinaryExpression binaryExpression)
         {
@@ -514,14 +514,14 @@ internal class Index<TItem> where TItem : class
             {
                 var factor = ParseBinaryFactor(expression, out errorMessage);
                 if (errorMessage != null) return null;
-                terms = Term.MultiplyTerms(terms, new List<Term> { new Term { Factors = new List<Factor> { factor } } });
+                terms = Term.MultiplyTerms(terms, new List<Term> { new() { Factors = new List<Factor> { factor } } });
             }
         }
         else
         {
             var factor = ParseUnaryFactor(expression, out errorMessage);
             if (errorMessage != null) return null;
-            terms = Term.MultiplyTerms(terms, new List<Term> { new Term { Factors = new List<Factor> { factor } } });
+            terms = Term.MultiplyTerms(terms, new List<Term> { new() { Factors = new List<Factor> { factor } } });
         }
         return terms;
     }
@@ -1160,7 +1160,7 @@ internal class Index<TItem> where TItem : class
     protected List<TItem> OrderedList { get; set; }
     protected bool IsUnique { get; set; }
 
-    protected List<TItem> PendingDeletes { get; set; } = new List<TItem>();
+    protected List<TItem> PendingDeletes { get; set; } = new();
 
     public bool IsDisabled { get; protected set; }
     public IEnumerable<TItem> Items => OrderedList.AsEnumerable();

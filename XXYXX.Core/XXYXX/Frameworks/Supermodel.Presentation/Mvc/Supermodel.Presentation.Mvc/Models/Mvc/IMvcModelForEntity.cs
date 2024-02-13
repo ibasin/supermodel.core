@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Presentation.Mvc.Models.Mvc
+﻿namespace Supermodel.Presentation.Mvc.Models.Mvc;
+
+public interface IMvcModelForEntity : IMvcModel, IViewModelForEntity
 {
-    public interface IMvcModelForEntity : IMvcModel, IViewModelForEntity
-    {
-        string Label { get; }
-        bool IsDisabled { get; }
-    }
+    string Label { get; }
+    bool IsDisabled { get; }
 }

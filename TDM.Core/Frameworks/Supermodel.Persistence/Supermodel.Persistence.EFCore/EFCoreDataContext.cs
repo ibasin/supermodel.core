@@ -42,6 +42,11 @@ public abstract class EFCoreDataContext : DbContext, IDataContext
         var pluralizer = new Pluralizer();
         foreach (var assembly in assemblies)
         {
+            //We specifically skip Microsoft.Data.SqlClient assembly because of the
+            //problem in .net 8.0. See https://github.com/dotnet/runtime/issues/86969
+            //If you ever change this, search solution for 23ec7fc2d6eaa4a5 (PublicKeyToken)
+            if (assembly.FullName == "Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5") continue;
+
             Type[] typesInAssembly;
             try { typesInAssembly = assembly.GetTypes(); }
             catch (ReflectionTypeLoadException) { continue; }
@@ -75,7 +80,8 @@ public abstract class EFCoreDataContext : DbContext, IDataContext
                 var ownedType = relationship.DependentToPrincipal.ClrType;
                 var ownedName = relationship.DependentToPrincipal.Name;
                 var etb = modelBuilder.Entity(ownerType);
-                etb.OwnsOne(ownedType, ownedName);
+                //etb.OwnsOne(ownedType, ownedName);       //this is for pre EF 8.0 versions of Supermodel
+                etb.ComplexProperty(ownedType, ownedName); //this is only good for EF 8.0 and would introduce a breaking change
             }
         }
 
@@ -97,9 +103,9 @@ public abstract class EFCoreDataContext : DbContext, IDataContext
             await SeedDataWithModelBuilderAsync(modelBuilder);
         }
         // ReSharper disable once RedundantCatchClause
-#pragma warning disable 168
+        #pragma warning disable 168
         catch (Exception ex) //This is not redundant, this is to catch exceptions in void async method
-#pragma warning restore 168
+        #pragma warning restore 168
         {
             Environment.Exit(1);
         }
@@ -157,7 +163,7 @@ public abstract class EFCoreDataContext : DbContext, IDataContext
     public override async ValueTask DisposeAsync()
     {
         if (CommitOnDispose && !IsReadOnly && !IsCompletedAndFinalized) await SaveChangesAsync();
-        base.Dispose();
+        await base.DisposeAsync();
     }
     #endregion
 

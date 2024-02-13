@@ -79,7 +79,7 @@ public class StaticContentHttpRequestHandler : IHttpRequestHandler
     #endregion
 
     #region Properties
-    protected ConcurrentDictionary<string, CachedFile> CachedFiles { get; } = new ConcurrentDictionary<string, CachedFile>();
+    protected ConcurrentDictionary<string, CachedFile> CachedFiles { get; } = new();
     public static int MaxNumberOfFilesInCache { get; } = 32;
     #endregion
 }

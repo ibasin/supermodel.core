@@ -38,7 +38,7 @@ public class ModalContainer : HtmlContainerSnippet
                 throw new SupermodelException($"Unknown Width: {width}");
             }
         }
-        if (verticallyCentered) modalDialogCssClass = modalDialogCssClass + " modal-dialog-centered";
+        if (verticallyCentered) modalDialogCssClass += " modal-dialog-centered";
 
         AppendAndPush(new Div(new { @class = "modal fade", id = dialogId, tabindex = "-1", role = "dialog", aria_labelledby = "exampleModalLabel", aria_hidden = "true" }));
         AppendAndPush(new Div(new { @class = modalDialogCssClass, role = "document" }));

@@ -87,7 +87,7 @@ public static partial class Bs4
         }
         private IGenerateHtml GetPageActionLink(string linkText, int pageNum, int pageSize)
         {
-            var controller = HttpContext.Current.RouteManager.GetController();
+            var controller = HttpContext.Current.PrefixManager.CurrentContextControllerName;
             var action = HttpContext.Current.RouteManager.GetAction();
             var qs = HttpContext.Current.HttpListenerContext.Request.QueryString.ToQueryStringDictionary();
             qs["smSkip"] = ((pageNum - 1) * pageSize).ToString();

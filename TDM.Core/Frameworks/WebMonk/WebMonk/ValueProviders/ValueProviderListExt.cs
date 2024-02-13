@@ -32,7 +32,7 @@ public static class ValueProviderListExt
             var result = valueProvider.GetValueOrDefault(key, type);
             if (!result.ValueMissing) return result;
         }
-        return new IValueProvider.Result(null, null, true);
+        return new IValueProvider.Result(null, true);
     }
     public static IValueProvider.Result GetValueOrDefault(this List<IValueProvider> me, string key)
     {
@@ -41,7 +41,7 @@ public static class ValueProviderListExt
             var result = valueProvider.GetValueOrDefault(key);
             if (!result.ValueMissing) return result;
         }
-        return new IValueProvider.Result(null, null, true);
+        return new IValueProvider.Result(null, true);
     }
 
     public static void ReplaceOrAppendValueProvider<TValueProvider>(this List<IValueProvider> me, TValueProvider newValueProvider) where TValueProvider: class, IValueProvider

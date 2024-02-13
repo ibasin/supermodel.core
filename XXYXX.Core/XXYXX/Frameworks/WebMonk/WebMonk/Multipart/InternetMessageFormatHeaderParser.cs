@@ -3,258 +3,257 @@ using System.Diagnostics.Contracts;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace WebMonk.Multipart
+namespace WebMonk.Multipart;
+
+public enum ParserState
 {
-    public enum ParserState
-    {
-        NeedMoreData,
-        Done,
-        Invalid,
-        DataTooBig,
-    }
+    NeedMoreData,
+    Done,
+    Invalid,
+    DataTooBig,
+}
     
-    public class InternetMessageFormatHeaderParser
+public class InternetMessageFormatHeaderParser
+{
+    internal const int MinHeaderSize = 2;
+
+    private int _totalBytesConsumed;
+    private readonly int _maxHeaderSize;
+
+    private HeaderFieldState _headerState;
+    private readonly HttpHeaders _headers;
+    private readonly CurrentHeaderFieldStore _currentHeader;
+
+    public InternetMessageFormatHeaderParser(HttpHeaders headers, int maxHeaderSize)
     {
-        internal const int MinHeaderSize = 2;
+        // The minimum length which would be an empty header terminated by CRLF
+        if (maxHeaderSize < MinHeaderSize) throw new ArgumentOutOfRangeException(nameof(maxHeaderSize));
+        _headers = headers ?? throw new ArgumentNullException(nameof(headers));
+        _maxHeaderSize = maxHeaderSize;
+        _currentHeader = new CurrentHeaderFieldStore();
+    }
 
-        private int _totalBytesConsumed;
-        private readonly int _maxHeaderSize;
+    private enum HeaderFieldState
+    {
+        Name = 0,
+        Value,
+        AfterCarriageReturn,
+        FoldingLine
+    }
 
-        private HeaderFieldState _headerState;
-        private readonly HttpHeaders _headers;
-        private readonly CurrentHeaderFieldStore _currentHeader;
+    public ParserState ParseBuffer(
+        byte[] buffer,
+        int bytesReady,
+        ref int bytesConsumed)
+    {
+        if (buffer == null) throw new ArgumentNullException("buffer");
+        var parseStatus = ParserState.NeedMoreData;
 
-        public InternetMessageFormatHeaderParser(HttpHeaders headers, int maxHeaderSize)
+        if (bytesConsumed >= bytesReady) return parseStatus;  // We already can tell we need more data
+
+        try
         {
-            // The minimum length which would be an empty header terminated by CRLF
-            if (maxHeaderSize < MinHeaderSize) throw new ArgumentOutOfRangeException(nameof(maxHeaderSize));
-            _headers = headers ?? throw new ArgumentNullException(nameof(headers));
-            _maxHeaderSize = maxHeaderSize;
-            _currentHeader = new CurrentHeaderFieldStore();
+            parseStatus = ParseHeaderFields(
+                buffer,
+                bytesReady,
+                ref bytesConsumed,
+                ref _headerState,
+                _maxHeaderSize,
+                ref _totalBytesConsumed,
+                _currentHeader,
+                _headers);
+        }
+        catch (Exception)
+        {
+            parseStatus = ParserState.Invalid;
         }
 
-        private enum HeaderFieldState
+        return parseStatus;
+    }
+
+    private static ParserState ParseHeaderFields(
+        byte[] buffer,
+        int bytesReady,
+        ref int bytesConsumed,
+        ref HeaderFieldState requestHeaderState,
+        int maximumHeaderLength,
+        ref int totalBytesConsumed,
+        CurrentHeaderFieldStore currentField,
+        HttpHeaders headers)
+    {
+        Contract.Assert((bytesReady - bytesConsumed) >= 0, "ParseHeaderFields()|(inputBufferLength - bytesParsed) < 0");
+        Contract.Assert(maximumHeaderLength <= 0 || totalBytesConsumed <= maximumHeaderLength, "ParseHeaderFields()|Headers already read exceeds limit.");
+
+        // Remember where we started.
+        var initialBytesParsed = bytesConsumed;
+        int segmentStart;
+
+        // Set up parsing status with what will happen if we exceed the buffer.
+        ParserState parseStatus = ParserState.DataTooBig;
+        var effectiveMax = maximumHeaderLength <= 0 ? int.MaxValue : maximumHeaderLength - totalBytesConsumed + initialBytesParsed;
+        if (bytesReady < effectiveMax)
         {
-            Name = 0,
-            Value,
-            AfterCarriageReturn,
-            FoldingLine
+            parseStatus = ParserState.NeedMoreData;
+            effectiveMax = bytesReady;
         }
 
-        public ParserState ParseBuffer(
-            byte[] buffer,
-            int bytesReady,
-            ref int bytesConsumed)
+        Contract.Assert(bytesConsumed < effectiveMax, "We have already consumed more than the max header length.");
+
+        switch (requestHeaderState)
         {
-            if (buffer == null) throw new ArgumentNullException("buffer");
-            var parseStatus = ParserState.NeedMoreData;
-
-            if (bytesConsumed >= bytesReady) return parseStatus;  // We already can tell we need more data
-
-            try
-            {
-                parseStatus = ParseHeaderFields(
-                    buffer,
-                    bytesReady,
-                    ref bytesConsumed,
-                    ref _headerState,
-                    _maxHeaderSize,
-                    ref _totalBytesConsumed,
-                    _currentHeader,
-                    _headers);
-            }
-            catch (Exception)
-            {
-                parseStatus = ParserState.Invalid;
-            }
-
-            return parseStatus;
-        }
-
-        private static ParserState ParseHeaderFields(
-            byte[] buffer,
-            int bytesReady,
-            ref int bytesConsumed,
-            ref HeaderFieldState requestHeaderState,
-            int maximumHeaderLength,
-            ref int totalBytesConsumed,
-            CurrentHeaderFieldStore currentField,
-            HttpHeaders headers)
-        {
-            Contract.Assert((bytesReady - bytesConsumed) >= 0, "ParseHeaderFields()|(inputBufferLength - bytesParsed) < 0");
-            Contract.Assert(maximumHeaderLength <= 0 || totalBytesConsumed <= maximumHeaderLength, "ParseHeaderFields()|Headers already read exceeds limit.");
-
-            // Remember where we started.
-            var initialBytesParsed = bytesConsumed;
-            int segmentStart;
-
-            // Set up parsing status with what will happen if we exceed the buffer.
-            ParserState parseStatus = ParserState.DataTooBig;
-            var effectiveMax = maximumHeaderLength <= 0 ? int.MaxValue : maximumHeaderLength - totalBytesConsumed + initialBytesParsed;
-            if (bytesReady < effectiveMax)
-            {
-                parseStatus = ParserState.NeedMoreData;
-                effectiveMax = bytesReady;
-            }
-
-            Contract.Assert(bytesConsumed < effectiveMax, "We have already consumed more than the max header length.");
-
-            switch (requestHeaderState)
-            {
-                case HeaderFieldState.Name:
-                    segmentStart = bytesConsumed;
-                    while (buffer[bytesConsumed] != ':')
+            case HeaderFieldState.Name:
+                segmentStart = bytesConsumed;
+                while (buffer[bytesConsumed] != ':')
+                {
+                    if (buffer[bytesConsumed] == '\r')
                     {
-                        if (buffer[bytesConsumed] == '\r')
+                        if (!currentField.IsEmpty())
                         {
-                            if (!currentField.IsEmpty())
+                            parseStatus = ParserState.Invalid;
+                            goto quit;
+                        }
+                        else
+                        {
+                            // Move past the '\r'
+                            requestHeaderState = HeaderFieldState.AfterCarriageReturn;
+                            if (++bytesConsumed == effectiveMax)
                             {
-                                parseStatus = ParserState.Invalid;
                                 goto quit;
                             }
-                            else
-                            {
-                                // Move past the '\r'
-                                requestHeaderState = HeaderFieldState.AfterCarriageReturn;
-                                if (++bytesConsumed == effectiveMax)
-                                {
-                                    goto quit;
-                                }
 
-                                goto case HeaderFieldState.AfterCarriageReturn;
-                            }
-                        }
-
-                        if (++bytesConsumed == effectiveMax)
-                        {
-                            string headerFieldName = Encoding.UTF8.GetString(buffer, segmentStart, bytesConsumed - segmentStart);
-                            currentField.Name.Append(headerFieldName);
-                            goto quit;
+                            goto case HeaderFieldState.AfterCarriageReturn;
                         }
                     }
 
-                    if (bytesConsumed > segmentStart)
+                    if (++bytesConsumed == effectiveMax)
                     {
                         string headerFieldName = Encoding.UTF8.GetString(buffer, segmentStart, bytesConsumed - segmentStart);
                         currentField.Name.Append(headerFieldName);
-                    }
-
-                    // Move past the ':'
-                    requestHeaderState = HeaderFieldState.Value;
-                    if (++bytesConsumed == effectiveMax)
-                    {
                         goto quit;
                     }
+                }
 
-                    goto case HeaderFieldState.Value;
+                if (bytesConsumed > segmentStart)
+                {
+                    string headerFieldName = Encoding.UTF8.GetString(buffer, segmentStart, bytesConsumed - segmentStart);
+                    currentField.Name.Append(headerFieldName);
+                }
 
-                case HeaderFieldState.Value:
-                    segmentStart = bytesConsumed;
-                    while (buffer[bytesConsumed] != '\r')
-                    {
-                        if (++bytesConsumed == effectiveMax)
-                        {
-                            string headerFieldValue = Encoding.UTF8.GetString(buffer, segmentStart, bytesConsumed - segmentStart);
-                            currentField.Value.Append(headerFieldValue);
-                            goto quit;
-                        }
-                    }
+                // Move past the ':'
+                requestHeaderState = HeaderFieldState.Value;
+                if (++bytesConsumed == effectiveMax)
+                {
+                    goto quit;
+                }
 
-                    if (bytesConsumed > segmentStart)
+                goto case HeaderFieldState.Value;
+
+            case HeaderFieldState.Value:
+                segmentStart = bytesConsumed;
+                while (buffer[bytesConsumed] != '\r')
+                {
+                    if (++bytesConsumed == effectiveMax)
                     {
                         string headerFieldValue = Encoding.UTF8.GetString(buffer, segmentStart, bytesConsumed - segmentStart);
                         currentField.Value.Append(headerFieldValue);
+                        goto quit;
                     }
+                }
 
-                    // Move past the CR
-                    requestHeaderState = HeaderFieldState.AfterCarriageReturn;
-                    if (++bytesConsumed == effectiveMax) goto quit;
+                if (bytesConsumed > segmentStart)
+                {
+                    string headerFieldValue = Encoding.UTF8.GetString(buffer, segmentStart, bytesConsumed - segmentStart);
+                    currentField.Value.Append(headerFieldValue);
+                }
 
-                    goto case HeaderFieldState.AfterCarriageReturn;
+                // Move past the CR
+                requestHeaderState = HeaderFieldState.AfterCarriageReturn;
+                if (++bytesConsumed == effectiveMax) goto quit;
 
-                case HeaderFieldState.AfterCarriageReturn:
-                    if (buffer[bytesConsumed] != '\n')
+                goto case HeaderFieldState.AfterCarriageReturn;
+
+            case HeaderFieldState.AfterCarriageReturn:
+                if (buffer[bytesConsumed] != '\n')
+                {
+                    parseStatus = ParserState.Invalid;
+                    goto quit;
+                }
+
+                if (currentField.IsEmpty())
+                {
+                    parseStatus = ParserState.Done;
+                    bytesConsumed++;
+                    goto quit;
+                }
+
+                requestHeaderState = HeaderFieldState.FoldingLine;
+                if (++bytesConsumed == effectiveMax) goto quit;
+
+                goto case HeaderFieldState.FoldingLine;
+
+            case HeaderFieldState.FoldingLine:
+                if (buffer[bytesConsumed] != ' ' && buffer[bytesConsumed] != '\t')
+                {
+                    currentField.CopyTo(headers);
+                    requestHeaderState = HeaderFieldState.Name;
+                    if (bytesConsumed == effectiveMax)
                     {
-                        parseStatus = ParserState.Invalid;
                         goto quit;
                     }
 
-                    if (currentField.IsEmpty())
-                    {
-                        parseStatus = ParserState.Done;
-                        bytesConsumed++;
-                        goto quit;
-                    }
+                    goto case HeaderFieldState.Name;
+                }
 
-                    requestHeaderState = HeaderFieldState.FoldingLine;
-                    if (++bytesConsumed == effectiveMax) goto quit;
+                // Unfold line by inserting SP instead
+                currentField.Value.Append(' ');
 
-                    goto case HeaderFieldState.FoldingLine;
+                // Continue parsing header field value
+                requestHeaderState = HeaderFieldState.Value;
+                if (++bytesConsumed == effectiveMax) goto quit;
 
-                case HeaderFieldState.FoldingLine:
-                    if (buffer[bytesConsumed] != ' ' && buffer[bytesConsumed] != '\t')
-                    {
-                        currentField.CopyTo(headers);
-                        requestHeaderState = HeaderFieldState.Name;
-                        if (bytesConsumed == effectiveMax)
-                        {
-                            goto quit;
-                        }
-
-                        goto case HeaderFieldState.Name;
-                    }
-
-                    // Unfold line by inserting SP instead
-                    currentField.Value.Append(' ');
-
-                    // Continue parsing header field value
-                    requestHeaderState = HeaderFieldState.Value;
-                    if (++bytesConsumed == effectiveMax) goto quit;
-
-                    goto case HeaderFieldState.Value;
-            }
-
-        quit:
-            totalBytesConsumed += bytesConsumed - initialBytesParsed;
-            return parseStatus;
+                goto case HeaderFieldState.Value;
         }
 
-        private class CurrentHeaderFieldStore
+        quit:
+        totalBytesConsumed += bytesConsumed - initialBytesParsed;
+        return parseStatus;
+    }
+
+    private class CurrentHeaderFieldStore
+    {
+        private const int DefaultFieldNameAllocation = 128;
+        private const int DefaultFieldValueAllocation = 2 * 1024;
+
+        private static readonly char[] _linearWhiteSpace = { ' ', '\t' };
+
+        private readonly StringBuilder _name = new(DefaultFieldNameAllocation);
+        private readonly StringBuilder _value = new(DefaultFieldValueAllocation);
+
+        public StringBuilder Name
         {
-            private const int DefaultFieldNameAllocation = 128;
-            private const int DefaultFieldValueAllocation = 2 * 1024;
+            get { return _name; }
+        }
 
-            private static readonly char[] _linearWhiteSpace = { ' ', '\t' };
+        public StringBuilder Value
+        {
+            get { return _value; }
+        }
 
-            private readonly StringBuilder _name = new StringBuilder(DefaultFieldNameAllocation);
-            private readonly StringBuilder _value = new StringBuilder(DefaultFieldValueAllocation);
+        public void CopyTo(HttpHeaders headers)
+        {
+            headers.Add(_name.ToString(), _value.ToString().Trim(_linearWhiteSpace));
+            Clear();
+        }
 
-            public StringBuilder Name
-            {
-                get { return _name; }
-            }
+        public bool IsEmpty()
+        {
+            return _name.Length == 0 && _value.Length == 0;
+        }
 
-            public StringBuilder Value
-            {
-                get { return _value; }
-            }
-
-            public void CopyTo(HttpHeaders headers)
-            {
-                headers.Add(_name.ToString(), _value.ToString().Trim(_linearWhiteSpace));
-                Clear();
-            }
-
-            public bool IsEmpty()
-            {
-                return _name.Length == 0 && _value.Length == 0;
-            }
-
-            private void Clear()
-            {
-                _name.Clear();
-                _value.Clear();
-            }
+        private void Clear()
+        {
+            _name.Clear();
+            _value.Clear();
         }
     }
 }

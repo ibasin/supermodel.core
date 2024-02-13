@@ -22,7 +22,7 @@ public abstract class SearchApiModel : ApiModel, ISelfModelBinder
             if (queryStringValueProvider == null) throw new SupermodelException("queryStringValueProvider == null");
 
             var valResult = queryStringValueProvider.GetValueOrDefault(property.Name, property.PropertyType);
-            if (!valResult.ValueMissing) this.PropertySet(property.Name, valResult.NewValue);
+            if (!valResult.ValueMissing) this.PropertySet(property.Name, valResult.Value);
         }
         return this;
     }

@@ -18,6 +18,6 @@ public class SelectListItem
     #endregion
 
     #region Static constants
-    public static SelectListItem Empty { get; } = new SelectListItem("", "");
+    public static SelectListItem Empty { get; } = new("", "");
     #endregion
 }

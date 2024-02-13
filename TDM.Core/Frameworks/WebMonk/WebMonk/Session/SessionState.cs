@@ -138,7 +138,7 @@ internal class SessionState
     }
     protected TempDataDictionary? _tempData;
         
-    public static ConcurrentDictionary<string, SessionState> SessionStatesDict { get; } = new ConcurrentDictionary<string, SessionState>();
+    public static ConcurrentDictionary<string, SessionState> SessionStatesDict { get; } = new();
 
     //Random is not thread-safe, so we create an instance for every thread
     public static Random Rnd => _rnd ??= new Random(Guid.NewGuid().GetHashCode());

@@ -2,36 +2,36 @@
 using Newtonsoft.Json;
 using Supermodel.Presentation.Mvc.Bootstrap4.D3.Models.Base;
 
-namespace Supermodel.Presentation.Mvc.Bootstrap4.D3.Models
+namespace Supermodel.Presentation.Mvc.Bootstrap4.D3.Models;
+
+public static partial class D3
 {
-    public static partial class D3
+    public class DonutChartMvcModel : BrightChartsD3MvcModelBase
     {
-        public class DonutChartMvcModel : BrightChartsD3MvcModelBase
+        #region Embedded Types
+        public class Datum
         {
-            #region Embedded Types
-            public class Datum
+            #region Constructors
+            public Datum(long id, string name, double quantity)
             {
-                #region Constructors
-                public Datum(long id, string name, double quantity)
-                {
-                    Id = id;
-                    Name = name; 
-                    Quantity = quantity;
-                }
-                #endregion
-        
-                #region Properties
-                [JsonProperty("id")] public long Id { get; }
-                [JsonProperty("name")] public string Name { get; }
-                [JsonProperty("quantity")] public double Quantity { get; }
-                #endregion
+                Id = id;
+                Name = name; 
+                Quantity = quantity;
             }
             #endregion
+        
+            #region Properties
+            [JsonProperty("id")] public long Id { get; }
+            [JsonProperty("name")] public string Name { get; }
+            [JsonProperty("quantity")] public double Quantity { get; }
+            #endregion
+        }
+        #endregion
             
-            #region Overrides
-            public override string GenerateD3Script(string containerId)
-            {
-                return $@"
+        #region Overrides
+        public override string GenerateD3Script(string containerId)
+        {
+            return $@"
                     <script>
                         $(function() {{
                             {containerId}_Donut();
@@ -48,18 +48,18 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.D3.Models
                             {ShowLegendIfApplicable(containerId)}
                         }};
                     </script>";
-            }
-            public override bool ContainsData()
-            {
-                return Data.Count > 0;
-            }
-            #endregion
+        }
+        public override bool ContainsData()
+        {
+            return Data.Count > 0;
+        }
+        #endregion
 
-            #region Methods
-            protected virtual string ShowLegendIfApplicable(string containerId)
-            {
-                if (!ShowLegend) return "";
-                return $@"                            
+        #region Methods
+        protected virtual string ShowLegendIfApplicable(string containerId)
+        {
+            if (!ShowLegend) return "";
+            return $@"                            
                     let legend = britecharts.legend();
                     {SetHorizontalLegend()}
 
@@ -71,23 +71,22 @@ namespace Supermodel.Presentation.Mvc.Bootstrap4.D3.Models
                         .on('customMouseOut', function() {{
                             legend.clearHighlight();
                         }});";
-            }
-            protected virtual string SetHorizontalLegend()
-            {
-                if (!IsHorizontalLegend) return "";
-                return $@"
+        }
+        protected virtual string SetHorizontalLegend()
+        {
+            if (!IsHorizontalLegend) return "";
+            return $@"
                     legend
                         .isHorizontal(true)
                         .markerSize(8)
                         .height(40);";
-            }
-            #endregion
-
-            #region Properties
-            public List<Datum> Data { get; } = new List<Datum>();
-            public bool ShowLegend { get; set; } = true;
-            public bool IsHorizontalLegend { get; set; }
-            #endregion
         }
+        #endregion
+
+        #region Properties
+        public List<Datum> Data { get; } = new();
+        public bool ShowLegend { get; set; } = true;
+        public bool IsHorizontalLegend { get; set; }
+        #endregion
     }
 }

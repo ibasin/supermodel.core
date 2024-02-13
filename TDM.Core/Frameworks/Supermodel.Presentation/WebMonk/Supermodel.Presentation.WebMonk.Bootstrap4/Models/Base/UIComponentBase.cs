@@ -51,7 +51,7 @@ public abstract class UIComponentBase : IRMapperCustom, IEditorTemplate, IDispla
         if (string.IsNullOrEmpty(prefix)) throw new WebMonkException("prefix is not set");
         var name = prefix.ToHtmlName();
 
-        ComponentValue = valueProviders.GetValueOrDefault<string>(name).Update(ComponentValue);
+        ComponentValue = valueProviders.GetValueOrDefault<string>(name).UpdateInternal(ComponentValue);
                 
         return Task.FromResult((object?)this);
     }

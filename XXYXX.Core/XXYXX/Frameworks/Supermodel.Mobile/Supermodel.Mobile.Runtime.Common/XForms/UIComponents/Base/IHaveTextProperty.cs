@@ -1,7 +1,6 @@
-namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents.Base
+namespace Supermodel.Mobile.Runtime.Common.XForms.UIComponents.Base;
+
+public interface IHaveTextProperty
 {
-    public interface IHaveTextProperty
-    {
-        string Text { get; set; }
-    }
+    string Text { get; set; }
 }

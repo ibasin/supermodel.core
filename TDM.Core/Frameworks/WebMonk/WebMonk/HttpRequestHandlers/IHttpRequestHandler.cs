@@ -36,7 +36,7 @@ public interface IHttpRequestHandler
         #region Properties
         public bool Success { get; }
         protected Func<Task>? ExecuteResultFuncAsync { get; }
-        public static HttpRequestHandlerResult False { get; } = new HttpRequestHandlerResult(false, null);
+        public static HttpRequestHandlerResult False { get; } = new(false, null);
         #endregion
     }
     #endregion

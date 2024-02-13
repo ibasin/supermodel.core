@@ -1,7 +1,6 @@
-﻿namespace Supermodel.Presentation.WebMonk.Bootstrap4.Views
+﻿namespace Supermodel.Presentation.WebMonk.Bootstrap4.Views;
+
+public enum PaginationMode
 {
-    public enum PaginationMode
-    {
-        Top, Bottom, TopAndBottom
-    }
+    Top, Bottom, TopAndBottom
 }

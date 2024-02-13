@@ -10,7 +10,7 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base;
 public abstract class SingleSelectMvcModelForEntity : SingleSelectMvcModel
 {
     #region ICustomMapper implemtation
-#nullable disable
+    #nullable disable
     public override Task MapFromCustomAsync<T>(T other)
     {
         var otherType = typeof(T);
@@ -37,6 +37,7 @@ public abstract class SingleSelectMvcModelForEntity : SingleSelectMvcModel
 
         return (T)newEntity;        
     }
-
+    // ReSharper disable once UnusedNullableDirective
+    #nullable enable
     #endregion
 }

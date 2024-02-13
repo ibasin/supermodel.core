@@ -1,136 +1,135 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+#pragma warning disable CS0162 // Unreachable code detected
 
-namespace Supermodel.Tooling.SolutionMaker.Cmd
+namespace Supermodel.Tooling.SolutionMaker.Cmd;
+
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main()
+        try
         {
-            try
+            SolutionMaker.Version = "8.0.000 Beta1";
+
+            //*******Un-comment and run this once to refresh the solution zip
+            Console.WriteLine($"v{SolutionMaker.Version}");
+            Console.WriteLine();
+
+            Console.Write("Deleting XXYXX\\Frameworks directory... ");
+            Directory.Delete(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks", true);
+            Console.WriteLine("Done!");
+
+            Console.Write("Copying Frameworks directory from TDM.Core to XXYXX... ");
+            CopyDirectory(@"..\..\..\..\..\..\Frameworks", @"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks");
+            Console.WriteLine("Done!");
+
+            //Adjust versions in XXYXX and in TDM
+            File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
+            File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
+            Console.WriteLine("Version.txt files updated successfully!");
+
+            SolutionMaker.CreateSnapshot(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX", @"..\..\..\");
+            Console.WriteLine($"{SolutionMaker.ZipFileName} created successfully!");
+
+            return;
+            //********Un-comment and run this once to refresh the solution zip
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Clear();
+
+            Console.WriteLine("Supermodel.Core Solution Maker");
+            Console.WriteLine($"Version {SolutionMaker.Version}");
+
+            Console.WriteLine("Please Enter Solution Parameters");
+            var solutionMakerParams = SolutionMakerParams.ReadFromConsole();
+
+            //Comment this out for production, this is to speed up development and incremental testing
+            //var solutionMakerParams = new SolutionMakerParams
+            //{
+            //    SolutionName = "XYX",
+            //    SolutionDirectory = @"C:\Users\ilyabasin\Documents\Projects",
+            //    WebFramework = WebFrameworkEnum.Mvc,
+            //    MobileApi = MobileApiEnum.Native,
+            //    Database = DatabaseEnum.SqlServer
+            //};
+            //End of comment out for production
+
+            var path = solutionMakerParams.CalculateFullPath();
+            if (Directory.Exists(path))
             {
-                SolutionMaker.Version = "3.0.000 Beta1";
-
-                //*******Un-comment and run this once to refresh the solution zip
-                Console.WriteLine($"v{SolutionMaker.Version}");
-                Console.WriteLine();
-
-                Console.Write("Deleting XXYXX\\Frameworks directory... ");
-                Directory.Delete(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks", true);
-                Console.WriteLine("Done!");
-
-                Console.Write("Copying Frameworks directory from TDM.Core to XXYXX... ");
-                CopyDirectory(@"..\..\..\..\..\..\Frameworks", @"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks");
-                Console.WriteLine("Done!");
-
-                //Adjust versions in XXYXX and in TDM
-                File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
-                File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
-                Console.WriteLine("Version.txt files updated successfully!");
-
-                SolutionMaker.CreateSnapshot(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX", @"..\..\..\");
-                Console.WriteLine($"{SolutionMaker.ZipFileName} created successfully!");
-
-                return;
-                //********Un-comment and run this once to refresh the solution zip
-
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Clear();
-
-                Console.WriteLine("Supermodel.Core Solution Maker");
-                Console.WriteLine($"Version {SolutionMaker.Version}");
-
-                Console.WriteLine("Please Enter Solution Parameters");
-                var solutionMakerParams = SolutionMakerParams.ReadFromConsole();
-
-                //Comment this out for production, this is to speed up development and incremental testing
-                //var solutionMakerParams = new SolutionMakerParams
-                //{
-                //    SolutionName = "XYX",
-                //    SolutionDirectory = @"C:\Users\ilyabasin\Documents\Projects",
-                //    WebFramework = WebFrameworkEnum.Mvc,
-                //    MobileApi = MobileApiEnum.Native,
-                //    Database = DatabaseEnum.SqlServer
-                //};
-                //End of comment out for production
-
-                var path = solutionMakerParams.CalculateFullPath();
-                if (Directory.Exists(path))
-                {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.Write("Directory ");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write(path);
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.Write(" already exists.\nWould you like to replace it? (y/n): ");
-                    
-                    var input = Console.ReadLine();
-                    if (input == null) return;
-                    input = input.Trim().ToLower();
-                    if (input != "y") return;
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Deleting {path}...");
-                    Directory.Delete(SolutionMaker.CombineAndAdjustPaths(solutionMakerParams.SolutionDirectory, solutionMakerParams.SolutionName), true);
-                }
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Generating new solution {solutionMakerParams.SolutionName}...");
-                SolutionMaker.CreateSupermodelShell(solutionMakerParams);
-                
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write($"Solution {solutionMakerParams.SolutionName} generated successfully! Open it now? (y/n): ");
-                var startSolution = Console.ReadLine();
-                if (startSolution != null && startSolution.Trim().ToLower() == "y") 
-                {
-                    new Process
-                    {
-                        StartInfo =
-                        {
-                            UseShellExecute = true, 
-                            FileName = SolutionMaker.CombineAndAdjustPaths(path, $"{solutionMakerParams.SolutionName}.sln"),
-                        }
-                    }.Start();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex);
-            }
-            finally
-            {
+                Console.Write("Directory ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(path);
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.Write(" already exists.\nWould you like to replace it? (y/n): ");
+                    
+                var input = Console.ReadLine();
+                //if (input == null) return;
+                input = input.Trim().ToLower();
+                if (input != "y") return;
                 Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Deleting {path}...");
+                Directory.Delete(SolutionMaker.CombineAndAdjustPaths(solutionMakerParams.SolutionDirectory, solutionMakerParams.SolutionName), true);
+            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Generating new solution {solutionMakerParams.SolutionName}...");
+            SolutionMaker.CreateSupermodelShell(solutionMakerParams);
+                
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write($"Solution {solutionMakerParams.SolutionName} generated successfully! Open it now? (y/n): ");
+            var startSolution = Console.ReadLine();
+            if (/*startSolution != null &&*/ startSolution.Trim().ToLower() == "y") 
+            {
+                new Process
+                {
+                    StartInfo =
+                    {
+                        UseShellExecute = true, 
+                        FileName = SolutionMaker.CombineAndAdjustPaths(path, $"{solutionMakerParams.SolutionName}.sln"),
+                    }
+                }.Start();
             }
         }
-
-        // ReSharper disable once UnusedMember.Local
-        private static void CopyDirectory(string sourceDirName, string destDirName)
+        catch (Exception ex)
         {
-            // Get the subdirectories for the specified directory.
-            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+        }
+    }
 
-            if (!dir.Exists) throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + sourceDirName);
+    // ReSharper disable once UnusedMember.Local
+    private static void CopyDirectory(string sourceDirName, string destDirName)
+    {
+        // Get the subdirectories for the specified directory.
+        DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
-            var dirs = dir.GetDirectories();
+        if (!dir.Exists) throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + sourceDirName);
+
+        var dirs = dir.GetDirectories();
         
-            // If the destination directory doesn't exist, create it.       
-            Directory.CreateDirectory(destDirName);        
+        // If the destination directory doesn't exist, create it.       
+        Directory.CreateDirectory(destDirName);        
 
-            // Get the files in the directory and copy them to the new location.
-            var files = dir.GetFiles();
-            foreach (var file in files)
-            {
-                string tempPath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(tempPath, false);
-            }
+        // Get the files in the directory and copy them to the new location.
+        var files = dir.GetFiles();
+        foreach (var file in files)
+        {
+            string tempPath = Path.Combine(destDirName, file.Name);
+            file.CopyTo(tempPath, false);
+        }
 
-            // Copy subdirectories and their contents to new location.
-            foreach (var subDir in dirs)
-            {
-                string tempPath = Path.Combine(destDirName, subDir.Name);
-                CopyDirectory(subDir.FullName, tempPath);
-            }
+        // Copy subdirectories and their contents to new location.
+        foreach (var subDir in dirs)
+        {
+            string tempPath = Path.Combine(destDirName, subDir.Name);
+            CopyDirectory(subDir.FullName, tempPath);
         }
     }
 }

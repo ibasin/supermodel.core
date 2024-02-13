@@ -162,7 +162,7 @@ public abstract class MvcController : ControllerBase
     }
     protected virtual LocalRedirectResult RedirectToAction<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict = null)  where T : MvcController
     {
-        return new LocalRedirectResult(Render.Helper.UrlToMvcAction(action, queryStringDict));
+        return new LocalRedirectResult(Render.Helper.UrlForMvcAction(action, queryStringDict));
     }
 
     protected virtual LocalRedirectResult RedirectToAction(string action)
@@ -213,7 +213,7 @@ public abstract class MvcController : ControllerBase
     }
     protected virtual LocalRedirectResult RedirectToActionStrId(string controller, string action, string? id = null, QueryStringDict? queryStringDict = null)
     {
-        return new LocalRedirectResult(Render.Helper.UrlToMvcAction(controller, action, id, queryStringDict));
+        return new LocalRedirectResult(Render.Helper.UrlForMvcAction(controller, action, id, queryStringDict));
     }
     #endregion
 

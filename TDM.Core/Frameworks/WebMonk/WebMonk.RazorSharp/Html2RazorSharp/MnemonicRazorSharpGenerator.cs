@@ -135,6 +135,6 @@ public class MnemonicRazorSharpGenerator : GeneratorOfIGenerateHtml<Action<Tag>,
     #endregion
 
     #region Properties
-    protected HtmlStack Hs { get; }= new HtmlStack();
+    protected HtmlStack Hs { get; }= new();
     #endregion
 }

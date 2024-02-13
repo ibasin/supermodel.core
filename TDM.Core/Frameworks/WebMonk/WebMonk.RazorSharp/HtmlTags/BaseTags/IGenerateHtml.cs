@@ -21,6 +21,9 @@ public interface IGenerateHtml
     //Find Tag(s) methods
     int CountWhere(Func<Tag, bool> predicate);
     IEnumerable<Tag> Where(Func<Tag, bool> predicate);
+    
+    IEnumerable<Tag?> ParentsOfTagsWhere(Func<Tag, bool> predicate);
+
     Tag SingleWhere(Func<Tag, bool> predicate);
     Tag? SingleOrDefaultWhere(Func<Tag, bool> predicate);
     Tag FirstWhere(Func<Tag, bool> predicate);

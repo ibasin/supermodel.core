@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-namespace WebMonk.Filters.Base
-{
-    public interface IActionFilter
-    {
-        Task<ActionFilterResult> BeforeActionAsync(ActionFilterContext filterContext);
-        Task<ActionFilterResult> AfterActionAsync(ActionFilterContext filterContext);
+namespace WebMonk.Filters.Base;
 
-        int Order { get; }
-    }
+public interface IActionFilter
+{
+    Task<ActionFilterResult> BeforeActionAsync(ActionFilterContext filterContext);
+    Task<ActionFilterResult> AfterActionAsync(ActionFilterContext filterContext);
+
+    int Order { get; }
 }

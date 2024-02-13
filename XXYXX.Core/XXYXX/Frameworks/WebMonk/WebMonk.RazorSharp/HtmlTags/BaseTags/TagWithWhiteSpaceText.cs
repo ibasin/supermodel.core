@@ -1,29 +1,27 @@
 ﻿using Supermodel.DataAnnotations;
 
-namespace WebMonk.RazorSharp.HtmlTags.BaseTags
+namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
+
+public class TagWithWhiteSpaceText : Tag
 {
-    public class TagWithWhiteSpaceText : Tag
+    #region Constructors
+    public TagWithWhiteSpaceText(string? name, object? attributes = null) : base(name, attributes) { }
+    #endregion
+
+    #region Overrides
+    public override StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
     {
-        #region Constructors
-        public TagWithWhiteSpaceText(string? name, object? attributes = null) : base(name, attributes) { }
-        #endregion
+        sb ??= new StringBuilderWithIndents();
 
-        #region Overrides
-        public override StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
+        sb.Append($"<{Name}{GenerateMyAttributesString()}>");
+        foreach (var tag in this) 
         {
-            sb ??= new StringBuilderWithIndents();
-
-            sb.Append($"<{Name}{GenerateMyAttributesString()}>");
-            foreach (var tag in this) 
-            {
-                if (tag is Txt txtTag) txtTag.ToHtmlNoNewLineAtTheEnd(sb);
-                else sb = tag.ToHtml(sb);
-            }
-            sb.AppendLine($"</{Name}>");
-
-            return sb;
+            if (tag is Txt txtTag) txtTag.ToHtmlNoNewLineAtTheEnd(sb);
+            else sb = tag.ToHtml(sb);
         }
-        #endregion
-    }
-}
+        sb.AppendLine($"</{Name}>");
 
+        return sb;
+    }
+    #endregion
+}

@@ -1,7 +1,6 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.DataContext.WebApi
+﻿namespace Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
+
+public interface IQueryStringProvider
 {
-    public interface IQueryStringProvider
-    {
-        string GetQueryString(object searchBy, int? skip, int? take, string sortBy);
-    }
+    string GetQueryString(object searchBy, int? skip, int? take, string sortBy);
 }

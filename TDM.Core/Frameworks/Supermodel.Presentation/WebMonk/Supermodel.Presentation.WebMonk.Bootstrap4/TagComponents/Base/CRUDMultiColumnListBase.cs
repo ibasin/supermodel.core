@@ -21,7 +21,7 @@ public abstract class CRUDMultiColumnListBase : HtmlSnippet
     {
         var controllerName = childControllerType != null ?
             childControllerType.GetMvcControllerName() :
-            HttpContext.Current.RouteManager.GetController();
+            HttpContext.Current.PrefixManager.CurrentContextControllerName;
         if (controllerName == null) throw new SupermodelException("controllerName == null. this should never happen");
 
 
@@ -66,8 +66,11 @@ public abstract class CRUDMultiColumnListBase : HtmlSnippet
             {
                 AppendAndPush(new Tr());
 
-                //Render list columns using reflection
-                Append(item.ToReadOnlyHtmlTableRow());
+                using (HttpContext.Current.PrefixManager.NewPrefix(Config.InlinePrefix, null, controllerName))
+                {
+                    //Render list columns using reflection
+                    Append(item.ToReadOnlyHtmlTableRow());
+                }
 
                 var id = item.Id;
 

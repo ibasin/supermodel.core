@@ -1,22 +1,21 @@
-﻿namespace Supersonic.BNF
+﻿namespace Supersonic.BNF;
+
+internal class Factor
 {
-    internal class Factor
+    #region EmbeddedTypes
+    public enum OperationEnum
     {
-        #region EmbeddedTypes
-        public enum OperationEnum
-        {
-            Equal, LessThan, GreaterThan, LessThanOrEqual, GreaterThanOrEqual
-        }
-        #endregion
-
-        #region Methods
-        public bool IsEquality => Operation == OperationEnum.Equal;
-        #endregion
-
-        #region Properties
-        public int PropertyIndex { get; set; }
-        public OperationEnum Operation { get; set; }
-        public object Constant { get; set; }
-        #endregion
+        Equal, LessThan, GreaterThan, LessThanOrEqual, GreaterThanOrEqual
     }
+    #endregion
+
+    #region Methods
+    public bool IsEquality => Operation == OperationEnum.Equal;
+    #endregion
+
+    #region Properties
+    public int PropertyIndex { get; set; }
+    public OperationEnum Operation { get; set; }
+    public object Constant { get; set; }
+    #endregion
 }

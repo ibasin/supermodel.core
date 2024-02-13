@@ -137,7 +137,7 @@ public abstract class MultiSelectMvcModel : IComparable, ISelfModelBinder, IEdit
         if (string.IsNullOrEmpty(prefix)) throw new WebMonkException("prefix is not set");
         var name = prefix.ToHtmlName();
 
-        var attemptedValues = valueProviders.GetValueOrDefault<List<string>>(name).GetNewValue<List<string>>();
+        var attemptedValues = valueProviders.GetValueOrDefault<List<string>>(name).GetCastValue<List<string>>();
         attemptedValues.Remove(""); //remove blank option. it must be always present
 
         if (attemptedValues.Count < 1)

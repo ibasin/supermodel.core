@@ -96,6 +96,8 @@ public abstract class BinaryFileModelBase : IRMapperCustom, IComparable
 
     #region Properties
     public string? FileName { get; set; } = "";
-    public byte[]? BinaryContent { get; set; } = Array.Empty<byte>();
+
+    //we copy shallow here for performance reasons
+    [RMCopyShallow] public byte[]? BinaryContent { get; set; } = Array.Empty<byte>();
     #endregion
 }

@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Presentation.WebMonk.Models.Mvc
+﻿namespace Supermodel.Presentation.WebMonk.Models.Mvc;
+
+public interface ILoginMvcModel
 {
-    public interface ILoginMvcModel
-    {
-        string UsernameStr { get; set; }
-        string PasswordStr { get; set; }
-    }
+    string UsernameStr { get; set; }
+    string PasswordStr { get; set; }
 }

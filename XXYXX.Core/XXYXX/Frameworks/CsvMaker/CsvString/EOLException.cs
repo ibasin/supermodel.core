@@ -1,6 +1,5 @@
 ﻿using System;
 
-namespace CsvMaker.CsvString
-{
-    public class EOLException : Exception { }
-}
+namespace CsvMaker.CsvString;
+
+public class EOLException : Exception { }

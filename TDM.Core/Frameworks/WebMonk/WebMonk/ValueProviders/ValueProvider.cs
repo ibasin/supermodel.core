@@ -69,26 +69,26 @@ public abstract class ValueProvider : IValueProvider
         if (Values.TryGetValue(key, out var value)) 
         {
             if (HttpContext.Current.BlockDangerousValueProviderValues && IsDangerousValue(value)) throw new HttpRequestValidationException("Attempt to pass a dangerous value is blocked");
-            return new IValueProvider.Result(GetType(), value);
+            return new IValueProvider.Result(value);
         }
         else
         {
-            return new IValueProvider.Result(GetType(), null, true);
+            return new IValueProvider.Result(null, true);
         }
     }
 
     public virtual IValueProvider.Result ParseToType(IValueProvider.Result result, Type type, string key)
     {
         //if value is null, it means we could not find it in value provider
-        if (result.NewValue == null) return result;
+        if (result.Value == null) return result;
 
         //Handle binary data (file upload). if value is byte[], we only return it as a byte[]
-        if (result.NewValue is byte[])
+        if (result.Value is byte[])
         {
             if (typeof(byte[]).IsAssignableFrom(type)) 
             {
                 //if file name is not there or empty, we say the file is null (otherwise, it will say the file is a byte[0])
-                if (string.IsNullOrEmpty(GetValueOrDefault($"{key}{IValueProvider.FileNameSuffix}").GetNewValue<string>())) return new IValueProvider.Result(GetType(), null);
+                if (string.IsNullOrEmpty(GetValueOrDefault($"{key}{IValueProvider.FileNameSuffix}").GetCastValue<string>())) return new IValueProvider.Result(null);
                 else return result;
             }
             else 
@@ -101,17 +101,17 @@ public abstract class ValueProvider : IValueProvider
         if (type.IsArray)
         {
             var innerType = type.GetElementType();
-            if (result.NewValue is IList<string> valueList)
+            if (result.Value is IList<string> valueList)
             {
                 var array = Array.CreateInstance(innerType!, valueList.Count);
-                for(var i = 0; i < valueList.Count; i++) array.SetValue(ParseToType(new IValueProvider.Result(GetType(), valueList[i]), innerType!, key), i);
-                return new IValueProvider.Result(GetType(), array);
+                for(var i = 0; i < valueList.Count; i++) array.SetValue(ParseToType(new IValueProvider.Result(valueList[i]), innerType!, key), i);
+                return new IValueProvider.Result(array);
             }
             else
             {
                 var array = Array.CreateInstance(innerType!, 1);
                 array.SetValue(ParseToType(result, innerType!, key), 0);
-                return new IValueProvider.Result(GetType(), array);
+                return new IValueProvider.Result(array);
             }
         }
 
@@ -122,69 +122,69 @@ public abstract class ValueProvider : IValueProvider
             var specificType = typeof(List<>).MakeGenericType(innerType);
                 
             var list = (IList)Activator.CreateInstance(specificType);
-            if (result.NewValue is IList<string> valueList)
+            if (result.Value is IList<string> valueList)
             {
-                foreach (var val in valueList) list.Add(ParseToType(new IValueProvider.Result(GetType(), val), innerType, key).NewValue);
+                foreach (var val in valueList) list.Add(ParseToType(new IValueProvider.Result(val), innerType, key).Value);
             }
             else
             {
-                list.Add(ParseToType(result, innerType, key).NewValue);
+                list.Add(ParseToType(result, innerType, key).Value);
             }
-            return new IValueProvider.Result(GetType(), list);
+            return new IValueProvider.Result(list);
         }
 
         //special handing for list of booleans. If value is list but we ask for a boolean
-        if (result.NewValue is IList<string> stringList)
+        if (result.Value is IList<string> stringList)
         {
             if (typeof(bool).IsAssignableFrom(type) || typeof(bool?).IsAssignableFrom(type))
             {
                 var @checked = false;
                 foreach (var val in stringList) @checked |= bool.Parse(val);
-                return new IValueProvider.Result(GetType(), @checked);
+                return new IValueProvider.Result(@checked);
             }
         }
 
         //the only other type we support is string
-        if (result.NewValue is string strValue)
+        if (result.Value is string strValue)
         {
             //handle blank string for nullable value types
-            if (strValue.Trim() == "" && Nullable.GetUnderlyingType(type) != null) return new IValueProvider.Result(GetType(), null);
+            if (strValue.Trim() == "" && Nullable.GetUnderlyingType(type) != null) return new IValueProvider.Result(null);
 
             //strings
-            if (typeof(string).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), strValue); 
+            if (typeof(string).IsAssignableFrom(type)) return new IValueProvider.Result(strValue); 
 
             //integer types
-            if (typeof(int).IsAssignableFrom(type) || typeof(int?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), int.Parse(strValue)); 
-            if (typeof(uint).IsAssignableFrom(type) || typeof(uint?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), uint.Parse(strValue)); 
-            if (typeof(long).IsAssignableFrom(type) || typeof(long?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), long.Parse(strValue));
-            if (typeof(ulong).IsAssignableFrom(type) || typeof(ulong?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), ulong.Parse(strValue));
-            if (typeof(short).IsAssignableFrom(type) || typeof(short?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), short.Parse(strValue));
-            if (typeof(ushort).IsAssignableFrom(type) || typeof(ushort?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), ushort.Parse(strValue));
-            if (typeof(byte).IsAssignableFrom(type) || typeof(byte?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), byte.Parse(strValue));
-            if (typeof(sbyte).IsAssignableFrom(type) || typeof(sbyte?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), sbyte.Parse(strValue));
+            if (typeof(int).IsAssignableFrom(type) || typeof(int?).IsAssignableFrom(type)) return new IValueProvider.Result(int.Parse(strValue)); 
+            if (typeof(uint).IsAssignableFrom(type) || typeof(uint?).IsAssignableFrom(type)) return new IValueProvider.Result(uint.Parse(strValue)); 
+            if (typeof(long).IsAssignableFrom(type) || typeof(long?).IsAssignableFrom(type)) return new IValueProvider.Result(long.Parse(strValue));
+            if (typeof(ulong).IsAssignableFrom(type) || typeof(ulong?).IsAssignableFrom(type)) return new IValueProvider.Result(ulong.Parse(strValue));
+            if (typeof(short).IsAssignableFrom(type) || typeof(short?).IsAssignableFrom(type)) return new IValueProvider.Result(short.Parse(strValue));
+            if (typeof(ushort).IsAssignableFrom(type) || typeof(ushort?).IsAssignableFrom(type)) return new IValueProvider.Result(ushort.Parse(strValue));
+            if (typeof(byte).IsAssignableFrom(type) || typeof(byte?).IsAssignableFrom(type)) return new IValueProvider.Result(byte.Parse(strValue));
+            if (typeof(sbyte).IsAssignableFrom(type) || typeof(sbyte?).IsAssignableFrom(type)) return new IValueProvider.Result(sbyte.Parse(strValue));
             
             //floating point types
-            if (typeof(double).IsAssignableFrom(type) || typeof(double?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), double.Parse(strValue)); 
-            if (typeof(float).IsAssignableFrom(type) || typeof(float?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), float.Parse(strValue)); 
-            if (typeof(decimal).IsAssignableFrom(type) || typeof(decimal?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), decimal.Parse(strValue)); 
+            if (typeof(double).IsAssignableFrom(type) || typeof(double?).IsAssignableFrom(type)) return new IValueProvider.Result(double.Parse(strValue)); 
+            if (typeof(float).IsAssignableFrom(type) || typeof(float?).IsAssignableFrom(type)) return new IValueProvider.Result(float.Parse(strValue)); 
+            if (typeof(decimal).IsAssignableFrom(type) || typeof(decimal?).IsAssignableFrom(type)) return new IValueProvider.Result(decimal.Parse(strValue)); 
 
             //boolean
-            if (typeof(bool).IsAssignableFrom(type) || typeof(bool?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), ParseBool(strValue)); 
+            if (typeof(bool).IsAssignableFrom(type) || typeof(bool?).IsAssignableFrom(type)) return new IValueProvider.Result(ParseBool(strValue)); 
 
             //datetime 
-            if (typeof(DateTime).IsAssignableFrom(type) || typeof(DateTime?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), DateTime.Parse(strValue)); 
+            if (typeof(DateTime).IsAssignableFrom(type) || typeof(DateTime?).IsAssignableFrom(type)) return new IValueProvider.Result(DateTime.Parse(strValue)); 
 
             //enums
-            if (typeof(Enum).IsAssignableFrom(type) || Nullable.GetUnderlyingType(type)?.IsEnum == true) return new IValueProvider.Result(GetType(), ParseEnum(type, strValue));
+            if (typeof(Enum).IsAssignableFrom(type) || Nullable.GetUnderlyingType(type)?.IsEnum == true) return new IValueProvider.Result(ParseEnum(type, strValue));
 
             //guid
-            if (typeof(Guid).IsAssignableFrom(type) || typeof(Guid?).IsAssignableFrom(type)) return new IValueProvider.Result(GetType(), Guid.Parse(strValue));
+            if (typeof(Guid).IsAssignableFrom(type) || typeof(Guid?).IsAssignableFrom(type)) return new IValueProvider.Result(Guid.Parse(strValue));
 
             //unsupported type
             throw new WebMonkException($"ParseToType(): cannot parse string into {type.Name}");                    
         }
 
-        throw new ArgumentException($"Unable to parse {result.NewValue.GetType().Name} into {type.Name}");
+        throw new ArgumentException($"Unable to parse {result.Value.GetType().Name} into {type.Name}");
     }
     #endregion
 

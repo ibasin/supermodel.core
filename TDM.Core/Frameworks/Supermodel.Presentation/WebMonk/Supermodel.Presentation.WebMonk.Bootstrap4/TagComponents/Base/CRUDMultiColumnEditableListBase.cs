@@ -27,7 +27,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
     {
         var controllerName = detailControllerType != null ?
             detailControllerType.GetMvcControllerName() :
-            HttpContext.Current.RouteManager.GetController();
+            HttpContext.Current.PrefixManager.CurrentContextControllerName;
         if (controllerName == null) throw new SupermodelException("controllerName == null. this should never happen");
 
 
@@ -40,7 +40,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             qs.Remove("selectedId");
             if (parentId != null) qs["parentId"] = parentId.ToString();
 
-            var formAction = Render.Helper.UrlToMvcAction(controllerName, "Detail", null, qs);
+            var formAction = Render.Helper.UrlForMvcAction(controllerName, "Detail", null, qs);
             AppendAndPush(new Form(new { id=Bs4.ScaffoldingSettings.EditFormId, action=formAction, method="post", enctype="multipart/form-data" }));
             AppendAndPush(new Fieldset(new { id=Bs4.ScaffoldingSettings.EditFormFieldsetId }));
             AppendAndPush(new Div(new { id=Bs4.ScaffoldingSettings.CRUDListTopDivId, @class=Bs4.ScaffoldingSettings.CRUDListTopDivCssClass }));
@@ -84,7 +84,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             IGenerateHtml? selectedItemTrHtml = null; 
             if (selectedItem != null)
             {
-                using(HttpContext.Current.PrefixManager.NewPrefix(Config.InlinePrefix, null))
+                using(HttpContext.Current.PrefixManager.NewPrefix(Config.InlinePrefix, null, controllerName))
                 {
                     selectedItemTrHtml = selectedId == 0 ? 
                         MakeNewItemEditableTr(selectedItem, parentId, true) : 
@@ -102,7 +102,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             }
             else
             {
-                using(HttpContext.Current.PrefixManager.NewPrefix(Config.InlinePrefix, null))
+                using(HttpContext.Current.PrefixManager.NewPrefix(Config.InlinePrefix, null, controllerName))
                 {
                     Append(MakeNewItemEditableTr(newItem, parentId, false));
                 }
@@ -117,7 +117,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
                 //make sure we keep query string
                 var editViewDeleteQs = HttpContext.Current.HttpListenerContext.Request.QueryString.ToQueryStringDictionary();
                     
-                using (HttpContext.Current.PrefixManager.NewPrefix(Config.InlinePrefix, null))
+                using (HttpContext.Current.PrefixManager.NewPrefix(Config.InlinePrefix, null, controllerName))
                 {
                     Append(MakeReadOnlyTr(item, parentId, selected, anySelected, skipDelete, controllerName, editViewDeleteQs));
 
@@ -166,7 +166,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
         return new Tr(new { id=-item.Id, @class = selected ? "table-primary" : "table-primary d-none" })
         {
             item.ToEditableHtmlTableRow(parentId, true, selected),
-            new Td()
+            new Td
             {
                 new Div(new { @class="btn-group" })
                 {
@@ -189,7 +189,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
         return new Tr(new { id=newItem.Id, @class = selected ? "table-primary" : "table-primary d-none"})
         {
             newItem.ToEditableHtmlTableRow(parentId, true, selected),
-            new Td()
+            new Td
             {
                 new Div(new { @class="btn-group" })
                 {
@@ -219,6 +219,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             
             var newEntityItem = newMvcModelItem.CreateEntity();
             newMvcModelItem = await newMvcModelItem.MapFromAsync(newEntityItem).ConfigureAwait(false);
+            
             return newMvcModelItem;
         }
     }

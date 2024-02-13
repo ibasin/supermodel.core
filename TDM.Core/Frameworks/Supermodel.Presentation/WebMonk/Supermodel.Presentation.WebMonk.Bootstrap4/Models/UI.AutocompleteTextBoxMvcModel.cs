@@ -5,7 +5,6 @@ using Supermodel.DataAnnotations.Validations;
 using Supermodel.Persistence.DataContext;
 using Supermodel.Persistence.Entities;
 using Supermodel.Presentation.WebMonk.Controllers.Api;
-using Supermodel.ReflectionMapper;
 using WebMonk.Extensions;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 using WebMonk.Rendering.Views;
@@ -33,7 +32,7 @@ public static partial class Bs4
 
             var tmpHtmlAttributesAsDict = new AttributesDict(HtmlAttributesAsDict);
                 
-            HtmlAttributesAsDict["data-autocomplete-source"] = Render.Helper.UrlToApiAction(AutocompleteControllerName, "");
+            HtmlAttributesAsDict["data-autocomplete-source"] = Render.Helper.UrlForApiAction(AutocompleteControllerName, "");
             var result = base.EditorTemplate(screenOrderFrom, screenOrderTo, attributes);
                 
             HtmlAttributesAsDict = tmpHtmlAttributesAsDict;
@@ -43,6 +42,7 @@ public static partial class Bs4
         {
             return base.InitFor<string>(); //autocomplete is always a string text box
         }
+        #nullable disable
         public override Task MapFromCustomAsync<T>(T other)
         {
             if (other == null)
@@ -59,7 +59,7 @@ public static partial class Bs4
         // ReSharper disable once RedundantAssignment
         public override async Task<T> MapToCustomAsync<T>(T other)
         {
-            if (string.IsNullOrEmpty(Value)) throw new ValidationResultException($"Cannot parse blank string into {typeof(T).GetTypeFriendlyDescription()}");
+            if (string.IsNullOrEmpty(Value)) return (T)(object)null;
 
             var controller = new TAutocompleteControllerType();
             var entity = await controller.GetEntityFromNameAsync(Value);
@@ -68,6 +68,7 @@ public static partial class Bs4
                 
             return other;
         }
+        #nullable enable
         #endregion
 
         #region Properies

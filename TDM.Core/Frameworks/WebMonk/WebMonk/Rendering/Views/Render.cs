@@ -28,21 +28,21 @@ public static class Render
     public static class Helper
     {
         #region UrlToMvcActions
-        public static string UrlToMvcAction<T>(Expression<Action<T>> action, NameValueCollection? queryString)  where T : MvcController
+        public static string UrlForMvcAction<T>(Expression<Action<T>> action, NameValueCollection? queryString)  where T : MvcController
         {
-            return UrlToMvcAction(action, queryString?.ToQueryStringDictionary());
+            return UrlForMvcAction(action, queryString?.ToQueryStringDictionary());
         }
-        public static string UrlToMvcAction<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict = null)  where T : MvcController
+        public static string UrlForMvcAction<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict = null)  where T : MvcController
         {
             var (controllerName, actionName, id, updatedQueryStringDict) = GetControllerActionIdQs(action, queryStringDict);
-            return UrlToMvcAction(controllerName, actionName, id, updatedQueryStringDict);
+            return UrlForMvcAction(controllerName, actionName, id, updatedQueryStringDict);
         }
 
-        public static string UrlToMvcAction(string controller, string action, string? id, NameValueCollection? queryString)
+        public static string UrlForMvcAction(string controller, string action, string? id, NameValueCollection? queryString)
         {
-            return UrlToMvcAction(controller, action, id, queryString?.ToQueryStringDictionary());
+            return UrlForMvcAction(controller, action, id, queryString?.ToQueryStringDictionary());
         }
-        public static string UrlToMvcAction(string controller, string action, string? id = null, QueryStringDict? queryStringDict = null)
+        public static string UrlForMvcAction(string controller, string action, string? id = null, QueryStringDict? queryStringDict = null)
         {
             queryStringDict ??= new QueryStringDict();
             var optionalActionPart = string.IsNullOrEmpty(action) ? "" : $"/{action}";
@@ -52,21 +52,21 @@ public static class Render
         #endregion
 
         #region UrlToApiActions
-        public static string UrlToApiAction<T>(Expression<Action<T>> action, NameValueCollection? queryString)  where T : ApiController
+        public static string UrlForApiAction<T>(Expression<Action<T>> action, NameValueCollection? queryString)  where T : ApiController
         {
-            return UrlToApiAction(action, queryString?.ToQueryStringDictionary());
+            return UrlForApiAction(action, queryString?.ToQueryStringDictionary());
         }
-        public static string UrlToApiAction<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict = null)  where T : ApiController
+        public static string UrlForApiAction<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict = null)  where T : ApiController
         {
             var (controllerName, actionName, id, updatedQueryStringDict) = GetControllerActionIdQs(action, queryStringDict);
-            return UrlToApiAction(controllerName, actionName, id, updatedQueryStringDict);
+            return UrlForApiAction(controllerName, actionName, id, updatedQueryStringDict);
         }
 
-        public static string UrlToApiAction(string controller, string action, string? id, NameValueCollection? queryString)
+        public static string UrlForApiAction(string controller, string action, string? id, NameValueCollection? queryString)
         {
-            return UrlToApiAction(controller, action, id, queryString?.ToQueryStringDictionary());
+            return UrlForApiAction(controller, action, id, queryString?.ToQueryStringDictionary());
         }
-        public static string UrlToApiAction(string controller, string action, string? id = null, QueryStringDict? queryStringDict = null)
+        public static string UrlForApiAction(string controller, string action, string? id = null, QueryStringDict? queryStringDict = null)
         {
             queryStringDict ??= new QueryStringDict();
             var optionalActionPart = string.IsNullOrEmpty(action) ? "" : $"/{action}";
@@ -208,7 +208,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                value=propertyValueResult.Update(value);
+                value=propertyValueResult.UpdateInternal(value);
             }
 
             return value;
@@ -431,7 +431,7 @@ public static class Render
             {
                 var valueProviders = HttpContext.Current.ValueProviderManager.GetCachedValueProvidersList() ?? throw new WebMonkException("This should never happen: valueProviders == null");
                 var propertyValueResult = valueProviders.GetValueOrDefault<bool?>(name);
-                @checked = propertyValueResult.GetNewValue<bool?>() == true;
+                @checked = propertyValueResult.GetCastValue<bool?>() == true;
             }
             else
             {
@@ -791,7 +791,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                propertyValue = propertyValueResult.Update(propertyValue);
+                propertyValue = propertyValueResult.UpdateInternal(propertyValue);
             }
         }
         else
@@ -832,7 +832,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                propertyValue = propertyValueResult.Update(propertyValue);
+                propertyValue = propertyValueResult.UpdateInternal(propertyValue);
             }
         }
         else
@@ -875,7 +875,7 @@ public static class Render
         {
             var valueProviders = HttpContext.Current.ValueProviderManager.GetCachedValueProvidersList() ?? throw new WebMonkException("This should never happen: valueProviders == null");
             var propertyValueResult = valueProviders.GetValueOrDefault<bool?>(name);
-            @checked = propertyValueResult.GetNewValue<bool?>() == true;
+            @checked = propertyValueResult.GetCastValue<bool?>() == true;
         }
         else
         {
@@ -938,7 +938,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                propertyValue = propertyValueResult.Update(propertyValue);
+                propertyValue = propertyValueResult.UpdateInternal(propertyValue);
             }
         }
         else
@@ -991,7 +991,7 @@ public static class Render
             if (valueProviders != null) 
             {
                 var propertyValueResult = valueProviders.GetValueOrDefault(name);
-                propertyValue = propertyValueResult.Update(propertyValue);
+                propertyValue = propertyValueResult.UpdateInternal(propertyValue);
             }
         }
 
@@ -1129,7 +1129,7 @@ public static class Render
     }
     public static IGenerateHtml ActionLinkStrId(IGenerateHtml label, string controller, string action, string? id, QueryStringDict? queryStringDict = null, object? attributes = null, bool generateInline = false)
     {
-        var url = Helper.UrlToMvcAction(controller, action, id, queryStringDict);
+        var url = Helper.UrlForMvcAction(controller, action, id, queryStringDict);
         var aTag = new A(new { href = url }, generateInline) { label };
         aTag.AddOrUpdateAttr(attributes);
         return aTag;
@@ -1175,7 +1175,7 @@ public static class Render
     }
     public static IGenerateHtml RESTfulActionLinkStrId(string label, HttpMethod httpMethod, string controller, string action, string? id, QueryStringDict? queryStringDict = null, object? attributes = null, string? confMsg = null, bool isButton = true)
     {
-        var url = Helper.UrlToMvcAction(controller, action, id, queryStringDict);
+        var url = Helper.UrlForMvcAction(controller, action, id, queryStringDict);
         return RESTfulActionLink(label, httpMethod, url, attributes, confMsg, isButton);
     }
 
@@ -1225,7 +1225,7 @@ public static class Render
     }
     public static IGenerateHtml RESTfulActionLinkStrId(IGenerateHtml label, HttpMethod httpMethod, string controller, string action, string? id, QueryStringDict? queryStringDict = null, object? attributes = null, string? confMsg = null, bool isButton = true)
     {
-        var url = Helper.UrlToMvcAction(controller, action, id, queryStringDict);
+        var url = Helper.UrlForMvcAction(controller, action, id, queryStringDict);
         return RESTfulActionLink(label, httpMethod, url, attributes, confMsg, isButton);
     }
 

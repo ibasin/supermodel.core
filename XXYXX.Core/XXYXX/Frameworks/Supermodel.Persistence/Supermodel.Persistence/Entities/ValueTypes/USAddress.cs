@@ -1,12 +1,13 @@
-﻿namespace Supermodel.Persistence.Entities.ValueTypes
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Supermodel.Persistence.Entities.ValueTypes;
+
+public class USAddress : ValueObject
 {
-    public class USAddress : ValueObject
-    {
-        #region Properties
-        public string Street { get; set; } = "";
-        public string City { get; set; } = "";
-        public string State { get; set; } = "";
-        public string Zip { get; set; } = "";
-        #endregion
-    }
+    #region Properties
+    [MaxLength(100)] public string Street { get; set; } = "";
+    [MaxLength(100)] public string City { get; set; } = "";
+    [MaxLength(100)] public string State { get; set; } = "";
+    [MaxLength(100)] public string Zip { get; set; } = "";
+    #endregion
 }

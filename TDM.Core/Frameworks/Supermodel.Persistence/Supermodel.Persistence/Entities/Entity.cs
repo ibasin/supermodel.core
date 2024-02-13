@@ -42,10 +42,8 @@ public abstract class Entity : IEntity
         return Id == 0;
     }
 
-    public virtual void BeforeSave(OperationEnum operation) { /*do nothing */ }
     public virtual Task BeforeSaveAsync(OperationEnum operation)
     { 
-        BeforeSave(operation);
         return Task.CompletedTask; 
     }
 

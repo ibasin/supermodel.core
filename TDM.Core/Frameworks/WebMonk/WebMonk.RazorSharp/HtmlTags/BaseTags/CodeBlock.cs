@@ -62,6 +62,11 @@ public class CodeBlock : IGenerateHtml
     {
         return GetTagsInOrder().Where(predicate);
     }
+    public virtual IEnumerable<Tag?> ParentsOfTagsWhere(Func<Tag, bool> predicate)
+    {
+        NormalizeAndFlatten();
+        return GetTagsInOrder().Where(predicate).Select(x => x._parent);
+    }
 
     public virtual Tag SingleWhere(Func<Tag, bool> predicate)
     {

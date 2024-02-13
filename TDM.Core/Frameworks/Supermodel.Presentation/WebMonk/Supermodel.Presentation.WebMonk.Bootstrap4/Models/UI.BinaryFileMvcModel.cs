@@ -34,8 +34,15 @@ public static partial class Bs4
             if (string.IsNullOrEmpty(prefix)) throw new WebMonkException("prefix is not set");
             var name = prefix.ToHtmlName();
 
-            BinaryContent = valueProviders.GetValueOrDefault<byte[]>(name).GetNewValue<byte[]>();
-            FileName = valueProviders.GetValueOrDefault<string>($"{name}{IValueProvider.FileNameSuffix}").GetNewValue<string>();
+            var binaryContent = valueProviders.GetValueOrDefault<byte[]>(name).GetCastValue<byte[]>();
+            var fileName = valueProviders.GetValueOrDefault<string>($"{name}{IValueProvider.FileNameSuffix}").GetCastValue<string>();
+
+            //if we are submitting nothing, do not change the original data of the component            
+            if (!string.IsNullOrEmpty(fileName) && binaryContent != null && binaryContent.Length > 0)
+            {
+                BinaryContent = binaryContent;
+                FileName = fileName;
+            }
 
             //Because this is not a IUIComponentWithValue, we have to validate Required attribute here
             if (string.IsNullOrEmpty(FileName) || BinaryContent == null || BinaryContent.Length == 0)
@@ -123,9 +130,9 @@ public static partial class Bs4
         {
             var valueProviders = HttpContext.Current.ValueProviderManager.GetCachedValueProvidersList();
             var id = ((IViewModelForEntity)HttpContext.Current.PrefixManager.CurrentParent!).Id; //valueProviders.GetValueOrDefault<long?>("id").GetNewValue<long?>();
-            var parentId = valueProviders.GetValueOrDefault<long?>("parentId").GetNewValue<long?>();
+            var parentId = valueProviders.GetValueOrDefault<long?>("parentId").GetCastValue<long?>();
 
-            var controller = HttpContext.Current.RouteManager.GetController();
+            var controller = HttpContext.Current.PrefixManager.CurrentContextControllerName;  //HttpContext.Current.RouteManager.GetControllerFromRoute();
 
             var pn = HttpContext.Current.PrefixManager.CurrentPrefix.Replace($"{Config.InlinePrefix}.", "");
 

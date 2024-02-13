@@ -22,7 +22,7 @@ public static partial class Bs4
             };
                 
             var qs = HttpContext.Current.HttpListenerContext.Request.QueryString;
-            var controller = HttpContext.Current.RouteManager.GetController();
+            var controller = HttpContext.Current.PrefixManager.CurrentContextControllerName;
             var attributes = new {id=ScaffoldingSettings.NewSearchButtonId, @class=ScaffoldingSettings.NewSearchButtonCssClass};
                 
             Append(Render.ActionLink(linkLabel, controller, "Search", null, qs, attributes));

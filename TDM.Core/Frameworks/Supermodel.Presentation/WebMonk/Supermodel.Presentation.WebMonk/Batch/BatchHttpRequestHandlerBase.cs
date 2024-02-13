@@ -56,13 +56,13 @@ public abstract class BatchHttpRequestHandlerBase<TDataContext> : IHttpRequestHa
             {
                 foreach (var httpContent in provider.Contents)
                 {
-                    await using (var stream = await httpContent.ReadAsStreamAsync().ConfigureAwait(false))
+                    await using (var stream = await httpContent.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false))
                     {
                         using (var streamReader = new StreamReader(stream, request.ContentEncoding))
                         {
                             try
                             {
-                                var httpRequestRaw = await streamReader.ReadToEndAsync().ConfigureAwait(false);
+                                var httpRequestRaw = await streamReader.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
                                 var httpListenerContext = new BatchHttpListenerContext(HttpContext.Current.HttpListenerContext, httpRequestRaw);
 
                                 await HttpContext.Current.WebServer.ProcessHttpRequestAsync(httpListenerContext, CancellationToken.None).ConfigureAwait(false);
@@ -108,7 +108,7 @@ public abstract class BatchHttpRequestHandlerBase<TDataContext> : IHttpRequestHa
                 response.OutputStream.Seek(0, SeekOrigin.Begin);
                 using (var streamReader = new StreamReader(response.OutputStream))
                 {
-                    body = await streamReader.ReadToEndAsync();
+                    body = await streamReader.ReadToEndAsync(cancellationToken);
                 }
 
                 sb.Append(boundaryStr);

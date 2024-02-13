@@ -1,4 +1,3 @@
-﻿namespace WebMonk.ValueProviders
-{
-    public class RouteValueProvider : ValueProvider { }
-}
+﻿namespace WebMonk.ValueProviders;
+
+public class RouteValueProvider : ValueProvider { }

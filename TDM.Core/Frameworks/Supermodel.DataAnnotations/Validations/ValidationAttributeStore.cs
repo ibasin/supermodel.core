@@ -20,12 +20,12 @@ namespace Supermodel.DataAnnotations.Validations;
 /// </remarks>
 internal class ValidationAttributeStore
 {
-    private readonly Dictionary<Type, TypeStoreItem> _typeStoreItems = new Dictionary<Type, TypeStoreItem>();
+    private readonly Dictionary<Type, TypeStoreItem> _typeStoreItems = new();
  
     /// <summary>
     ///     Gets the singleton <see cref="ValidationAttributeStore" />
     /// </summary>
-    internal static ValidationAttributeStore Instance { get; } = new ValidationAttributeStore();
+    internal static ValidationAttributeStore Instance { get; } = new();
  
     /// <summary>
     ///     Retrieves the type level validation attributes for the given type.
@@ -172,7 +172,7 @@ internal class ValidationAttributeStore
     /// </summary>
     private class TypeStoreItem : StoreItem
     {
-        private readonly object _syncRoot = new object();
+        private readonly object _syncRoot = new();
         private readonly Type _type;
         private Dictionary<string, PropertyStoreItem> _propertyStoreItems;
  

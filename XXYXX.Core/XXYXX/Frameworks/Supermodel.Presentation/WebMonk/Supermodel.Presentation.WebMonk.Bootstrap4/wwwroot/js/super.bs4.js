@@ -1,4 +1,6 @@
 ﻿$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+
     var selectedRow = document.getElementById("SelectedRow");
     if (selectedRow != null) selectedRow.scrollIntoView();
 
@@ -49,10 +51,10 @@
 
     (function () {
         var hasConfirmed = false;
-        $("input[type=submit][data-sm-ConfirmMsg], input[type=button][data-sm-ConfirmMsg], a[data-sm-ConfirmMsg], button[data-sm-ConfirmMsg]").click(function () {
+        $("input[type=submit][data-sm-confirm-msg], input[type=button][data-sm-confirm-msg], a[data-sm-confirm-msg], button[data-sm-confirm-msg]").click(function () {
             var $this = $(this);
             if (!hasConfirmed) {
-                bootbox.confirm($this.attr('data-sm-ConfirmMsg'), function (result) {
+                bootbox.confirm($this.attr('data-sm-confirm-msg'), function (result) {
                     if (result) {
                         hasConfirmed = true;
                         $this.trigger("click");

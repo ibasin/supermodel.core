@@ -1,29 +1,28 @@
-namespace Supermodel.Mobile.Runtime.Common.DataContext.WebApi
+namespace Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
+
+public class LoginResult
 {
-    public class LoginResult
+    #region Contructors
+    public LoginResult(bool loginSuccessful, long? userId, string userLabel)
     {
-        #region Contructors
-        public LoginResult(bool loginSuccessful, long? userId, string userLabel)
+        LoginSuccessful = loginSuccessful;
+        if (loginSuccessful)
         {
-            LoginSuccessful = loginSuccessful;
-            if (loginSuccessful)
-            {
-                UserId = userId;
-                UserLabel = userLabel;
+            UserId = userId;
+            UserLabel = userLabel;
 
-            }
-            else
-            {
-                UserId = null;
-                UserLabel = null;
-            }
         }
-        #endregion
-
-        #region Properties
-        public bool LoginSuccessful { get; set; }
-        public long? UserId { get; set; }
-        public string UserLabel { get; set; }
-        #endregion
+        else
+        {
+            UserId = null;
+            UserLabel = null;
+        }
     }
+    #endregion
+
+    #region Properties
+    public bool LoginSuccessful { get; set; }
+    public long? UserId { get; set; }
+    public string UserLabel { get; set; }
+    #endregion
 }

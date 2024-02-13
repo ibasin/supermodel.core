@@ -52,6 +52,11 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
     {
         return GetTagsInOrder().Where(predicate);
     }
+    public virtual IEnumerable<Tag?> ParentsOfTagsWhere(Func<Tag, bool> predicate)
+    {
+        NormalizeAndFlatten();
+        return GetTagsInOrder().Where(predicate).Select(x => x._parent);
+    }
 
     public virtual Tag SingleWhere(Func<Tag, bool> predicate)
     {
@@ -316,10 +321,13 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
             {
                 tag.NormalizeAndFlatten();
                 childrenList.Add(tag);
+                tag._parent = this;
             }
-            else 
+            else
             {
-                childrenList.AddRange(iGenerateHtml.NormalizeAndFlatten());
+                var childrenTags = iGenerateHtml.NormalizeAndFlatten();
+                foreach (var childrenTag in childrenTags) childrenTag._parent = this;
+                childrenList.AddRange(childrenTags);
             }
         }
 
@@ -334,5 +342,7 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
     public string? Name { get; set; }
     public string? Id { get; set; }
     public AttributesDict Attributes { get; }
+
+    protected internal Tag? _parent;
     #endregion
 }

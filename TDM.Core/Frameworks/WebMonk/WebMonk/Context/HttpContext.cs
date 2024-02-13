@@ -65,6 +65,6 @@ public class HttpContext
 
     public ValidationResultList ValidationResultList { get; }
 
-    public ConcurrentDictionary<string, object?> CustomValues { get; } = new ConcurrentDictionary<string, object?>();
+    public ConcurrentDictionary<string, object?> CustomValues { get; } = new();
     #endregion
 }

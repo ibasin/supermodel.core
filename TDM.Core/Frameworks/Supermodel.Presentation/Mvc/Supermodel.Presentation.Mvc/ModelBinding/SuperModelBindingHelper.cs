@@ -286,10 +286,10 @@ namespace Supermodel.Presentation.Mvc.ModelBinding
                 modelBindingContext.Model = model;
                 modelBindingContext.PropertyFilter = propertyFilter;
 
-                var factoryContext = new ModelBinderFactoryContext()
+                var factoryContext = new ModelBinderFactoryContext
                 {
                     Metadata = modelMetadata,
-                    BindingInfo = new BindingInfo()
+                    BindingInfo = new BindingInfo
                     {
                         BinderModelName = modelMetadata.BinderModelName,
                         BinderType = modelMetadata.BinderType,

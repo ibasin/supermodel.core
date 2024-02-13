@@ -1,4 +1,3 @@
-﻿namespace Supermodel.Presentation.WebMonk.Models.Api
-{
-    public abstract class ApiModel;
-}
+﻿namespace Supermodel.Presentation.WebMonk.Models.Api;
+
+public abstract class ApiModel;

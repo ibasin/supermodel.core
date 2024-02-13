@@ -22,7 +22,7 @@ public readonly struct ActionFilterResult
     public Func<Task>? ExecuteResultFuncAsync { get; }
 
     //public static ActionFilterResult Done { get; } = new ActionFilterResult(true, true);
-    public static ActionFilterResult Proceed { get; } = new ActionFilterResult(false, false, null);
-    public static ActionFilterResult Skip { get; } = new ActionFilterResult(true, false, null);
+    public static ActionFilterResult Proceed { get; } = new(false, false, null);
+    public static ActionFilterResult Skip { get; } = new(true, false, null);
     #endregion
 }

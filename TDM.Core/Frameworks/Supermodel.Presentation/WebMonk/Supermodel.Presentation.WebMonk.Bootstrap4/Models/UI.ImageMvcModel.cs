@@ -34,7 +34,7 @@ public static partial class Bs4
 
             var (id, parentId, controller, pn) = GetIdParentIdControllerPropertyName();
             var qs = new QueryStringDict { { "parentId", parentId.ToString() }, {"pn", pn } };
-            var imageLink = Render.Helper.UrlToMvcAction(controller, "BinaryFile", id.ToString(), qs);
+            var imageLink = Render.Helper.UrlForMvcAction(controller, "BinaryFile", id.ToString(), qs);
             return new Div
             {
                 new Img(HtmlAttributesAsDict).AddOrUpdateAttr(new { src= imageLink }).AddOrUpdateAttr(attributes)

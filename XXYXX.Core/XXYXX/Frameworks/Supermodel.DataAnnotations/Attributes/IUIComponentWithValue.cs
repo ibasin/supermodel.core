@@ -1,7 +1,6 @@
-﻿namespace Supermodel.DataAnnotations.Attributes
+﻿namespace Supermodel.DataAnnotations.Attributes;
+
+public interface IUIComponentWithValue
 {
-    public interface IUIComponentWithValue
-    {
-        string ComponentValue { get; set; }
-    }
+    string ComponentValue { get; set; }
 }

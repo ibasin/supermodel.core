@@ -111,9 +111,9 @@ public abstract class ApiController : ControllerBase
                 //Then we bind to body as json
                 var messageBodyValueProvider = valueProviders.GetFirstOrDefaultValueProviderOfType<MessageBodyValueProvider>() ?? throw new WebMonkException("Unable to find MessageBodyValueProvider");
                 var bodyResult = messageBodyValueProvider.GetValueOrDefault(""); //get the entire body
-                if (!bodyResult.ValueMissing && bodyResult.NewValue != null)
+                if (!bodyResult.ValueMissing && bodyResult.Value != null)
                 {
-                    var body = bodyResult.GetNewValue<string>();
+                    var body = bodyResult.GetCastValue<string>();
                     if (!string.IsNullOrEmpty(body)) parameterValue = JsonConvert.DeserializeObject(body, parameterInfo.ParameterType);
                 }
             }
@@ -173,7 +173,7 @@ public abstract class ApiController : ControllerBase
     }
     protected virtual LocalRedirectResult RedirectToAction<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict = null) where T : ApiController
     {
-        return new LocalRedirectResult(Render.Helper.UrlToApiAction(action, queryStringDict));
+        return new LocalRedirectResult(Render.Helper.UrlForApiAction(action, queryStringDict));
     }        
 
     protected virtual LocalRedirectResult RedirectToAction(string action, NameValueCollection? queryString)
@@ -201,7 +201,7 @@ public abstract class ApiController : ControllerBase
     }
     protected virtual LocalRedirectResult RedirectToAction(string controller, string action, string id, QueryStringDict? queryStringDict = null)
     {
-        return new LocalRedirectResult(Render.Helper.UrlToApiAction(controller, action, id, queryStringDict));
+        return new LocalRedirectResult(Render.Helper.UrlForApiAction(controller, action, id, queryStringDict));
     }
     #endregion
 

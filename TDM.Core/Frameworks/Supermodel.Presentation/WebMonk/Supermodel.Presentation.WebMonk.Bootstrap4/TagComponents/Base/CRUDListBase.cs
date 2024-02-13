@@ -17,7 +17,7 @@ public abstract class CRUDListBase : HtmlSnippet
     {
         var controllerName = controllerType != null ?
             controllerType.GetMvcControllerName() :
-            HttpContext.Current.RouteManager.GetController();
+            HttpContext.Current.PrefixManager.CurrentContextControllerName;
 
         if (controllerName == null) throw new SupermodelException("controllerName == null. this should never happen");
 
@@ -44,7 +44,7 @@ public abstract class CRUDListBase : HtmlSnippet
             AppendAndPush(new Table(new { id=Bs4.ScaffoldingSettings.CRUDListTableId, @class=Bs4.ScaffoldingSettings.CRUDListTableCssClass }));
             Append(new Thead
             { 
-                new Tr() 
+                new Tr
                 { 
                     new Th(new { scope = "col" }) { new Txt("Name") }, 
                     new Th(new { scope = "col" }) { new Txt("Actions") }

@@ -12,7 +12,7 @@ public interface IRouteManager
     string LocalPathWithQueryString { get; }
     string LocalPathWithQueryStringMinusSelectedId { get; }
 
-    string GetController();
+    string GetControllerFromRoute();
     string? GetAction();
 
     RouteValueProvider RouteValueProvider { get; }

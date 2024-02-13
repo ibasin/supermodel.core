@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 
-namespace WebMonk.Startup
+namespace WebMonk.Startup;
+
+public abstract class WebMonkStartupScript : IWebMonkStartupScript
 {
-    public abstract class WebMonkStartupScript : IWebMonkStartupScript
-    {
-        public abstract Task ExecuteStartupTaskAsync();
-        public virtual int Priority => 100;
-    }
+    public abstract Task ExecuteStartupTaskAsync();
+    public virtual int Priority => 100;
 }

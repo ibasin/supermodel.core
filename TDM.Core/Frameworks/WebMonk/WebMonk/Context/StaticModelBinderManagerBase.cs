@@ -56,8 +56,8 @@ public abstract class StaticModelBinderManagerBase
 
         var messageBodyValueProvider = valueProviders.GetFirstOrDefaultValueProviderOfType<MessageBodyValueProvider>() ?? throw new WebMonkException("Unable to find MessageBodyValueProvider");
         var bodyResult = messageBodyValueProvider.GetValueOrDefault(""); //get the entire body
-        if (bodyResult.ValueMissing || bodyResult.NewValue == null) throw new WebMonkException("Message body is missing");
-        var body = bodyResult.GetNewValue<string>();
+        if (bodyResult.ValueMissing || bodyResult.Value == null) throw new WebMonkException("Message body is missing");
+        var body = bodyResult.GetCastValue<string>();
 
         try
         {

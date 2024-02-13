@@ -1506,5 +1506,5 @@ public class FieldsCollection
     }
 
     // ReSharper disable once InconsistentNaming
-    private readonly ArrayList mArr = new ArrayList();
+    private readonly ArrayList mArr = new();
 }

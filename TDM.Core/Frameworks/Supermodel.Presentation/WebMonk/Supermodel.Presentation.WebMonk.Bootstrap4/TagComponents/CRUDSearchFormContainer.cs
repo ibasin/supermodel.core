@@ -20,9 +20,9 @@ public static partial class Bs4
         public CRUDSearchFormContainer(IEditorTemplate searchModel, IGenerateHtml? pageTitle, string? action, string? controller, bool resetButton, ValidationSummaryVisible validationSummaryVisible = ValidationSummaryVisible.IfNoVisibleErrors)
         {
             action ??= "List";
-            controller ??= HttpContext.Current.RouteManager.GetController();
+            controller ??= HttpContext.Current.PrefixManager.CurrentContextControllerName;
 
-            var url = Render.Helper.UrlToMvcAction(controller, action);
+            var url = Render.Helper.UrlForMvcAction(controller, action);
             AppendAndPush(new Form(new { id=ScaffoldingSettings.SearchFormId, action = url, method = "get" }));
             AppendAndPush(new Fieldset(new { id=ScaffoldingSettings.SearchFormFieldsetId } ));
             if (pageTitle != null) 

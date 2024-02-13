@@ -403,6 +403,6 @@ public static class ReflectionHelper
 
     #region Properties
     private static bool AllAssembliesLoaded { get; set; }
-    private static object _loadAllAssembliesLock = new object();
+    private static object _loadAllAssembliesLock = new();
     #endregion
 }

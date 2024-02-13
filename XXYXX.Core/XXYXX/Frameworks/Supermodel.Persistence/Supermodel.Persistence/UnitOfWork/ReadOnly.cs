@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Persistence.UnitOfWork
+﻿namespace Supermodel.Persistence.UnitOfWork;
+
+public enum ReadOnly
 {
-    public enum ReadOnly
-    {
-        No,
-        Yes,
-    }
+    No,
+    Yes,
 }

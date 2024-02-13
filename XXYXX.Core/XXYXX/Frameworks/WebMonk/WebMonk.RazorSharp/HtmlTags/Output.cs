@@ -1,11 +1,10 @@
 ﻿using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace WebMonk.RazorSharp.HtmlTags
+namespace WebMonk.RazorSharp.HtmlTags;
+
+public class Output : InlineTag
 {
-    public class Output : InlineTag
-    {
-        #region Constructors
-        public Output(object? attributes = null, bool generateInline = false) : base("output", attributes, generateInline) { }
-        #endregion
-    }
+    #region Constructors
+    public Output(object? attributes = null, bool generateInline = false) : base("output", attributes, generateInline) { }
+    #endregion
 }

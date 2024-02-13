@@ -10,146 +10,145 @@ using Supermodel.Presentation.Cmd.Models.Interfaces;
 using Supermodel.Presentation.Cmd.Rendering;
 using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Presentation.Cmd.Models
+namespace Supermodel.Presentation.Cmd.Models;
+
+public class CmdModel : ICmdEditor, ICmdDisplayer
 {
-    public class CmdModel : ICmdEditor, ICmdDisplayer
+    #region ICmdEditor
+    public virtual object Edit(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
     {
-        #region ICmdEditor
-        public virtual object Edit(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
-        {
-            CmdContext.RootParent = this;
+        CmdContext.RootParent = this;
             
-            var propertyInfosInOrder = GetDetailPropertyInfosInOrder(screenOrderFrom, screenOrderTo).ToArray();
-            var showOnlyErrorFields = !CmdContext.ValidationResultList.IsValid && propertyInfosInOrder.Any(x => CmdContext.ValidationResultList.GetAllErrorsFor(x.Name).Count > 0);
+        var propertyInfosInOrder = GetDetailPropertyInfosInOrder(screenOrderFrom, screenOrderTo).ToArray();
+        var showOnlyErrorFields = !CmdContext.ValidationResultList.IsValid && propertyInfosInOrder.Any(x => CmdContext.ValidationResultList.GetAllErrorsFor(x.Name).Count > 0);
 
-            foreach (var propertyInfo in propertyInfosInOrder)
+        foreach (var propertyInfo in propertyInfosInOrder)
+        {
+            //skip if this property is not for edit
+            if (propertyInfo.HasAttribute<SkipForEditAttribute>()) continue;
+                
+            //if we have errors, only allow user to edit error fields
+            if (showOnlyErrorFields && !CmdContext.ValidationResultList.GetAllErrorsFor(propertyInfo.Name).Any()) continue;
+                
+            var required = propertyInfo.HasAttribute<RequiredAttribute>();
+                
+            //Label
+            var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
+            if (hideLabelAttribute == null)
             {
-                //skip if this property is not for edit
-                if (propertyInfo.HasAttribute<SkipForEditAttribute>()) continue;
-                
-                //if we have errors, only allow user to edit error fields
-                if (showOnlyErrorFields && !CmdContext.ValidationResultList.GetAllErrorsFor(propertyInfo.Name).Any()) continue;
-                
-                var required = propertyInfo.HasAttribute<RequiredAttribute>();
-                
-                //Label
-                var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
-                if (hideLabelAttribute == null)
+                if (CmdContext.ValidationResultList.GetAllErrorsFor(propertyInfo.Name).Any())
                 {
-                    if (CmdContext.ValidationResultList.GetAllErrorsFor(propertyInfo.Name).Any())
-                    {
-                        CmdRender.ShowLabel(this, propertyInfo.Name, null, CmdScaffoldingSettings.Label);
-                    }
-                    else
-                    {
-                        CmdRender.ShowLabel(this, propertyInfo.Name, null, CmdScaffoldingSettings.Label);
-                    }
+                    CmdRender.ShowLabel(this, propertyInfo.Name, null, CmdScaffoldingSettings.Label);
+                }
+                else
+                {
+                    CmdRender.ShowLabel(this, propertyInfo.Name, null, CmdScaffoldingSettings.Label);
+                }
                     
-                    if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
-                    {
-                        var currentColors = FBColors.FromCurrent();
-                        if (required || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
-                        {
-                            CmdScaffoldingSettings.RequiredMarker.WriteToConsole();
-                        }
-                        currentColors.SetColors();
-                    }
-                    Console.Write(": ");
-                }
-                
-                //Value
-                using(CmdContext.NewRequiredScope(required, GetType().GetDisplayNameForProperty(propertyInfo.Name)))
+                if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
                 {
-                    if (!propertyInfo.HasAttribute<DisplayOnlyAttribute>())
+                    var currentColors = FBColors.FromCurrent();
+                    if (required || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
                     {
-                        var newPropertyValue = CmdRender.Edit(this, propertyInfo.Name, CmdScaffoldingSettings.Value, CmdScaffoldingSettings.InvalidValueMessage, CmdScaffoldingSettings.Prompt);
-                        this.PropertySet(propertyInfo.Name, newPropertyValue);
+                        CmdScaffoldingSettings.RequiredMarker.WriteToConsole();
                     }
-                    else
-                    {
-                        CmdRender.Display(this, propertyInfo.Name, CmdScaffoldingSettings.Value);
-                    }
+                    currentColors.SetColors();
                 }
+                Console.Write(": ");
             }
-            
-            CmdContext.RootParent = null;
-            return this;
-        }
-        #endregion
-
-        #region ICmdDisplay
-        public virtual void Display(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
-        {
-            CmdContext.RootParent = this;
-            
-            foreach (var propertyInfo in GetDetailPropertyInfosInOrder(screenOrderFrom, screenOrderTo))
+                
+            //Value
+            using(CmdContext.NewRequiredScope(required, GetType().GetDisplayNameForProperty(propertyInfo.Name)))
             {
-                //skip if this property is not for display
-                if (propertyInfo.HasAttribute<SkipForDisplayAttribute>()) continue;
-
-                var required = propertyInfo.HasAttribute<RequiredAttribute>();
-
-                //Label
-                var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
-                if (hideLabelAttribute == null)
+                if (!propertyInfo.HasAttribute<DisplayOnlyAttribute>())
                 {
-                    if (CmdContext.ValidationResultList.GetAllErrorsFor(propertyInfo.Name).Any())
-                    {
-                        CmdRender.ShowLabel(this, propertyInfo.Name, null, CmdScaffoldingSettings.Label);
-                    }
-                    else
-                    {
-                        CmdRender.ShowLabel(this, propertyInfo.Name, null, CmdScaffoldingSettings.Label);
-                    }
-
-                    if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
-                    {
-                        var currentColors = FBColors.FromCurrent();
-                        if (required || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
-                        {
-                            CmdScaffoldingSettings.RequiredMarker.WriteToConsole();
-                        }
-                        currentColors.SetColors();
-                    }
-                    Console.Write(": ");
+                    var newPropertyValue = CmdRender.Edit(this, propertyInfo.Name, CmdScaffoldingSettings.Value, CmdScaffoldingSettings.InvalidValueMessage, CmdScaffoldingSettings.Prompt);
+                    this.PropertySet(propertyInfo.Name, newPropertyValue);
                 }
-
-                //Value
-                using(CmdContext.NewRequiredScope(required, GetType().GetDisplayNameForProperty(propertyInfo.Name)))
+                else
                 {
                     CmdRender.Display(this, propertyInfo.Name, CmdScaffoldingSettings.Value);
                 }
+            }
+        }
+            
+        CmdContext.RootParent = null;
+        return this;
+    }
+    #endregion
 
-                //Validation Error
+    #region ICmdDisplay
+    public virtual void Display(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
+    {
+        CmdContext.RootParent = this;
+            
+        foreach (var propertyInfo in GetDetailPropertyInfosInOrder(screenOrderFrom, screenOrderTo))
+        {
+            //skip if this property is not for display
+            if (propertyInfo.HasAttribute<SkipForDisplayAttribute>()) continue;
+
+            var required = propertyInfo.HasAttribute<RequiredAttribute>();
+
+            //Label
+            var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
+            if (hideLabelAttribute == null)
+            {
                 if (CmdContext.ValidationResultList.GetAllErrorsFor(propertyInfo.Name).Any())
                 {
-                    CmdScaffoldingSettings.ValidationErrorMessage?.SetColors();
-                    Console.Write(" - ");
-                    CmdRender.ShowValidationMessage(this, propertyInfo.Name, CmdScaffoldingSettings.ValidationErrorMessage);
+                    CmdRender.ShowLabel(this, propertyInfo.Name, null, CmdScaffoldingSettings.Label);
+                }
+                else
+                {
+                    CmdRender.ShowLabel(this, propertyInfo.Name, null, CmdScaffoldingSettings.Label);
                 }
 
-                //New Line
-                Console.WriteLine();
+                if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
+                {
+                    var currentColors = FBColors.FromCurrent();
+                    if (required || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
+                    {
+                        CmdScaffoldingSettings.RequiredMarker.WriteToConsole();
+                    }
+                    currentColors.SetColors();
+                }
+                Console.Write(": ");
             }
 
-            CmdContext.RootParent = null;
-        }
-        #endregion
+            //Value
+            using(CmdContext.NewRequiredScope(required, GetType().GetDisplayNameForProperty(propertyInfo.Name)))
+            {
+                CmdRender.Display(this, propertyInfo.Name, CmdScaffoldingSettings.Value);
+            }
 
-        #region Protected Helper Methods
-        protected virtual IEnumerable<PropertyInfo> GetDetailPropertyInfosInOrder(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
-        {
-            var result = GetType().GetProperties()
-                .Where(x => x.GetCustomAttribute<ScaffoldColumnAttribute>() == null || x.GetCustomAttribute<ScaffoldColumnAttribute>()!.Scaffold)
-                .Where(x => (x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100) >= screenOrderFrom)
-                .Where(x => (x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100) <= screenOrderTo)
-                .OrderBy(x => x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100);
-        
-            //By default we do not scaffold enumerations (except for strings of course and unless they implement ISupermodelEditorTemplate)
-            return result.Where(x => !(x.PropertyType != typeof(string) && 
-                                       !typeof(ICmdEditor).IsAssignableFrom(x.PropertyType) && 
-                                       typeof(IEnumerable).IsAssignableFrom(x.PropertyType)));
+            //Validation Error
+            if (CmdContext.ValidationResultList.GetAllErrorsFor(propertyInfo.Name).Any())
+            {
+                CmdScaffoldingSettings.ValidationErrorMessage?.SetColors();
+                Console.Write(" - ");
+                CmdRender.ShowValidationMessage(this, propertyInfo.Name, CmdScaffoldingSettings.ValidationErrorMessage);
+            }
+
+            //New Line
+            Console.WriteLine();
         }
-        #endregion
+
+        CmdContext.RootParent = null;
     }
+    #endregion
+
+    #region Protected Helper Methods
+    protected virtual IEnumerable<PropertyInfo> GetDetailPropertyInfosInOrder(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
+    {
+        var result = GetType().GetProperties()
+            .Where(x => x.GetCustomAttribute<ScaffoldColumnAttribute>() == null || x.GetCustomAttribute<ScaffoldColumnAttribute>()!.Scaffold)
+            .Where(x => (x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100) >= screenOrderFrom)
+            .Where(x => (x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100) <= screenOrderTo)
+            .OrderBy(x => x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100);
+        
+        //By default we do not scaffold enumerations (except for strings of course and unless they implement ISupermodelEditorTemplate)
+        return result.Where(x => !(x.PropertyType != typeof(string) && 
+                                   !typeof(ICmdEditor).IsAssignableFrom(x.PropertyType) && 
+                                   typeof(IEnumerable).IsAssignableFrom(x.PropertyType)));
+    }
+    #endregion
 }

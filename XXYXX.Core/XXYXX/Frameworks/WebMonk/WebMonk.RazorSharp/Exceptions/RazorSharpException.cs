@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace WebMonk.RazorSharp.Exceptions
+namespace WebMonk.RazorSharp.Exceptions;
+
+public class RazorSharpException : Exception
 {
-    public class RazorSharpException : Exception
-    {
-        #region Constructors
-        public RazorSharpException(){ }
-        public RazorSharpException(string message):base(message){ }
-        #endregion
-    }
+    #region Constructors
+    public RazorSharpException(){ }
+    public RazorSharpException(string message):base(message){ }
+    #endregion
 }

@@ -118,6 +118,6 @@ public class TextualRazorSharpGenerator : GeneratorOfIGenerateHtml<string, strin
     #endregion
 
     #region Properties
-    protected StringBuilderWithIndents Sb { get; } = new StringBuilderWithIndents();
+    protected StringBuilderWithIndents Sb { get; } = new();
     #endregion
 }

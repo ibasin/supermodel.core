@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Supersonic
+namespace Supersonic;
+
+public interface ISupersonicListItem
 {
-    public interface ISupersonicListItem
-    {
-        Guid Guid { get; }
-    }
+    Guid Guid { get; }
 }

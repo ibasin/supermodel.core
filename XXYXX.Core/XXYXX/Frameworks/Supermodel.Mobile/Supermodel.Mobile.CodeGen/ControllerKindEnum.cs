@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Mobile.CodeGen
+﻿namespace Supermodel.Mobile.CodeGen;
+
+public enum ControllerKindEnum
 {
-    public enum ControllerKindEnum
-    {
-        CRUD, EnhancedCRUD, Command,
-        WMCRUD, WMEnhancedCRUD, WMCommand
-    }
+    CRUD, EnhancedCRUD, Command,
+    WMCRUD, WMEnhancedCRUD, WMCommand
 }

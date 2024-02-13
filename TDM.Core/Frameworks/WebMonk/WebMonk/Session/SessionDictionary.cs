@@ -34,6 +34,6 @@ public class SessionDictionary
     #endregion
 
     #region Properties
-    protected ConcurrentDictionary<string, object> Dict{ get; } = new ConcurrentDictionary<string, object>();
+    protected ConcurrentDictionary<string, object> Dict{ get; } = new();
     #endregion
 }

@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels
+﻿namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels;
+
+public class BinaryFileXFModel
 {
-    public class BinaryFileXFModel
-	{
-		public string FileName { get; set; }
-		public byte[] BinaryContent { get; set; }
-	}
+    public string FileName { get; set; }
+    public byte[] BinaryContent { get; set; }
 }

@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.Presentation.WebMonk.Bootstrap4.Extensions;
 using Supermodel.Presentation.WebMonk.Bootstrap4.Models;
 using Supermodel.Presentation.WebMonk.Models.Mvc;
 using Supermodel.ReflectionMapper;
+using WebMonk.Context;
+using WebMonk.Extensions;
 using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
@@ -12,8 +16,13 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.TagComponents.Base;
 public abstract class CRUDMultiColumnListNoActionBase : HtmlSnippet
 { 
     #region Constructors
-    protected CRUDMultiColumnListNoActionBase(IEnumerable<IMvcModelForEntity> items, IGenerateHtml? pageTitle)
+    protected CRUDMultiColumnListNoActionBase(IEnumerable<IMvcModelForEntity> items, IGenerateHtml? pageTitle, Type? detailControllerType)
     {
+        var controllerName = detailControllerType != null ?
+            detailControllerType.GetMvcControllerName() :
+            HttpContext.Current.PrefixManager.CurrentContextControllerName;
+        if (controllerName == null) throw new SupermodelException("controllerName == null. this should never happen");
+
         if (pageTitle != null) Append(new H2(new { @class = Bs4.ScaffoldingSettings.ListTitleCssClass }) { pageTitle });
             
         AppendAndPush(new Div(new { id = Bs4.ScaffoldingSettings.CRUDListTopDivId, @class = Bs4.ScaffoldingSettings.CRUDListTopDivCssClass }));
@@ -33,8 +42,11 @@ public abstract class CRUDMultiColumnListNoActionBase : HtmlSnippet
         {
             AppendAndPush(new Tr());
 
-            //Render list columns using reflection
-            Append(item.ToReadOnlyHtmlTableRow());
+            using (HttpContext.Current.PrefixManager.NewPrefix(Config.InlinePrefix, null, controllerName))
+            {
+                //Render list columns using reflection
+                Append(item.ToReadOnlyHtmlTableRow());
+            }
 
             Pop<Tr>();
         }

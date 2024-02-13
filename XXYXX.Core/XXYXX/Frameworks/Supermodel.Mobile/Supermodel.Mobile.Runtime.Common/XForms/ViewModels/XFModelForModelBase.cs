@@ -21,61 +21,61 @@ using Supermodel.Mobile.Runtime.Common.XForms.Pages.CRUDDetail;
 using Supermodel.Mobile.Runtime.Common.XForms.Views;
 using Xamarin.Forms;
 
-namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels
+namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels;
+
+public abstract class XFModelForModelBase<TModel> : XFModel, IRMapperCustom where TModel : class, IModel, ISupermodelNotifyPropertyChanged, new()
 {
-    public abstract class XFModelForModelBase<TModel> : XFModel, IRMapperCustom where TModel : class, IModel, ISupermodelNotifyPropertyChanged, new()
+    #region ICustomMapper implementation
+    public virtual Task MapFromCustomAsync<T>(T other)
     {
-        #region ICustomMapper implementation
-        public virtual Task MapFromCustomAsync<T>(T other)
-        {
-            return this.MapFromCustomBaseAsync(other);
-        }
-        public virtual Task<T> MapToCustomAsync<T>(T other)
-        {
-            return this.MapToCustomBaseAsync(other);
-        }
-        #endregion
+        return this.MapFromCustomBaseAsync(other);
+    }
+    public virtual Task<T> MapToCustomAsync<T>(T other)
+    {
+        return this.MapToCustomBaseAsync(other);
+    }
+    #endregion
 
-        #region Methods
-        public virtual List<Cell> RenderChildCells<TChildModel>(Page page, List<TChildModel> childModels, Func<Page, TChildModel, Task> onTappedAsync = null)
-            where TChildModel : ChildModel, new()
+    #region Methods
+    public virtual List<Cell> RenderChildCells<TChildModel>(Page page, List<TChildModel> childModels, Func<Page, TChildModel, Task> onTappedAsync = null)
+        where TChildModel : ChildModel, new()
+    {
+        var cells = new List<Cell>();
+        foreach (var childModel in childModels)
         {
-            var cells = new List<Cell>();
-            foreach (var childModel in childModels)
+            DataTemplate dataTemplate;
+            if (onTappedAsync != null) dataTemplate = childModel.GetListCellDataTemplate(async (_, _) => { await onTappedAsync(page, childModel); }, null);
+            else dataTemplate = childModel.GetListCellDataTemplate(null, null);
+
+            var cell = dataTemplate.CreateContent() as Cell;
+            // ReSharper disable once PossibleNullReferenceException
+            cell.BindingContext = childModel;
+
+            if (onTappedAsync != null)
             {
-                DataTemplate dataTemplate;
-                if (onTappedAsync != null) dataTemplate = childModel.GetListCellDataTemplate(async (sender, args) => { await onTappedAsync(page, childModel); }, null);
-                else dataTemplate = childModel.GetListCellDataTemplate(null, null);
-
-                var cell = dataTemplate.CreateContent() as Cell;
-                // ReSharper disable once PossibleNullReferenceException
-                cell.BindingContext = childModel;
-
-                if (onTappedAsync != null)
+                cell.Tapped += async (_, _) =>
                 {
-                    cell.Tapped += async (sender, args) =>
-                    {
-                        await onTappedAsync(page, childModel);
-                    };
-                }
-
-                cells.Add(cell);
+                    await onTappedAsync(page, childModel);
+                };
             }
-            return cells;
+
+            cells.Add(cell);
         }
-        public virtual List<Cell> RenderDeletableChildCells<TChildModel, TDataContext>(Page page, List<TChildModel> childModels, ObservableCollection<TModel> parentModels, Func<Page, TChildModel, Task> onTappedAsync = null)
-            where TChildModel : ChildModel, new()
-            where TDataContext : class, IDataContext, new()
+        return cells;
+    }
+    public virtual List<Cell> RenderDeletableChildCells<TChildModel, TDataContext>(Page page, List<TChildModel> childModels, ObservableCollection<TModel> parentModels, Func<Page, TChildModel, Task> onTappedAsync = null)
+        where TChildModel : ChildModel, new()
+        where TDataContext : class, IDataContext, new()
+    {
+        var crudPage = (IBasicCRUDDetailPage)page;
+
+        var cells = new List<Cell>();
+        foreach (var childModel in childModels)
         {
-            var crudPage = (IBasicCRUDDetailPage)page;
+            //var dataTemplate = childModel.GetListCellDataTemplate(null);
 
-            var cells = new List<Cell>();
-            foreach (var childModel in childModels)
-            {
-                //var dataTemplate = childModel.GetListCellDataTemplate(null);
-
-                var dataTemplate = childModel.GetListCellDataTemplate(onTappedAsync == null ? (EventHandler)null : async (sender, args) => { await onTappedAsync(page, childModel); }, 
-                                                                      async (sender, args) =>
+            var dataTemplate = childModel.GetListCellDataTemplate(onTappedAsync == null ? null : async (_, _) => { await onTappedAsync(page, childModel); }, 
+                async (sender, _) =>
                 {
                     bool connectionLost;
                     do
@@ -157,44 +157,43 @@ namespace Supermodel.Mobile.Runtime.Common.XForms.ViewModels
                     while (connectionLost);
                 });
 
-                var cell = dataTemplate.CreateContent() as Cell;
-                // ReSharper disable once PossibleNullReferenceException
-                cell.BindingContext = childModel;
+            var cell = dataTemplate.CreateContent() as Cell;
+            // ReSharper disable once PossibleNullReferenceException
+            cell.BindingContext = childModel;
 
-                if (onTappedAsync != null)
+            if (onTappedAsync != null)
+            {
+                cell.Tapped += async (_, _) =>
                 {
-                    cell.Tapped += async (sender, args) =>
-                    {
-                        await onTappedAsync((Page)crudPage, childModel);
-                    };
-                }
-
-                cells.Add(cell);
+                    await onTappedAsync((Page)crudPage, childModel);
+                };
             }
-            return cells;
-        }
-        #endregion
 
-        #region Validation
-        public override async Task<ValidationResultList> ValidateAsync(ValidationContext validationContext)
-        {
-            // ReSharper disable once ConstantNullCoalescingCondition
-            var vr = await base.ValidateAsync(validationContext) ?? new ValidationResultList();
-            var tempEntityForValidation = CreateTempValidationEntity();
-            await AsyncValidator.TryValidateObjectAsync(tempEntityForValidation, new ValidationContext(tempEntityForValidation), vr); 
-            return vr;
+            cells.Add(cell);
         }
-        #endregion
-
-        #region Private Helper Methods
-        protected virtual Task<TModel> CreateTempValidationEntity()
-        {
-            return this.MapToAsync(new TModel());
-        }
-        #endregion
-
-        #region Standard Properties
-        [ScaffoldColumn(false), NotRMapped, NotRCompared] public TModel Model { get; protected set; }
-        #endregion
+        return cells;
     }
+    #endregion
+
+    #region Validation
+    public override async Task<ValidationResultList> ValidateAsync(ValidationContext validationContext)
+    {
+        // ReSharper disable once ConstantNullCoalescingCondition
+        var vr = await base.ValidateAsync(validationContext) ?? new ValidationResultList();
+        var tempEntityForValidation = CreateTempValidationEntity();
+        await AsyncValidator.TryValidateObjectAsync(tempEntityForValidation, new ValidationContext(tempEntityForValidation), vr); 
+        return vr;
+    }
+    #endregion
+
+    #region Private Helper Methods
+    protected virtual Task<TModel> CreateTempValidationEntity()
+    {
+        return this.MapToAsync(new TModel());
+    }
+    #endregion
+
+    #region Standard Properties
+    [ScaffoldColumn(false), NotRMapped, NotRCompared] public TModel Model { get; protected set; }
+    #endregion
 }

@@ -9,6 +9,7 @@ using Supermodel.Presentation.Mvc.Extensions.Gateway;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Supermodel.DataAnnotations.Validations;
 using Supermodel.Presentation.Mvc.Extensions;
@@ -195,8 +196,12 @@ public abstract class CRUDController<TEntity, TDetailMvcModel, TListMvcModel, TD
 
             var file = (BinaryFileModelBase?)mvcModelItem.PropertyGet(pn);
             if (file == null || file.IsEmpty) return new StatusCodeResult((int)HttpStatusCode.NotFound);
-            const string mimeType = "application/octet-stream";
-            return File(file.BinaryContent, mimeType, file.FileName);
+
+            if (SuggestOpenBinaryFilesInline) Response.Headers.Append("Content-Disposition", "inline; filename=" + file.FileName);
+            else Response.Headers.Append("Content-Disposition", "attachment; filename=" + file.FileName);
+
+            var contentType = MimeTypes.GetMimeType(file.FileName);
+            return File(file.BinaryContent, contentType);
         }
     }
 
@@ -262,6 +267,8 @@ public abstract class CRUDController<TEntity, TDetailMvcModel, TListMvcModel, TD
     {
         return ControllerCommon.GetItems<TEntity>();
     }
+
+    protected virtual bool SuggestOpenBinaryFilesInline => false;
 
     protected virtual Task<IActionResult> HandleInlineEditValidationErrorsAsync(long id)
     {

@@ -22,6 +22,6 @@ public static class RefGuidExt
     #endregion
 
     #region Properties
-    private static readonly ConditionalWeakTable<object, RefGuid> _ids = new ConditionalWeakTable<object, RefGuid>();
+    private static readonly ConditionalWeakTable<object, RefGuid> _ids = new();
     #endregion
 }

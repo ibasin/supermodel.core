@@ -1,11 +1,10 @@
 ﻿using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace WebMonk.RazorSharp.HtmlTags
+namespace WebMonk.RazorSharp.HtmlTags;
+
+public class Link : SelfClosingTag
 {
-    public class Link : SelfClosingTag
-    {
-        #region Constructors
-        public Link(object? attributes = null) : base("link", attributes) { }
-        #endregion
-    }
+    #region Constructors
+    public Link(object? attributes = null) : base("link", attributes) { }
+    #endregion
 }

@@ -10,16 +10,18 @@ public class PrefixManager : IPrefixManager
     public class PrefixState
     {
         #region Constrollers
-        public PrefixState(string prefix, object? parent)
+        public PrefixState(string prefix, object? parent, string? contextControllerName)
         {
             Prefix = prefix;
             Parent = parent;
+            ContextControllerName = contextControllerName;
         }
         #endregion
 
         #region Properties
         public string Prefix { get; }
         public object? Parent { get; }
+        public string? ContextControllerName { get; }
         #endregion
     }
         
@@ -56,11 +58,11 @@ public class PrefixManager : IPrefixManager
     #endregion
         
     #region Methods
-    public IDisposable NewPrefix(string prefix, object? parent)
+    public IDisposable NewPrefix(string prefix, object? parent, string? controllerName = null)
     {
         if (string.IsNullOrEmpty(prefix)) return new WebMonkPrefixEmptyCleaner();
-            
-        PrefixesStack.Push(new PrefixState(prefix, parent));
+
+        PrefixesStack.Push(new PrefixState(prefix, parent, controllerName));
         return new WebMonkPrefixCleaner(PrefixesStack); 
     }
     #endregion
@@ -103,6 +105,20 @@ public class PrefixManager : IPrefixManager
             return null;
         }
     }
+
+    public string CurrentContextControllerName
+    {
+        get
+        {
+            var prefixesArray = PrefixesStack.ToArray();
+            for (var i = 0; i < prefixesArray.Length; i++)
+            {
+                if (prefixesArray[i].ContextControllerName != null) return prefixesArray[i].ContextControllerName!;
+            }
+            return HttpContext.Current.RouteManager.GetControllerFromRoute();
+        }
+    }
+
     public object? RootParent
     {
         get
@@ -115,6 +131,6 @@ public class PrefixManager : IPrefixManager
             return null;
         }
     }
-    protected ConcurrentStack<PrefixState> PrefixesStack { get; } = new ConcurrentStack<PrefixState>();
+    protected ConcurrentStack<PrefixState> PrefixesStack { get; } = new();
     #endregion
 }

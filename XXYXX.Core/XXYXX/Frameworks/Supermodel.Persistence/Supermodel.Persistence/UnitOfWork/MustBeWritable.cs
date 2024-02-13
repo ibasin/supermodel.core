@@ -1,8 +1,7 @@
-﻿namespace Supermodel.Persistence.UnitOfWork
+﻿namespace Supermodel.Persistence.UnitOfWork;
+
+public enum MustBeWritable
 {
-    public enum MustBeWritable
-    {
-        No,
-        Yes,
-    }
+    No,
+    Yes,
 }

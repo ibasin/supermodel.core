@@ -59,7 +59,7 @@ public static partial class Bs4
                     new Span(new { @class="oi oi-arrow-circle-left" }),
                     new Txt("&nbsp;&nbsp;Back")
                 };
-                var controller = HttpContext.Current.RouteManager.GetController();
+                var controller = HttpContext.Current.PrefixManager.CurrentContextControllerName;
                 var htmlAttributes = new { id=ScaffoldingSettings.BackButtonId, @class=ScaffoldingSettings.BackButtonCssClass };
                 Append(Render.ActionLink(linkLabel, controller, "List", null, qs, htmlAttributes));
             }

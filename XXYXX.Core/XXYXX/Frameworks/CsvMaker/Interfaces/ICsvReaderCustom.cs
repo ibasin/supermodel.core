@@ -1,10 +1,9 @@
 ﻿using CsvMaker.CsvString;
 
-namespace CsvMaker.Interfaces
+namespace CsvMaker.Interfaces;
+
+public interface ICsvReaderCustom
 {
-    public interface ICsvReaderCustom
-    {
-        T ValidateCsvHeaderCustom<T>(CsvStringReader sr);
-        T ReadCsvRowCustom<T>(CsvStringReader sr);
-    }
+    T ValidateCsvHeaderCustom<T>(CsvStringReader sr);
+    T ReadCsvRowCustom<T>(CsvStringReader sr);
 }

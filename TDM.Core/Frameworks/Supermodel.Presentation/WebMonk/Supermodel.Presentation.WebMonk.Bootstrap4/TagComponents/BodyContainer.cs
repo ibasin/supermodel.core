@@ -21,7 +21,7 @@ public static partial class Bs4
             Append(new Script(new { src="/js/jquery-ui.min.js" }));
             Append(new Script(new { src="/js/bootbox.all.min.js"}));
             Append(new Script(new { src="/js/super.bs4.js" }));
-                
+
             if (HttpContext.Current.TempData.Super().NextPageStartupScript != null ||
                 HttpContext.Current.TempData.Super().NextPageAlertMessage != null ||
                 HttpContext.Current.TempData.Super().NextPageModalMessage != null)

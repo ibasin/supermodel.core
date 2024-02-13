@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace WebMonk.Exceptions
+namespace WebMonk.Exceptions;
+
+public class WebMonkException : Exception
 {
-    public class WebMonkException : Exception
-    {
-        #region Constructors
-        public WebMonkException(){ }
-        public WebMonkException(string message):base(message){ }
-        #endregion
-    }
+    #region Constructors
+    public WebMonkException(){ }
+    public WebMonkException(string message):base(message){ }
+    #endregion
 }

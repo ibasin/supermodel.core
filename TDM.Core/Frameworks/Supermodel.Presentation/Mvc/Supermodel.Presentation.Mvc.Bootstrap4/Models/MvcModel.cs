@@ -72,9 +72,22 @@ public static partial class Bs4
                 //skip if this property is not for edit
                 if (propertyInfo.HasAttribute<SkipForEditAttribute>()) continue;
 
-                //Div 1
+                //attributes
                 var propMarkerAttribute = markerAttribute;
                 var htmlAttrAttribute = propertyInfo.GetAttribute<HtmlAttrAttribute>();
+
+                //if we want a hidden field
+                if (propertyInfo.HasAttribute<HiddenOnlyAttribute>())
+                {
+                    var hiddenFieldHtml = html.Super().Hidden(propertyInfo.Name).GetString();
+
+                    if (htmlAttrAttribute != null) propMarkerAttribute += " " + htmlAttrAttribute.Attr;
+                    if (!string.IsNullOrEmpty(propMarkerAttribute)) hiddenFieldHtml = hiddenFieldHtml.Replace(">", $" {propMarkerAttribute}>");
+
+                    result.AppendLine(hiddenFieldHtml);
+                }
+
+                //Div 1
                 if (htmlAttrAttribute != null) propMarkerAttribute += " " + htmlAttrAttribute.Attr;
                 result.AppendLine("<div class='form-group row' " + propMarkerAttribute + " >"); 
 
@@ -165,9 +178,22 @@ public static partial class Bs4
                 //skip if this property is not for display
                 if (propertyInfo.HasAttribute<SkipForDisplayAttribute>()) continue;
 
-                //Div 1
+                //attributes
                 var propMarkerAttribute = markerAttribute;
                 var htmlAttrAttribute = propertyInfo.GetAttribute<HtmlAttrAttribute>();
+
+                //if we want a hidden field
+                if (propertyInfo.HasAttribute<HiddenOnlyAttribute>())
+                {
+                    var hiddenFieldHtml = html.Super().Hidden(propertyInfo.Name).GetString();
+
+                    if (htmlAttrAttribute != null) propMarkerAttribute += " " + htmlAttrAttribute.Attr;
+                    if (!string.IsNullOrEmpty(propMarkerAttribute)) hiddenFieldHtml = hiddenFieldHtml.Replace(">", $" {propMarkerAttribute}>");
+
+                    result.AppendLine(hiddenFieldHtml);
+                }
+
+                //Div 1
                 if (htmlAttrAttribute != null) propMarkerAttribute += " " + htmlAttrAttribute.Attr;
                 result.AppendLine("<div class='form-group row'" + propMarkerAttribute + " >"); 
 

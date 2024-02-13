@@ -31,13 +31,13 @@ public abstract class CRUDMvcView<TDetailMvcModel, TListMvcModel, TDataContext> 
             }
             case ListMode.Simple:
             {
-                if (ListPageTitle != null) return ApplyToDefaultLayout(new Bs4.CRUDList(models, ListPageTitle, ListSkipAddNew || ReadOnly, ListSkipDelete || ReadOnly, ReadOnly));
-                else return ApplyToDefaultLayout(new Bs4.CRUDList(models, (IGenerateHtml?)null, ListSkipAddNew || ReadOnly, ListSkipDelete || ReadOnly, ReadOnly));
+                if (ListPageTitle != null) return ApplyToDefaultLayout(new Bs4.CRUDList(models, ListPageTitle, ListSkipAddNew || ReadOnlyView, ListSkipDelete || ReadOnlyView, ReadOnlyView));
+                else return ApplyToDefaultLayout(new Bs4.CRUDList(models, (IGenerateHtml?)null, ListSkipAddNew || ReadOnlyView, ListSkipDelete || ReadOnlyView, ReadOnlyView));
             }
             case ListMode.MultiColumn:
             {
-                if (ListPageTitle != null) return ApplyToDefaultLayout(new Bs4.CRUDMultiColumnList(models, ListPageTitle, ListSkipAddNew || ReadOnly, ListSkipDelete || ReadOnly, ReadOnly));
-                else return ApplyToDefaultLayout(new Bs4.CRUDMultiColumnList(models, (IGenerateHtml?)null, ListSkipAddNew || ReadOnly, ListSkipDelete || ReadOnly, ReadOnly));
+                if (ListPageTitle != null) return ApplyToDefaultLayout(new Bs4.CRUDMultiColumnList(models, ListPageTitle, ListSkipAddNew || ReadOnlyView, ListSkipDelete || ReadOnlyView, ReadOnlyView));
+                else return ApplyToDefaultLayout(new Bs4.CRUDMultiColumnList(models, (IGenerateHtml?)null, ListSkipAddNew || ReadOnlyView, ListSkipDelete || ReadOnlyView, ReadOnlyView));
             }
             case ListMode.MultiColumnNoActions:
             {
@@ -46,7 +46,7 @@ public abstract class CRUDMvcView<TDetailMvcModel, TListMvcModel, TDataContext> 
             }
             case ListMode.EditableMultiColumn:
             {
-                if (ReadOnly) throw new InvalidOperationException("ReadOnly is not compatible with EditableMultiColumn ListModel");
+                if (ReadOnlyView) throw new InvalidOperationException("ReadOnlyView is not compatible with EditableMultiColumn ListModel");
                     
                 if (ListPageTitle != null) return ApplyToDefaultLayout(new Bs4.CRUDMultiColumnEditableList(models, typeof(TDataContext), ListPageTitle, ListSkipAddNew, ListSkipDelete));
                 else return ApplyToDefaultLayout(new Bs4.CRUDMultiColumnEditableList(models, typeof(TDataContext), (IGenerateHtml?)null, ListSkipAddNew, ListSkipDelete));
@@ -63,12 +63,17 @@ public abstract class CRUDMvcView<TDetailMvcModel, TListMvcModel, TDataContext> 
         {
             throw new InvalidOperationException("Detail is not valid for EditableMultiColumn or MultiColumnNoActions ListModels");
         }
-            
-        var detailPageTitle = DetailPageTitle;
-        if (ShowDefaultDetailPageTitle)
+
+        string? detailPageTitle;
+        if (model.IsNewModel())
         {
-            if (model.IsNewModel()) detailPageTitle = "Create New";
-            else detailPageTitle = model.Label;
+            if (ShowDefaultCreatePageTitle) detailPageTitle = "Create New";
+            else detailPageTitle = CreatePageTitle;
+        }
+        else
+        {
+            if (ShowDefaultEditPageTitle) detailPageTitle = model.Label;
+            else detailPageTitle = EditPageTitle;
         }
             
         var accordionPanels = GetAccordionPanels(model);
@@ -76,13 +81,13 @@ public abstract class CRUDMvcView<TDetailMvcModel, TListMvcModel, TDataContext> 
         IGenerateHtml editTags;
         if (detailPageTitle != null)
         {
-            if (accordionPanels == null) editTags = new Bs4.CRUDEdit(model, detailPageTitle, ReadOnly, ListMode == ListMode.NoList);
-            else editTags = new Bs4.CRUDEditInAccordion(model, typeof(TDetailMvcModel).Name, accordionPanels, detailPageTitle, ReadOnly, ListMode == ListMode.NoList);
+            if (accordionPanels == null) editTags = new Bs4.CRUDEdit(model, detailPageTitle, ReadOnlyView, ListMode == ListMode.NoList);
+            else editTags = new Bs4.CRUDEditInAccordion(model, typeof(TDetailMvcModel).Name, accordionPanels, detailPageTitle, ReadOnlyView, ListMode == ListMode.NoList);
         }
         else
         {
-            if (accordionPanels == null) editTags = new Bs4.CRUDEdit(model, (IGenerateHtml?)null, ReadOnly, ListMode == ListMode.NoList);
-            else editTags = new Bs4.CRUDEditInAccordion(model, typeof(TDetailMvcModel).Name, accordionPanels, (IGenerateHtml?)null, ReadOnly, ListMode == ListMode.NoList);
+            if (accordionPanels == null) editTags = new Bs4.CRUDEdit(model, (IGenerateHtml?)null, ReadOnlyView, ListMode == ListMode.NoList);
+            else editTags = new Bs4.CRUDEditInAccordion(model, typeof(TDetailMvcModel).Name, accordionPanels, (IGenerateHtml?)null, ReadOnlyView, ListMode == ListMode.NoList);
         }
             
         var childrenTags = model.IsNewModel()? null : RenderChildren(model);
@@ -95,13 +100,16 @@ public abstract class CRUDMvcView<TDetailMvcModel, TListMvcModel, TDataContext> 
     #region Overrides
     protected virtual string? ListPageTitle { get; } = null;
 
-    protected virtual bool ShowDefaultDetailPageTitle { get; } = true;
-    protected virtual string? DetailPageTitle { get; } = null;
+    protected virtual bool ShowDefaultEditPageTitle { get; } = true;
+    protected virtual string? EditPageTitle { get; } = null;
+
+    protected virtual bool ShowDefaultCreatePageTitle { get; } = true;
+    protected virtual string? CreatePageTitle { get; } = null;
         
     protected virtual bool ListSkipDelete { get; } = false;
     protected virtual bool ListSkipAddNew { get; } = false;
 
-    protected virtual bool ReadOnly { get; } = false;
+    protected virtual bool ReadOnlyView { get; } = false;
 
     //override this to get accordion
     protected virtual IEnumerable<Bs4.AccordionPanel>? GetAccordionPanels(TDetailMvcModel model)

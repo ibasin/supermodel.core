@@ -1,15 +1,14 @@
 ﻿using System;
 
-namespace CsvMaker.Attributes
-{
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-    public class CsvMakerColumnOrderAttribute : Attribute
-    {
-        public CsvMakerColumnOrderAttribute(int order)
-        {
-            Order = order;
-        }
+namespace CsvMaker.Attributes;
 
-        public int Order { get; set; }
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+public class CsvMakerColumnOrderAttribute : Attribute
+{
+    public CsvMakerColumnOrderAttribute(int order)
+    {
+        Order = order;
     }
+
+    public int Order { get; set; }
 }

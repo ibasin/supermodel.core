@@ -45,7 +45,7 @@ public class AsyncSemaphore
 
     #region Attributes
     private static readonly Task _completed = Task.FromResult(true);
-    private readonly Queue<TaskCompletionSource<bool>> _waiters = new Queue<TaskCompletionSource<bool>>();
+    private readonly Queue<TaskCompletionSource<bool>> _waiters = new();
     private int _currentCount;
     #endregion
 }

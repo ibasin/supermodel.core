@@ -84,7 +84,7 @@ public class Txt : InlineTag
     public static string Thinsp { get; } = HttpUtility.HtmlDecode("&Thinsp;");
     public static string Hairsp { get; } = HttpUtility.HtmlDecode("&hairsp;");
 
-    public static Dictionary<string, string> WhitespaceCodeTranslationDict { get; } = new Dictionary<string, string>
+    public static Dictionary<string, string> WhitespaceCodeTranslationDict { get; } = new()
     {
         { "&nbsp;", Nbsp },
         { "&ensp;", Ensp },

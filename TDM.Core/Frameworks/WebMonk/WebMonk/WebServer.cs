@@ -88,8 +88,7 @@ public class WebServer
         {
             //We specifically skip Microsoft.Data.SqlClient assembly because of the
             //problem in .net 8.0. See https://github.com/dotnet/runtime/issues/86969
-            //If you ever change this, also change GetAndSortHttpRequestHandlers method
-
+            //If you ever change this, search solution for 23ec7fc2d6eaa4a5 (PublicKeyToken)
             if (assembly.FullName == "Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5") continue;
             
             var typesImplementingIWebMonkStartupScript = assembly
@@ -120,7 +119,7 @@ public class WebServer
         {
             //We specifically skip Microsoft.Data.SqlClient assembly because of the
             //problem in .net 8.0. See https://github.com/dotnet/runtime/issues/86969
-            //If you ever change this, also change GetAndSortWebMonkStartupScripts method
+            //If you ever change this, search solution for 23ec7fc2d6eaa4a5 (PublicKeyToken)
             if (assembly.FullName == "Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5") continue;
             
             var typesImplementingIHttpRequestHandler = assembly
@@ -147,7 +146,7 @@ public class WebServer
     #region Methods
     public static void OpenInBrowser(string url)
     {
-#pragma warning disable 4014
+        #pragma warning disable 4014
         Task.Run(async () =>
         {
             // ReSharper disable once MethodSupportsCancellation
@@ -161,7 +160,7 @@ public class WebServer
                 }
             }.Start();
         });
-#pragma warning restore 4014
+        #pragma warning restore 4014
     }
         
     public Task RunAsync(string? localPathUrl = null, bool autoregisterWithNetsh = true, bool autoUnregisterNetsh = true)
@@ -249,9 +248,9 @@ public class WebServer
     protected virtual async Task RunListenerLoopAsync(CancellationToken cancellationToken)
     {
         //Start the session state "garbage collector." This method never returns and just keeps running in the background
-#pragma warning disable 4014
+        #pragma warning disable 4014
         SessionState.RemoveExpiredTasksServiceAsync(SessionTimeoutMinutes, cancellationToken);    
-#pragma warning restore 4014
+        #pragma warning restore 4014
             
         while (true)
         {
@@ -379,7 +378,7 @@ public class WebServer
     {
         var valueProviders = await HttpContext.Current.ValueProviderManager.GetValueProvidersListAsync().ConfigureAwait(false);
         var httpMethodOverrideResult = valueProviders.GetValueOrDefault<string?>("X-HTTP-Method-Override");
-        HttpContext.Current.RouteManager.OverridenHttpMethod = httpMethodOverrideResult.Update(HttpContext.Current.RouteManager.OverridenHttpMethod);
+        HttpContext.Current.RouteManager.OverridenHttpMethod = httpMethodOverrideResult.UpdateInternal(HttpContext.Current.RouteManager.OverridenHttpMethod);
     }
     protected virtual void RunNetsh(string arguments)
     {
@@ -464,7 +463,7 @@ public class WebServer
     public bool ShowErrorDetails { get; set; } 
     public int SessionTimeoutMinutes { get; set; } = 20;
     public string? LoginUrl { get; set; }
-    public ConcurrentBag<ActionFilterAttribute> GlobalFilters { get; } = new ConcurrentBag<ActionFilterAttribute>();
+    public ConcurrentBag<ActionFilterAttribute> GlobalFilters { get; } = new();
     public IMvcLayout? DefaultLayout { get; set; }
 
     protected ImmutableList<IHttpRequestHandler> SortedHttpRequestHandlers { get; }

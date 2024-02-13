@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace CsvMaker.CsvString
+namespace CsvMaker.CsvString;
+
+public class UnexpectedHeaderException : Exception
 {
-    public class UnexpectedHeaderException : Exception
-    {
-        public UnexpectedHeaderException(string msg) : base(msg) { }
-    }
+    public UnexpectedHeaderException(string msg) : base(msg) { }
 }

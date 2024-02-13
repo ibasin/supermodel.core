@@ -68,8 +68,8 @@ public static class AsyncHelper
     {
         private bool _done;
         public Exception InnerException { get; set; }
-        readonly AutoResetEvent _workItemsWaiting = new AutoResetEvent(false);
-        readonly Queue<Tuple<SendOrPostCallback, object>> _items = new Queue<Tuple<SendOrPostCallback, object>>();
+        readonly AutoResetEvent _workItemsWaiting = new(false);
+        readonly Queue<Tuple<SendOrPostCallback, object>> _items = new();
 
         public override void Send(SendOrPostCallback d, object state)
         {

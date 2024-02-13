@@ -6,6 +6,13 @@ namespace WMWeb.Mvc.ToDoItemPage;
 
 public class ToDoItemMvcModel : Bs4.ChildMvcModelForEntity<ToDoItem, ToDoList>
 {
+    #region Constructors
+    public ToDoItemMvcModel()
+    {
+        NumberOfColumns = NumberOfColumnsEnum.Three;
+    }
+    #endregion
+    
     #region Overrides
     public override string Label => Name.Value + (Completed.ValueBool ? " (Completed)" : "");
     public override ToDoList? GetParentEntity(ToDoItem entity)
@@ -16,7 +23,6 @@ public class ToDoItemMvcModel : Bs4.ChildMvcModelForEntity<ToDoItem, ToDoList>
     {
         entity.ParentToDoList = parent;
     }
-    public override NumberOfColumnsEnum NumberOfColumns { get; } = NumberOfColumnsEnum.Three;
     #endregion
 
     #region Properties

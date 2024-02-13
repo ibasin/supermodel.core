@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace Supermodel.DataAnnotations.Attributes
+namespace Supermodel.DataAnnotations.Attributes;
+
+public class RestUrlAttribute : Attribute
 {
-    public class RestUrlAttribute : Attribute
+    public RestUrlAttribute(string url)
     {
-        public RestUrlAttribute(string url)
-        {
-            Url = url;
-        }
-        
-        public string Url { get; }
+        Url = url;
     }
+        
+    public string Url { get; }
 }

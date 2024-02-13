@@ -19,6 +19,6 @@ public static class HttpCallContext
     #endregion
 
     #region Private Fields
-    private static readonly ConcurrentDictionary<string, AsyncLocal<object?>> _state = new ConcurrentDictionary<string, AsyncLocal<object?>>();
+    private static readonly ConcurrentDictionary<string, AsyncLocal<object?>> _state = new();
     #endregion
 }

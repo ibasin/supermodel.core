@@ -226,8 +226,8 @@ public class InternetMessageFormatHeaderParser
 
         private static readonly char[] _linearWhiteSpace = { ' ', '\t' };
 
-        private readonly StringBuilder _name = new StringBuilder(DefaultFieldNameAllocation);
-        private readonly StringBuilder _value = new StringBuilder(DefaultFieldValueAllocation);
+        private readonly StringBuilder _name = new(DefaultFieldNameAllocation);
+        private readonly StringBuilder _value = new(DefaultFieldValueAllocation);
 
         public StringBuilder Name
         {

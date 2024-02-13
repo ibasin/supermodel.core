@@ -1,10 +1,9 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.Services
+﻿namespace Supermodel.Mobile.Runtime.Common.Services;
+
+public interface IAudioService
 {
-    public interface IAudioService
-    {
-        void Play(byte[] wavSound);
+    void Play(byte[] wavSound);
         
-        //void StartRecording();
-        //byte[] StopRecording();
-    }
+    //void StartRecording();
+    //byte[] StopRecording();
 }
