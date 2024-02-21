@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Supermodel.DataAnnotations;
@@ -9,6 +10,7 @@ using WebMonk.RazorSharp.Extensions;
 
 namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
 
+[DebuggerDisplay("{Name}")]
 public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
 {
     #region Constructors
@@ -339,8 +341,13 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
     #endregion
 
     #region Properties
+    public string? Id
+    {
+        get => Attributes.ContainsKey("id") ? Attributes["id"] : null;
+        set => Attributes["id"] = value;
+    }
+
     public string? Name { get; set; }
-    public string? Id { get; set; }
     public AttributesDict Attributes { get; }
 
     protected internal Tag? _parent;
