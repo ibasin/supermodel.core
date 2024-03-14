@@ -17,17 +17,17 @@ public class Script : Tag
 
         if (ContainsInnerHtml())
         {
-            sb.AppendLineIndentPlus($"<{Name}{GenerateMyAttributesString()}>");
+            sb.AppendLineIndentPlus($"<{TagType}{GenerateMyAttributesString()}>");
             foreach (var tag in this) 
             {
                 if (tag is Txt txtTag) sb = txtTag.ToHtmlNoHtmlEncode(sb);
                 else throw new SystemException("Script tag can only contain Txt elements");
             }
-            sb.AppendLineIndentMinus($"</{Name}>");
+            sb.AppendLineIndentMinus($"</{TagType}>");
         }
         else
         {
-            sb.AppendLine($"<{Name}{GenerateMyAttributesString()}></{Name}>");
+            sb.AppendLine($"<{TagType}{GenerateMyAttributesString()}></{TagType}>");
         }
 
         return sb;

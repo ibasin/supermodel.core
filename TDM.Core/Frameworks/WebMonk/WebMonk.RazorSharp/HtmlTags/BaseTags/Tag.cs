@@ -10,13 +10,13 @@ using WebMonk.RazorSharp.Extensions;
 
 namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-[DebuggerDisplay("{Name}")]
+[DebuggerDisplay("{TagType}")]
 public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
 {
     #region Constructors
-    public Tag(string? name, object? attributes = null)
+    public Tag(string? tagType, object? attributes = null)
     {
-        Name = name;
+        TagType = tagType;
         Attributes = AttributesDict.AnonymousObjectToAttributesDict(attributes ?? new AttributesDict());
     }
     #endregion
@@ -28,13 +28,13 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
 
         if (ContainsInnerHtml())
         {
-            sb.AppendLineIndentPlus($"<{Name}{GenerateMyAttributesString()}>");
+            sb.AppendLineIndentPlus($"<{TagType}{GenerateMyAttributesString()}>");
             foreach (var tag in this) sb = tag.ToHtml(sb);
-            sb.AppendLineIndentMinus($"</{Name}>");
+            sb.AppendLineIndentMinus($"</{TagType}>");
         }
         else
         {
-            sb.AppendLine($"<{Name}{GenerateMyAttributesString()}></{Name}>");
+            sb.AppendLine($"<{TagType}{GenerateMyAttributesString()}></{TagType}>");
         }
 
         return sb;
@@ -294,7 +294,7 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
 
     public IGenerateHtml DisableAllControls()
     {
-        if (Name == "fieldset" || Name == "input" || Name == "textarea" || Name == "select") AddOrUpdateAttr(new { disabled = "disabled" });
+        if (TagType == "fieldset" || TagType == "input" || TagType == "textarea" || TagType == "select") AddOrUpdateAttr(new { disabled = "disabled" });
         foreach (var html in this) html.DisableAllControls();
         return this;
     }
@@ -347,7 +347,7 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
         set => Attributes["id"] = value;
     }
 
-    public string? Name { get; set; }
+    public string? TagType { get; set; }
     public AttributesDict Attributes { get; }
 
     protected internal Tag? _parent;

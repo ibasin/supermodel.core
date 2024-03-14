@@ -5,7 +5,7 @@ namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
 public class SelfClosingInlineTag : SelfClosingTag
 {
     #region Constructors
-    public SelfClosingInlineTag(string name, object? attributes, bool generateInline) : base(name, attributes) 
+    public SelfClosingInlineTag(string tagType, object? attributes, bool generateInline) : base(tagType, attributes) 
     { 
         GenerateInline = generateInline;
     }
@@ -18,7 +18,7 @@ public class SelfClosingInlineTag : SelfClosingTag
         {
             sb ??= new StringBuilderWithIndents();
             sb.TrimEndWhitespace();
-            sb.Append($"<{Name}{GenerateMyAttributesString()} />");
+            sb.Append($"<{TagType}{GenerateMyAttributesString()} />");
             return sb;
         }
         else

@@ -76,7 +76,7 @@ public static partial class Bs4
                 if (propertyInfo.HasAttribute<HiddenOnlyAttribute>())
                 {
                     var hiddenTags = Render.Hidden(this, propertyInfo.Name);
-                    foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.Name == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
+                    foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.TagType == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
                     {
                         tag.AddOrUpdateAttr(htmlAttrAttribute?.Attributes);
                         tag.AddOrUpdateAttr(attributes);
@@ -168,7 +168,7 @@ public static partial class Bs4
                 if (propertyInfo.HasAttribute<HiddenOnlyAttribute>())
                 {
                     var hiddenTags = Render.Hidden(this, propertyInfo.Name);
-                    foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.Name == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
+                    foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.TagType == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
                     {
                         tag.AddOrUpdateAttr(htmlAttrAttribute?.Attributes);
                         tag.AddOrUpdateAttr(attributes);
@@ -231,7 +231,7 @@ public static partial class Bs4
             foreach (var propertyInfo in GetDetailPropertyInfosInOrder(screenOrderFrom, screenOrderTo))
             {
                 var hiddenTags = Render.Hidden(this, propertyInfo.Name);
-                foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.Name == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
+                foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.TagType == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
                 {
                     var htmlAttrAttribute = propertyInfo.GetAttribute<HtmlAttrAttribute>();
                     tag.AddOrUpdateAttr(htmlAttrAttribute?.Attributes);

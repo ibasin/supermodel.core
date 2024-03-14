@@ -35,7 +35,7 @@ public static partial class Bs4
 
             //Remove disabling fieldset for accordion, for accordion we disable each individual panel
             // ReSharper disable once VirtualMemberCallInConstructor
-            var fieldset = FirstWhere(x => x.Name == "fieldset");
+            var fieldset = FirstWhere(x => x.TagType == "fieldset");
             fieldset.Attributes.Remove("disabled");
         }
         #endregion

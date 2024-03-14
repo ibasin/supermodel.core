@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{26B92784-6AE6-4163-8542-0AAA3C1A6D7D}|Frameworks{26B92784-6AE6-4163-8542-0AAA3C1A6D7D}|D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Version.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{26B92784-6AE6-4163-8542-0AAA3C1A6D7D}|Frameworks{26B92784-6AE6-4163-8542-0AAA3C1A6D7D}|solutionrelative:Frameworks\\Version.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{370FB0BD-1083-429B-A031-6EB2F7867009}|Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Common\\Supermodel.Mobile.Runtime.Common.csproj|d:\\projects\\sm.core\\xxyxx.core\\xxyxx\\frameworks\\supermodel.mobile\\supermodel.mobile.runtime.common\\supermodel.mobile.runtime.common.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{370FB0BD-1083-429B-A031-6EB2F7867009}|Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Common\\Supermodel.Mobile.Runtime.Common.csproj|solutionrelative:frameworks\\supermodel.mobile\\supermodel.mobile.runtime.common\\supermodel.mobile.runtime.common.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{52339205-60DC-4289-A179-9DDE6D6DA1B3}|XXYXX\\Server\\WebWM\\WebWM.csproj|d:\\projects\\sm.core\\xxyxx.core\\xxyxx\\xxyxx\\server\\webwm\\mvc\\xxyxxuserupdatepasswordpage\\xxyxxuserupdatepasswordmvcview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52339205-60DC-4289-A179-9DDE6D6DA1B3}|XXYXX\\Server\\WebWM\\WebWM.csproj|solutionrelative:xxyxx\\server\\webwm\\mvc\\xxyxxuserupdatepasswordpage\\xxyxxuserupdatepasswordmvcview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B26A5EAE-63BA-48E8-BBCE-F7EC85F2D2AF}|Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.CodeGen\\Supermodel.Mobile.CodeGen.csproj|d:\\projects\\sm.core\\xxyxx.core\\xxyxx\\frameworks\\supermodel.mobile\\supermodel.mobile.codegen\\supermodel.mobile.codegen.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B26A5EAE-63BA-48E8-BBCE-F7EC85F2D2AF}|Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.CodeGen\\Supermodel.Mobile.CodeGen.csproj|solutionrelative:frameworks\\supermodel.mobile\\supermodel.mobile.codegen\\supermodel.mobile.codegen.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3AD6F65-9492-4617-96E4-7F11166D679A}|Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\Supermodel.Mobile.Runtime.Droid.csproj|d:\\projects\\sm.core\\xxyxx.core\\xxyxx\\frameworks\\supermodel.mobile\\supermodel.mobile.runtime.droid\\app\\formsapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3AD6F65-9492-4617-96E4-7F11166D679A}|Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\Supermodel.Mobile.Runtime.Droid.csproj|solutionrelative:frameworks\\supermodel.mobile\\supermodel.mobile.runtime.droid\\app\\formsapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3AD6F65-9492-4617-96E4-7F11166D679A}|Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\Supermodel.Mobile.Runtime.Droid.csproj|d:\\projects\\sm.core\\xxyxx.core\\xxyxx\\frameworks\\supermodel.mobile\\supermodel.mobile.runtime.droid\\customcontrols\\extdatepickerrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3AD6F65-9492-4617-96E4-7F11166D679A}|Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\Supermodel.Mobile.Runtime.Droid.csproj|solutionrelative:frameworks\\supermodel.mobile\\supermodel.mobile.runtime.droid\\customcontrols\\extdatepickerrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +31,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Version.txt",
-              "DocumentMoniker": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Version.txt",
-              "RelativeDocumentMoniker": "Frameworks\\Version.txt",
-              "ToolTip": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Version.txt",
-              "RelativeToolTip": "Frameworks\\Version.txt",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-02-13T23:04:58.361Z",
+              "Title": "Supermodel.Mobile.Runtime.Common",
+              "DocumentMoniker": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Common\\Supermodel.Mobile.Runtime.Common.csproj",
+              "RelativeDocumentMoniker": "Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Common\\Supermodel.Mobile.Runtime.Common.csproj",
+              "ToolTip": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Common\\Supermodel.Mobile.Runtime.Common.csproj",
+              "RelativeToolTip": "Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Common\\Supermodel.Mobile.Runtime.Common.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-03-14T20:26:32.42Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "XXYXXUserUpdatePasswordMvcView.cs",
-              "DocumentMoniker": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\XXYXX\\Server\\WebWM\\Mvc\\XXYXXUserUpdatePasswordPage\\XXYXXUserUpdatePasswordMvcView.cs",
-              "RelativeDocumentMoniker": "XXYXX\\Server\\WebWM\\Mvc\\XXYXXUserUpdatePasswordPage\\XXYXXUserUpdatePasswordMvcView.cs",
-              "ToolTip": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\XXYXX\\Server\\WebWM\\Mvc\\XXYXXUserUpdatePasswordPage\\XXYXXUserUpdatePasswordMvcView.cs",
-              "RelativeToolTip": "XXYXX\\Server\\WebWM\\Mvc\\XXYXXUserUpdatePasswordPage\\XXYXXUserUpdatePasswordMvcView.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "Title": "Supermodel.Mobile.CodeGen",
+              "DocumentMoniker": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.CodeGen\\Supermodel.Mobile.CodeGen.csproj",
+              "RelativeDocumentMoniker": "Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.CodeGen\\Supermodel.Mobile.CodeGen.csproj",
+              "ToolTip": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.CodeGen\\Supermodel.Mobile.CodeGen.csproj",
+              "RelativeToolTip": "Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.CodeGen\\Supermodel.Mobile.CodeGen.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-03-14T20:26:37.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ExtDatePickerRenderer.cs",
+              "DocumentMoniker": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\CustomControls\\ExtDatePickerRenderer.cs",
+              "RelativeDocumentMoniker": "Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\CustomControls\\ExtDatePickerRenderer.cs",
+              "ToolTip": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\CustomControls\\ExtDatePickerRenderer.cs",
+              "RelativeToolTip": "Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\CustomControls\\ExtDatePickerRenderer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-13T23:04:28.944Z",
+              "WhenOpened": "2024-03-14T20:21:00.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormsApplication.cs",
+              "DocumentMoniker": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\App\\FormsApplication.cs",
+              "RelativeDocumentMoniker": "Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\App\\FormsApplication.cs",
+              "ToolTip": "D:\\Projects\\SM.core\\XXYXX.Core\\XXYXX\\Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\App\\FormsApplication.cs",
+              "RelativeToolTip": "Frameworks\\Supermodel.Mobile\\Supermodel.Mobile.Runtime.Droid\\App\\FormsApplication.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T20:20:47.062Z",
               "EditorCaption": ""
             }
           ]

@@ -6,14 +6,14 @@ namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
 public class SelfClosingTag : Tag
 {
     #region Constructors
-    public SelfClosingTag(string? name, object? attributes = null) : base(name, attributes) { }
+    public SelfClosingTag(string? tagType, object? attributes = null) : base(tagType, attributes) { }
     #endregion
 
     #region Overrides
     public override StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
     {
         sb ??= new StringBuilderWithIndents();
-        sb.AppendLine($"<{Name}{GenerateMyAttributesString()} />");
+        sb.AppendLine($"<{TagType}{GenerateMyAttributesString()} />");
         return sb;
     }
     // ReSharper disable once UnusedParameter.Global

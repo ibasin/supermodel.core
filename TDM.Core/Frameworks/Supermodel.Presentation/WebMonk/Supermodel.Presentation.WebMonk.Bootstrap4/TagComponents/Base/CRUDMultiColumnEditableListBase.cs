@@ -154,7 +154,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
         result.AppendAndPush(new Button(new { type="button", data_open_for_edit="data-open-for-edit", @class=Bs4.ScaffoldingSettings.CRUDListEditCssClass} ));
         result.Append(new Span(new { @class="oi oi-pencil" }));
         result.Pop<Button>();
-        if (!skipDelete) result.Append(Render.RESTfulActionLink(new Span(new { @class="oi oi-trash"}), HttpMethod.Delete, controllerName, "Detail", item.Id, editViewDeleteQs, new { @class = Bs4.ScaffoldingSettings.CRUDListDeleteCssClass }, "Are you sure?"));
+        if (!skipDelete) result.Append(Render.RESTfulActionLink(new Span(new { @class="oi oi-trash"}), HttpMethod.Delete, controllerName, "Detail", item.Id, editViewDeleteQs, new { @class = Bs4.ScaffoldingSettings.CRUDListDeleteCssClass, data_delete = "data-delete" }, "Are you sure?"));
         result.Pop<Div>();
         result.Pop<Td>();
 
@@ -170,7 +170,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             {
                 new Div(new { @class="btn-group" })
                 {
-                    new Button(new { type="submit", @class=Bs4.ScaffoldingSettings.CRUDListSaveCssClass })
+                    new Button(new { type="submit", @class=Bs4.ScaffoldingSettings.CRUDListSaveCssClass, data_save_edit="data-save-edit" })
                     {
                         new Span(new { @class="oi oi-circle-check" })
 
@@ -193,7 +193,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             {
                 new Div(new { @class="btn-group" })
                 {
-                    new Button(new { type="submit", @class=Bs4.ScaffoldingSettings.CRUDListSaveCssClass})
+                    new Button(new { type="submit", @class=Bs4.ScaffoldingSettings.CRUDListSaveCssClass, data_save_edit="data-save-edit"})
                     {
                         new Span(new { @class="oi oi-circle-check" })
                     },

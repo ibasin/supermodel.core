@@ -5,7 +5,7 @@ namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
 public class TagWithWhiteSpaceText : Tag
 {
     #region Constructors
-    public TagWithWhiteSpaceText(string? name, object? attributes = null) : base(name, attributes) { }
+    public TagWithWhiteSpaceText(string? tagType, object? attributes = null) : base(tagType, attributes) { }
     #endregion
 
     #region Overrides
@@ -13,13 +13,13 @@ public class TagWithWhiteSpaceText : Tag
     {
         sb ??= new StringBuilderWithIndents();
 
-        sb.Append($"<{Name}{GenerateMyAttributesString()}>");
+        sb.Append($"<{TagType}{GenerateMyAttributesString()}>");
         foreach (var tag in this) 
         {
             if (tag is Txt txtTag) txtTag.ToHtmlNoNewLineAtTheEnd(sb);
             else sb = tag.ToHtml(sb);
         }
-        sb.AppendLine($"</{Name}>");
+        sb.AppendLine($"</{TagType}>");
 
         return sb;
     }

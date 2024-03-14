@@ -803,7 +803,7 @@ public class SuperBs4HtmlHelper<TModel>
         if (anySelected) sb.AppendLine("<div class='btn-group d-none' data-read-only-tr-buttons>");
         else sb.AppendLine("<div class='btn-group' data-read-only-tr-buttons>");
         sb.AppendLine("<button type='button' data-open-for-edit " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListEditCssClass) + "><span class='oi oi-pencil'></span></button>");     
-        if (!skipDelete) sb.AppendLine(SuperHtml.RESTfulActionLinkHtmlContent(HttpMethod.Delete, "<span class='oi oi-trash'></span>".ToHtmlString(), "Detail", controllerName, editViewDeleteRouteValues, HtmlHelper.AnonymousObjectToHtmlAttributes(new { @class = ScaffoldingSettings.CRUDListDeleteCssClass }), "Are you sure?").GetString());
+        if (!skipDelete) sb.AppendLine(SuperHtml.RESTfulActionLinkHtmlContent(HttpMethod.Delete, "<span class='oi oi-trash'></span>".ToHtmlString(), "Detail", controllerName, editViewDeleteRouteValues, HtmlHelper.AnonymousObjectToHtmlAttributes(new { @class = ScaffoldingSettings.CRUDListDeleteCssClass, data_delete = "data-delete" }), "Are you sure?").GetString());
         sb.AppendLine("</div>");
         sb.AppendLine("</td>");
         sb.AppendLine("</tr>");
@@ -816,7 +816,7 @@ public class SuperBs4HtmlHelper<TModel>
         else sb.AppendLine($"<tr id='{-item.Id}' class='table-primary d-none'>");
         sb = item.ToEditableHtmlTableRow(itemInnerHtml, parentId, true, selected, sb);
         sb.AppendLine("<td><div class='btn-group'>");
-        sb.AppendLine("<button type='submit' " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListSaveCssClass) + "><span class='oi oi-circle-check'></span></button>");     
+        sb.AppendLine("<button type='submit' " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListSaveCssClass) + " data_save_edit='data-save-edit'><span class='oi oi-circle-check'></span></button>");     
         sb.AppendLine("<button type='button' data-cancel-edit " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListCancelCssClass) + "><span class='oi oi-action-undo'></span></button>");     
         sb.AppendLine("</div></td>");
         sb.AppendLine("</tr>");
@@ -830,7 +830,7 @@ public class SuperBs4HtmlHelper<TModel>
         itemInnerHtml.ViewContext.RouteData.Values["id"] = 0;
         sb = newItem.ToEditableHtmlTableRow(itemInnerHtml, parentId, true, selected, sb);
         sb.AppendLine("<td><div class='btn-group'>");
-        sb.AppendLine("<button type='submit' " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListSaveCssClass) + "><span class='oi oi-circle-check'></span></button>");     
+        sb.AppendLine("<button type='submit' " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListSaveCssClass) + " data_save_edit='data-save-edit'><span class='oi oi-circle-check'></span></button>");     
         sb.AppendLine("<button type='button' data-cancel-new-edit " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListCancelCssClass) + "><span class='oi oi-action-undo'></span></button>");     
         sb.AppendLine("</div></td>");
         sb.AppendLine("</tr>");
