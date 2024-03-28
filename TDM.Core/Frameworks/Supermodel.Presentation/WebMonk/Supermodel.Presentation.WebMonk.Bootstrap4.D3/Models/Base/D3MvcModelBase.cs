@@ -39,7 +39,7 @@ public abstract class D3MvcModelBase : IEditorTemplate, IDisplayTemplate, IHidde
         //get the id for our property 
         var svgId = HttpContext.Current.PrefixManager.CurrentPrefix.ToHtmlId();
 
-        //make a local, case insensitive version of the dict
+        //make a local, case-insensitive version of the dict
         var svgTagAttributesDict = new AttributesDict(DivTagAttributesAsDict);
 
         //If id is not already there, we use one from our property name
