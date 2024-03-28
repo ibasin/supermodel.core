@@ -1,6 +1,7 @@
-﻿namespace Supermodel.Mobile.Runtime.Droid.App;
+﻿using Xamarin.Forms;
 
-using Xamarin.Forms;
+namespace Supermodel.Mobile.Runtime.Droid.App;
+
 using Xamarin.Forms.Platform.Android;
 using Android.OS;
 using Supermodel.Mobile.Runtime.Common.XForms.App;
