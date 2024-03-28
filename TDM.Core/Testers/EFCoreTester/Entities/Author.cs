@@ -23,6 +23,7 @@ public class Author : Entity
         return base.BeforeSaveAsync(operation);
     }
 
+    // ReSharper disable once EntityFramework.ModelValidation.UnlimitedStringLength
     public string Name { get; set; } = "";
     public virtual USAddress Address { get; set; } = default!; 
     public virtual List<Book> Books { get; set; } = new();

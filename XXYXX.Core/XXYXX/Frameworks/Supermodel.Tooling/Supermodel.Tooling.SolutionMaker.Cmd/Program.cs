@@ -13,7 +13,7 @@ class Program
         {
             SolutionMaker.Version = "8.0.100";
 
-            //*******Un-comment and run this once to refresh the solution zip
+            ////*******Un-comment and run this once to refresh the solution zip
             Console.WriteLine($"v{SolutionMaker.Version}");
             Console.WriteLine();
 
@@ -66,7 +66,7 @@ class Program
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.Write(" already exists.\nWould you like to replace it? (y/n): ");
                     
-                var input = Console.ReadLine();
+                var input = Console.ReadLine()!;
                 //if (input == null) return;
                 input = input.Trim().ToLower();
                 if (input != "y") return;
@@ -80,7 +80,7 @@ class Program
                 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write($"Solution {solutionMakerParams.SolutionName} generated successfully! Open it now? (y/n): ");
-            var startSolution = Console.ReadLine();
+            var startSolution = Console.ReadLine()!;
             if (/*startSolution != null &&*/ startSolution.Trim().ToLower() == "y") 
             {
                 new Process

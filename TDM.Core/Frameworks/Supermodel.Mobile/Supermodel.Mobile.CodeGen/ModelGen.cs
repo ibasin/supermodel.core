@@ -276,8 +276,12 @@ public class ModelGen
                 var typeName = property.PropertyType.Name.Replace("ApiModel", "");
                 sb.AppendFormat("public {0} {1} ", typeName, property.Name);
 
-                if (property.PropertyType.Name == "BinaryFileApiModel" || property.PropertyType == typeof(DateTime)) sb.AppendLineFormat("{{ get; set; }} = new {0}();", typeName);
-                else sb.AppendLine("{ get; set; }");
+                if (property.PropertyType.Name == "BinaryFileApiModel" || property.PropertyType == typeof(DateTime)) sb.AppendFormat("{{ get; set; }} = new {0}();", typeName);
+                else sb.Append("{ get; set; }");
+
+                if (property.PropertyType == typeof(string)) sb.Append(" = \"\";");
+
+                sb.AppendLine("");                
             }
             else if (property.PropertyType.IsEnum || property.PropertyType.IsValueType)
             {

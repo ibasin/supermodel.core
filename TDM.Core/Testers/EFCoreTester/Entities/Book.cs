@@ -21,6 +21,7 @@ public class Book : Entity
     //    return base.Validate(validationContext);
     //}
 
+    // ReSharper disable once EntityFramework.ModelValidation.UnlimitedStringLength
     [Required] public string Title { get; set; } = default!; //"";
     public double Price { get; set; }
     public long AuthorId { get; set; }
