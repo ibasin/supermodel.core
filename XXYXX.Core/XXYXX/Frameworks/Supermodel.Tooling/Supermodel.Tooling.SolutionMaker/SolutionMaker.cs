@@ -29,10 +29,9 @@ public static class SolutionMaker
         ZipFile.ExtractToDirectory(CombineAndAdjustPaths(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), ZipFileName), path);
 
         //Adjust version (it is probably already adjusted from copying Frameworks folder, but we do it again just in case)
-        File.WriteAllText(CombineAndAdjustPaths(path, @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
-        //ReplaceInFile(CombineAndAdjustPaths(path, @"Frameworks\Version.txt"), versionMarker, $"Version {SolutionMaker.Version}");
+        File.WriteAllText(CombineAndAdjustPaths(path, @"Frameworks\Version.txt"), $"Version {Version}");
 
-        //Adjust for Xamarin.Forms UI vs Native UI
+        //Adjust for Xamarin.Forms UI vs Native UI vs None
         AdjustForMobileApi(solutionMakerParams.MobileApi, path);
 
         //Adjust for WM vs MVC
@@ -87,7 +86,7 @@ public static class SolutionMaker
             File.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.iOS\AppDelegate.cs"));
             File.Move(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.iOS\AppDelegate.XamarinForms.cs"), CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.iOS\AppDelegate.cs"));
         }
-        else
+        else //both none and native go here 
         {
             //Droid
             File.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.Droid\MainActivity.XamarinForms.cs"));
@@ -110,6 +109,68 @@ public static class SolutionMaker
             xxyxxMobileProjFileContent = xxyxxMobileProjFileContent.RemoveStrWithCheck(snippet1);
 
             File.WriteAllText(xxyxxMobileProjFile, xxyxxMobileProjFileContent);
+
+            //if we have no mobile components, keep the files but delete projects from the solution (so we can later restore projects)
+            if (mobileApi == MobileApiEnum.NoMobile)
+            {
+                //model generator program.cs
+                var snippet = @"File.WriteAllText(@""..\..\..\..\..\Mobile\XXYXX.Mobile\Supermodel\ModelsForRuntime\Supermodel.Mobile.ModelsForRuntime.cs"", code);";
+
+                var modelGeneratorWMProgramFile = CombineAndAdjustPaths(path, @"XXYXX\Util\ModelGeneratorWM\Program.cs");
+                var modelGeneratorWMProgramFileContent = File.ReadAllText(modelGeneratorWMProgramFile);
+                modelGeneratorWMProgramFileContent = modelGeneratorWMProgramFileContent.ReplaceStrWithCheck(snippet, $"//{snippet}");
+                File.WriteAllText(modelGeneratorWMProgramFile, modelGeneratorWMProgramFileContent);
+
+                var modelGeneratorMvcProgramFile = CombineAndAdjustPaths(path, @"XXYXX\Util\ModelGeneratorMVC\Program.cs");
+                var modelGeneratorMvcProgramFileContent = File.ReadAllText(modelGeneratorMvcProgramFile);
+                modelGeneratorMvcProgramFileContent = modelGeneratorMvcProgramFileContent.ReplaceStrWithCheck(snippet, $"//{snippet}");
+                File.WriteAllText(modelGeneratorMvcProgramFile, modelGeneratorMvcProgramFileContent);
+
+                //solution file
+                var solutionFile = CombineAndAdjustPaths(path, "XXYXX.sln");
+                var solutionFileContent = File.ReadAllText(solutionFile);
+
+                var snippetA = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetA.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetA);
+
+                var snippetB = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetB.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetB);
+
+                var snippetC = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetC.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetC);
+
+                var snippetD = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetD.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetD);
+
+                var snippetE = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetE.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetE);
+
+                var snippetF = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetF.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetF);
+
+                var snippetG = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetG.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetG);
+
+                var snippetI = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetI.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetI);
+
+                var snippetJ = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetJ.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetJ);
+
+                var snippetK = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetK.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetK);
+
+                var snippetL = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetL.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetL);
+
+                var snippetM = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetM.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetM);
+
+                var snippetN = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetN.txt");
+                solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetN);
+
+                File.WriteAllText(solutionFile, solutionFileContent);
+            }
         }
     }
     private static void AdjustForWebFramework(WebFrameworkEnum webFramework, string path)

@@ -86,14 +86,15 @@ public class SolutionMakerParams : ISolutionMakerParams
         while(true)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Select Mobile API (1 - Xamarin.Forms, 2 - Platform's Native API): ");
+            Console.Write("Select Mobile API (0 - No Mobile, 1 - Platform's Native API, 2 - Xamarin.Forms, ): ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             var input = Console.ReadLine();
             if (input != null)
             {
                 input = input.Trim();
-                if (input == "1") return MobileApiEnum.XamarinForms;
-                if (input == "2") return MobileApiEnum.Native;
+                if (input == "0") return MobileApiEnum.NoMobile;
+                if (input == "1") return MobileApiEnum.Native;
+                if (input == "2") return MobileApiEnum.XamarinForms;
             }
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"'{input}' is not a valid option for a Mobile API. Please re-enter.");
