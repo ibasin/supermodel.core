@@ -94,7 +94,7 @@ public class MnemonicRazorSharpGenerator : GeneratorOfIGenerateHtml<Action<Tag>,
 
     internal override bool AddInvalidTagAndPotentiallyPop(string tagName, bool attributesAreEmpty, bool closesSelf, bool emptyTag, Action<Tag> attributes)
     {
-        var tagToAdd = closesSelf ? new Tag(tagName.Substring(0, tagName.Length - 1).ToLower()) : new Tag(tagName.ToLower());
+        var tagToAdd = closesSelf && tagName.EndsWith("/") ? new Tag(tagName.Substring(0, tagName.Length - 1).ToLower()) : new Tag(tagName.ToLower());
 
         var result = false;
 

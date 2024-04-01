@@ -140,7 +140,7 @@ public class Translator<TAttribute, TResult> : TranslatorBase where TResult : cl
             if(!Generator.GenerateInvalidTags) throw new ArgumentException($"Invalid tag <{beTag.Name}>");
 
             //checks if this is an unrecognized closing tag
-            var closesSelf = beTag.Name.EndsWith("/");
+            var closesSelf = beTag.Name.EndsWith("/") || (beTag.Count > 0 && beTag[^1].Name == "/");
 
             //checks if tag has no txt or other content
             var emptyTag = futureBeTag != null && futureBeTag.Name.ToLower() == "/" + beTag.Name.ToLower() && text == string.Empty;
@@ -180,7 +180,7 @@ public class Translator<TAttribute, TResult> : TranslatorBase where TResult : cl
             }
             else
             {
-                throw new SystemException($"Unable to cast Object to Attribute while generating RazorSharp Html attributes");
+                throw new SystemException("Unable to cast Object to Attribute while generating RazorSharp Html attributes");
             }
         }
 
