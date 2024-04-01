@@ -76,13 +76,14 @@ public class TextualRazorSharpGenerator : GeneratorOfIGenerateHtml<string, strin
 
     internal override bool AddInvalidTagAndPotentiallyPop(string tagName, bool attributesAreEmpty, bool closesSelf, bool emptyTag, string attributes)
     {
-        if(closesSelf) Sb.Append($"new Tag(\"{tagName.Substring(0, tagName.Length - 1).ToLower()}\")");
-        else Sb.Append($"new Tag(\"{tagName.ToLower()}\")");
+        if(closesSelf) Sb.Append($"new Tag(\"{tagName.Substring(0, tagName.Length - 1).ToLower()}\"");
+        else Sb.Append($"new Tag(\"{tagName.ToLower()}\"");
 
         //handles the case if tag is unrecognized self-closing or empty by using constructor
-        if (!attributesAreEmpty || closesSelf || emptyTag) Sb.Append($"({attributes})");
-
-        if (closesSelf || emptyTag) Sb.Append(",");
+        if (!attributesAreEmpty /*|| closesSelf || emptyTag*/) Sb.Append($", {attributes})");
+        else Sb.Append(")");
+        
+        //if (closesSelf || emptyTag) Sb.Append(",");
 
         Sb.AppendLine("");
 
