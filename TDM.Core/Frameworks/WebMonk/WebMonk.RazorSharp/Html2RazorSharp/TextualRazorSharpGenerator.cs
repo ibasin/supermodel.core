@@ -80,12 +80,14 @@ public class TextualRazorSharpGenerator : GeneratorOfIGenerateHtml<string, strin
         else Sb.Append($"new Tag(\"{tagName.ToLower()}\"");
 
         //handles the case if tag is unrecognized self-closing or empty by using constructor
-        if (!attributesAreEmpty /*|| closesSelf || emptyTag*/) Sb.Append($", {attributes})");
-        else Sb.Append(")");
-        
-        //if (closesSelf || emptyTag) Sb.Append(",");
+        if (!attributesAreEmpty) Sb.AppendLine($", {attributes})");
+        else Sb.AppendLine(")");
 
-        Sb.AppendLine("");
+        //Old Code
+        //handles the case if tag is unrecognized self-closing or empty by using constructor
+        //if (!attributesAreEmpty || closesSelf || emptyTag) Sb.Append($", {attributes})");
+        //if (closesSelf || emptyTag) Sb.Append(",");
+        //Sb.AppendLine("");
 
         if (!closesSelf && !emptyTag) Sb.AppendLineIndentPlus("{");
         else if (closesSelf && !emptyTag) return true;
@@ -101,9 +103,9 @@ public class TextualRazorSharpGenerator : GeneratorOfIGenerateHtml<string, strin
 
     internal override void AddTxtTag(string text)
     {
-        Sb.Append("new Txt(");
+        Sb.Append("(Txt)");
         if (text.Contains("\n")) Sb.Append("@");
-        Sb.AppendLine($"\"{TranslatorBase.Decode(text)}\"),");
+        Sb.AppendLine($"\"{TranslatorBase.Decode(text)}\",");
     }
 
     internal override void Finish()

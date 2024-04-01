@@ -1,10 +1,16 @@
 ﻿using System.Web;
+using WebMonk.RazorSharp.HtmlTags;
 
 namespace WebMonk.RazorSharp.Extensions;
 
 public static class StringExt
 {
     #region Methods
+    //public static Txt Txt(this string str, bool generateInline = false)
+    //{
+    //    return new Txt(str, generateInline);
+    //}
+    
     public static string JavaScriptStringEncode(this string str)
     {
         return HttpUtility.JavaScriptStringEncode(str);
