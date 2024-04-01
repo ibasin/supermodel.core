@@ -71,7 +71,7 @@ public abstract class ControllerBase : IHttpRequestHandler
         #region Update Route Value Provider
         var routeValueProvider = await new RouteValueProvider().InitAsync(routeData).ConfigureAwait(false);
         var valueProviders = await HttpContext.Current.ValueProviderManager.GetValueProvidersListAsync().ConfigureAwait(false);
-        valueProviders.ReplaceOrInsertValueProvider(routeValueProvider, 1); //1) form-data, 2) route-data, 3) QS data
+        valueProviders.ReplaceOrInsertValueProvider(routeValueProvider, 1); //0) form-data, 1) route-data, 2) QS data
         #endregion
 
         #region Model Binding using value providers
