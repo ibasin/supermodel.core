@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WebMonk.RazorSharp.Extensions;
 using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 using WebMonk.Rendering.Views;
@@ -21,8 +20,9 @@ public class StudentMvcView : MvcView
                     new Tr
                     {
                         new Th { new Txt("First Name") },
-                        new Th { "Last Name".Txt() },
+                        new Th { (Txt)"Last Name" },
                         new Th { (Txt)"GPA" },
+                    }
                 },
                 new Tbody
                 {
