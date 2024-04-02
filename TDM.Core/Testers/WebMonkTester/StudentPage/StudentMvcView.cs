@@ -11,7 +11,7 @@ public class StudentMvcView : MvcView
     {
         var html = new Tags
         {
-            new H1 { new Txt("List of Students") },
+            new H1 { new Span(generateInline:true) { new Txt("List of Students") }, new Span(generateInline:true) { new Txt("All")} },
             new Br(),
             new Table(new { @class="table table-striped"})
             {

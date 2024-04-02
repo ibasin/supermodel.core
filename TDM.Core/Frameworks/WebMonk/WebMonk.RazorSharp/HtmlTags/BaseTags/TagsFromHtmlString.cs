@@ -3,10 +3,10 @@
 namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
 
 //Use with caution: improper use may create XSS vulnerability
-public class TagsFromString : Tags
+public class TagsFromHtmlString : Tags
 {
     #region Constructors
-    public TagsFromString(string htmlString)
+    public TagsFromHtmlString(string htmlString)
     {
         Add(TranslatorBase.CreateMnemonic(htmlString, false, true).ToRazorSharp());
     }

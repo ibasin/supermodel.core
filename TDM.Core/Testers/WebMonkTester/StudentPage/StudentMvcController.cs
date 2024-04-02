@@ -19,12 +19,12 @@ public class StudentMvcController : MvcController
         
     //[Authorize]
     //[NonAction]
-    public HtmlResult GetList1()
+    public HtmlResult GetList()
     {
-        //var model1 = new StudentMvcModel { FirstName ="Ilya", LastName = "Basin", GPA = 3.1 };
-        //var model2 = new StudentMvcModel { FirstName ="Mariya", LastName = "Basin", GPA = 3.2 };
-        //var model3 = new StudentMvcModel { FirstName ="Andrew", LastName = "Basin", GPA = 3.3 };
-        //var model4 = new StudentMvcModel { FirstName ="Natalie", LastName = "Basin", GPA = 3.4 };
+        //var model1 = new StudentMvcModel { FirstName = "Ilya", LastName = "Basin", GPA = 3.1 };
+        //var model2 = new StudentMvcModel { FirstName = "Mariya", LastName = "Basin", GPA = 3.2 };
+        //var model3 = new StudentMvcModel { FirstName = "Andrew", LastName = "Basin", GPA = 3.3 };
+        //var model4 = new StudentMvcModel { FirstName = "Natalie", LastName = "Basin", GPA = 3.4 };
         //var models = new List<StudentMvcModel> { model1, model2, model3, model4 };
 
         var models = new List<StudentMvcModel>();
