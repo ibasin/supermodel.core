@@ -19,7 +19,7 @@ public class TranslatorApiController : CommandApiController<TranslatorInput, Tra
             {
                 var translator = TranslatorBase.CreateTextual(input.Html, input.SortAttributes, input.GenerateInvalidTags);
                 output.RazorSharp = translator.ToRazorSharp();
-
+                
                 //This is to test. Results should be identical
                 //var t2 = TranslatorBase.CreateMnemonic(input.Html, input.SortAttributes, input.GenerateInvalidTags);
                 //var x = t2.ToRazorSharp();

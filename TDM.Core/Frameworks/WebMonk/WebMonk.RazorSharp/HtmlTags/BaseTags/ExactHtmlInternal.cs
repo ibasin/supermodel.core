@@ -2,7 +2,7 @@
 
 namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-public class ExactHtmlInternal : Tag
+internal class ExactHtmlInternal : Tag
 {
     #region Constructors
     internal ExactHtmlInternal(string htmlString) : base(null)

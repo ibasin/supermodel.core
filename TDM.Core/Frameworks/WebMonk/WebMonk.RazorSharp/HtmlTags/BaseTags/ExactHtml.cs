@@ -4,6 +4,7 @@ using WebMonk.RazorSharp.Html2RazorSharp;
 
 namespace WebMonk.RazorSharp.HtmlTags.BaseTags;
 
+//Use with caution: improper use may create XSS vulnerability
 public class ExactHtml : Tags
 {
     #region Constructors
@@ -21,7 +22,6 @@ public class ExactHtml : Tags
 
         Clear();
         AddRange(TranslatorBase.CreateMnemonic(exactHtmlTag.HtmlString, false, true).ToRazorSharp().RootTags);
-
         return base.NormalizeAndFlatten();  
     }
     #endregion
