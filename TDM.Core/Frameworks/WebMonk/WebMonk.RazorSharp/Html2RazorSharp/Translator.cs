@@ -93,9 +93,9 @@ public class Translator<TAttribute, TResult> : TranslatorBase where TResult : cl
 
         //put together info about attributes on tag
         var attributes = GenerateAttribute(beTag, out int attributeCount);
-        var attributesAreEmpty = attributeCount == 0;
+        var attributesAreEmpty = attributeCount == 0 || (beTag.Count == 1 && beTag[^1].Name == "/");
 
-        //handle the case of recognized self closing tags
+        //handle the case of recognized self-closing tags
         if (typeof(SelfClosingTag).IsAssignableFrom(tagType))
         {
             //handling for not having a corresponding closing tag
@@ -123,7 +123,7 @@ public class Translator<TAttribute, TResult> : TranslatorBase where TResult : cl
             //checks if tag has no txt or other content
             var emptyTag = futureBeTag != null && futureBeTag.Name.ToLower() == "/" + beTag.Name.ToLower() && text == string.Empty;
                 
-            tagStack.Push(new Tuple<string, bool, int>(beTag.Name, emptyTag, BePage.GetCurrentLineNumberForParserPoint(ParserPoint)));
+            tagStack.Push(new Tuple<string, bool, int>(beTag.Name, closesSelf, BePage.GetCurrentLineNumberForParserPoint(ParserPoint)));
                 
             var pop = Generator.AddRecognizedNonSelfClosingTagAndPotentiallyPop(tagType, attributesAreEmpty, closesSelf, emptyTag, attributes);
             if (pop) tagStack.Pop();
@@ -145,7 +145,7 @@ public class Translator<TAttribute, TResult> : TranslatorBase where TResult : cl
             //checks if tag has no txt or other content
             var emptyTag = futureBeTag != null && futureBeTag.Name.ToLower() == "/" + beTag.Name.ToLower() && text == string.Empty;
 
-            tagStack.Push(new Tuple<string, bool, int>(beTag.Name, emptyTag, BePage.GetCurrentLineNumberForParserPoint(ParserPoint)));
+            tagStack.Push(new Tuple<string, bool, int>(beTag.Name, closesSelf, BePage.GetCurrentLineNumberForParserPoint(ParserPoint)));
                 
             var pop = Generator.AddInvalidTagAndPotentiallyPop(beTag.Name, attributesAreEmpty, closesSelf, emptyTag, attributes);
             if (pop) tagStack.Pop();
@@ -176,7 +176,7 @@ public class Translator<TAttribute, TResult> : TranslatorBase where TResult : cl
         {
             if (attributeObj is Attribute attribute)
             {
-                attributes.Add(attribute);
+                if (attribute.Name != "/") attributes.Add(attribute);
             }
             else
             {
