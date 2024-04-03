@@ -76,15 +76,18 @@ public class TextualRazorSharpGenerator : GeneratorOfIGenerateHtml<string, strin
 
     internal override bool AddInvalidTagAndPotentiallyPop(string tagName, bool attributesAreEmpty, bool closesSelf, bool emptyTag, string attributes)
     {
-        if(closesSelf) Sb.Append($"new Tag(\"{tagName.Substring(0, tagName.Length - 1).ToLower()}\")");
-        else Sb.Append($"new Tag(\"{tagName.ToLower()}\")");
+        if (closesSelf && tagName.EndsWith("/")) Sb.Append($"new Tag(\"{tagName.Substring(0, tagName.Length - 1).ToLower()}\"");
+        else Sb.Append($"new Tag(\"{tagName.ToLower()}\"");
 
         //handles the case if tag is unrecognized self-closing or empty by using constructor
-        if (!attributesAreEmpty || closesSelf || emptyTag) Sb.Append($"({attributes})");
+        if (!attributesAreEmpty && !string.IsNullOrWhiteSpace(attributes)) Sb.AppendLine($", {attributes})");
+        else Sb.AppendLine(")");
 
-        if (closesSelf || emptyTag) Sb.Append(",");
-
-        Sb.AppendLine("");
+        //Old Code
+        //handles the case if tag is unrecognized self-closing or empty by using constructor
+        //if (!attributesAreEmpty || closesSelf || emptyTag) Sb.Append($", {attributes})");
+        //if (closesSelf || emptyTag) Sb.Append(",");
+        //Sb.AppendLine("");
 
         if (!closesSelf && !emptyTag) Sb.AppendLineIndentPlus("{");
         else if (closesSelf && !emptyTag) return true;
@@ -100,9 +103,9 @@ public class TextualRazorSharpGenerator : GeneratorOfIGenerateHtml<string, strin
 
     internal override void AddTxtTag(string text)
     {
-        Sb.Append("new Txt(");
+        Sb.Append("(Txt)");
         if (text.Contains("\n")) Sb.Append("@");
-        Sb.AppendLine($"\"{TranslatorBase.Decode(text)}\"),");
+        Sb.AppendLine($"\"{TranslatorBase.Decode(text)}\",");
     }
 
     internal override void Finish()

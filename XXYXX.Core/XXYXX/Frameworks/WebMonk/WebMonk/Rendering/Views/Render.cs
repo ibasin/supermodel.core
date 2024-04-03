@@ -27,7 +27,7 @@ public static class Render
     #region Helper Class
     public static class Helper
     {
-        #region UrlToMvcActions
+        #region UrlForMvcActions
         public static string UrlForMvcAction<T>(Expression<Action<T>> action, NameValueCollection? queryString)  where T : MvcController
         {
             return UrlForMvcAction(action, queryString?.ToQueryStringDictionary());
@@ -51,7 +51,7 @@ public static class Render
         }
         #endregion
 
-        #region UrlToApiActions
+        #region UrlForApiActions
         public static string UrlForApiAction<T>(Expression<Action<T>> action, NameValueCollection? queryString)  where T : ApiController
         {
             return UrlForApiAction(action, queryString?.ToQueryStringDictionary());

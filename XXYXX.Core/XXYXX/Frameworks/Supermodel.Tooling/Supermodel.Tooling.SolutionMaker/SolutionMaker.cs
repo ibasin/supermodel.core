@@ -25,8 +25,9 @@ public static class SolutionMaker
         //Create dir and extract files into it
         if (Directory.Exists(path)) throw new CreatorException($"Unable to create the new Solution.\n\nDirectory '{path}' already exists.");
         Directory.CreateDirectory(path);
-        // ReSharper disable once AssignNullToNotNullAttribute
-        ZipFile.ExtractToDirectory(CombineAndAdjustPaths(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), ZipFileName), path);
+        
+        ZipFile.ExtractToDirectory(CombineAndAdjustPaths(Path.GetDirectoryName(GetExecutablePath())!, ZipFileName), path);
+        //ZipFile.ExtractToDirectory(CombineAndAdjustPaths(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), ZipFileName), path);
 
         //Adjust version (it is probably already adjusted from copying Frameworks folder, but we do it again just in case)
         File.WriteAllText(CombineAndAdjustPaths(path, @"Frameworks\Version.txt"), $"Version {Version}");
@@ -589,6 +590,23 @@ public static class SolutionMaker
         part1 = AdjustPath(part1);
         part2 = AdjustPath(part2);
         return Path.Combine(part1, part2);
+    }
+    #endregion
+
+    #region Find location of self-contained executable
+    [DllImport("kernel32.dll")]
+    static extern uint GetModuleFileName(IntPtr hModule, StringBuilder lpFilename, int nSize);
+
+    public static string GetExecutablePath()
+    {
+        const int maxPath = 255;
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            var sb = new StringBuilder(maxPath);
+            GetModuleFileName(IntPtr.Zero, sb, maxPath);
+            return sb.ToString();
+        }
+        return Process.GetCurrentProcess().MainModule!.FileName;
     }
     #endregion
 

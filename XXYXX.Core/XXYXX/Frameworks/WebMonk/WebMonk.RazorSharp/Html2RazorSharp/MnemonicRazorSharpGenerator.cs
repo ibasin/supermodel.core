@@ -77,15 +77,26 @@ public class MnemonicRazorSharpGenerator : GeneratorOfIGenerateHtml<Action<Tag>,
 
         var result = false;
 
-        if (!closesSelf && !emptyTag)
-        {
-            Hs.AppendAndPush(tagToAdd);
-        }
-        else if (closesSelf && !emptyTag)
+        //NEW CODE
+        if (closesSelf)
         {
             Hs.Append(tagToAdd);
             result = true;
         }
+        else
+        {
+            Hs.AppendAndPush(tagToAdd);
+        }
+        //OLD CODE
+        //if (!closesSelf && !emptyTag)
+        //{
+        //    Hs.AppendAndPush(tagToAdd);
+        //}
+        //else if (closesSelf && !emptyTag)
+        //{
+        //    Hs.Append(tagToAdd);
+        //    result = true;
+        //}
 
         attributes.Invoke(tagToAdd);
 
@@ -94,19 +105,42 @@ public class MnemonicRazorSharpGenerator : GeneratorOfIGenerateHtml<Action<Tag>,
 
     internal override bool AddInvalidTagAndPotentiallyPop(string tagName, bool attributesAreEmpty, bool closesSelf, bool emptyTag, Action<Tag> attributes)
     {
-        var tagToAdd = closesSelf ? new Tag(tagName.Substring(0, tagName.Length - 1).ToLower()) : new Tag(tagName.ToLower());
+        //NEW CODE
+        Tag tagToAdd;
+        if (closesSelf)
+        {
+            if (tagName.EndsWith("/")) tagToAdd = new SelfClosingTag(tagName.Substring(0, tagName.Length - 1).ToLower());
+            else tagToAdd = new SelfClosingTag(tagName.ToLower());
+        }
+        else
+        {
+            tagToAdd = new Tag(tagName.ToLower());
+        }
+        //OLD CODE
+        //var tagToAdd = closesSelf && tagName.EndsWith("/") ? new SelfClosingTag(tagName.Substring(0, tagName.Length - 1).ToLower()) : new Tag(tagName.ToLower());
 
         var result = false;
-
-        if (!closesSelf && !emptyTag)
-        {
-            Hs.AppendAndPush(tagToAdd);
-        }
-        else if (closesSelf)
+        
+        //NEW CODE
+        if (closesSelf)
         {
             Hs.Append(tagToAdd);
             result = true;
         }
+        else
+        {
+            Hs.AppendAndPush(tagToAdd);
+        }
+        //OLD CODE
+        //if (!closesSelf && !emptyTag)
+        //{
+        //    Hs.AppendAndPush(tagToAdd);
+        //}
+        //else if (closesSelf)
+        //{
+        //    Hs.Append(tagToAdd);
+        //    result = true;
+        //}
 
         attributes.Invoke(tagToAdd);
             

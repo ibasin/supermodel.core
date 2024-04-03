@@ -10,9 +10,7 @@ namespace HTML2RazorSharpWM.API.TranslatorApi;
 public class TranslatorApiController : CommandApiController<TranslatorInput, TranslatorOutput>
 {
     #region Methods
-#pragma warning disable 1998
-    protected override async Task<TranslatorOutput> ExecuteAsync(TranslatorInput input)
-#pragma warning restore 1998
+    protected override Task<TranslatorOutput> ExecuteAsync(TranslatorInput input)
     {
         var output = new TranslatorOutput();
         try
@@ -21,6 +19,12 @@ public class TranslatorApiController : CommandApiController<TranslatorInput, Tra
             {
                 var translator = TranslatorBase.CreateTextual(input.Html, input.SortAttributes, input.GenerateInvalidTags);
                 output.RazorSharp = translator.ToRazorSharp();
+                
+                //This is to test. Results should be identical
+                //var t2 = TranslatorBase.CreateMnemonic(input.Html, input.SortAttributes, input.GenerateInvalidTags);
+                //var x = t2.ToRazorSharp();
+                //var html = x.ToHtml().ToString();
+                //output.RazorSharp = html;
             }
             else
             {
@@ -33,33 +37,34 @@ public class TranslatorApiController : CommandApiController<TranslatorInput, Tra
             output.Error = true;
         }
 
-        return output;
+        return Task.FromResult(output);
     }
     #endregion
 }
 
-/*protected void RefreshResult()
+    /*protected void RefreshResult()
+    {
+        InputTextBoxChangeLineNumbers();
+        try
         {
-            InputTextBoxChangeLineNumbers();
-            try
+            if (InputTextBox.Text != string.Empty)
             {
-                if (InputTextBox.Text != string.Empty)
-                {
-                    var translator = TranslatorBase.CreateTextual(InputTextBox.Text, SortAttributesCheckBox.Checked, GenerateInvalidTagsCheckBox.Checked);
-                    OutputTextBox.Text = translator.ToRazorSharp();
-                }
-                else
-                {
-                    OutputTextBox.Text = string.Empty;
-                    InputTextBoxChangeLineNumbers();
-                }
-                OutputTextBox.BackColor = Color.BlanchedAlmond;
+                var translator = TranslatorBase.CreateTextual(InputTextBox.Text, SortAttributesCheckBox.Checked, GenerateInvalidTagsCheckBox.Checked);
+                OutputTextBox.Text = translator.ToRazorSharp();
             }
-            catch (Exception exception)
+            else
             {
-                OutputTextBox.Text = exception.Message;
-                OutputTextBox.BackColor = Color.LightSalmon;
+                OutputTextBox.Text = string.Empty;
+                InputTextBoxChangeLineNumbers();
             }
-            OutputTextBoxChangeLineNumbers();
-            OutputLineNumberTextBox.BackColor = OutputTextBox.BackColor;
-        }*/
+            OutputTextBox.BackColor = Color.BlanchedAlmond;
+        }
+        catch (Exception exception)
+        {
+            OutputTextBox.Text = exception.Message;
+            OutputTextBox.BackColor = Color.LightSalmon;
+        }
+        OutputTextBoxChangeLineNumbers();
+        OutputLineNumberTextBox.BackColor = OutputTextBox.BackColor;
+    }
+    */

@@ -15,6 +15,10 @@ public class Txt : InlineTag
     }
     #endregion
 
+    #region Implicit Conversion from string
+    public static implicit operator Txt(string s) => new(s);
+    #endregion
+
     #region Overrides
     public override StringBuilderWithIndents ToHtml(StringBuilderWithIndents? sb = null)
     {

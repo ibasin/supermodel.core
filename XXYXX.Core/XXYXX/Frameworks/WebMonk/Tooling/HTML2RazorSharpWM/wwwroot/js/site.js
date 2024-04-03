@@ -37,13 +37,25 @@
         location.reload();
     };
 
+    input.on('keydown', function (e) {
+        if (e.key == 'Tab') {
+            e.preventDefault();
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
+
+            // set textarea value to: text before caret + tab + text after caret
+            this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
+
+            // put caret at right position again
+            this.selectionStart = this.selectionEnd = start + 1;
+        }
+    });
 });
 
 window.onbeforeunload = function () {
     localStorage.setItem("input", $("#input-text-area").val());
     localStorage.setItem("output", $("#output-text-area").val());
     localStorage.setItem("sortAttributes", $("#sort-attributes").is(":checked"));
-    //alert($("#sort-attributes").is(":checked"));
     localStorage.setItem("generateInvalidTags", $("#generate-invalid-tags").is(":checked"));
 };
 

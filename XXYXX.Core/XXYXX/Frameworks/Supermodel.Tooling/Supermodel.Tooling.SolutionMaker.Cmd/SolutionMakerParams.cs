@@ -86,7 +86,7 @@ public class SolutionMakerParams : ISolutionMakerParams
         while(true)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Select Mobile API (0 - No Mobile, 1 - Platform's Native API, 2 - Xamarin.Forms, ): ");
+            Console.Write("Select Mobile API (0 - No Mobile, 1 - Platform's Native API, 2 - Xamarin.Forms): ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             var input = Console.ReadLine();
             if (input != null)
