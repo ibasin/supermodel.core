@@ -3,14 +3,13 @@ using WebMonk.Filters;
 using WebMonk.HttpRequestHandlers.Controllers;
 using WebMonk.Results;
 
-namespace WebWM.Mvc.HomePage
+namespace WebWM.Mvc.HomePage;
+
+[Authorize]
+public class HomeMvcController: MvcController
 {
-    [Authorize]
-    public class HomeMvcController: MvcController
+    public ActionResult GetIndex()
     {
-        public ActionResult GetIndex()
-        {
             return new HomeMvcView().RenderIndex().ToHtmlResult();
         }
-    }
 }

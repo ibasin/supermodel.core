@@ -2,12 +2,12 @@
 using System;
 using System.IO;
 
-namespace ModelGeneratorMVC
+namespace ModelGeneratorMVC;
+
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main()
-        {
             var modelGenerator = new ModelGen(new[] { typeof(WebMVC.Controllers.XXYXXUserUpdatePasswordController).Assembly });
             var sb = modelGenerator.GenerateModels();
             var code = sb.ToString();
@@ -17,5 +17,4 @@ namespace ModelGeneratorMVC
 
             Console.WriteLine("All done!");
         }
-    }
 }

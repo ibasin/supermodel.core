@@ -12,13 +12,13 @@ using Supermodel.Presentation.WebMonk.Controllers.Mvc;
 using WebMonk.Results;
 using WebWM.Mvc.HomePage;
 
-namespace WebWM.Mvc.AuthPage
+namespace WebWM.Mvc.AuthPage;
+
+public class AuthMvcController : SimpleAuthMvcController<Bs4.LoginMvcModel, AuthMvcView>
 {
-    public class AuthMvcController : SimpleAuthMvcController<Bs4.LoginMvcModel, AuthMvcView>
+    #region Overrides
+    protected override async Task<List<Claim>> AuthenticateAndGetClaimsAsync(string username, string password)
     {
-        #region Overrides
-        protected override async Task<List<Claim>> AuthenticateAndGetClaimsAsync(string username, string password)
-        {
             await using (new UnitOfWork<DataContext>(ReadOnly.Yes))
             {
                 var repo = LinqRepoFactory.Create<XXYXXUser>();
@@ -42,10 +42,9 @@ namespace WebWM.Mvc.AuthPage
             }
         }
 
-        protected override LocalRedirectResult RedirectToHomeScreen()
-        {
+    protected override LocalRedirectResult RedirectToHomeScreen()
+    {
             return RedirectToAction<HomeMvcController>(x => x.GetIndex());
         }
-        #endregion
-    }
+    #endregion
 }

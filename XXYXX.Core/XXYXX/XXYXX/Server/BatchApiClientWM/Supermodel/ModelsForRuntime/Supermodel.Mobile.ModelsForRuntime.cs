@@ -14,20 +14,19 @@ using Supermodel.DataAnnotations.Attributes;
 // ReSharper restore RedundantUsingDirective
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.ApiClient.Models
+namespace Supermodel.ApiClient.Models;
+
+#region XXYXXUserUpdatePasswordApiController
+[RestUrl("XXYXXUserUpdatePassword")]
+// ReSharper disable once PartialTypeWithSinglePart
+public partial class XXYXXUserUpdatePassword : Model
 {
-	#region XXYXXUserUpdatePasswordApiController
-	[RestUrl("XXYXXUserUpdatePassword")]
-	// ReSharper disable once PartialTypeWithSinglePart
-	public partial class XXYXXUserUpdatePassword : Model
-	{
-		#region Properties
-		public String OldPassword { get; set; } = "";
-		public String NewPassword { get; set; } = "";
-		#endregion
-	}
-	#endregion
-	
-	#region Types models depend on and types that were specifically marked with [IncludeInApiClient]
-	#endregion
+    #region Properties
+    public String OldPassword { get; set; } = "";
+    public String NewPassword { get; set; } = "";
+    #endregion
 }
+#endregion
+	
+#region Types models depend on and types that were specifically marked with [IncludeInApiClient]
+#endregion

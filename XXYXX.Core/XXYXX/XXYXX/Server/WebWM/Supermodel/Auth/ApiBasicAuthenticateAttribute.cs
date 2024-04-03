@@ -9,12 +9,12 @@ using Supermodel.Persistence.Repository;
 using Supermodel.Persistence.UnitOfWork;
 using Supermodel.Presentation.WebMonk.Auth;
 
-namespace WebWM.Supermodel.Auth
+namespace WebWM.Supermodel.Auth;
+
+public class ApiBasicAuthenticateAttribute : SupermodelAuthenticateAttributeBase
 {
-    public class ApiBasicAuthenticateAttribute : SupermodelAuthenticateAttributeBase
+    protected override async Task<List<Claim>> AuthenticateBasicAndGetClaimsAsync(string username, string password)
     {
-        protected override async Task<List<Claim>> AuthenticateBasicAndGetClaimsAsync(string username, string password)
-        {
             await using(new UnitOfWork<DataContext>(ReadOnly.Yes))
             {
                 var repo = LinqRepoFactory.Create<XXYXXUser>();
@@ -37,13 +37,12 @@ namespace WebWM.Supermodel.Auth
             }
         }
 
-        protected override Task<List<Claim>> AuthenticateEncryptedAndGetClaimsAsync(string[] args)
-        {
+    protected override Task<List<Claim>> AuthenticateEncryptedAndGetClaimsAsync(string[] args)
+    {
             throw new InvalidOperationException(); 
         }
 
-        #region Properties
-        protected override byte[] EncryptionKey => throw new InvalidOperationException(); 
-        #endregion
-    }
+    #region Properties
+    protected override byte[] EncryptionKey => throw new InvalidOperationException(); 
+    #endregion
 }

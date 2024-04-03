@@ -1,9 +1,8 @@
 ﻿using WebMonk.HttpRequestHandlers;
 
-namespace WebWM.Mvc
+namespace WebWM.Mvc;
+
+public class DefaultPathRedirectorHttpRequestHandler : DefaultPathRedirectorHttpRequestHandlerBase
 {
-    public class DefaultPathRedirectorHttpRequestHandler : DefaultPathRedirectorHttpRequestHandlerBase
-    {
-        public DefaultPathRedirectorHttpRequestHandler() : base("/Auth/Login") { }
-    }
+    public DefaultPathRedirectorHttpRequestHandler() : base("/Auth/Login") { }
 }

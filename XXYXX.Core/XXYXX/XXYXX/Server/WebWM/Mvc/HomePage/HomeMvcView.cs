@@ -2,13 +2,13 @@
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 using WebMonk.Rendering.Views;
 
-namespace WebWM.Mvc.HomePage
+namespace WebWM.Mvc.HomePage;
+
+public class HomeMvcView : MvcView
 {
-    public class HomeMvcView : MvcView
+    #region View Methods
+    public IGenerateHtml RenderIndex()
     {
-        #region View Methods
-        public IGenerateHtml RenderIndex()
-        {
             var html = new Tags
             {
                 new H2
@@ -19,6 +19,5 @@ namespace WebWM.Mvc.HomePage
 
             return ApplyToDefaultLayout(html);
         }
-        #endregion
-    }
+    #endregion
 }

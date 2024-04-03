@@ -2,11 +2,10 @@
 using WebMonk.Rendering.Views;
 using WebWM.Mvc.Layouts;
 
-namespace WebWM.Mvc.AuthPage
+namespace WebWM.Mvc.AuthPage;
+
+public class AuthMvcView : SimpleAuthMvcView 
 {
-    public class AuthMvcView : SimpleAuthMvcView 
-    {
-        protected override IMvcLayout GetLayout() => _layout;
-        private static readonly IMvcLayout _layout = new EmptyModalMvcLayout();
-    }
+    protected override IMvcLayout GetLayout() => _layout;
+    private static readonly IMvcLayout _layout = new EmptyModalMvcLayout();
 }

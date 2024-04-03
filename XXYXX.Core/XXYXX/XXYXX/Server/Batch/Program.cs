@@ -7,12 +7,12 @@ using Supermodel.Persistence.EFCore;
 using Supermodel.Persistence.Repository;
 using Supermodel.Persistence.UnitOfWork;
 
-namespace Batch
+namespace Batch;
+
+class Program
 {
-    class Program
+    static async Task Main()
     {
-        static async Task Main()
-        {
             Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();
 
@@ -44,5 +44,4 @@ namespace Batch
             }
             Console.WriteLine("User with id=1's password updated to '12345'");
         }
-    }
 }

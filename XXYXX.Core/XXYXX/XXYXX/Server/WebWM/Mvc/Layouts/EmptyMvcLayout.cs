@@ -3,12 +3,12 @@ using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 using WebMonk.Rendering.Views;
 
-namespace WebWM.Mvc.Layouts
+namespace WebWM.Mvc.Layouts;
+
+public class EmptyMvcLayout : IMvcLayout
 {
-    public class EmptyMvcLayout : IMvcLayout
+    public virtual IGenerateHtml RenderDefaultLayout()
     {
-        public virtual IGenerateHtml RenderDefaultLayout()
-        {
             return new Html(new { lang="en" })
             {
                 new D3.HeadContainer
@@ -23,5 +23,4 @@ namespace WebWM.Mvc.Layouts
                 }
             };
         }
-    }
 }

@@ -5,12 +5,12 @@ using BatchApiClientWM.Supermodel.Persistence;
 using Supermodel.ApiClient.Models;
 using Supermodel.Mobile.Runtime.Common.UnitOfWork;
 
-namespace BatchApiClientWM
+namespace BatchApiClientWM;
+
+class Program
 {
-    class Program
+    static async Task Main()
     {
-        static async Task Main()
-        {
             Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();
             
@@ -31,5 +31,4 @@ namespace BatchApiClientWM
             }
             Console.WriteLine("User with id=1's password updated to '12345'");
         }
-    }
 }

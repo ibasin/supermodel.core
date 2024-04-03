@@ -8,12 +8,12 @@ using WebMonk;
 using WebWM.Mvc.Layouts;
 using WebWM.Supermodel.Auth;
 
-namespace WebWM
+namespace WebWM;
+
+class Program
 {
-    class Program
+    static async Task Main()
     {
-        static async Task Main()
-        {
             //Comment this out if you don't want to recreate and re-seed db every time you start the app in debug mode
             await using (new UnitOfWork<DataContext>())
             {
@@ -46,5 +46,4 @@ namespace WebWM
                 await webServer.RunAsync();
             }
         }
-    }
 }

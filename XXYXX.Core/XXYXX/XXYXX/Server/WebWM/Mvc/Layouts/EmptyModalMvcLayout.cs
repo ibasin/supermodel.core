@@ -2,12 +2,12 @@
 using WebMonk.RazorSharp.HtmlTags;
 using WebMonk.RazorSharp.HtmlTags.BaseTags;
 
-namespace WebWM.Mvc.Layouts
+namespace WebWM.Mvc.Layouts;
+
+public class EmptyModalMvcLayout : EmptyMvcLayout
 {
-    public class EmptyModalMvcLayout : EmptyMvcLayout
+    public override IGenerateHtml RenderDefaultLayout()
     {
-        public override IGenerateHtml RenderDefaultLayout()
-        {
             return base.RenderDefaultLayout().FillBodySectionWith(new Tags
             {
                 new ModalContainer("dialog", backgroundColor: "SkyBlue")
@@ -25,5 +25,4 @@ namespace WebWM.Mvc.Layouts
                 },
             });
         }
-    }
 }

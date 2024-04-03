@@ -2,13 +2,12 @@
 using Supermodel.Presentation.WebMonk.Bootstrap4.Views;
 using Supermodel.Presentation.WebMonk.Views.Interfaces;
 
-namespace WebWM.Mvc.XXYXXUserUpdatePasswordPage
-{
-    public class XXYXXUserUpdatePasswordMvcView : CRUDMvcView<XXYXXUserUpdatePasswordMvcModel, DataContext>
-    {
-        public override ListMode ListMode { get; } = ListMode.NoList;
+namespace WebWM.Mvc.XXYXXUserUpdatePasswordPage;
 
-        protected override bool ShowDefaultEditPageTitle => false;
-        protected override string? EditPageTitle { get; } = "Update Password";
-    }
+public class XXYXXUserUpdatePasswordMvcView : CRUDMvcView<XXYXXUserUpdatePasswordMvcModel, DataContext>
+{
+    public override ListMode ListMode { get; } = ListMode.NoList;
+
+    protected override bool ShowDefaultEditPageTitle => false;
+    protected override string? EditPageTitle { get; } = "Update Password";
 }
