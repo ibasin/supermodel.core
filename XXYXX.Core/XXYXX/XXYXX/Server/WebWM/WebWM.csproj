@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MigrationScripts\script.sql" />
     <None Remove="wwwroot\css\site.css" />
     <None Remove="wwwroot\images\favicon.ico" />
     <None Remove="wwwroot\js\site.js" />
@@ -28,6 +29,10 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="MigrationScripts\script.sql" />
   </ItemGroup>
 
   <ItemGroup>
