@@ -101,7 +101,7 @@ public class WebServer
             foreach (var type in typesImplementingIWebMonkStartupScript)
             {
                 var startupScript = (IWebMonkStartupScript)Activator.CreateInstance(type, null);
-                startupScripts.Add(startupScript);
+                if (startupScript.Priority >= 0) startupScripts.Add(startupScript);
             }
         }            
             
@@ -126,13 +126,13 @@ public class WebServer
                 .GetTypes()
                 .Where(x => x.IsClass && 
                             !x.IsAbstract && 
-                            x.GetConstructor(Type.EmptyTypes) != null && 
+                            x.GetConstructor(Type.EmptyTypes) != null &&
                             typeof(IHttpRequestHandler).IsAssignableFrom(x)).ToList();
 
             foreach (var type in typesImplementingIHttpRequestHandler)
             {
                 var httpRequestHandler = (IHttpRequestHandler)Activator.CreateInstance(type, null);
-                httpRequestHandlers.Add(httpRequestHandler);
+                if (httpRequestHandler.Priority >= 0) httpRequestHandlers.Add(httpRequestHandler); //skip negative handlers
             }
         }            
             
@@ -466,7 +466,7 @@ public class WebServer
     public ConcurrentBag<ActionFilterAttribute> GlobalFilters { get; } = new();
     public IMvcLayout? DefaultLayout { get; set; }
 
-    protected ImmutableList<IHttpRequestHandler> SortedHttpRequestHandlers { get; }
+    private ImmutableList<IHttpRequestHandler> SortedHttpRequestHandlers { get; }
         
     public const string EOL = "\r\n"; // HTTP/1.1 defines the sequence CR LF as the end-of-line marker
 
