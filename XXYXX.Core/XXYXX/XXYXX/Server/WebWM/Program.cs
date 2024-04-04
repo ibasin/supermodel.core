@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Domain.Supermodel.Persistence;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Supermodel.DataAnnotations;
 using Supermodel.Persistence.EFCore;
 using Supermodel.Persistence.UnitOfWork;
 using WebWM.Mvc.Layouts;
-using WebWM.Services;
 using WebWM.Supermodel.Auth;
+using WebWM.WindowsService;
 
 namespace WebWM;
 

@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WebMonk.Exceptions;
 using WebMonk;
+using WebWM.WindowsService;
 
-namespace WebWM.Services;
+namespace WebWM;
 
 public class XXYXXWebServer : WebServer
 {
     #region Constructors
-    public XXYXXWebServer(int httpPort, string navigationBaseUrl, Assembly[]? appAssemblies = null) 
+    public XXYXXWebServer(int httpPort, string navigationBaseUrl, Assembly[]? appAssemblies = null)
         : base(httpPort, navigationBaseUrl, appAssemblies) { }
     #endregion
 

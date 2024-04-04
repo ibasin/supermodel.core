@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using WebMonk;
 using WebWM.Mvc.Layouts;
 
-namespace WebWM.Services;
+namespace WebWM.WindowsService;
 
 public class XXYXXWindowsService : BackgroundService
 {
