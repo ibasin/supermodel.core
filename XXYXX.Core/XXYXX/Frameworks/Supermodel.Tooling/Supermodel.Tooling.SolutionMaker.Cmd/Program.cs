@@ -13,7 +13,7 @@ class Program
         {
             SolutionMaker.Version = "8.0.100";
 
-            ////*******Un-comment and run this once to refresh the solution zip
+            //*******Un-comment and run this once to refresh the solution zip
             Console.WriteLine($"v{SolutionMaker.Version}");
             Console.WriteLine();
 
