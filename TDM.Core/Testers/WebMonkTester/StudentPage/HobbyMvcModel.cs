@@ -18,5 +18,4 @@ public class HobbyMvcModel : IAsyncValidatableObject
     #region Properties
     public string Name { get; set; } = "";
     #endregion
-
 }
