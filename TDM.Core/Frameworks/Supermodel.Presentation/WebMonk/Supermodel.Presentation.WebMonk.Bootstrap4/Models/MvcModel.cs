@@ -230,6 +230,9 @@ public static partial class Bs4
             var tags = new Tags();
             foreach (var propertyInfo in GetDetailPropertyInfosInOrder(screenOrderFrom, screenOrderTo))
             {
+                //skip if this property is not for display
+                if (propertyInfo.HasAttribute<SkipForHiddenAttribute>()) continue;
+
                 var hiddenTags = Render.Hidden(this, propertyInfo.Name);
                 foreach (var tag in hiddenTags.GetTagsInOrder().Where(x => x.TagType == "Input" && x.Attributes.KeyExistsAndEqualsTo("type", "hidden")))
                 {
