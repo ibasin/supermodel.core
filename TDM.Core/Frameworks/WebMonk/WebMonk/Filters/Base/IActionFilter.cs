@@ -7,5 +7,5 @@ public interface IActionFilter
     Task<ActionFilterResult> BeforeActionAsync(ActionFilterContext filterContext);
     Task<ActionFilterResult> AfterActionAsync(ActionFilterContext filterContext);
 
-    int Order { get; }
+    int Priority { get; }
 }

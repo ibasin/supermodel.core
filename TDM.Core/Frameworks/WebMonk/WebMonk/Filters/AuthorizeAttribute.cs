@@ -69,7 +69,7 @@ public class AuthorizeAttribute : ActionFilterAttribute
             }
         }
     }
-    public override int Order => -100;
+    public override int Priority => -100;
     #endregion
 
     #region Properties
