@@ -101,7 +101,7 @@ public class WebServer
             foreach (var type in typesImplementingIWebMonkStartupScript)
             {
                 var startupScript = (IWebMonkStartupScript)Activator.CreateInstance(type, null);
-                if (startupScript.Priority >= 0) startupScripts.Add(startupScript);
+                startupScripts.Add(startupScript);
             }
         }            
             
@@ -132,7 +132,7 @@ public class WebServer
             foreach (var type in typesImplementingIHttpRequestHandler)
             {
                 var httpRequestHandler = (IHttpRequestHandler)Activator.CreateInstance(type, null);
-                if (httpRequestHandler.Priority >= 0) httpRequestHandlers.Add(httpRequestHandler); //skip negative handlers
+                httpRequestHandlers.Add(httpRequestHandler);
             }
         }            
             
