@@ -44,9 +44,9 @@ public abstract class ControllerBase : IHttpRequestHandler
     protected virtual async Task<IHttpRequestHandler.HttpRequestHandlerResult> RunAsyncActionAsync(MethodInfo actionMethodInfo, Dictionary<string, object> routeData, CancellationToken cancellationToken)
     {
         #region Get all the filters and set up filterContext
-        var globalFilters = HttpContext.Current.WebServer.GlobalFilters.OrderBy(x => x.Order).ToArray();
-        var classFilters = GetType().GetCustomAttributes().Where(x => x is IActionFilter).OrderBy(x => ((IActionFilter)x).Order).ToArray();
-        var methodFilters = actionMethodInfo.GetCustomAttributes().Where(x => x is IActionFilter).OrderBy(x => ((IActionFilter)x).Order).ToArray();
+        var globalFilters = HttpContext.Current.WebServer.GlobalFilters.OrderBy(x => x.Priority).ToArray();
+        var classFilters = GetType().GetCustomAttributes().Where(x => x is IActionFilter).OrderBy(x => ((IActionFilter)x).Priority).ToArray();
+        var methodFilters = actionMethodInfo.GetCustomAttributes().Where(x => x is IActionFilter).OrderBy(x => ((IActionFilter)x).Priority).ToArray();
         var filterContext = new ActionFilterContext(this, actionMethodInfo);
         #endregion
 
@@ -109,9 +109,9 @@ public abstract class ControllerBase : IHttpRequestHandler
     protected virtual async Task<IHttpRequestHandler.HttpRequestHandlerResult> RunActionAsync(MethodInfo actionMethodInfo, Dictionary<string, object> routeData, CancellationToken cancellationToken)
     {
         #region Get all the filters and set up filterContext
-        var globalFilters = HttpContext.Current.WebServer.GlobalFilters.OrderBy(x => x.Order).ToArray();
-        var classFilters = GetType().GetCustomAttributes().Where(x => x is IActionFilter).OrderBy(x => ((IActionFilter)x).Order).ToArray();
-        var methodFilters = actionMethodInfo.GetCustomAttributes().Where(x => x is IActionFilter).OrderBy(x => ((IActionFilter)x).Order).ToArray();
+        var globalFilters = HttpContext.Current.WebServer.GlobalFilters.OrderBy(x => x.Priority).ToArray();
+        var classFilters = GetType().GetCustomAttributes().Where(x => x is IActionFilter).OrderBy(x => ((IActionFilter)x).Priority).ToArray();
+        var methodFilters = actionMethodInfo.GetCustomAttributes().Where(x => x is IActionFilter).OrderBy(x => ((IActionFilter)x).Priority).ToArray();
         var filterContext = new ActionFilterContext(this, actionMethodInfo);
         #endregion
 

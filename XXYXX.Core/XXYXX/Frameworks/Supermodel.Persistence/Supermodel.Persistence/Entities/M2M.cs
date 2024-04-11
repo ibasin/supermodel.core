@@ -4,6 +4,7 @@ using Supermodel.DataAnnotations.Exceptions;
 
 namespace Supermodel.Persistence.Entities;
 
+[Obsolete("Use EF.Core mechanism to set up many-to-many relationships instead")]
 public abstract class M2M<TEntity1, TEntity2> : Entity, IM2M
     where TEntity1: IEntity 
     where TEntity2: IEntity

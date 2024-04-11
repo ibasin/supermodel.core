@@ -18,6 +18,7 @@ public static class AuthClaimsHelper
 
     public static bool IsInRole(this ImmutableList<Claim> me, string role)
     {
-        return me.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).Any(x => x == role);
+        //return me.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).Any(x => x == role);
+        return me.Any(x => x.Type == ClaimTypes.Role && x.Value == role);
     }
 }

@@ -46,7 +46,7 @@ public class StaticContentHttpRequestHandler : IHttpRequestHandler
         var localPath = $"wwwroot{HttpContext.Current.RouteManager.LocalPath}";
         var fullPath = Path.Combine(execDir, localPath);
             
-        var file = CachedFiles.TryGetValue(localPath, out var cachedFile)? cachedFile : null;
+        var file = CachedFiles.GetValueOrDefault(localPath);
         if (file == null)
         {
             if (!File.Exists(fullPath)) return IHttpRequestHandler.HttpRequestHandlerResult.False;
@@ -69,7 +69,7 @@ public class StaticContentHttpRequestHandler : IHttpRequestHandler
     {
         if (CachedFiles.IsEmpty) return;
 
-        //find the file in cache that was accessed longest time ago and try to delete it
+        //find the file in cache that was accessed the longest time ago and try to delete it
         var fileToDelete = CachedFiles.SingleOrDefault(x => x.Value.LastAccessed == CachedFiles.Min(y => y.Value.LastAccessed));
         if (!fileToDelete.Equals(default(KeyValuePair<string, CachedFile>))) 
         {
@@ -80,6 +80,6 @@ public class StaticContentHttpRequestHandler : IHttpRequestHandler
 
     #region Properties
     protected ConcurrentDictionary<string, CachedFile> CachedFiles { get; } = new();
-    public static int MaxNumberOfFilesInCache { get; } = 32;
+    public static int MaxNumberOfFilesInCache { get; set; } = 32;
     #endregion
 }

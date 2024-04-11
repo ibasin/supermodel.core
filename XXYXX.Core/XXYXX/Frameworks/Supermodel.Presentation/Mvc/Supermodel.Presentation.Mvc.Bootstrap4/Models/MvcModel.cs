@@ -235,6 +235,9 @@ public static partial class Bs4
             var result = new StringBuilder();
             foreach (var propertyInfo in GetType().GetDetailPropertyInfosInOrder(screenOrderFrom, screenOrderTo))
             {
+                //skip if this property is not for display
+                if (propertyInfo.HasAttribute<SkipForHiddenAttribute>()) continue;
+
                 var hiddenFieldHtml = html.Super().Hidden(propertyInfo.Name).GetString();
 
                 var propMarkerAttribute = markerAttribute;

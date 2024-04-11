@@ -44,7 +44,7 @@ public abstract class SupermodelAuthenticateAttributeBase : ActionFilterAttribut
 
         return claims;
     }
-    public override int Order => -200;
+    public override int Priority => -200;
     #endregion
 
     #region Abstract Memebers

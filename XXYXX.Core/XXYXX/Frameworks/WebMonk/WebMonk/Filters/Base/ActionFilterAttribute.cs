@@ -16,5 +16,5 @@ public abstract class ActionFilterAttribute : Attribute, IActionFilter
         return Task.FromResult(ActionFilterResult.Proceed); //Do nothing
     }
 
-    public virtual int Order => 100;
+    public virtual int Priority => 100;
 }
