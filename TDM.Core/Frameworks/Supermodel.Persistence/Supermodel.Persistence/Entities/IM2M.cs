@@ -2,6 +2,7 @@
 
 namespace Supermodel.Persistence.Entities;
 
+[Obsolete("Use EF.Core mechanism to set up many-to-many relationships instead")]
 public interface IM2M
 {
     #region Methods
