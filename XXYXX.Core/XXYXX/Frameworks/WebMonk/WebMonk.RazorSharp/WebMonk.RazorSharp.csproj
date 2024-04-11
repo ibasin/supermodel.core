@@ -5,7 +5,7 @@
     <AssemblyName>WebMonk.RazorSharp</AssemblyName>
     <RootNamespace>WebMonk.RazorSharp</RootNamespace>
     <Nullable>enable</Nullable>
-    <LangVersion>12</LangVersion>
+    
   </PropertyGroup>
 
   <ItemGroup>
