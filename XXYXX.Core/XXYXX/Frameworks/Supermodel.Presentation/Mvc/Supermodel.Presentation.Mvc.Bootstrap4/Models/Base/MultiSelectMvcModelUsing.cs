@@ -62,6 +62,7 @@ public abstract class MultiSelectMvcModelUsing<TMvcModel> : MultiSelectMvcModel,
     #region IRMapperCustom implementation
     public Task MapFromCustomAsync<T>(T other)
     {
+        #pragma warning disable CS0618 // Type or member is obsolete
         if (other == null) throw new ArgumentNullException(nameof(other));
 
         if (EntityType == null ) throw new SupermodelException("TMvcModel must be a valid MvcModelForEntity<> in order to MapFromAsync");
@@ -90,9 +91,11 @@ public abstract class MultiSelectMvcModelUsing<TMvcModel> : MultiSelectMvcModel,
         }
 
         throw new Exception("MultiSelectMvcModelUsing.MapFromCustomAsync: other is neither IEnumerable<IM2M> nor IEnumerable<IEntity>");
+        #pragma warning restore CS0618 // Type or member is obsolete
     }
     public async Task<T> MapToCustomAsync<T>(T other)
     {
+        #pragma warning disable CS0618 // Type or member is obsolete
         // ReSharper disable once InconsistentNaming
         var innerType = typeof(T).GetICollectionGenericArg();
         if (innerType == null) throw new PropertyCantBeAutomappedException($"{GetType().Name} can't be automapped to {typeof(T).Name}");
@@ -171,6 +174,7 @@ public abstract class MultiSelectMvcModelUsing<TMvcModel> : MultiSelectMvcModel,
         }
 
         throw new SupermodelException("MultiSelectMvcModelUsing.MapToCustomAsync(): other is neither IEnumerable<IM2M> nor IEnumerable<IEntity>");
+        #pragma warning restore CS0618 // Type or member is obsolete
     }
     #endregion
 
