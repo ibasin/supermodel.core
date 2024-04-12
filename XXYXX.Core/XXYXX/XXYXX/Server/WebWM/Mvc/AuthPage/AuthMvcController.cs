@@ -27,7 +27,7 @@ public class AuthMvcController : SimpleAuthMvcController<Bs4.LoginMvcModel, Auth
 
             if (user != null && user.PasswordEquals(password))
             {
-                var claims = AuthClaimsHelper.CreateNewClaimsListWithIdAndLabel(user.Id, user.Username);
+                var claims = AuthClaimsHelper.CreateNewClaimsListWithIdAndLabel(user.Id, $"{user.FirstName} {user.LastName}");
 
                 //Add claims for the specific permissions following the example below
                 //if (user.Admin) claims.Add(new Claim(ClaimTypes.Role, XXYXXUser.AdminRole, ClaimValueTypes.String));
