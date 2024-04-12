@@ -17,54 +17,54 @@ public class ApiSecureAuthenticateAttribute: SupermodelAuthenticateAttributeBase
     #region Overrides
     protected override Task<List<Claim>> AuthenticateBasicAndGetClaimsAsync(string username, string password)
     {
-            throw new InvalidOperationException(); 
-        }
+        throw new InvalidOperationException(); 
+    }
     protected override async Task<List<Claim>> AuthenticateEncryptedAndGetClaimsAsync(string[] args)
     {
-            if (args.Length != 4) return new List<Claim>();
+        if (args.Length != 4) return new List<Claim>();
 
-            await using (new UnitOfWork<DataContext>(ReadOnly.Yes))
+        await using (new UnitOfWork<DataContext>(ReadOnly.Yes))
+        {
+            var utcNow = DateTime.UtcNow;
+
+            var username = args[0];
+            var password = args[1];
+            var secretTokenHash = args[2];
+            var secretTokenHashSalt = args[3];
+
+            var repo = LinqRepoFactory.Create<XXYXXUser>();
+            var lowerCaseUsername =  username.ToLower();
+            var user = repo.Items.SingleOrDefault(u => u.Username.ToLower() == lowerCaseUsername);
+
+            var secretTokenValid = false;
+
+            if (user != null && !string.IsNullOrEmpty(user.Username))
             {
-                var utcNow = DateTime.UtcNow;
+                var dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow.AddMinutes(-5));
+                if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
 
-                var username = args[0];
-                var password = args[1];
-                var secretTokenHash = args[2];
-                var secretTokenHashSalt = args[3];
+                dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow);
+                if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
 
-                var repo = LinqRepoFactory.Create<XXYXXUser>();
-                var lowerCaseUsername =  username.ToLower();
-                var user = repo.Items.SingleOrDefault(u => u.Username.ToLower() == lowerCaseUsername);
+                dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow.AddMinutes(5));
+                if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
+            }
 
-                var secretTokenValid = false;
-
-                if (user != null && !string.IsNullOrEmpty(user.Username))
-                {
-                    var dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow.AddMinutes(-5));
-                    if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
-
-                    dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow);
-                    if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
-
-                    dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(utcNow.AddMinutes(5));
-                    if (HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt) == secretTokenHash) secretTokenValid = true;
-                }
-
-                if (user != null && user.PasswordEquals(password) && secretTokenValid)
-                {
-                    var claims = AuthClaimsHelper.CreateNewClaimsListWithIdAndLabel(user.Id, $"{user.FirstName} {user.LastName}");
+            if (user != null && user.PasswordEquals(password) && secretTokenValid)
+            {
+                var claims = AuthClaimsHelper.CreateNewClaimsListWithIdAndLabel(user.Id, $"{user.FirstName} {user.LastName}");
                     
-                    //Add claims for the specific permissions following the example below
-                    //if (user.Admin) claims.Add(new Claim(ClaimTypes.Role, XXYXXUser.AdminRole, ClaimValueTypes.String));
+                //Add claims for the specific permissions following the example below
+                //if (user.Admin) claims.Add(new Claim(ClaimTypes.Role, XXYXXUser.AdminRole, ClaimValueTypes.String));
 
-                    return claims;
-                }
-                else
-                {
-                    return new List<Claim>();
-                }
+                return claims;
+            }
+            else
+            {
+                return new List<Claim>();
             }
         }
+    }
     #endregion
 
     #region Properties
