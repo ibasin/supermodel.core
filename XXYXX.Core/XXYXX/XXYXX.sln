@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XXYXX", "XXYXX", "{F0C3E06E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks", "Frameworks", "{26B92784-6AE6-4163-8542-0AAA3C1A6D7D}"
 	ProjectSection(SolutionItems) = preProject
+		Frameworks\open-iconic-site.txt = Frameworks\open-iconic-site.txt
 		Frameworks\Version.txt = Frameworks\Version.txt
 	EndProjectSection
 EndProject
