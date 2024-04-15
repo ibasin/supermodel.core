@@ -416,7 +416,7 @@ public static partial class Bs4
         #endregion
 
         #region Properties
-        [ScaffoldColumn(false), NotRMapped] public NumberOfColumnsEnum NumberOfColumns { get; set; } = NumberOfColumnsEnum.One;
+        [ScaffoldColumn(false), NotRMapped] public virtual NumberOfColumnsEnum NumberOfColumns { get; set; } = NumberOfColumnsEnum.One;
         #endregion
     }
 }

@@ -295,6 +295,7 @@ public abstract class ChildCRUDController<TChildEntity, TChildDetailMvcModel, TP
     protected virtual IActionResult GoToParentDetail(long parentId)
     {
         var routeValues = HttpContext.Request.Query.ToRouteValueDictionary();
+        routeValues.Remove("parentId");
         routeValues.AddOrUpdateWith("id", parentId);
         return RedirectToAction("Detail", typeof(TParentController).GetControllerName(), routeValues);
     }

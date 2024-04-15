@@ -190,7 +190,7 @@ public static class CmdRender
     #endregion
 
     #region Render Editor Methods
-#nullable disable
+    #nullable disable
     public static TModel EditForModel<TModel>(TModel model, FBColors? colors = null, FBColors? invalidValueColors = null, FBColors? promptColors = null)
     {
         return (TModel)Edit(model, "", colors, invalidValueColors, promptColors);
@@ -200,7 +200,7 @@ public static class CmdRender
         var propertyName = Helper.GetPropertyName(model, propertyExpression);
         return (TValue)Edit(model, propertyName, colors, invalidValueColors, promptColors);
     }
-#nullable enable
+    #nullable enable
     public static object? Edit<TModel>(TModel model, string expression, FBColors? colors = null, FBColors? invalidValueColors = null, FBColors? promptColors = null)
     {
         if (model == null) throw new ArgumentNullException(nameof(model));

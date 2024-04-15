@@ -292,6 +292,7 @@ public abstract class ChildCRUDMvcController<TChildEntity, TChildDetailMvcModel,
     protected virtual ActionResult GoToParentDetail(long parentId)
     {
         var qs = HttpContext.Current.HttpListenerContext.Request.QueryString;
+        qs.Remove("parentId");
         return RedirectToAction(typeof(TParentController).GetMvcControllerName(), "Detail", parentId, qs);
     }
     #endregion
