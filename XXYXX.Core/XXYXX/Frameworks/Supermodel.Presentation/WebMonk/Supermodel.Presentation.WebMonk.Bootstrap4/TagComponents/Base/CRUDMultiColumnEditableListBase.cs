@@ -30,7 +30,6 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             HttpContext.Current.PrefixManager.CurrentContextControllerName;
         if (controllerName == null) throw new SupermodelException("controllerName == null. this should never happen");
 
-
         if (parentId == null || parentId > 0)
         { 
             if (pageTitle != null) Append(new H2(new { @class=Bs4.ScaffoldingSettings.ListTitleCssClass }) { pageTitle });  
@@ -48,7 +47,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             //var selectedId = (long?)Html.ViewBag.SelectedId ?? ParseNullableLong(Html.ViewContext.HttpContext.Request.Query["selectedId"]);
             var selectedId = ParseNullableLong(HttpContext.Current.HttpListenerContext.Request.QueryString.GetValues("selectedId")?.SingleOrDefault());
                 
-            //This could be a potential scalability issue but I can't figure out how to solve it for now
+            //This could be a potential scalability issue, but I can't figure out how to solve it for now
             var newItem = AsyncHelper.RunSync(() => GetNewItemAsync(items.GetType(), dataContextType));
                 
             // ReSharper disable once PossibleMultipleEnumeration

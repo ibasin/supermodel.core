@@ -20,7 +20,9 @@ public class ListViewModel<TViewModelForEntity, TEntity> : List<TViewModelForEnt
         if (entityList == null) throw new ArgumentNullException(nameof(other));
         foreach (var entity in entityList.ToList())
         {
-            var mvcModel = await new TViewModelForEntity().MapFromAsync(entity).ConfigureAwait(false);
+            var mvcModel = new TViewModelForEntity();
+            if (mvcModel is IAsyncInit iAsyncInit && !iAsyncInit.AsyncInitialized) await iAsyncInit.InitAsync().ConfigureAwait(false);
+            mvcModel = await mvcModel.MapFromAsync(entity).ConfigureAwait(false);
             Add(mvcModel);
         }
     }
