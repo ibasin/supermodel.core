@@ -39,6 +39,9 @@ public abstract class ChildCRUDController<TChildEntity, TChildDetailMvcModel, TP
     [HttpGet]
     public virtual async Task<IActionResult> Detail(long id, long? parentId, HttpGet ignore)
     {
+        var modelStateJson = TempData[Config.ModelState];
+        if (modelStateJson != null) ModelState.Merge(ControllerCommon.DeserializeModelState((string)modelStateJson));
+
         await using (new UnitOfWork<TDataContext>(ReadOnly.Yes))
         {
             TChildDetailMvcModel mvcModelItem;

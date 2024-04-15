@@ -40,6 +40,13 @@ public abstract class ChildCRUDMvcController<TChildEntity, TChildDetailMvcModel,
     }
     public virtual async Task<ActionResult> GetDetailAsync(long id, long? parentId = null)
     {
+        var modelStateJson = (string?)HttpContext.Current.TempData[Config.ModelState];
+        if (modelStateJson != null)
+        {
+            var modelState = SerializableModelState.CreateFromJson(modelStateJson);
+            await modelState.ReplaceInContextAsync().ConfigureAwait(false);
+        }
+
         await using (new UnitOfWork<TDataContext>(ReadOnly.Yes))
         {
             TChildDetailMvcModel mvcModelItem;
