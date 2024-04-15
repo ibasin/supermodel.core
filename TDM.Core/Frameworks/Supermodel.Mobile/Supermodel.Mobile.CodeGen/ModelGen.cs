@@ -79,14 +79,17 @@ public class ModelGen
                 //if (!modelTypes[0].Name.EndsWith("ApiModel")) throw new SupermodelSystemErrorException("Model " + modelTypes[0].Name + ": names by convention must end with 'ApiModel'");
                 //if (!modelTypes[1].Name.EndsWith("ApiModel")) throw new SupermodelSystemErrorException("Model " + modelTypes[0].Name + ": names by convention must end with 'ApiModel'");
 
-                var commandName = controllerType.Name.Replace("Controller", "");
+                var extMethodName = controllerType.Name.Replace("ApiController", "");
+                var commandName = controllerKind == ControllerKindEnum.WMCommand ?
+                    controllerType.Name.Replace("ApiController", "") :
+                    controllerType.Name.Replace("Controller", "");
                 var inputType = modelTypes[0].Name.Replace("ApiModel", "");
                 var outputType = modelTypes[1].Name.Replace("ApiModel", "");
 
                 sb.AppendLine($"//Extension method for {commandName} command");
                 sb.AppendLine($"public static class {commandName}CommandExt");
                 sb.AppendLineIndentPlus("{");
-                sb.AppendLine($"public static async Task<{outputType}> {commandName}Async(this WebApiDataContext me, {inputType} input)");
+                sb.AppendLine($"public static async Task<{outputType}> {extMethodName}Async(this WebApiDataContext me, {inputType} input)");
                 sb.AppendLineIndentPlus("{");
                 sb.AppendLine($"return await me.ExecutePostAsync<{inputType}, {outputType}>(\"{commandName}\", input);");
                 sb.AppendLineIndentMinus("}");
