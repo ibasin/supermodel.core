@@ -96,9 +96,10 @@ public static partial class Bs4
                 if (hideLabelAttribute == null)
                 {
                     var labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass }).GetString();
-                    if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
+                    if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>() &&
+                        (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()))
                     {
-                        if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) labelHtml = labelHtml.Replace("</label>", $"<sup><em class='text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}'>*</em></sup></label>", true, CultureInfo.InvariantCulture);
+                        labelHtml = labelHtml.Replace("</label>", $"<sup><em class='text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}'>*</em></sup></label>", true, CultureInfo.InvariantCulture);
                     }
                     result.AppendLine(labelHtml);
                 }

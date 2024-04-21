@@ -96,18 +96,16 @@ public static partial class Bs4
                 if (hideLabelAttribute == null)
                 {
                     result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class=ScaffoldingSettings.EditorLabelCssClass }));
-                    if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
+                    if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>() &&
+                        (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()))
                     {
-                        if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
-                        {
-                            result.Append(new Tags
-                            { 
-                                new Sup(null, true)
-                                {
-                                    new Em(new { @class=$"text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}" }, true){ new Txt("*", true)}
-                                }
-                            });
-                        }
+                        result.Append(new Tags
+                        { 
+                            new Sup(null, true)
+                            {
+                                new Em(new { @class=$"text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}" }, true){ new Txt("*", true)}
+                            }
+                        });
                     }
                     result.Pop<Label>();
                 }
