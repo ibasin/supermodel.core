@@ -9,6 +9,7 @@ public class ToDoItemMvcModel : Bs4.ChildMvcModelForEntity<ToDoItem, ToDoList>
     #region Constructors
     public ToDoItemMvcModel()
     {
+        // ReSharper disable once VirtualMemberCallInConstructor
         NumberOfColumns = NumberOfColumnsEnum.Three;
     }
     #endregion

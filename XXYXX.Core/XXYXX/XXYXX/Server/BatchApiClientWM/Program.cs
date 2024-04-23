@@ -11,24 +11,24 @@ class Program
 {
     static async Task Main()
     {
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+        Console.WriteLine("Press Enter to continue...");
+        Console.ReadLine();
             
-            //var authHeaderGenerator = new BasicAuthHeaderGenerator("supermodel@noblis.org", "1234");
-            var authHeaderGenerator = new XXYXXSecureAuthHeaderGenerator("supermodel@noblis.org", "1234", new byte[0]);
+        //var authHeaderGenerator = new BasicAuthHeaderGenerator("supermodel@noblis.org", "1234");
+        var authHeaderGenerator = new XXYXXSecureAuthHeaderGenerator("supermodel@noblis.org", "1234", new byte[0]);
 
-            await using (new UnitOfWork<XXYXXWebApiDataContext>())
-            {
-                UnitOfWorkContext.AuthHeader = authHeaderGenerator.CreateAuthHeader();
+        await using (new UnitOfWork<XXYXXWebApiDataContext>())
+        {
+            UnitOfWorkContext.AuthHeader = authHeaderGenerator.CreateAuthHeader();
                 
-                var user = new XXYXXUserUpdatePassword
-                {
-                    Id = 1,
-                    OldPassword = "1234",
-                    NewPassword = "12345"
-                };
-                user.Update(); //we do update because we need to "attach" the model, make it managed
-            }
-            Console.WriteLine("User with id=1's password updated to '12345'");
+            var user = new XXYXXUserUpdatePassword
+            {
+                Id = 1,
+                OldPassword = "1234",
+                NewPassword = "12345"
+            };
+            user.Update(); //we do update because we need to "attach" the model, make it managed
         }
+        Console.WriteLine("User with id=1's password updated to '12345'");
+    }
 }
