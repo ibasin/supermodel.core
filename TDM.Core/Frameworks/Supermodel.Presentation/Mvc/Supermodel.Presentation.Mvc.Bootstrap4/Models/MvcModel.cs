@@ -95,7 +95,17 @@ public static partial class Bs4
                 var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
                 if (hideLabelAttribute == null)
                 {
-                    var labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass }).GetString();
+                    string? labelHtml;
+                    var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
+                    if (tooltipAttribute != null)
+                    {
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }).GetString();
+                    }
+                    else
+                    {
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass }).GetString();
+                    }
+                    
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>() &&
                         (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()))
                     {
@@ -202,7 +212,17 @@ public static partial class Bs4
                 var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
                 if (hideLabelAttribute == null)
                 {
-                    var labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.DisplayLabelCssClass }).GetString();
+                    string? labelHtml;
+                    var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
+                    if (tooltipAttribute != null)
+                    {
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }).GetString();
+                    }
+                    else
+                    {
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass }).GetString();
+                    }
+
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
                     {
                         if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) labelHtml = labelHtml.Replace("</label>", $"<sup><em class='text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}'>*</em></sup></label>", true, CultureInfo.InvariantCulture);

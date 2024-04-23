@@ -1,4 +1,6 @@
 ﻿$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+
     var selectedRow = document.getElementById("SelectedRow");
     if (selectedRow != null) selectedRow.scrollIntoView();
 
