@@ -87,7 +87,12 @@ public abstract class SingleSelectMvcModel : UIComponentBase
     #region IDisplayTemplate implemetation
     public override IGenerateHtml DisplayTemplate(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, object? attributes = null)
     {
-        return new Txt(SelectedLabel ?? "");
+        var displayStr = SelectedLabel ?? "";
+
+        var isDisabled = Options.FirstOrDefault(x => x.Value == SelectedValue)?.IsDisabled ?? false;
+        if (isDisabled) displayStr += DisabledSuffix;
+
+        return new Txt(displayStr);
     }
     #endregion
 

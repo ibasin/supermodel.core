@@ -95,19 +95,26 @@ public static partial class Bs4
                 var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
                 if (hideLabelAttribute == null)
                 {
-                    result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class=ScaffoldingSettings.EditorLabelCssClass }));
-                    if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
+                    var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
+                    if (tooltipAttribute != null)
                     {
-                        if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
-                        {
-                            result.Append(new Tags
-                            { 
-                                new Sup(null, true)
-                                {
-                                    new Em(new { @class=$"text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}" }, true){ new Txt("*", true)}
-                                }
-                            });
-                        }
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorLabelCssClass, data_toggle = "tooltip", title=tooltipAttribute.Tooltip }));
+                    }
+                    else
+                    {
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorLabelCssClass }));
+                    }
+
+                    if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>() &&
+                        (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()))
+                    {
+                        result.Append(new Tags
+                        { 
+                            new Sup(null, true)
+                            {
+                                new Em(new { @class=$"text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}" }, true){ new Txt("*", true)}
+                            }
+                        });
                     }
                     result.Pop<Label>();
                 }
@@ -186,7 +193,16 @@ public static partial class Bs4
                 var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
                 if (hideLabelAttribute == null)
                 {
-                    result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class=ScaffoldingSettings.DisplayLabelCssClass }));
+                    var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
+                    if (tooltipAttribute != null)
+                    {
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }));
+                    }
+                    else
+                    {
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorLabelCssClass }));
+                    }
+
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
                     {
                         if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
