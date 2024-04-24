@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using Supermodel.DataAnnotations;
 
 namespace Supermodel.Tooling.SolutionMaker;
 
@@ -25,9 +26,14 @@ public static class SolutionMaker
         //Create dir and extract files into it
         if (Directory.Exists(path)) throw new CreatorException($"Unable to create the new Solution.\n\nDirectory '{path}' already exists.");
         Directory.CreateDirectory(path);
-        
-        ZipFile.ExtractToDirectory(CombineAndAdjustPaths(Path.GetDirectoryName(GetExecutablePath())!, ZipFileName), path);
-        //ZipFile.ExtractToDirectory(CombineAndAdjustPaths(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), ZipFileName), path);
+
+        //Read zip from embedded resource write it to disk, unzip, delete the zip file
+        //This is in order to make self-contained exe work well
+        var zipFilePath = CombineAndAdjustPaths(Path.GetDirectoryName(GetExecutablePath())!, ZipFileName);
+        var zipFileContent = EmbeddedResource.ReadBinaryFileWithFileName(solutionMakerParams.GetType().Assembly, "SupermodelSolutionTemplate.XXYXX.zip");
+        File.WriteAllBytes(zipFilePath, zipFileContent);
+        ZipFile.ExtractToDirectory(zipFilePath, path);
+        File.Delete(zipFilePath);
 
         //Adjust version (it is probably already adjusted from copying Frameworks folder, but we do it again just in case)
         File.WriteAllText(CombineAndAdjustPaths(path, @"Frameworks\Version.txt"), $"Version {Version}");

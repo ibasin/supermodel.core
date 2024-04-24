@@ -78,4 +78,8 @@
     <EmbeddedResource Include="Snippets2Replace\DataContextIfSqlServer\snippet1.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Supermodel.DataAnnotations\Supermodel.DataAnnotations.csproj" />
+  </ItemGroup>
+
 </Project>

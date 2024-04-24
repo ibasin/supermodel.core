@@ -11,7 +11,7 @@ class Program
     {
         try
         {
-            SolutionMaker.Version = "8.1.000";
+            SolutionMaker.Version = "8.2.000";
 
             //*******Un-comment and run this once to refresh the solution zip
             Console.WriteLine($"v{SolutionMaker.Version}");
@@ -97,6 +97,10 @@ class Program
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(ex);
+            
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Press enter to close...");
+            Console.ReadLine();
         }
         finally
         {
