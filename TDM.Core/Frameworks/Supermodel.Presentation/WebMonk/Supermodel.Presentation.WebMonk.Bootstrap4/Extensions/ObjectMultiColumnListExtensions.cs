@@ -31,7 +31,8 @@ public static class ObjectMultiColumnListExtensions
             var header = listColumnAttr!.Header ?? propertyInfo.Name.InsertSpacesBetweenWords(); //all properties we get from GetPropertiesInOrder will contain ListColumnAttribute
             var orderBy = listColumnAttr.OrderBy;
             var orderByDesc = listColumnAttr.OrderByDesc;
-            result.Append(new Bs4.SortableColumnHeader(header, orderBy, orderByDesc));
+            var title = propertyInfo.GetAttribute<TooltipAttribute>()?.Tooltip;
+            result.Append(new Bs4.SortableColumnHeader(header, orderBy, orderByDesc, title));
         }
         return result;
     }
@@ -89,8 +90,9 @@ public static class ObjectMultiColumnListExtensions
                 orderByDesc = null;
             }
 
+            var title = propertyInfo.GetAttribute<TooltipAttribute>()?.Tooltip;
             var requiredLabel = !propertyInfo.HasAttribute<NoRequiredLabelAttribute>() && (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>());
-            result.Append(new Bs4.SortableColumnHeader(header, orderBy, orderByDesc, requiredLabel));
+            result.Append(new Bs4.SortableColumnHeader(header, orderBy, orderByDesc, title, requiredLabel));
         }
         return result;
     }

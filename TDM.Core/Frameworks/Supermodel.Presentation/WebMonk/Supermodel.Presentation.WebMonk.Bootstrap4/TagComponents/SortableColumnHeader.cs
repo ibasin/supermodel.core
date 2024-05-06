@@ -15,9 +15,15 @@ public static partial class Bs4
     public class SortableColumnHeader : HtmlSnippet
     {
         #region Constructors
-        public SortableColumnHeader(string headerName, string? orderBy, string? orderByDesc, bool requiredLabel = false, IGenerateHtml? sortedHtml = null, IGenerateHtml? sortedHtmlDesc = null, object? htmlAttributes = null)
+        public SortableColumnHeader(string headerName, string? orderBy, string? orderByDesc, string? tooltip = null, bool requiredLabel = false, IGenerateHtml? sortedHtml = null, IGenerateHtml? sortedHtmlDesc = null, object? htmlAttributes = null)
         {
             var htmlAttributesDict = AttributesDict.AnonymousObjectToAttributesDict(htmlAttributes);
+            if (!string.IsNullOrEmpty(tooltip))
+            {
+                htmlAttributesDict.Add("data-toggle", "tooltip");
+                htmlAttributesDict.Add("title", tooltip);
+                headerName += " \u24d8";
+            }
 
             sortedHtml ??= new Txt("▲");
             sortedHtmlDesc ??= new Txt("▼");
@@ -47,7 +53,7 @@ public static partial class Bs4
                 { 
                     new Em(new { @class=$"text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}" })
                     {
-                        new Txt("*")
+                        new Txt("*"),
                     }
                 }); 
             }
@@ -56,7 +62,7 @@ public static partial class Bs4
             {
                 if (!string.IsNullOrEmpty(orderByDesc)) 
                 {
-                    Append(Render.ActionLink(headerName, controller, action!, id, queryStringDictDesc, htmlAttributesDict)); 
+                    Append(Render.ActionLink(headerName, controller, action!, id, queryStringDictDesc, htmlAttributesDict));
                     Append(requiredMark);
                     Append(sortedHtml);
                 }
