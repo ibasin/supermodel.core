@@ -1001,10 +1001,16 @@ public class SuperBs4HtmlHelper<TModel>
 
         return result.ToHtmlString();
     }
-    public IHtmlContent SortableColumnHeader(string headerName, string? orderBy, string? orderByDesc, bool requiredLabel = false, IHtmlContent? sortedHtml = null, IHtmlContent? sortedHtmlDesc = null, object? htmlAttributes = null)
+    public IHtmlContent SortableColumnHeader(string headerName, string? orderBy, string? orderByDesc, string? tooltip = null, bool requiredLabel = false, IHtmlContent? sortedHtml = null, IHtmlContent? sortedHtmlDesc = null, object? htmlAttributes = null)
     {
         var htmlAttributesDict = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
-            
+        if (!string.IsNullOrEmpty(tooltip))
+        {
+            htmlAttributesDict.Add("data-toggle", "tooltip");
+            htmlAttributesDict.Add("title", tooltip);
+            headerName += " \u24d8";
+        }
+
         sortedHtml ??= "▲".ToHtmlString();
         sortedHtmlDesc ??= "▼".ToHtmlString();
             

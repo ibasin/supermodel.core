@@ -100,6 +100,7 @@ public static partial class Bs4
                     if (tooltipAttribute != null)
                     {
                         labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }).GetString();
+                        labelHtml += "<span class='text-primary'> \u24d8</span>";
                     }
                     else
                     {
@@ -216,11 +217,12 @@ public static partial class Bs4
                     var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
                     if (tooltipAttribute != null)
                     {
-                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }).GetString();
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.DisplayLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }).GetString();
+                        labelHtml += "<span class='text-primary'> \u24d8</span>";
                     }
                     else
                     {
-                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorLabelCssClass }).GetString();
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.DisplayLabelCssClass }).GetString();
                     }
 
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
@@ -306,7 +308,18 @@ public static partial class Bs4
                 var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
                 if (hideLabelAttribute == null)
                 {
-                    var labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorMultiColumnLabelCssClass }).GetString();
+                    string? labelHtml;
+                    var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
+                    if (tooltipAttribute != null)
+                    {
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorMultiColumnLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }).GetString();
+                        labelHtml += "<span class='text-primary'> \u24d8</span>";
+                    }
+                    else
+                    {
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.EditorMultiColumnLabelCssClass }).GetString();
+                    }
+
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
                     {
                         if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) labelHtml = labelHtml.Replace("</label>", $"<sup><em class='text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}'>*</em></sup></label>", true, CultureInfo.InvariantCulture);
@@ -406,7 +419,18 @@ public static partial class Bs4
                 var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
                 if (hideLabelAttribute == null)
                 {
-                    var labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.DisplayMultiColumnLabelCssClass }).GetString();
+                    string? labelHtml;
+                    var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
+                    if (tooltipAttribute != null)
+                    {
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.DisplayMultiColumnLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }).GetString();
+                        labelHtml += "<span class='text-primary'> \u24d8</span>";
+                    }
+                    else
+                    {
+                        labelHtml = html.Super().Label(propertyInfo.Name, new { @class = ScaffoldingSettings.DisplayMultiColumnLabelCssClass }).GetString();
+                    }
+
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
                     {
                         if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) labelHtml = labelHtml.Replace("</label>", $"<sup><em class='text-danger font-weight-bold {ScaffoldingSettings.RequiredAsteriskCssClass}'>*</em></sup></label>", true, CultureInfo.InvariantCulture);
