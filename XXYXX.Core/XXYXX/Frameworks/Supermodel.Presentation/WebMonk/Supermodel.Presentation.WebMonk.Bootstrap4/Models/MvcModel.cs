@@ -99,6 +99,7 @@ public static partial class Bs4
                     if (tooltipAttribute != null)
                     {
                         result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorLabelCssClass, data_toggle = "tooltip", title=tooltipAttribute.Tooltip }));
+                        result.Append(new Span(new {@class = "text-primary" }){ new Txt(" \u24d8") });
                     }
                     else
                     {
@@ -196,11 +197,12 @@ public static partial class Bs4
                     var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
                     if (tooltipAttribute != null)
                     {
-                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }));
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.DisplayLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }));
+                        result.Append(new Span(new { @class = "text-primary" }) { new Txt(" \u24d8") });
                     }
                     else
                     {
-                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorLabelCssClass }));
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.DisplayLabelCssClass }));
                     }
 
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
@@ -291,7 +293,17 @@ public static partial class Bs4
                 var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
                 if (hideLabelAttribute == null)
                 {
-                    result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class=ScaffoldingSettings.EditorMultiColumnLabelCssClass }));
+                    var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
+                    if (tooltipAttribute != null)
+                    {
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorMultiColumnLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }));
+                        result.Append(new Span(new { @class = "text-primary" }) { new Txt(" \u24d8") });
+                    }
+                    else
+                    {
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.EditorMultiColumnLabelCssClass }));
+                    }
+
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
                     {
                         if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
@@ -378,7 +390,17 @@ public static partial class Bs4
                 var hideLabelAttribute = propertyInfo.GetAttribute<HideLabelAttribute>();
                 if (hideLabelAttribute == null)
                 {
-                    result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class=ScaffoldingSettings.DisplayMultiColumnLabelCssClass }));
+                    var tooltipAttribute = propertyInfo.GetAttribute<TooltipAttribute>();
+                    if (tooltipAttribute != null)
+                    {
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.DisplayMultiColumnLabelCssClass, data_toggle = "tooltip", title = tooltipAttribute.Tooltip }));
+                        result.Append(new Span(new { @class = "text-primary" }) { new Txt(" \u24d8") });
+                    }
+                    else
+                    {
+                        result.AppendAndPush(Render.Label(this, propertyInfo.Name, null, new { @class = ScaffoldingSettings.DisplayMultiColumnLabelCssClass }));
+                    }
+
                     if (!propertyInfo.HasAttribute<NoRequiredLabelAttribute>())
                     {
                         if (propertyInfo.HasAttribute<RequiredAttribute>() || propertyInfo.HasAttribute<ForceRequiredLabelAttribute>()) 
