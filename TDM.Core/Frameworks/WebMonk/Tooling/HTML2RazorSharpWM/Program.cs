@@ -8,11 +8,12 @@ public class Program
 {
     public static async Task Main()
     {
-        var webServer = new WebServer(51413, "http://localhost:51413");
-
-        webServer.ShowErrorDetails = true;
-        webServer.DefaultLayout = new MasterMvcLayout();
-
-        await webServer.RunAsync("/");
+        var port = 51413; //WebServer.FindFreeTcpPort();
+        var server = new WebServer(port, $"http://localhost:{port}")
+        {
+            ShowErrorDetails = true,
+            DefaultLayout = new MasterMvcLayout()
+        };
+        await server.RunAsync("/");
     }
 }
