@@ -6,7 +6,7 @@ public static class StringExt
 {
     public static string HttpHeaderEncode(this string me)
     {
-        const string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
+        const string validChars = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
 
         var sb = new StringBuilder();
         foreach (var chr in me)
