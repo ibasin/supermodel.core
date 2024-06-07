@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
+using Supermodel.DataAnnotations.Extensions;
 using WebMonk.Context;
 
 namespace WebMonk.Results;
@@ -24,8 +25,8 @@ public class BinaryFileResult : ActionResult
         response.ContentType = ContentType;
         response.StatusCode = (int)StatusCode;
         
-        if (SuggestOpenInline) response.AddHeader("Content-Disposition", $"inline; filename=\"{FileName}\"");
-        else response.AddHeader("Content-Disposition", $"attachment; filename=\"{FileName}\"");
+        if (SuggestOpenInline) response.AddHeader("Content-Disposition", $"inline; filename=\"{FileName.HttpHeaderEncode()}\"");
+        else response.AddHeader("Content-Disposition", $"attachment; filename=\"{FileName.HttpHeaderEncode()}\"");
 
         await response.OutputStream.WriteAsync(Body, 0, Body.Length).ConfigureAwait(false);
     }

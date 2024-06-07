@@ -587,10 +587,12 @@ public class SupersonicList<TItem> : IQueryable<TItem> where TItem : class
     #region IOrderedQueryable<T> implementation
     public IEnumerator<TItem> GetEnumerator()
     {
+        // ReSharper disable once NotDisposedResourceIsReturned
         return Provider.Execute<IEnumerable<TItem>>(Expression).GetEnumerator();
     }
     IEnumerator IEnumerable.GetEnumerator()
     {
+        // ReSharper disable once NotDisposedResourceIsReturned
         return Provider.Execute<IEnumerable>(Expression).GetEnumerator();
     }
     public Expression Expression { get; }
