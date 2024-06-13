@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using Supermodel.DataAnnotations.Extensions;
 
 namespace Supermodel.DataAnnotations.Misc;
@@ -38,11 +39,11 @@ public class AttributesDict : Dictionary<string, string?>
         return this[key]!.Contains(value, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public static AttributesDict AnonymousObjectToAttributesDict(object? attributes)
+    public static AttributesDict FromAnonymousObject(object? attributes)
     {
         if (attributes == null) return new AttributesDict();
         if (attributes is AttributesDict readyDictionary) return readyDictionary;
-        if (!attributes.GetType().IsAnonymousType()) throw new ArgumentException("Must be an anonymous type or AttributesDict", nameof(attributes));
+        if (!attributes.GetType().IsAnonymousType() && !(attributes is ExpandoObject)) throw new ArgumentException("Must be an anonymous type or AttributesDict", nameof(attributes));
 
         var dictionary = new AttributesDict();
         foreach (var propertyInfo in attributes.GetType().GetProperties())

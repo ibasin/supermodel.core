@@ -948,7 +948,7 @@ public class SuperBs4HtmlHelper<TModel>
     #region SortBy Helpers
     public IHtmlContent SortByDropdownForm(SortByOptions sortByOptions, object? htmlAttributes = null)
     {
-        var htmlAttributesDict = AttributesDict.AnonymousObjectToAttributesDict(htmlAttributes);
+        var htmlAttributesDict = AttributesDict.FromAnonymousObject(htmlAttributes);
 
         var result = new StringBuilder();
 
@@ -1003,7 +1003,9 @@ public class SuperBs4HtmlHelper<TModel>
     }
     public IHtmlContent SortableColumnHeader(string headerName, string? orderBy, string? orderByDesc, string? tooltip = null, bool requiredLabel = false, IHtmlContent? sortedHtml = null, IHtmlContent? sortedHtmlDesc = null, object? htmlAttributes = null)
     {
-        var htmlAttributesDict = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+        //var htmlAttributesDict = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+        var htmlAttributesDict = AttributesDict.FromAnonymousObject(htmlAttributes);
+        
         if (!string.IsNullOrEmpty(tooltip))
         {
             htmlAttributesDict.Add("data-toggle", "tooltip");
@@ -1048,7 +1050,7 @@ public class SuperBs4HtmlHelper<TModel>
         {
             if (!string.IsNullOrEmpty(orderBy)) result.AppendLine(Html.ActionLink(headerName, action, routeValues, htmlAttributesDict).GetString() + requiredMark);
             else if (!string.IsNullOrEmpty(orderByDesc)) result.AppendLine(Html.ActionLink(headerName, action, routeValuesDesc, htmlAttributesDict).GetString() + requiredMark);
-            else result.AppendLine(headerName + requiredMark);
+            else result.AppendLine($"<span {UtilsLib.GenerateAttributesString(htmlAttributesDict)}>{headerName}</span>{requiredMark}");
         }
         result.AppendLine("</th>");
         return result.ToHtmlString();

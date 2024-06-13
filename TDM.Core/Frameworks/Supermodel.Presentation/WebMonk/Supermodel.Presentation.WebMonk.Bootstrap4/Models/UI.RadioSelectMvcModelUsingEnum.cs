@@ -25,13 +25,13 @@ public static partial class Bs4
         #endregion
 
         #region Properties
-        public object DivHtmlAttributesAsObj { set => DivHtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
+        public object DivHtmlAttributesAsObj { set => DivHtmlAttributesAsDict = AttributesDict.FromAnonymousObject(value); }
         public AttributesDict? DivHtmlAttributesAsDict { get; set; }
 
-        public object InputHtmlAttributesAsObj { set => InputHtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
+        public object InputHtmlAttributesAsObj { set => InputHtmlAttributesAsDict = AttributesDict.FromAnonymousObject(value); }
         public AttributesDict? InputHtmlAttributesAsDict { get; set; }
 
-        public object LabelHtmlAttributesAsObj { set => LabelHtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
+        public object LabelHtmlAttributesAsObj { set => LabelHtmlAttributesAsDict = AttributesDict.FromAnonymousObject(value); }
         public AttributesDict? LabelHtmlAttributesAsDict { get; set; }
         #endregion    
     }

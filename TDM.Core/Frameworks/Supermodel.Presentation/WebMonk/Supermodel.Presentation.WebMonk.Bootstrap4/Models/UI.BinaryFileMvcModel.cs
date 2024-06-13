@@ -141,7 +141,7 @@ public static partial class Bs4
         #endregion
 
         #region Properties
-        public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
+        public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.FromAnonymousObject(value); }
         public AttributesDict HtmlAttributesAsDict { get; set; } = new();
         #endregion
     }

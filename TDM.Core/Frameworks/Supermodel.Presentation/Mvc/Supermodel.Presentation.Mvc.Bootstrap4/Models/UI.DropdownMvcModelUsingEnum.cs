@@ -26,7 +26,7 @@ public static partial class Bs4
         #endregion
 
         #region Properties
-        public object? HtmlAttributesAsObj { set => HtmlAttributesAsDict = value == null ? null : AttributesDict.AnonymousObjectToAttributesDict(value); }
+        public object? HtmlAttributesAsObj { set => HtmlAttributesAsDict = value == null ? null : AttributesDict.FromAnonymousObject(value); }
         public AttributesDict? HtmlAttributesAsDict { get; set; }
         #endregion
     }

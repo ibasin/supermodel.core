@@ -19,7 +19,7 @@ public static partial class Bs4
         #region Constructors
         public SortByDropdownForm(SortByOptions sortByOptions, object? htmlAttributes = null)
         {
-            var htmlAttributesDict = AttributesDict.AnonymousObjectToAttributesDict(htmlAttributes);
+            var htmlAttributesDict = AttributesDict.FromAnonymousObject(htmlAttributes);
 
             AppendAndPush(new Form(new { id=ScaffoldingSettings.SortByDropdownFormId, method = "get" }));
             AppendAndPush(new Fieldset(new { id=ScaffoldingSettings.SortByDropdownFieldsetId }));

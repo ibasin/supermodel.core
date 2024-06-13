@@ -66,7 +66,7 @@ public abstract class D3MvcModelBase : ISupermodelEditorTemplate, ISupermodelDis
     #endregion
 
     #region Properties
-    public object DivTagAttributesAsObj { set => DivTagAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
+    public object DivTagAttributesAsObj { set => DivTagAttributesAsDict = AttributesDict.FromAnonymousObject(value); }
     public AttributesDict DivTagAttributesAsDict { get; set; } = new();
     #endregion
 }
