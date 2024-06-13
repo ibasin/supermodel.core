@@ -24,7 +24,6 @@ public abstract class CRUDMultiColumnListBase : HtmlSnippet
             HttpContext.Current.PrefixManager.CurrentContextControllerName;
         if (controllerName == null) throw new SupermodelException("controllerName == null. this should never happen");
 
-
         if (parentId == null || parentId > 0)
         {
             if (pageTitle != null)

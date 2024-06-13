@@ -87,6 +87,4 @@ public class HttpListenerResponseWrapper : IHttpListenerResponse
     #region Proprties
     protected HttpListenerResponse Response { get; }
     #endregion
-
-
 }

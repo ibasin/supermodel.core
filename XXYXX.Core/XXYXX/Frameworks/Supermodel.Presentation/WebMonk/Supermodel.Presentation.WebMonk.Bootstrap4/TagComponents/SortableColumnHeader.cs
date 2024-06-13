@@ -17,7 +17,7 @@ public static partial class Bs4
         #region Constructors
         public SortableColumnHeader(string headerName, string? orderBy, string? orderByDesc, string? tooltip = null, bool requiredLabel = false, IGenerateHtml? sortedHtml = null, IGenerateHtml? sortedHtmlDesc = null, object? htmlAttributes = null)
         {
-            var htmlAttributesDict = AttributesDict.AnonymousObjectToAttributesDict(htmlAttributes);
+            var htmlAttributesDict = AttributesDict.FromAnonymousObject(htmlAttributes);
             if (!string.IsNullOrEmpty(tooltip))
             {
                 htmlAttributesDict.Add("data-toggle", "tooltip");
@@ -110,9 +110,9 @@ public static partial class Bs4
                     Append(Render.ActionLink(headerName, controller, action!, id, queryStringDictDesc, htmlAttributesDict));
                     Append(requiredMark);
                 }
-                else 
+                else
                 {
-                    Append(new Txt(headerName));
+                    Append(new Span(htmlAttributesDict) { new Txt(headerName) });
                     Append(requiredMark);
                 }
             }

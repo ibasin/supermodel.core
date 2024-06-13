@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -213,6 +214,21 @@ public class WebServer
             { 
                 Console.WriteLine($"Unable to unregister {ListeningBaseUrl}. Error: {ex.Message}");
             }
+        }
+    }
+
+    public static int FindFreeTcpPort()
+    {
+        var listener = new TcpListener(IPAddress.Loopback, 0);
+        try
+        {
+            listener.Start();
+            var port = ((IPEndPoint)listener.LocalEndpoint).Port;
+            return port;
+        }
+        finally
+        {
+            listener.Stop();
         }
     }
     #endregion

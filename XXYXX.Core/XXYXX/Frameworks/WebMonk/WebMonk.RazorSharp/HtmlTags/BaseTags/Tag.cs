@@ -17,7 +17,7 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
     public Tag(string? tagType, object? attributes = null)
     {
         TagType = tagType;
-        Attributes = AttributesDict.AnonymousObjectToAttributesDict(attributes ?? new AttributesDict());
+        Attributes = AttributesDict.FromAnonymousObject(attributes ?? new AttributesDict());
     }
     #endregion
 
@@ -245,7 +245,7 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
     public Tag AddOrUpdateAttr(object? additionalAttributes)
     {
         if (additionalAttributes == null) return this;
-        var additionalAttributesDict = AttributesDict.AnonymousObjectToAttributesDict(additionalAttributes);
+        var additionalAttributesDict = AttributesDict.FromAnonymousObject(additionalAttributes);
         foreach (var key in additionalAttributesDict.Keys)
         {
             Attributes[key] = additionalAttributesDict[key];

@@ -331,7 +331,7 @@ public static partial class Bs4
         public string Pattern { get; set; } = "";
         public string Step { get; set; } = "";
 
-        public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.AnonymousObjectToAttributesDict(value); }
+        public object HtmlAttributesAsObj { set => HtmlAttributesAsDict = AttributesDict.FromAnonymousObject(value); }
         public AttributesDict HtmlAttributesAsDict { get; set; } = new();
 
         public string? DisplayNumericFormat { get; set; }

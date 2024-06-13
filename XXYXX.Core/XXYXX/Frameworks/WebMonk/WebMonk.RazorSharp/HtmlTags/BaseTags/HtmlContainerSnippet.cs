@@ -9,10 +9,12 @@ public abstract class HtmlContainerSnippet : HtmlStack, IGenerateAndContainHtml
     #region IList<IGenerateHtml> implementation by wrapping InnerContent
     public IEnumerator<IGenerateHtml> GetEnumerator()
     {
+        // ReSharper disable once NotDisposedResourceIsReturned
         return InnerContent.GetEnumerator();
     }
     IEnumerator IEnumerable.GetEnumerator()
     {
+        // ReSharper disable once NotDisposedResourceIsReturned
         return InnerContent.GetEnumerator();
     }
     public void Add(IGenerateHtml item)
