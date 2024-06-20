@@ -43,6 +43,10 @@ public class Tag : List<IGenerateHtml>, IGenerateAndContainHtml
     {
         return ToHtml().ToString().Trim();
     }
+    public virtual void Add(string txt)
+    {
+        Add(new Txt(txt));
+    }
     #endregion
 
     #region Linq-like methods

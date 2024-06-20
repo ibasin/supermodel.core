@@ -21,6 +21,10 @@ public abstract class HtmlContainerSnippet : HtmlStack, IGenerateAndContainHtml
     {
         InnerContent.Add(item);
     }
+    public void Add(string txt)
+    {
+        InnerContent.Add(new Txt(txt));
+    }
     public void Clear()
     {
         InnerContent.Clear();
