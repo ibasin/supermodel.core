@@ -81,6 +81,13 @@ public class Tags : List<IGenerateHtml>, IGenerateAndContainHtml
     }
     #endregion
 
+    #region Methods
+    public void Add(string txt)
+    {
+        Add(new Txt(txt));
+    }
+    #endregion
+
     #region Linq-like methods
     public virtual int CountWhere(Func<Tag, bool> predicate)
     {

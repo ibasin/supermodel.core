@@ -16,6 +16,10 @@ public class HtmlStack : IGenerateHtml
     #endregion
 
     #region Methods
+    public Txt Append(string txt)
+    {
+        return Append(new Txt(txt));
+    }
     public T Append<T>(T html) where T : IGenerateHtml
     {
         Stack.Peek().Add(html);
