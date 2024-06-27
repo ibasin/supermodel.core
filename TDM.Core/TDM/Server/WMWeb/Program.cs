@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Supermodel.Persistence.EFCore;
 using Supermodel.Persistence.UnitOfWork;
 using WebMonk;
+using WebMonk.RazorSharp.HtmlTags;
+using WebMonk.RazorSharp.HtmlTags.BaseTags;
 using WMDomain.Supermodel.Persistence;
 using WMWeb.Mvc.Layouts;
 using WMWeb.Supermodel.Auth;
@@ -31,9 +33,9 @@ class Program
         webServer.GlobalFilters.Add(new WMApiSecureAuthenticateAttribute());
         //webServer.GlobalFilters.Add(new WMApiBasicAuthenticateAttribute());
             
-#if DEBUG
+        #if DEBUG
         webServer.ShowErrorDetails = true;
-#endif
+        #endif
         webServer.DefaultLayout = new MasterMvcLayout();
 
         //await webServer.RunAsync("/Auth/Login");
