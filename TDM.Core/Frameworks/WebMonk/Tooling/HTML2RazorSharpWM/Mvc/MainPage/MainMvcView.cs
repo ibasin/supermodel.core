@@ -30,7 +30,7 @@ public class MainMvcView : MvcView
             new Input(new { id="generate-invalid-tags", type="checkbox", value=true, }),
             new Label(new { @for="generate-invalid-tags", })
             {
-                new Txt("Generate Invalid Attributes"),
+                new Txt("Generate Invalid Tags"),
             },
             new Br(),
             new Div
