@@ -30,7 +30,7 @@ public class StaticContentHttpRequestHandler : IHttpRequestHandler
         }
         #endregion
 
-        #region Pproperties
+        #region Properties
         public byte[] FileContent { get; }
         public DateTime LastAccessed { get; protected set; }
         #endregion
