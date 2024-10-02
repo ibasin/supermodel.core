@@ -9,7 +9,7 @@ namespace Supermodel.Mobile.Runtime.Common.Models;
 
 public abstract class ChildModel: ISupermodelListTemplate
 {
-    #region Overrdies
+    #region Overrides
     [JsonIgnore, NotRCompared] public virtual Guid[] ParentGuidIdentities { get; set; }
     [JsonIgnore, NotRCompared] public virtual Guid ChildGuidIdentity { get; set; } = Guid.NewGuid();
 

@@ -17,7 +17,7 @@ namespace Supermodel.ApiClient.Models;
 
 public class ToDoListXFModel : XFModelForModel<ToDoList>
 {
-    #region Overrdies
+    #region Overrides
     public override List<Cell> RenderDetail(Page parentPage, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
     {
         var cells = new List<Cell>();
@@ -62,7 +62,7 @@ public partial class ToDoList
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override List<TChildModel> GetChildList<TChildModel>(params Guid[] parentIdentities)
     {
         if (parentIdentities == null) throw new ArgumentNullException(nameof(parentIdentities));

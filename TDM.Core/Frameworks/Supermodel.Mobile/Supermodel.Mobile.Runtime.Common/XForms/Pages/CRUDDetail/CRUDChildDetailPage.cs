@@ -32,7 +32,7 @@ public abstract class CRUDChildDetailPage<TModel, TChildModel, TXFModel, TDataCo
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     protected override async Task<TXFModel> GetBlankXFModelAsync()
     {
         var blankXfModel = (TXFModel)await new TXFModel().InitAsync(Model, OriginalXFModel.ChildGuidIdentity, OriginalXFModel.ParentGuidIdentities);

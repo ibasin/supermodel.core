@@ -168,7 +168,7 @@ internal class Index<TItem> where TItem : class
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override string ToString()
     {
         return Name;

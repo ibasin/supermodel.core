@@ -46,7 +46,7 @@ public abstract class SimpleAuthController<TLoginMvcModel> : Controller where TL
     }
     #endregion
 
-    #region Methods for Overrdies
+    #region Methods for Overrides
     protected abstract Task<List<Claim>> AuthenticateAndGetClaimsAsync(string username, string password);
     protected abstract IActionResult RedirectToHomeScreen();
     protected virtual Task DoSignInAsync(List<Claim> claims)

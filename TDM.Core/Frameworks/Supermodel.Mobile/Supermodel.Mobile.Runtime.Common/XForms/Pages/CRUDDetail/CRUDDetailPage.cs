@@ -27,7 +27,7 @@ public abstract class CRUDDetailPage<TModel, TXFModel, TDataContext> : CRUDDetai
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     protected override async Task<TXFModel> GetBlankXFModelAsync()
     {
         var blankModel = new TModel();

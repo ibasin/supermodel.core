@@ -20,7 +20,7 @@ public abstract class XFModelForChildModel<TModel, TChildModel> : XFModelForMode
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override Task MapFromCustomAsync<T>(T other)
     {
         var model = (TModel)(object)other;

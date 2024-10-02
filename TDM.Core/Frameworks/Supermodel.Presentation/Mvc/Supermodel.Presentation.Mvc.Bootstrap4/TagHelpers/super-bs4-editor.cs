@@ -13,8 +13,8 @@ public class EditorSuperBs4TagHelper : TemplateSuperBs4TagHelperBase
     #region Constructors
     public EditorSuperBs4TagHelper(IHtmlHelper<dynamic> htmlHelper) : base(htmlHelper){}
     #endregion
-        
-    #region Overrdies
+
+    #region Overrides
     public override IHtmlContent Template(string expression, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, string? markerAttribute = null)
     {
         var htmlContent = _htmlHelper.Super().Editor(expression, screenOrderFrom, screenOrderTo, markerAttribute);

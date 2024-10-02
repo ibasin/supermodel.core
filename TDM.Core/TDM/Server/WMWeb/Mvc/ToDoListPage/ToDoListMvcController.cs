@@ -15,7 +15,7 @@ namespace WMWeb.Mvc.ToDoListPage;
 [Authorize]
 public class ToDoListMvcController : EnhancedCRUDMvcController<ToDoList, ToDoListMvcModel, ToDoListSearchMvcModel, ToDoListMvcView, DataContext>
 {
-    #region Overrdies
+    #region Overrides
     protected override IQueryable<ToDoList> GetItems()
     {
         var currentUserId = UserHelper.GetCurrentUserId();
