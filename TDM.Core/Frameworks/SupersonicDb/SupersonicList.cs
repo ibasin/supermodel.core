@@ -339,7 +339,7 @@ public class SupersonicList<TItem> : IQueryable<TItem> where TItem : class
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override string ToString()
     {
         return $"Supersonic List. Count = {Count}";

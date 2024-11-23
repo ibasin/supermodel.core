@@ -30,7 +30,7 @@ public class StaticContentHttpRequestHandler : IHttpRequestHandler
         }
         #endregion
 
-        #region Pproperties
+        #region Properties
         public byte[] FileContent { get; }
         public DateTime LastAccessed { get; protected set; }
         #endregion
@@ -71,7 +71,9 @@ public class StaticContentHttpRequestHandler : IHttpRequestHandler
 
         //find the file in cache that was accessed the longest time ago and try to delete it
         var fileToDelete = CachedFiles.SingleOrDefault(x => x.Value.LastAccessed == CachedFiles.Min(y => y.Value.LastAccessed));
-        if (!fileToDelete.Equals(default(KeyValuePair<string, CachedFile>))) 
+        
+        //if (!fileToDelete.Equals(default(KeyValuePair<string, CachedFile>))) //this is very inefficient, so we just check for key
+        if (fileToDelete.Key != null)
         {
             if (!CachedFiles.TryRemove(fileToDelete.Key, out _)) RemoveOldestCacheElement();
         }

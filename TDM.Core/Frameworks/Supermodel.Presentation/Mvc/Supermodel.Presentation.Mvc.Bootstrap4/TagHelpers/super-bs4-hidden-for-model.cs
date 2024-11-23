@@ -12,8 +12,8 @@ public class SuperBs4HiddenForModelTagHelper : TemplateForModelSuperBs4TagHelper
     #region Constructors
     public SuperBs4HiddenForModelTagHelper(IHtmlHelper<dynamic> htmlHelper) : base(htmlHelper){}
     #endregion
-        
-    #region Overrdies
+
+    #region Overrides
     public override IHtmlContent TemplateForModel(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, string? markerAttribute = null)
     {
         return _htmlHelper.Super().HiddenForModel(screenOrderFrom, screenOrderTo, markerAttribute);
