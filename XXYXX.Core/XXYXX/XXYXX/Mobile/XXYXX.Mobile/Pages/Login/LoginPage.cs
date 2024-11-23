@@ -29,7 +29,7 @@ namespace XXYXX.Mobile.Pages.Login
         }
         #endregion
 
-        #region Overrdies
+        #region Overrides
         public override async Task<bool> OnSuccessfulLoginAsync(bool autoLogin, bool isJumpBack)
         {
             var homePage = XXYXXApp.RunningApp.HomePage = new HomePage();

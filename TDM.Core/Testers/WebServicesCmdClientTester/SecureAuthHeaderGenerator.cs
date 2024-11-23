@@ -16,7 +16,7 @@ public class SecureAuthHeaderGenerator : BasicAuthHeaderGenerator
     public SecureAuthHeaderGenerator(string username, string password, byte[] localStorageEncryptionKey) : base(username, password, localStorageEncryptionKey){}
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override AuthHeader CreateAuthHeader()
     {
         var dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(DateTime.UtcNow);

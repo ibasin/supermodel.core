@@ -47,7 +47,7 @@ public class MyToDoListListPage : EnhancedCRUDListPage<ToDoList, TDMSqliteDataCo
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     protected override async Task OpenDetailInternalAsync(ToDoList model)
     {
         var detailPage = TDMApp.RunningApp.MyToDoListDetailPage = (MyToDoListDetailPage)await new MyToDoListDetailPage().InitAsync(Models, model.IsNew ? "New List" : "Edit List", model);

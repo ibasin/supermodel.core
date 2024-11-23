@@ -12,7 +12,7 @@ namespace XXYXX.Mobile.Supermodel.Auth
         public XXYXXSecureAuthHeaderGenerator(string username, string password, byte[] localStorageEncryptionKey) : base(username, password, localStorageEncryptionKey){}
         #endregion
 
-        #region Overrdies
+        #region Overrides
         public override AuthHeader CreateAuthHeader()
         {
             var dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(DateTime.UtcNow);

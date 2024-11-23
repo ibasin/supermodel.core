@@ -20,7 +20,7 @@ public class TDMSecureAuthHeaderGenerator : BasicAuthHeaderGenerator
     public TDMSecureAuthHeaderGenerator(string username, string password, byte[] encryptionKey) : base(username, password, encryptionKey){}
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override AuthHeader CreateAuthHeader()
     {
         var dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(DateTime.UtcNow);

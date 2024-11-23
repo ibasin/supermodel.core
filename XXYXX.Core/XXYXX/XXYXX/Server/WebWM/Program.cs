@@ -14,7 +14,7 @@ namespace WebWM;
 
 public class Program
 {
-    #region Program's starting poing
+    #region Program's starting point
     static async Task Main(params string[] args)
     {
         #region Run as a windows service if used with "/s" argument
@@ -104,7 +104,7 @@ public class Program
     }
     #endregion
 
-    #region Constatnts
+    #region Constants
     public const int HttpPort = 54208;
     #endregion
 }

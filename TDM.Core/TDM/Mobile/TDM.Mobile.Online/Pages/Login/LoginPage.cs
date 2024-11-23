@@ -30,7 +30,7 @@ public class LoginPage : UsernameAndPasswordLoginPage<TDMUserUpdatePassword, TDM
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override async Task<bool> OnSuccessfulLoginAsync(bool autoLogin, bool isJumpBack)
     {
         var myToDoListListPage = FormsApplication<TDMApp>.RunningApp.MyToDoListListPage = (MyToDoListListPage) await new MyToDoListListPage().InitAsync("My Lists");
