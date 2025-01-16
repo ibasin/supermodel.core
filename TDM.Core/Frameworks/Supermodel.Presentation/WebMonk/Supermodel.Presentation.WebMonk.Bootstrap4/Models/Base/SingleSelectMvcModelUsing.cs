@@ -23,7 +23,7 @@ public abstract class SingleSelectMvcModelUsing<TMvcModel> : SingleSelectMvcMode
     }
     #endregion
 
-    #region IAsyncInit implemetation
+    #region IAsyncInit implementation
     public bool AsyncInitialized { get; protected set; }
     public virtual async Task InitAsync()
     {

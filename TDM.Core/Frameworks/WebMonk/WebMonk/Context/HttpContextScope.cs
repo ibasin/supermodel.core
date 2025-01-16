@@ -13,7 +13,7 @@ public class HttpContextScope : IDisposable
     }
     #endregion
 
-    #region IAsyncDisposable implemetation
+    #region IAsyncDisposable implementation
     public void Dispose()
     {
         var context = HttpContextScopeCore.PopHttpContext();

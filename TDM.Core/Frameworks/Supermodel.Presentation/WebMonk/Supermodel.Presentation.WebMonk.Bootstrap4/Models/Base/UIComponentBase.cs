@@ -26,7 +26,7 @@ public abstract class UIComponentBase : IRMapperCustom, IEditorTemplate, IDispla
     public abstract IGenerateHtml EditorTemplate(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, object? attributes = null);
     #endregion
 
-    #region IDisplayTemplate implemetation
+    #region IDisplayTemplate implementation
     public virtual IGenerateHtml DisplayTemplate(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, object? attributes = null)
     {
         return new Txt(ComponentValue);

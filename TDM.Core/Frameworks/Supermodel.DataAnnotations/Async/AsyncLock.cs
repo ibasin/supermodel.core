@@ -13,7 +13,7 @@ public class AsyncLock
         internal Releaser(AsyncLock toRelease) { _toRelease = toRelease; }
         #endregion
 
-        #region IDisposable implemetation
+        #region IDisposable implementation
         public void Dispose()
         {
             if (_toRelease != null) _toRelease._semaphore.Release();

@@ -20,7 +20,7 @@ public class ValidationErrorsApiModel : List<ValidationErrorsApiModel.Error>, IR
     }
     #endregion
 
-    #region IRMapperCustom implemetation
+    #region IRMapperCustom implementation
     public Task MapFromCustomAsync<T>(T other)
     {
         if (other == null) throw new ArgumentNullException(nameof(other));

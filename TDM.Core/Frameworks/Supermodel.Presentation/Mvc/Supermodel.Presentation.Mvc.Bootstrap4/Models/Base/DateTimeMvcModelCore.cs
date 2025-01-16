@@ -26,7 +26,7 @@ public abstract class DateTimeMvcModelCore : Bs4.TextBoxMvcModel
 #nullable enable
     #endregion
 
-    #region IComparable implemetation
+    #region IComparable implementation
     public override int CompareTo(object? obj)
     {
         if (obj == null) return 1;

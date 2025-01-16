@@ -17,7 +17,7 @@ public abstract class UIComponentBase : IRMapperCustom, ICmdEditor, ICmdDisplaye
     public abstract  object? Edit(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue);
     #endregion
 
-    #region IDisplayTemplate implemetation
+    #region IDisplayTemplate implementation
     public abstract void Display(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue);
     #endregion
 

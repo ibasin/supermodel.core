@@ -41,7 +41,7 @@ public class CheckboxCmdModel : UIComponentBase
     }
     #endregion
 
-    #region IUIComponentWithValue implemetation
+    #region IUIComponentWithValue implementation
     public override string ComponentValue 
     {
         get => Value;

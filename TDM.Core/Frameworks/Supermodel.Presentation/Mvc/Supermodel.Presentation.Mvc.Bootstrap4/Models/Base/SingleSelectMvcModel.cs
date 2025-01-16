@@ -150,7 +150,7 @@ public abstract class SingleSelectMvcModel : IComparable, ISupermodelModelBinder
     }
     #endregion
 
-    #region IComparable implemetation
+    #region IComparable implementation
     public virtual int CompareTo(object? obj)
     {
         if (obj == null) return 1;
@@ -162,7 +162,7 @@ public abstract class SingleSelectMvcModel : IComparable, ISupermodelModelBinder
     }
     #endregion
 
-    #region IUIComponentWithValue implemetation
+    #region IUIComponentWithValue implementation
     public virtual string ComponentValue 
     {
         get => SelectedValue ?? "";
