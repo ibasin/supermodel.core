@@ -122,7 +122,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region IComparable implemetation
+        #region IComparable implementation
         public override int CompareTo(object? obj)
         {
             if (obj == null) return 1;
@@ -139,7 +139,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region IUIComponentWithValue implemetation
+        #region IUIComponentWithValue implementation
         public override string ComponentValue 
         {
             get => Value;

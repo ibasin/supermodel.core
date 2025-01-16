@@ -20,7 +20,7 @@ public class SimpleRange
     }
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override string ToString()
     {
         if (StartIdx == -1) return "[empty]";

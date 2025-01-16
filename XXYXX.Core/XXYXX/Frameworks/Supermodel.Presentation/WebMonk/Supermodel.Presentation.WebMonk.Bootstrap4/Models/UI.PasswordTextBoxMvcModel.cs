@@ -66,7 +66,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region ISupermodelDisplayTemplate implemetation
+        #region ISupermodelDisplayTemplate implementation
         public override IGenerateHtml DisplayTemplate(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, object? attributes = null)
         {
             return new Txt(DotDotDot);

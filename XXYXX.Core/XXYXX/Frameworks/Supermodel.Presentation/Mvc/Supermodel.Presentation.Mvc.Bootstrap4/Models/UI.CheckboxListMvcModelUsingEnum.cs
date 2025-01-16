@@ -9,7 +9,7 @@ public static partial class Bs4
 {
     public class CheckboxListMvcModelUsingEnum<TEnum> : MultiSelectMvcModelUsingEnum<TEnum> where TEnum : struct, IConvertible
     {
-        #region IEditorTemplate implemetation
+        #region IEditorTemplate implementation
         public override IHtmlContent EditorTemplate<TModel>(IHtmlHelper<TModel> html, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, string? markerAttribute = null)
         {
             return CheckboxListEditorTemplate(Orientation, html, screenOrderFrom, screenOrderTo, markerAttribute);

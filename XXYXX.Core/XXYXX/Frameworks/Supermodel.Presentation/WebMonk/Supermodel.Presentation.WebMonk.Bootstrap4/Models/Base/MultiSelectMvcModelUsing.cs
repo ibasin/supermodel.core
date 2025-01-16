@@ -28,7 +28,7 @@ public abstract class MultiSelectMvcModelUsing<TMvcModel> : MultiSelectMvcModel,
     }
     #endregion
         
-    #region IAsyncInit implemetation
+    #region IAsyncInit implementation
     public virtual bool AsyncInitialized { get; protected set; }
     public virtual async Task InitAsync()
     {

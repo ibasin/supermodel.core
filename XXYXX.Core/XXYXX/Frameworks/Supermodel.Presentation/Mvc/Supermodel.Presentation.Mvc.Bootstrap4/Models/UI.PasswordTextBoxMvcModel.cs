@@ -67,7 +67,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region ISupermodelDisplayTemplate implemetation
+        #region ISupermodelDisplayTemplate implementation
         public override IHtmlContent DisplayTemplate<TModel>(IHtmlHelper<TModel> html, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, string? markerAttribute = null)
         {
             return "•••••••".ToHtmlString();

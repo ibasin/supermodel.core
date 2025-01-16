@@ -61,7 +61,7 @@ public class ListViewModel<TViewModelForEntity, TEntity> : List<TViewModelForEnt
     }
     #endregion
 
-    #region IAsyncInit implemetation
+    #region IAsyncInit implementation
     public bool AsyncInitialized { get; set; }
     public virtual async Task InitAsync()
     {

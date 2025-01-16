@@ -39,7 +39,7 @@ public abstract class SingleSelectCmdModel : UIComponentBase
     }
     #endregion
 
-    #region IUIComponentWithValue implemetation
+    #region IUIComponentWithValue implementation
     public override string ComponentValue 
     {
         get => SelectedValue ?? "";
@@ -47,7 +47,7 @@ public abstract class SingleSelectCmdModel : UIComponentBase
     }
     #endregion
 
-    #region IDisplayTemplate implemetation
+    #region IDisplayTemplate implementation
     public override void Display(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
     {
         Console.Write(SelectedLabel ?? "");

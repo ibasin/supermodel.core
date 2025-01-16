@@ -57,7 +57,7 @@ public class PasswordTextBoxCmdModel : TextBoxCmdModel
     }
     #endregion
 
-    #region IDisplayer implemetation
+    #region IDisplayer implementation
     public override void Display(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
     {
         CmdRender.DisplayForModel(DotDotDot);

@@ -73,7 +73,7 @@ public class BatchHttpListenerRequest : IHttpListenerRequest
     }
     #endregion
 
-    #region IHttpListenerRequest implemetation
+    #region IHttpListenerRequest implementation
     public CookieCollection Cookies { get; set; }
     public Encoding ContentEncoding { get; set; }
     public string ContentType { get; set; }

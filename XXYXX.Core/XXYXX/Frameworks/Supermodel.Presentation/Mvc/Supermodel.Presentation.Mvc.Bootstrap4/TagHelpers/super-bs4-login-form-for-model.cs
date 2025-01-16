@@ -13,7 +13,7 @@ public class SuperBs4LoginFormForModel : TagHelperDerivedFromHtmlHelperBase
     public SuperBs4LoginFormForModel(IHtmlHelper<dynamic> htmlHelper) : base(htmlHelper){}
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
         output.TagName = null;

@@ -15,7 +15,7 @@ public class UsernameAndPasswordLoginViewModel : ILoginViewModel
     public event PropertyChangedEventHandler PropertyChanged;
     #endregion
 
-    #region Overrdies
+    #region Overrides
     public virtual IAuthHeaderGenerator GetAuthHeaderGenerator()
     {
         return new BasicAuthHeaderGenerator(Username, Password, FormsApplication.GetRunningApp().LocalStorageEncryptionKey);

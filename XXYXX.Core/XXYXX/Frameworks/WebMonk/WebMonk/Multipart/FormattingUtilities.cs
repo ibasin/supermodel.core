@@ -46,12 +46,14 @@ public static class FormattingUtilities
     public const string HttpRequestedWithHeaderValue = @"XMLHttpRequest";
     public const string HttpHostHeader = "Host";
     public const string HttpVersionToken = "HTTP";
+    // ReSharper disable InconsistentNaming
     public static readonly Type HttpRequestMessageType = typeof(HttpRequestMessage);
     public static readonly Type HttpResponseMessageType = typeof(HttpResponseMessage);
     public static readonly Type HttpContentType = typeof(HttpContent);
     //public static readonly Type DelegatingEnumerableGenericType = typeof(DelegatingEnumerable<>);
     public static readonly Type EnumerableInterfaceGenericType = typeof(IEnumerable<>);
     public static readonly Type QueryableInterfaceGenericType = typeof(IQueryable<>);
+    // ReSharper restore InconsistentNaming
     public static bool IsJTokenType(Type type)
     {
         return typeof(JToken).IsAssignableFrom(type);

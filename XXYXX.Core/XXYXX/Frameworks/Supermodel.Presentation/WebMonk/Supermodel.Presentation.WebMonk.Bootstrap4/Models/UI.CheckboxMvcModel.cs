@@ -57,7 +57,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region IDisplayTemplate implemetation
+        #region IDisplayTemplate implementation
         public override IGenerateHtml DisplayTemplate(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, object? attributes = null)
         {
             return new Txt(ValueBool.ToYesNo());
@@ -78,7 +78,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region IUIComponentWithValue implemetation
+        #region IUIComponentWithValue implementation
         public override string ComponentValue 
         {
             get => Value;

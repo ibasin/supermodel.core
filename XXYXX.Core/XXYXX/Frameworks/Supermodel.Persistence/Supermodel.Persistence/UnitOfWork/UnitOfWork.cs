@@ -16,7 +16,7 @@ public class UnitOfWork<TDataContext> : IAsyncDisposable where TDataContext : cl
     }
     #endregion
 
-    #region IAsyncDisposable implemetation
+    #region IAsyncDisposable implementation
     public async ValueTask DisposeAsync()
     {
         var context = UnitOfWorkContext<TDataContext>.PopDataContext();

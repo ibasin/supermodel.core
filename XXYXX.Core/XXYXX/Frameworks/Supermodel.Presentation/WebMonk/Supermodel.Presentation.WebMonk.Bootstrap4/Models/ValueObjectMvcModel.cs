@@ -10,7 +10,7 @@ public static partial class Bs4
 {
     public abstract class ValueObjectMvcModel : MvcModel, IRMapperCustom, IValidatableObject
     {
-        #region IRMapperCustom implemetation
+        #region IRMapperCustom implementation
         public virtual Task MapFromCustomAsync<T>(T other)
         {
             return this.MapFromCustomBaseAsync(other);
@@ -21,7 +21,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region IValidatableObject implemetation
+        #region IValidatableObject implementation
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             return new ValidationResultList();

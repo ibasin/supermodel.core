@@ -26,7 +26,7 @@ public class BatchHttpListenerResponse : IHttpListenerResponse
     }
     #endregion
 
-    #region IHttpListenerResponse implemetation
+    #region IHttpListenerResponse implementation
     public void Dispose()
     {
         //do nothing

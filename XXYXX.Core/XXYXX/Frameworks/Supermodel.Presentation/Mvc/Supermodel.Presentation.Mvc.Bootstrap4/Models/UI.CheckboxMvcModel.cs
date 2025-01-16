@@ -54,7 +54,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region ISupermodelDisplayTemplate implemetation
+        #region ISupermodelDisplayTemplate implementation
         public virtual IHtmlContent DisplayTemplate<TModel>(IHtmlHelper<TModel> html, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, string? markerAttribute = null)
         {
             return ValueBool.ToYesNo().ToHtmlEncodedHtmlString();
@@ -96,7 +96,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region IComparable implemetation
+        #region IComparable implementation
         public virtual int CompareTo(object? obj)
         {
             if (obj == null) return 1;
@@ -109,7 +109,7 @@ public static partial class Bs4
         }
         #endregion
 
-        #region IUIComponentWithValue implemetation
+        #region IUIComponentWithValue implementation
         public virtual string ComponentValue 
         {
             get => Value;

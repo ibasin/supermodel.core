@@ -20,7 +20,7 @@
 //        }
 //        #endregion
 
-//        #region Overrdies
+//        #region Overrides
 //        public void Clear()
 //        {
 //            using (new WriteLock(RWLock)) List.Clear();

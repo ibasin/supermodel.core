@@ -76,7 +76,7 @@ public abstract class SingleSelectMvcModel : UIComponentBase
     }
     #endregion
 
-    #region IUIComponentWithValue implemetation
+    #region IUIComponentWithValue implementation
     public override string ComponentValue 
     {
         get => SelectedValue ?? "";
@@ -84,7 +84,7 @@ public abstract class SingleSelectMvcModel : UIComponentBase
     }
     #endregion
 
-    #region IDisplayTemplate implemetation
+    #region IDisplayTemplate implementation
     public override IGenerateHtml DisplayTemplate(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue, object? attributes = null)
     {
         var displayStr = SelectedLabel ?? "";

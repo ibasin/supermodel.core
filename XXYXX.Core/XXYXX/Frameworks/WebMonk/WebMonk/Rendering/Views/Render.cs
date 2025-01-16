@@ -58,7 +58,7 @@ public static class Render
         }
         public static string UrlForApiAction<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict = null)  where T : ApiController
         {
-            var (controllerName, actionName, id, updatedQueryStringDict) = GetControllerActionIdQs(action, queryStringDict);
+            var (controllerName, actionName, id, updatedQueryStringDict) = GetControllerActionIdQs(action, queryStringDict, true);
             return UrlForApiAction(controllerName, actionName, id, updatedQueryStringDict);
         }
 
@@ -74,14 +74,14 @@ public static class Render
             return $"/api/{controller.ToLower()}{optionalActionPart.ToLower()}{optionalIdPart.ToLower()}{queryStringDict.ToUrlEncodedNameValuePairs()}";
         }
             
-        public static (string, string, string, QueryStringDict queryStringDict) GetControllerActionIdQs<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict) where T : ControllerBase
+        public static (string, string, string, QueryStringDict queryStringDict) GetControllerActionIdQs<T>(Expression<Action<T>> action, QueryStringDict? queryStringDict, bool isForApiController = false) where T : ControllerBase
         {
             var methodExpression = action.Body as MethodCallExpression;
             if (methodExpression == null) throw new InvalidOperationException("Expression must be a method call.");
             if (methodExpression.Object != action.Parameters[0]) throw new InvalidOperationException("Method call must target lambda argument.");
             if (!IsActionMethod(methodExpression.Method)) throw new InvalidOperationException("Expression must be a call to a valid action method.");
 
-            var controllerName = typeof(T).GetMvcControllerName();
+            var controllerName = isForApiController ? typeof(T).GetApiControllerName() : typeof(T).GetMvcControllerName();
 
             var actionName = methodExpression.Method.Name;
                 
