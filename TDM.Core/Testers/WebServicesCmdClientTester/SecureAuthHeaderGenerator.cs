@@ -20,9 +20,9 @@ public class SecureAuthHeaderGenerator : BasicAuthHeaderGenerator
     public override AuthHeader CreateAuthHeader()
     {
         var dateTimeSalt = HashAgent.Generate5MinTimeStampSalt(DateTime.UtcNow);
-        var secretTokanHashSalt = HashAgent.GenerateGuidSalt();
-        var secretTokenHash = HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokanHashSalt);
-        var authHeader = HttpAuthAgent.CreateSMCustomEncryptedAuthHeader(Key, Username, Password, secretTokenHash, secretTokanHashSalt);
+        var secretTokenHashSalt = HashAgent.GenerateGuidSalt();
+        var secretTokenHash = HashAgent.HashPasswordSHA256(SecretToken + dateTimeSalt, secretTokenHashSalt);
+        var authHeader = HttpAuthAgent.CreateSMCustomEncryptedAuthHeader(Key, Username, Password, secretTokenHash, secretTokenHashSalt);
         authHeader.HeaderName = HeaderName;
         return authHeader;
     }
