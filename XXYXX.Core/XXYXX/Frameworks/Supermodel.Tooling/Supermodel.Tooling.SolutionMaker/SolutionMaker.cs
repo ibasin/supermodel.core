@@ -467,6 +467,12 @@ public static class SolutionMaker
                 Console.WriteLine(Path.GetFullPath(file));
                 File.Delete(file);
             }
+            if (fileName == ZipFileName)
+            {
+                Console.WriteLine(Path.GetFullPath(file));
+                File.Delete(file);
+                File.Create(file).Dispose(); //create a blank zip file, so VS does not complain
+            }
         }
 
         foreach (var dir in Directory.GetDirectories(directory))
