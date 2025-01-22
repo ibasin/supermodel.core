@@ -19,7 +19,7 @@ public static class ImmutableStack
     public static ImmutableStack<T> CreateRange<T>(IEnumerable<T> items)
     {
         // ReSharper disable PossibleMultipleEnumeration
-        Requires.NotNull(items, "items");
+        Requires.NotNull(items);
         var immutableStack = ImmutableStack<T>.Empty;
         foreach (T obj in items) immutableStack = immutableStack.Push(obj);
         return immutableStack;
@@ -27,14 +27,14 @@ public static class ImmutableStack
     }
     public static ImmutableStack<T> Create<T>(params T[] items)
     {
-        Requires.NotNull(items, "items");
+        Requires.NotNull(items);
         var immutableStack = ImmutableStack<T>.Empty;
         foreach (T obj in items) immutableStack = immutableStack.Push(obj);
         return immutableStack;
     }
     public static IImmutableStack<T> Pop<T>(this IImmutableStack<T> stack, out T value)
     {
-        Requires.NotNull(stack, "stack");
+        Requires.NotNull(stack);
         value = stack.Peek();
         return stack.Pop();
     }
@@ -60,7 +60,7 @@ public sealed class ImmutableStack<T> : IImmutableStack<T>
 
         internal Enumerator(ImmutableStack<T> stack)
         {
-            Requires.NotNull(stack, "stack");
+            Requires.NotNull(stack);
             _originalStack = stack;
             _remainingStack = null;
         }
@@ -92,7 +92,7 @@ public sealed class ImmutableStack<T> : IImmutableStack<T>
 
         internal EnumeratorObject(ImmutableStack<T> stack)
         {
-            Requires.NotNull(stack, "stack");
+            Requires.NotNull(stack);
             _originalStack = stack;
         }
 
@@ -127,7 +127,7 @@ public sealed class ImmutableStack<T> : IImmutableStack<T>
     private ImmutableStack(){}
     private ImmutableStack(T head, ImmutableStack<T> tail)
     {
-        Requires.NotNull(tail, "tail");
+        Requires.NotNull(tail);
         _head = head;
         _tail = tail;
     }
