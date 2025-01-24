@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using WebMonk.Context;
+using WebMonk.Results;
 
 namespace WebMonk.HttpRequestHandlers;
 
@@ -60,7 +61,8 @@ public class StaticContentHttpRequestHandler : IHttpRequestHandler
             file.UpdateLastAccessed();
         }
         return new IHttpRequestHandler.HttpRequestHandlerResult(true, async () => 
-        { 
+        {
+            HttpContext.Current.HttpListenerContext.Response.AddHeader("Content-Type", MimeTypes.GetMimeType(Path.GetFileName(localPath)));
             //HttpContext.Current.HttpListenerContext.Response.AddHeader("Content-Disposition", $"Attachment; filename=\"{Path.GetFileName(localPath)}\"");
             await HttpContext.Current.HttpListenerContext.Response.OutputStream.WriteAsync(file.FileContent, 0, file.FileContent.Length, cancellationToken).ConfigureAwait(false);
         });
