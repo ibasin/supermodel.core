@@ -102,16 +102,20 @@ public static class CsvMaker
         return sb;
     }
 
-    public static StringBuilder ToCsv<T>(this List<T> me, StringBuilder? sb = null) where T: class, new()
+    public static StringBuilder ToCsv<T>(this List<T> me, bool includeHeader = true, StringBuilder? sb = null) where T: class, new()
     {
-        var headerCsvModel = me.FirstOrDefault() ?? new T();
-        sb = headerCsvModel.ToCsvHeader(sb);
-        sb.AppendLine();
+        if (includeHeader)
+        {
+            var headerCsvModel = me.FirstOrDefault() ?? new T();
+            sb = headerCsvModel.ToCsvHeader(sb);
+            sb.AppendLine();
+        }
+
         foreach (var item in me)
         {
             sb = item.ToCsvRow(sb);
             sb.AppendLine();
         }
-        return sb;
+        return sb!;
     }
 }
