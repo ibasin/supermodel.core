@@ -39,112 +39,95 @@ public abstract class WebSocketServer
     {
         Task.Run(ListenerLoop);
     }
+    public virtual void Stop()
+    {
+        _stop = true;
+    }
 
     public virtual void WriteBytesToClient(TcpClient client, byte[] payload)
     {
-        //Code derived from https://www.codeproject.com/Articles/1063910/WebSocket-Server-in-Csharp
-        var opCode = OpCodeEnum.TextFrame;
+        var buffer = PrepareBufferToWrite(payload);
 
-        // best to write everything to a memory stream before we push it onto the wire
-        // not really necessary but I like it this way
-        using (var memoryStream = new MemoryStream())
+        try
         {
-            var finBitSetAsByte = (byte)0x80;
-            var byte1 = (byte)(finBitSetAsByte | (byte)opCode);
-            memoryStream.WriteByte(byte1);
+            if (client.Connected) client.GetStream().Write(buffer, 0, buffer.Length);
+            else CloseConnection(client);
+        }
+        catch (Exception)
+        {
+            CloseConnection(client);
+        }
+    }
+    public virtual async Task WriteBytesToClientAsync(TcpClient client, byte[] payload)
+    {
+        var buffer = PrepareBufferToWrite(payload);
 
-            // depending on the size of the length we want to write it as a byte, ushort or ulong
-            if (payload.Length < 126)
-            {
-                var byte2 = (byte)payload.Length;
-                memoryStream.WriteByte(byte2);
-            }
-            else if (payload.Length <= ushort.MaxValue)
-            {
-                var byte2 = (byte)126;
-                memoryStream.WriteByte(byte2);
-                WriteUShort((ushort)payload.Length, memoryStream);
-            }
-            else
-            {
-                var byte2 = (byte)127;
-                memoryStream.WriteByte(byte2);
-                WriteULong((ulong)payload.Length, memoryStream);
-            }
+        try
+        {
+            if (client.Connected) await client.GetStream().WriteAsync(buffer, 0, buffer.Length);
+            else CloseConnection(client);
+        }
+        catch (Exception)
+        {
+            CloseConnection(client);
+        }
+    }
+    
+    public virtual void WriteBytesToAllClients(byte[] payload)
+    {
+        var buffer = PrepareBufferToWrite(payload);
 
-            memoryStream.Write(payload, 0, payload.Length);
-            var buffer = memoryStream.ToArray();
-
+        var clients2Delete = new List<TcpClient>();
+        foreach (var client in Clients.ToArray())
+        {
             try
             {
                 if (client.Connected) client.GetStream().Write(buffer, 0, buffer.Length);
-                else CloseConnection(client);
+                else clients2Delete.Add(client);
             }
             catch (Exception)
             {
-                CloseConnection(client);
+                clients2Delete.Add(client);
             }
         }
+        foreach (var client2Delete in clients2Delete) CloseConnection(client2Delete);
     }
-    public virtual void WriteBytesToAllClients(byte[] payload)
+    public virtual async Task WriteBytesToAllClientsAsync(byte[] payload)
     {
-        //Code derived from https://www.codeproject.com/Articles/1063910/WebSocket-Server-in-Csharp
-        var opCode = OpCodeEnum.TextFrame;
+        var buffer = PrepareBufferToWrite(payload);
 
-        // best to write everything to a memory stream before we push it onto the wire
-        // not really necessary but I like it this way
-        using (var memoryStream = new MemoryStream())
+        var clients2Delete = new List<TcpClient>();
+        foreach (var client in Clients.ToArray())
         {
-            var finBitSetAsByte = (byte)0x80;
-            var byte1 = (byte)(finBitSetAsByte | (byte)opCode);
-            memoryStream.WriteByte(byte1);
-
-            // depending on the size of the length we want to write it as a byte, ushort or ulong
-            if (payload.Length < 126)
+            try
             {
-                var byte2 = (byte)payload.Length;
-                memoryStream.WriteByte(byte2);
+                if (client.Connected) await client.GetStream().WriteAsync(buffer, 0, buffer.Length);
+                else clients2Delete.Add(client);
             }
-            else if (payload.Length <= ushort.MaxValue)
+            catch (Exception)
             {
-                var byte2 = (byte)126;
-                memoryStream.WriteByte(byte2);
-                WriteUShort((ushort)payload.Length, memoryStream);
+                clients2Delete.Add(client);
             }
-            else
-            {
-                var byte2 = (byte)127;
-                memoryStream.WriteByte(byte2);
-                WriteULong((ulong)payload.Length, memoryStream);
-            }
-
-            memoryStream.Write(payload, 0, payload.Length);
-            var buffer = memoryStream.ToArray();
-
-            var clients2Delete = new List<TcpClient>();
-            foreach (var client in Clients.ToArray())
-            {
-                try
-                {
-                    if (client.Connected) client.GetStream().Write(buffer, 0, buffer.Length);
-                    else clients2Delete.Add(client);
-                }
-                catch (Exception)
-                {
-                    clients2Delete.Add(client);
-                }
-            }
-            foreach (var client2Delete in clients2Delete) CloseConnection(client2Delete);
         }
+        foreach (var client2Delete in clients2Delete) CloseConnection(client2Delete);
     }
 
     public virtual void WriteStringToClient(TcpClient client, string message)
     {
         WriteBytesToClient(client, Encoding.UTF8.GetBytes(message));
     }
+    public virtual Task WriteStringToClientAsync(TcpClient client, string message)
+    {
+        return WriteBytesToClientAsync(client, Encoding.UTF8.GetBytes(message));
+    }
+
     public virtual void WriteStringToAllClients(string message)
     {
         WriteBytesToAllClients(Encoding.UTF8.GetBytes(message));
+    }
+    public virtual Task WriteStringToAllClientsAsync(string message)
+    {
+        return WriteBytesToAllClientsAsync(Encoding.UTF8.GetBytes(message));
     }
 
     protected abstract void ProcessTextRequest(string textRequest);
@@ -152,10 +135,10 @@ public abstract class WebSocketServer
     protected abstract bool ValidateNewConnection(TcpClient client, string requestData);
     protected abstract void ConnectionClosed(TcpClient client);
 
-    protected virtual async void ListenerLoop()
+    protected virtual async Task ListenerLoop()
     {
         TcpListener.Start();
-        while (true)
+        while (!_stop)
         {
             var clientTask = TcpListener.AcceptTcpClientAsync();
             while (!clientTask.IsCompleted && !Clients.Any(x => x.Connected && x.GetStream().DataAvailable))
@@ -185,64 +168,50 @@ public abstract class WebSocketServer
             catch (Exception) { } // we ignore errors if Clients list gets modified in the middle of a loop
         }
         // ReSharper disable once FunctionNeverReturns
-    }
-
-    protected uint ReadLength(byte[] request, out int lenOffset)
-    {
-        var payloadLenFlag = 0x7F;
-        var len = (uint)(request[1] & payloadLenFlag);
-        lenOffset = 0;
-
-        // read a short length or a long length depending on the value of len
-        if (len == 126)
-        {
-            //len = ReadUShort(fromStream, false, smallBuffer, cancellationToken);
-            len = ReadUShort(request);
-            lenOffset = 2;
-        }
-        if (len == 127)
-        {
-            //len = (uint)ReadULong(fromStream, false, smallBuffer, cancellationToken);
-            len = (uint)ReadULong(request);
-            lenOffset = 8;
-
-            const uint maxLen = 2147483648; // 2GB - not part of the spec but just a precaution. Send large volumes of data in smaller frames.
-            if (len > maxLen) throw new ArgumentOutOfRangeException($"Payload length out of range. Max 2GB. Actual {len:#,##0} bytes.");
-        }
-
-        return len;
-    }
-
-    protected static void WriteULong(ulong value, Stream stream, bool isLittleEndian = false)
-    {
-        var buffer = BitConverter.GetBytes(value);
-        if (BitConverter.IsLittleEndian && !isLittleEndian) Array.Reverse(buffer);
-        stream.Write(buffer, 0, buffer.Length);
-    }
-    protected static void WriteUShort(ushort value, Stream stream, bool isLittleEndian = false)
-    {
-        var buffer = BitConverter.GetBytes(value);
-        if (BitConverter.IsLittleEndian && !isLittleEndian) Array.Reverse(buffer);
-        stream.Write(buffer, 0, buffer.Length);
-    }
-
-    protected static ushort ReadUShort(byte[] request, bool isLittleEndian = false)
-    {
-        byte[] buffer;
-        if (isLittleEndian) buffer = new[] { request[2], request[3] };
-        else buffer = new[] { request[3], request[2] };
-        return BitConverter.ToUInt16(buffer, 0);
-    }
-    protected static ulong ReadULong(byte[] request, bool isLittleEndian = false)
-    {
-        byte[] buffer;
-        if (isLittleEndian) buffer = new[] { request[2], request[4], request[5], request[6], request[7], request[8], request[9], request[10] };
-        else buffer = new[] { request[8], request[8], request[7], request[6], request[5], request[4], request[3], request[2] };
-        return BitConverter.ToUInt16(buffer, 0);
+        TcpListener.Stop();
     }
     #endregion
 
     #region Helper methods
+    protected byte[] PrepareBufferToWrite(byte[] payload)
+    {
+        //Code derived from https://www.codeproject.com/Articles/1063910/WebSocket-Server-in-Csharp
+        var opCode = OpCodeEnum.TextFrame;
+
+        // best to write everything to a memory stream before we push it onto the wire
+        // not really necessary, but I like it this way
+        using (var memoryStream = new MemoryStream())
+        {
+            var finBitSetAsByte = (byte)0x80;
+            var byte1 = (byte)(finBitSetAsByte | (byte)opCode);
+            memoryStream.WriteByte(byte1);
+
+            // depending on the size of the length we want to write it as a byte, ushort or ulong
+            if (payload.Length < 126)
+            {
+                var byte2 = (byte)payload.Length;
+                memoryStream.WriteByte(byte2);
+            }
+            else if (payload.Length <= ushort.MaxValue)
+            {
+                var byte2 = (byte)126;
+                memoryStream.WriteByte(byte2);
+                WriteUShort((ushort)payload.Length, memoryStream);
+            }
+            else
+            {
+                var byte2 = (byte)127;
+                memoryStream.WriteByte(byte2);
+                WriteULong((ulong)payload.Length, memoryStream);
+            }
+
+            memoryStream.Write(payload, 0, payload.Length);
+            var buffer = memoryStream.ToArray();
+
+            return buffer;
+        }
+    }
+    
     protected virtual async Task ProcessTcpRequestAsync(TcpClient client)
     {
         //wait for 2 seconds and, if no data, ignore the request
@@ -325,11 +294,66 @@ public abstract class WebSocketServer
             }
         }
     }
+    
     protected void CloseConnection(TcpClient client)
     {
         client.Close();
         Clients.Remove(client);
         ConnectionClosed(client);
+    }
+
+    protected static uint ReadLength(byte[] request, out int lenOffset)
+    {
+        var payloadLenFlag = 0x7F;
+        var len = (uint)(request[1] & payloadLenFlag);
+        lenOffset = 0;
+
+        // read a short length or a long length depending on the value of len
+        if (len == 126)
+        {
+            //len = ReadUShort(fromStream, false, smallBuffer, cancellationToken);
+            len = ReadUShort(request);
+            lenOffset = 2;
+        }
+        if (len == 127)
+        {
+            //len = (uint)ReadULong(fromStream, false, smallBuffer, cancellationToken);
+            len = (uint)ReadULong(request);
+            lenOffset = 8;
+
+            const uint maxLen = 2147483648; // 2GB - not part of the spec but just a precaution. Send large volumes of data in smaller frames.
+            if (len > maxLen) throw new ArgumentOutOfRangeException($"Payload length out of range. Max 2GB. Actual {len:#,##0} bytes.");
+        }
+
+        return len;
+    }
+
+    protected static void WriteULong(ulong value, Stream stream, bool isLittleEndian = false)
+    {
+        var buffer = BitConverter.GetBytes(value);
+        if (BitConverter.IsLittleEndian && !isLittleEndian) Array.Reverse(buffer);
+        stream.Write(buffer, 0, buffer.Length);
+    }
+    protected static void WriteUShort(ushort value, Stream stream, bool isLittleEndian = false)
+    {
+        var buffer = BitConverter.GetBytes(value);
+        if (BitConverter.IsLittleEndian && !isLittleEndian) Array.Reverse(buffer);
+        stream.Write(buffer, 0, buffer.Length);
+    }
+
+    protected static ushort ReadUShort(byte[] request, bool isLittleEndian = false)
+    {
+        byte[] buffer;
+        if (isLittleEndian) buffer = new[] { request[2], request[3] };
+        else buffer = new[] { request[3], request[2] };
+        return BitConverter.ToUInt16(buffer, 0);
+    }
+    protected static ulong ReadULong(byte[] request, bool isLittleEndian = false)
+    {
+        byte[] buffer;
+        if (isLittleEndian) buffer = new[] { request[2], request[4], request[5], request[6], request[7], request[8], request[9], request[10] };
+        else buffer = new[] { request[8], request[8], request[7], request[6], request[5], request[4], request[3], request[2] };
+        return BitConverter.ToUInt16(buffer, 0);
     }
     #endregion
 
@@ -341,6 +365,8 @@ public abstract class WebSocketServer
     public IPAddress IP { get; }
     public int Port { get; }
 
-    public List<TcpClient> Clients { get; set; } = new List<TcpClient>();
+    public List<TcpClient> Clients { get; set; } = new();
+
+    private bool _stop;
     #endregion
 }

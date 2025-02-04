@@ -16,6 +16,7 @@ public abstract class CRUDDetailPageCore<TModel, TXFModel> : ContentPage, IBasic
     #region Overrides
     protected virtual void AddCancelButton()
     {
+        // ReSharper disable once AsyncVoidLambda
         var cancelToolbarItem = new ToolbarItem("Cancel", CancelBtnIconFilename, async () => {
             DisappearingBecauseOfCancellation = true;
             await Navigation.PopAsync(true);

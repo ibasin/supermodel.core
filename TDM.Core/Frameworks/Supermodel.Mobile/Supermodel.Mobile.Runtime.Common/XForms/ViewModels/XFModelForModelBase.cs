@@ -44,6 +44,7 @@ public abstract class XFModelForModelBase<TModel> : XFModel, IRMapperCustom wher
         foreach (var childModel in childModels)
         {
             DataTemplate dataTemplate;
+            // ReSharper disable once AsyncVoidLambda
             if (onTappedAsync != null) dataTemplate = childModel.GetListCellDataTemplate(async (_, _) => { await onTappedAsync(page, childModel); }, null);
             else dataTemplate = childModel.GetListCellDataTemplate(null, null);
 
@@ -74,7 +75,9 @@ public abstract class XFModelForModelBase<TModel> : XFModel, IRMapperCustom wher
         {
             //var dataTemplate = childModel.GetListCellDataTemplate(null);
 
+            // ReSharper disable once AsyncVoidLambda
             var dataTemplate = childModel.GetListCellDataTemplate(onTappedAsync == null ? null : async (_, _) => { await onTappedAsync(page, childModel); }, 
+                // ReSharper disable once AsyncVoidLambda
                 async (sender, _) =>
                 {
                     bool connectionLost;
