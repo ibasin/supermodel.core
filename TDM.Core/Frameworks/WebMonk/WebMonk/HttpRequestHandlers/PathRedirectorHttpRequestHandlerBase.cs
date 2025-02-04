@@ -12,7 +12,7 @@ public abstract class PathRedirectorHttpRequestHandlerBase : IHttpRequestHandler
     protected PathRedirectorHttpRequestHandlerBase(string redirectFrom, string redirectTo)
     {
         RedirectFrom = redirectFrom.ToLower();
-        RedirectTo = redirectTo.ToLower();
+        RedirectTo = redirectTo;
     }
     #endregion
 
