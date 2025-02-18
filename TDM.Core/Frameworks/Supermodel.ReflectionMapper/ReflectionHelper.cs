@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Supermodel.DataAnnotations.Attributes;
+using Supermodel.DataAnnotations.Validations;
 
 namespace Supermodel.ReflectionMapper;
 
@@ -152,12 +153,16 @@ public static class ReflectionHelper
     {
         try
         {
-            var methodInfo = me.GetType().GetMethods().Single(m => m.Name == methodName && m.IsGenericMethod && m.GetParameters().Length == args.Length && m.GetParameters().Length == args.Length);
+            var methodInfo = me.GetType().GetMethods().Single(m =>
+                m.Name == methodName && m.IsGenericMethod && m.GetParameters().Length == args.Length &&
+                m.GetParameters().Length == args.Length);
             var genericMethodInfo = methodInfo.MakeGenericMethod(genericArguments);
             return genericMethodInfo.Invoke(me, args);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            if (ex.InnerException is ValidationResultException) throw ex.InnerException;
+            
             throw new ReflectionMethodCantBeInvoked(me.GetType(), methodName);
         }
     }

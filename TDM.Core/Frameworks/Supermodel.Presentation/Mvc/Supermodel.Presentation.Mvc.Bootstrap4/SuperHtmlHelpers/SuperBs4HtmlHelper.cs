@@ -830,7 +830,7 @@ public class SuperBs4HtmlHelper<TModel>
         itemInnerHtml.ViewContext.RouteData.Values["id"] = 0;
         sb = newItem.ToEditableHtmlTableRow(itemInnerHtml, parentId, true, selected, sb);
         sb.AppendLine("<td><div class='btn-group'>");
-        sb.AppendLine("<button type='submit' " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListSaveCssClass) + " data_save_edit='data-save-edit'><span class='oi oi-circle-check'></span></button>");     
+        sb.AppendLine("<button type='submit' " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListSaveCssClass) + " data-save-new-edit='data-save-new-edit'><span class='oi oi-circle-check'></span></button>");     
         sb.AppendLine("<button type='button' data-cancel-new-edit " + UtilsLib.MakeClassAttribute(ScaffoldingSettings.CRUDListCancelCssClass) + "><span class='oi oi-action-undo'></span></button>");     
         sb.AppendLine("</div></td>");
         sb.AppendLine("</tr>");

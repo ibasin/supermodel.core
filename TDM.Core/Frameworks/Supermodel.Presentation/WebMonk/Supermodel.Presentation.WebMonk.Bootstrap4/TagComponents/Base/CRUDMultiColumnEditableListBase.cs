@@ -192,7 +192,7 @@ public abstract class CRUDMultiColumnEditableListBase : HtmlSnippet
             {
                 new Div(new { @class="btn-group" })
                 {
-                    new Button(new { type="submit", @class=Bs4.ScaffoldingSettings.CRUDListSaveCssClass, data_save_edit="data-save-edit"})
+                    new Button(new { type="submit", @class=Bs4.ScaffoldingSettings.CRUDListSaveCssClass, data_save_new_edit="data-save-new-edit"})
                     {
                         new Span(new { @class="oi oi-circle-check" })
                     },

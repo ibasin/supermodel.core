@@ -27,7 +27,7 @@ public abstract class SimpleAuthMvcController<TLoginMvcModel, TAuthMvcView> : Mv
         var claims = await AuthenticateAndGetClaimsAsync(login.UsernameStr, login.PasswordStr).ConfigureAwait(false);
         if (claims.All(x => x.Type != ClaimTypes.NameIdentifier))
         {
-            HttpContext.Current.TempData.Super().NextPageModalMessage = "Username and password combination is incorrect!";
+            TempData.Super().NextPageModalMessage = "Username and password combination is incorrect!";
             login.PasswordStr = "";
             return new TAuthMvcView().RenderLogin(login).ToHtmlResult();
         }
