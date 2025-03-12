@@ -8,13 +8,28 @@ namespace Supermodel.Persistence.EFCore.SQLite;
 public abstract class EFCoreSQLiteDataContext : EFCoreDataContext
 {
     #region Constructors
+    static EFCoreSQLiteDataContext()
+    {
+        if (_dbFilePath == null)
+        {
+            //this is to make Cmd project point to the same db as web projects
+            var workingPath = Directory.GetCurrentDirectory();
+
+            string relativePath;
+            if (workingPath.Contains("\\bin\\Debug\\")) relativePath = "../../../../";
+            else if (workingPath.Contains("\\bin\\Release\\")) relativePath = "../../../../";
+            else relativePath = "../";
+
+            _dbFilePath = Path.Combine(workingPath, relativePath);
+        }
+    }
     protected EFCoreSQLiteDataContext(string connectionString, IRepoFactory? customRepoFactory = null)
-        : base(connectionString, customRepoFactory) 
-    { 
+        : base(connectionString, customRepoFactory)
+    {
         // ReSharper disable once StringLiteralTypo
         //if in-memory db, we need to retain the connection
-        if (connectionString.Trim().ToLower() != "datasource=:memory:") 
-        { 
+        if (connectionString.Trim().ToLower() != "datasource=:memory:")
+        {
             Connection = new SqliteConnection(connectionString);
         }
         else
@@ -25,7 +40,7 @@ public abstract class EFCoreSQLiteDataContext : EFCoreDataContext
             }
             else
             {
-                MemoryConnectionStringRetainer = connectionString;                    
+                MemoryConnectionStringRetainer = connectionString;
                 MemoryConnectionRetainer = Connection = new SqliteConnection(connectionString);
                 Connection.Open();
             }
@@ -48,10 +63,14 @@ public abstract class EFCoreSQLiteDataContext : EFCoreDataContext
     {
         get
         {
+            //_dbFilePath should get calculated in the static constructor for this class
+            //this is just in case this is called from a static constructor of some class
+            //that happens to run before our static constructor 
             if (_dbFilePath == null)
             {
                 //this is to make Cmd project point to the same db as web projects
                 var workingPath = Directory.GetCurrentDirectory();
+
                 string relativePath;
                 if (workingPath.Contains("\\bin\\Debug\\")) relativePath = "../../../../";
                 else if (workingPath.Contains("\\bin\\Release\\")) relativePath = "../../../../";
