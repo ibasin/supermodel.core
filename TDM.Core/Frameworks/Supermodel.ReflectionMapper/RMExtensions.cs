@@ -686,8 +686,8 @@ public static class RMExtensions
         var activeElementType = activeType.GetElementType();
         var passiveElementType = passiveType.GetElementType();
 
-        //if element types match, we are good already
-        if (activeElementType == passiveElementType) return true;
+        //element types match
+        if (activeElementType != passiveElementType) return false;
 
         return true;
     }
@@ -717,9 +717,14 @@ public static class RMExtensions
         if (activeICollectionInterface == null) return false;
         if (passiveICollectionInterface == null) return false;
 
-        //both are generic types (this might be generic but just in case)
+        //both are generic interfaces (this might be generic but just in case)
         if (!activeICollectionInterface.GetTypeInfo().IsGenericType) return false;
         if (!passiveICollectionInterface.GetTypeInfo().IsGenericType) return false;
+
+        //element types match
+        var activeElementType = activeICollectionInterface.GetGenericArguments()[0];
+        var passiveElementType = passiveICollectionInterface.GetGenericArguments()[0];
+        if (activeElementType != passiveElementType) return false;
 
         return true;
     }
