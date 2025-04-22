@@ -682,12 +682,10 @@ public static class RMExtensions
         if (!activeType.GetTypeInfo().IsArray) return false;
         if (!passiveType.GetTypeInfo().IsArray) return false;
 
-        //get element types
-        var activeElementType = activeType.GetElementType();
-        var passiveElementType = passiveType.GetElementType();
-
-        //element types match
-        if (activeElementType != passiveElementType) return false;
+        //element types match - don't need this
+        //var activeElementType = activeType.GetElementType();
+        //var passiveElementType = passiveType.GetElementType();
+        //if (activeElementType != passiveElementType) return false;
 
         return true;
     }
