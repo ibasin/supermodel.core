@@ -35,16 +35,16 @@ public class DataRow
         //Json = JsonConvert.SerializeObject(model.PrepareForSerializingForLocalDb());
         Json = JsonConvert.SerializeObject(model);
         BroughtFromMasterDbOnUtc = model.BroughtFromMasterDbOnUtc;       
-        Index0 = (string)sqlQueryProvider.GetIndex(0, model);
-        Index1 = (string)sqlQueryProvider.GetIndex(1, model); 
-        Index2 = (string)sqlQueryProvider.GetIndex(2, model); 
-        Index3 = (string)sqlQueryProvider.GetIndex(3, model);
-        Index4 = (string)sqlQueryProvider.GetIndex(4, model); 
-        Index5 = (string)sqlQueryProvider.GetIndex(5, model);
-        Index6 = (string)sqlQueryProvider.GetIndex(6, model); 
-        Index7 = (string)sqlQueryProvider.GetIndex(7, model); 
-        Index8 = (string)sqlQueryProvider.GetIndex(8, model);
-        Index9 = (string)sqlQueryProvider.GetIndex(9, model); 
+        Index0 = (string?)sqlQueryProvider.GetIndex(0, model);
+        Index1 = (string?)sqlQueryProvider.GetIndex(1, model); 
+        Index2 = (string?)sqlQueryProvider.GetIndex(2, model); 
+        Index3 = (string?)sqlQueryProvider.GetIndex(3, model);
+        Index4 = (string?)sqlQueryProvider.GetIndex(4, model); 
+        Index5 = (string?)sqlQueryProvider.GetIndex(5, model);
+        Index6 = (string?)sqlQueryProvider.GetIndex(6, model); 
+        Index7 = (string?)sqlQueryProvider.GetIndex(7, model); 
+        Index8 = (string?)sqlQueryProvider.GetIndex(8, model);
+        Index9 = (string?)sqlQueryProvider.GetIndex(9, model); 
         Index10 = (long?)sqlQueryProvider.GetIndex(10, model);
         Index11 = (long?)sqlQueryProvider.GetIndex(11, model); 
         Index12 = (long?)sqlQueryProvider.GetIndex(12, model); 
@@ -241,21 +241,21 @@ public class DataRow
     #endregion
 
     #region Properties
-    public string ModelTypeLogicalName { get; set; }
+    public string? ModelTypeLogicalName { get; set; }
     public long ModelId { get; set; }
     public long OriginalModelId { get; set; }
-    public string Json { get; set; }
+    public string? Json { get; set; }
     public DateTime? BroughtFromMasterDbOnUtc { get; set; }
-    public string Index0 { get; set; }
-    public string Index1 { get; set; }
-    public string Index2 { get; set; }
-    public string Index3 { get; set; }
-    public string Index4 { get; set; }
-    public string Index5 { get; set; }
-    public string Index6 { get; set; }
-    public string Index7 { get; set; }
-    public string Index8 { get; set; }
-    public string Index9 { get; set; }
+    public string? Index0 { get; set; }
+    public string? Index1 { get; set; }
+    public string? Index2 { get; set; }
+    public string? Index3 { get; set; }
+    public string? Index4 { get; set; }
+    public string? Index5 { get; set; }
+    public string? Index6 { get; set; }
+    public string? Index7 { get; set; }
+    public string? Index8 { get; set; }
+    public string? Index9 { get; set; }
     public long? Index10 { get; set; }
     public long? Index11 { get; set; }
     public long? Index12 { get; set; }

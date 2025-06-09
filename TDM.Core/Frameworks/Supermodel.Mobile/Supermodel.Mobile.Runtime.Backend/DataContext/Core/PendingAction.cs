@@ -442,7 +442,7 @@ public class PendingAction
     public Type ModelType { get; set; }
     public long ModelId { get; set; }
     public long OriginalModelId { get; set; }
-    public IModel Model { get; set; }
+    public IModel? Model { get; set; }
     public DelayedValue DelayedValue { get; set; }
     public object SearchBy { get; set; }
     public int? Skip { get; set; }

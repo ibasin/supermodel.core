@@ -76,7 +76,7 @@ public abstract class DataContextBase : IQueryableReadableDataContext, IWritable
         if (model == null) throw new SupermodelException("GetByIdAsync(id): no object exists with id = " + id);
         return model;
     }
-    public abstract Task<TModel> GetByIdOrDefaultAsync<TModel>(long id) where TModel : class, IModel, new();
+    public abstract Task<TModel?> GetByIdOrDefaultAsync<TModel>(long id) where TModel : class, IModel, new();
     public abstract Task<List<TModel>> GetAllAsync<TModel>(int? skip = null, int? take = null) where TModel : class, IModel, new();
     public abstract Task<long> GetCountAllAsync<TModel>(int? skip = null, int? take = null) where TModel : class, IModel, new();
     #endregion

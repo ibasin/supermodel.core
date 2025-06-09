@@ -6,7 +6,7 @@ public interface IReadableDataContext : IDataContext
 {
     #region Reads
     Task<TModel> GetByIdAsync<TModel>(long id) where TModel : class, IModel, new();
-    Task<TModel> GetByIdOrDefaultAsync<TModel>(long id) where TModel : class, IModel, new();
+    Task<TModel?> GetByIdOrDefaultAsync<TModel>(long id) where TModel : class, IModel, new();
     Task<List<TModel>> GetAllAsync<TModel>(int? skip = null, int? take = null) where TModel : class, IModel, new();
     Task<long> GetCountAllAsync<TModel>(int? skip = null, int? take = null) where TModel : class, IModel, new();
     #endregion
