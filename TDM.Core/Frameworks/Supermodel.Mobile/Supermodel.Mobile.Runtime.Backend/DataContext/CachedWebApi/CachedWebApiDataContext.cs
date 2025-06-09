@@ -25,7 +25,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
     #endregion
 
     #region Methods
-    public async Task PurgeCacheAsync(int? cacheExpirationAgeInSeconds = null, Type modelType = null)
+    public async Task PurgeCacheAsync(int? cacheExpirationAgeInSeconds = null, Type? modelType = null)
     {
         var sqliteContext = new TSqliteDataContext();
         await sqliteContext.InitDbAsync();
@@ -351,7 +351,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
     #endregion
 
     #region Configuration Properties
-    public AuthHeader AuthHeader { get; set; }
+    public AuthHeader? AuthHeader { get; set; }
     public int CacheAgeToleranceInSeconds { get; set; }
     #endregion
 }

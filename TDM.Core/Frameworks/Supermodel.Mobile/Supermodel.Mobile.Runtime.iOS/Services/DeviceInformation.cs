@@ -4,7 +4,6 @@ using Supermodel.Mobile.Runtime.Common.Services;
 using System;
 using System.IO;
 using UIKit;
-using Xamarin.Essentials;
 
 namespace Supermodel.Mobile.Runtime.iOS.Services;
 

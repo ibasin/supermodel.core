@@ -277,7 +277,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
 
     #region Properties & Constants
     public const string AcceptHeader = "application/json";
-    public AuthHeader AuthHeader { get; set; }
+    public AuthHeader? AuthHeader { get; set; }
     public abstract string BaseUrl { get; }
     #endregion
 }

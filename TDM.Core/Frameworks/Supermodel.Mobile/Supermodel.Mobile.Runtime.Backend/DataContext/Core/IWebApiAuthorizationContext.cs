@@ -6,6 +6,6 @@ namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
 
 public interface IWebApiAuthorizationContext
 {
-    AuthHeader AuthHeader { get; set; }
+    AuthHeader? AuthHeader { get; set; }
     Task<LoginResult> ValidateLoginAsync<TModel>() where TModel : class, IModel;
 }

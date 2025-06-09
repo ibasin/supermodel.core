@@ -64,7 +64,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
     #endregion
 
     #region DataContext Reads
-    public override async Task<TModel> GetByIdOrDefaultAsync<TModel>(long id)
+    public override async Task<TModel?> GetByIdOrDefaultAsync<TModel>(long id) where TModel : class
     {
         if (await InitDbAsync()) return null;
 

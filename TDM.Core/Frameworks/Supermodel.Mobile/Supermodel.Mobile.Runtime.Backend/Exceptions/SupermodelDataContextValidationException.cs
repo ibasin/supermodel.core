@@ -58,8 +58,8 @@ public class SupermodelDataContextValidationException : SupermodelException
         #endregion
 
         #region Properties
-        [JsonIgnore] public PendingAction FailedAction { get; set; }
-        public string Message { get; set; }
+        [JsonIgnore] public PendingAction? FailedAction { get; set; }
+        public string? Message { get; set; }
         #endregion
     }
     #endregion
