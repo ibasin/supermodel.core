@@ -1,7 +1,5 @@
 ﻿using Supermodel.Mobile.Runtime.Common.Services;
 
-#nullable enable
-
 namespace Supermodel.Mobile.Runtime.Common.PersistentDict;
 
 public static class Properties
