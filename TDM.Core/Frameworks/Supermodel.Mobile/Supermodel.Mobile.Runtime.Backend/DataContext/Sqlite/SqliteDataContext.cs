@@ -572,8 +572,8 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         if (await DataTableExistsAsync()) return false;
         await ResetDatabaseAsync();
 
-        //we do this because, in a case when db is deleted but LastSynchDateTimeUtc is set, all records on the server will be deleted
-        Properties.Dict.Remove("smLastSynchDateTimeUtc");
+        //we do this because, in a case when db is deleted but LastSyncDateTimeUtc is set, all records on the server will be deleted
+        Properties.Dict.Remove("smLastSyncDateTimeUtc");
         await Properties.Dict.SaveToDiskAsync();
 
         return true;

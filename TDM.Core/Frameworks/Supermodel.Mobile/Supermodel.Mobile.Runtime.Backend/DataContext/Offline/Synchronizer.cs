@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Supermodel.DataAnnotations.Exceptions;
+﻿using Supermodel.DataAnnotations.Exceptions;
+using Supermodel.Mobile.Runtime.Backend.PersistentProps;
 using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
 using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
 using Supermodel.Mobile.Runtime.Common.Exceptions;
@@ -10,7 +7,6 @@ using Supermodel.Mobile.Runtime.Common.Models;
 using Supermodel.ReflectionMapper;
 using Supermodel.Mobile.Runtime.Common.Repository;
 using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.PersistentDict;
 using Supermodel.Mobile.Runtime.Common.UnitOfWork;
 
 namespace Supermodel.Mobile.Runtime.Common.DataContext.Offline;
@@ -52,7 +48,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 //----------------------------------------------------------------------------------------
                 //Let's try to validate all the models that are to be saved locally
                 //----------------------------------------------------------------------------------------
-                SupermodelDataContextValidationException localValidationException = null;
+                SupermodelDataContextValidationException? localValidationException = null;
                 try
                 {
                     await UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ValidatePendingActionsAsync();
@@ -75,7 +71,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 //Register for refresh if needed
                 //----------------------------------------------------------------------------------------
 
-                DelayedModels<TModel> delayedMasterModels = null;
+                DelayedModels<TModel>? delayedMasterModels = null;
                 if (RefreshFromMasterAfterSynch)
                 {
                     var sqliteDataContext = UnitOfWorkContext<TSqliteDataContext>.PopDbContext();
@@ -89,7 +85,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 //----------------------------------------------------------------------------------------
                 UnitOfWorkContext<TSqliteDataContext>.PopDbContext();
 
-                SupermodelDataContextValidationException serverValidationException = null;
+                SupermodelDataContextValidationException? serverValidationException = null;
                 try
                 {
                     await UnitOfWorkContext.FinalSaveChangesAsync();
@@ -125,14 +121,14 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 //----------------------------------------------------------------------------------------
                 //If that succeeds, then we save changes to the local db, should not have any more validation errors, since we already checked
                 //----------------------------------------------------------------------------------------
-                LastSynchDateTimeUtc = DateTime.UtcNow;
+                LastSyncDateTimeUtc = DateTime.UtcNow;
                 //await UnitOfWorkContext.FinalSaveChangesAsync();
             }
         }
     }
     public bool IsUploadPending(TModel model)
     {
-        return LastSynchDateTimeUtc == null || GetModifiedDateTimeUtc(model) > LastSynchDateTimeUtc;
+        return LastSyncDateTimeUtc == null || GetModifiedDateTimeUtc(model) > LastSyncDateTimeUtc;
     }
     #endregion
 
@@ -149,7 +145,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
             var matchingLocalModel = localModels.SingleOrDefault(x => x.Id == masterModel.Id);
             if (matchingLocalModel != null) //if we found one
             {
-                if (GetModifiedDateTimeUtc(masterModel) > LastSynchDateTimeUtc && GetModifiedDateTimeUtc(matchingLocalModel) > LastSynchDateTimeUtc)
+                if (GetModifiedDateTimeUtc(masterModel) > LastSyncDateTimeUtc && GetModifiedDateTimeUtc(matchingLocalModel) > LastSyncDateTimeUtc)
                 {
                     //if model was updated on both server and client, call the hook to let the user resolve conflict
                     await HandleModelUpdatedOnServerAndDeviceAsync(masterModel, matchingLocalModel);
@@ -163,7 +159,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
             else //if not, there could be two scenarios:
             {
                 //If the model on the server was created after our last synch or if we never synched before
-                if (GetCreatedDateTimeUtc(masterModel) > LastSynchDateTimeUtc || LastSynchDateTimeUtc == null)
+                if (GetCreatedDateTimeUtc(masterModel) > LastSyncDateTimeUtc || LastSyncDateTimeUtc == null)
                 {
                     //we need to add the master model to our local storage
                     //var localModel = new TModel();
@@ -174,7 +170,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 else
                 {
                     //otherwise it means that we deleted the model on the client and now we need to delete it from the server
-                    if (GetModifiedDateTimeUtc(masterModel) > LastSynchDateTimeUtc)
+                    if (GetModifiedDateTimeUtc(masterModel) > LastSyncDateTimeUtc)
                     {
                         //if since our last synch the model was modified on the server and deleted on the client, call the hook to let the user resolve conflict
                         HandleModelUpdatedOnServerDeletedOnDevice(masterModel);
@@ -208,7 +204,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 if (matchingServerModel == null) //if one exists, we already updated it and need not worry
                 {
                     //otherwise, it means that the model was deleted on the server
-                    if (GetModifiedDateTimeUtc(localModel) > LastSynchDateTimeUtc)
+                    if (GetModifiedDateTimeUtc(localModel) > LastSyncDateTimeUtc)
                     {
                         //if since our last synch the model was modified on the device and deleted on the client, call the hook to let the user resolve conflict
                         HandleModelUpdatedOnDeviceDeletedOnServer(localModel);
@@ -294,26 +290,26 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
     #endregion
 
     #region LastSynch DateTime Handling
-    public virtual DateTime? LastSynchDateTimeUtc
+    public virtual DateTime? LastSyncDateTimeUtc
     {
-        get => _lastSynchDateTimeUtc ??= LastSynchDateTimeUtcInternal;
-        set => _lastSynchDateTimeUtc = LastSynchDateTimeUtcInternal = value;
+        get => _lastSyncDateTimeUtc ??= LastSyncDateTimeUtcInternal;
+        set => _lastSyncDateTimeUtc = LastSyncDateTimeUtcInternal = value;
     }
-    private DateTime? _lastSynchDateTimeUtc;
+    private DateTime? _lastSyncDateTimeUtc;
         
-    protected virtual DateTime? LastSynchDateTimeUtcInternal
+    protected virtual DateTime? LastSyncDateTimeUtcInternal
     {
         get
         {
-            if (!Properties.Dict.ContainsKey("smLastSynchDateTimeUtc")) return null;
-            return Properties.Dict["smLastSynchDateTimeUtc"] as DateTime?;
+            if (!Properties.Props.ContainsKey("smLastSyncDateTimeUtc")) return null;
+            return Properties.Props.Get<DateTime>("smLastSyncDateTimeUtc");
         }
         set
         {
-            Properties.Dict["smLastSynchDateTimeUtc"] = value;
-#pragma warning disable 4014
-            Properties.Dict.SaveToDiskAsync();
-#pragma warning restore 4014
+            if (value == null) throw new ArgumentNullException(nameof(value));
+            #pragma warning disable 4014
+            Properties.Props.SetAsync("smLastSyncDateTimeUtc", value);
+            #pragma warning restore 4014
         }
     }
     #endregion

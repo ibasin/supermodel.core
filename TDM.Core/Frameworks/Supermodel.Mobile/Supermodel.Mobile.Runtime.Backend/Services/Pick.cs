@@ -15,9 +15,9 @@ public static class Pick
         
     public static T ForPlatform<T>(T iOS, T droid)
     {
-        if (Device.RuntimePlatform == Device.iOS) return iOS;
-        if (Device.RuntimePlatform == Device.Android) return droid;
-        else throw new SupermodelException($"Unsupported Platform {Device.RuntimePlatform}");
+        if (DeviceInfo.Platform == DevicePlatform.iOS) return iOS;
+        if (DeviceInfo.Platform == DevicePlatform.Android) return droid;
+        else throw new SupermodelException($"Unsupported Platform {DeviceInfo.Platform}");
     }
 
     public static T ForPlatform<T>(T iOS, T droid, T netCore)

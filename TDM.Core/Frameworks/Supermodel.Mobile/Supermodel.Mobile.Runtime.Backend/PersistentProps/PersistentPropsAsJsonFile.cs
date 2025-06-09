@@ -1,16 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Newtonsoft.Json;
 using Supermodel.DataAnnotations.Exceptions;
 
-namespace Supermodel.Mobile.Runtime.Common.PersistentDict;
+namespace Supermodel.Mobile.Runtime.Backend.PersistentProps;
 
-public class PersistentDictionaryAsJsonFile : Dictionary<string, object>, IPersistentDict
+public class PersistentPropsAsJsonFile : Dictionary<string, object>, IPersistentProps
 {
     #region Constructors
-    public PersistentDictionaryAsJsonFile(string fileName)
+    public PersistentPropsAsJsonFile(string fileName)
     {
         FileName = fileName;
 
@@ -21,6 +18,39 @@ public class PersistentDictionaryAsJsonFile : Dictionary<string, object>, IPersi
             var json = File.ReadAllText(path);
             JsonConvert.PopulateObject(json, this);
         }
+    }
+    #endregion
+
+    #region IPersistentProps implementation
+    public Task ClearAsync()
+    {
+        Clear();
+        return SaveToDiskAsync();
+    }
+    public Task RemoveAsync(string key)
+    {
+        Remove(key);
+        return SaveToDiskAsync();
+    }
+    public Task SetAsync(string key, object value)
+    {
+        this[key] = value;
+        return SaveToDiskAsync();
+    }
+
+    public new bool ContainsKey(string key)
+    {
+        return base.ContainsKey(key);
+    }
+    public T Get<T>(string key, T defaultValue)
+    {
+        if (ContainsKey(key)) return (T)base[key];
+        return defaultValue;
+    }
+    public T Get<T>(string key)
+    {
+        if (ContainsKey(key)) return (T)base[key];
+        throw new KeyNotFoundException(key);
     }
     #endregion
 
