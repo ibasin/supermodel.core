@@ -72,12 +72,16 @@ public class DataRow
     #region Methods
     public IModel GetModel(Type modelType)
     {
-        var model = (IModel)JsonConvert.DeserializeObject(Json, modelType);
+        if (Json == null) throw new NullReferenceException(nameof(Json));
+
+        var model = (IModel?)JsonConvert.DeserializeObject(Json, modelType);
         if (model!.Id != ModelId || ModelTypeLogicalName != DataContextBase.GetModelTypeLogicalName(modelType)) throw new Exception("Database corruption: (THIS SHOULD NEVER HAPPEN): model.Id != DataRow.ModelId || ModelTypeLogicalName != DataContextBase.GetModelTypeLogicalName<TModel>()");
         return model;
     }
     public string GenerateSqlInsertOrReplace(string dataTableName)
     {
+        if (Json == null) throw new NullReferenceException(nameof(Json));
+
         // ReSharper disable once UseStringInterpolation
         var sql = string.Format(@"INSERT OR REPLACE INTO [{0}] 
 			                          (ModelTypeLogicalName, ModelId, Json, BroughtFromMasterDbOnUtcTicks, Index0, Index1, Index2, Index3, Index4, Index5, Index6, Index7, Index8, Index9, Index10, Index11, Index12, Index13, Index14, Index15, Index16, Index17, Index18, Index19, Index20, Index21, Index22, Index23, Index24, Index25, Index26, Index27, Index28, Index29) 
@@ -121,6 +125,8 @@ public class DataRow
     }
     public string GenerateSqlInsert(string dataTableName)
     {
+        if (Json == null) throw new NullReferenceException(nameof(Json));
+
         // ReSharper disable once UseStringInterpolation
         var sql = string.Format(@"INSERT INTO [{0}] 
 			                          (ModelTypeLogicalName, ModelId, Json, BroughtFromMasterDbOnUtcTicks, Index0, Index1, Index2, Index3, Index4, Index5, Index6, Index7, Index8, Index9, Index10, Index11, Index12, Index13, Index14, Index15, Index16, Index17, Index18, Index19, Index20, Index21, Index22, Index23, Index24, Index25, Index26, Index27, Index28, Index29) 
@@ -164,6 +170,8 @@ public class DataRow
     }
     public string GenerateSqlUpdate(string dataTableName)
     {
+        if (Json == null) throw new NullReferenceException(nameof(Json));
+
         var sql = string.Format(@"UPDATE [{0}] 
 			                            SET 
 			                            ModelId = {35},
