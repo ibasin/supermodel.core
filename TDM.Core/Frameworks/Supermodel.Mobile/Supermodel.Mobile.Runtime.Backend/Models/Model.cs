@@ -7,7 +7,7 @@ using Supermodel.Mobile.Runtime.Common.Repository;
 using Supermodel.Mobile.Runtime.Common.DataContext.Core;
 using Supermodel.ReflectionMapper;
 using System.ComponentModel;
-using Xamarin.Forms;
+//using Xamarin.Forms;
 using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
 using Supermodel.Mobile.Runtime.Common.UnitOfWork;
 using System.Linq;

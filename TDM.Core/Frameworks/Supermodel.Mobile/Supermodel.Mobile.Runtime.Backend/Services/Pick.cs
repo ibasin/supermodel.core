@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.Versioning;
 using Supermodel.DataAnnotations.Exceptions;
-using Xamarin.Forms;
+//using Xamarin.Forms;
 
 namespace Supermodel.Mobile.Runtime.Common.Services;
 

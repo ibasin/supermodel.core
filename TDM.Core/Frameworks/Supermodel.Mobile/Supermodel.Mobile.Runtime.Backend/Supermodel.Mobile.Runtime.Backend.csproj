@@ -20,6 +20,14 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.70" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Supermodel.DataAnnotations\Supermodel.DataAnnotations.csproj" />
+	  <ProjectReference Include="..\..\Supermodel.Encryptor\Supermodel.Encryptor.csproj" />
+	  <ProjectReference Include="..\..\Supermodel.ReflectionMapper\Supermodel.ReflectionMapper.csproj" />
 	</ItemGroup>
 
 </Project>
