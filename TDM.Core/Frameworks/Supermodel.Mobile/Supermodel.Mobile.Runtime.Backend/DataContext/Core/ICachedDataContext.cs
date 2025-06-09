@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
+﻿namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
 
 public interface ICachedDataContext
 {

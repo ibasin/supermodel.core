@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Supermodel.Mobile.Runtime.Common.Models;
+﻿namespace Supermodel.Mobile.Runtime.Common.Models;
 
 public abstract class DirectChildModel : ChildModel
 {

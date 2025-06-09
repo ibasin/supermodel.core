@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
 using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
 using Supermodel.Mobile.Runtime.Common.Models;
 using Supermodel.ReflectionMapper;
-using System.Linq;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.Mobile.Runtime.Common.UnitOfWork;
 

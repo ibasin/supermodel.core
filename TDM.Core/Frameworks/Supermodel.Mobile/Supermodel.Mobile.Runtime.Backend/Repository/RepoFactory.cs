@@ -1,5 +1,4 @@
-﻿using System;
-using Supermodel.Mobile.Runtime.Common.Models;
+﻿using Supermodel.Mobile.Runtime.Common.Models;
 using Supermodel.ReflectionMapper;
 using Supermodel.Mobile.Runtime.Common.UnitOfWork;
 

@@ -1,11 +1,7 @@
-﻿using System;
-using Supermodel.Encryptor;
-using System.Threading.Tasks;
+﻿using Supermodel.Encryptor;
 using Supermodel.Mobile.Runtime.Common.Models;
-using System.Collections.Generic;
 using Supermodel.Mobile.Runtime.Common.DataContext.Core;
 using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
-using System.Linq;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.DataAnnotations.LogicalContext;
 using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;

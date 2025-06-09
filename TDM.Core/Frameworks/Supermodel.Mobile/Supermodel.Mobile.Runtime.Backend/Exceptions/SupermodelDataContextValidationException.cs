@@ -1,7 +1,5 @@
 ﻿using Supermodel.DataAnnotations.Validations;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Newtonsoft.Json;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.Mobile.Runtime.Common.DataContext.Core;

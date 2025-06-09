@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Supermodel.Mobile.Runtime.Common.Models;
+﻿using Supermodel.Mobile.Runtime.Common.Models;
 
 namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
 

@@ -3,16 +3,11 @@ using Supermodel.Mobile.Runtime.Common.DataContext.Core;
 using Supermodel.Mobile.Runtime.Common.Exceptions;
 using Supermodel.Mobile.Runtime.Common.Models;
 using Supermodel.Encryptor;
-using Supermodel.Mobile.Runtime.Common.Utils;   
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Supermodel.Mobile.Runtime.Common.Utils;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Headers;
-using System.Net.Http;
 using Supermodel.DataAnnotations.Exceptions;
 using MultipartContent = Supermodel.Mobile.Runtime.Common.Multipart.MultipartContent;
 

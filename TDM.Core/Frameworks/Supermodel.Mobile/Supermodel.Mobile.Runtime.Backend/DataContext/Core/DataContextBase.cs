@@ -1,9 +1,5 @@
 ﻿using Supermodel.DataAnnotations.Validations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Supermodel.Mobile.Runtime.Common.Exceptions;
 using Supermodel.Mobile.Runtime.Common.Models;
 using Supermodel.Mobile.Runtime.Common.Repository;

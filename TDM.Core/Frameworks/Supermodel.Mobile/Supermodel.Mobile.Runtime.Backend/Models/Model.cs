@@ -1,6 +1,4 @@
 ﻿using Supermodel.DataAnnotations.Validations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Supermodel.Mobile.Runtime.Common.Repository;
@@ -10,8 +8,6 @@ using System.ComponentModel;
 //using Xamarin.Forms;
 using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
 using Supermodel.Mobile.Runtime.Common.UnitOfWork;
-using System.Linq;
-using System.Threading.Tasks;
 using Supermodel.DataAnnotations.Exceptions;
 
 namespace Supermodel.Mobile.Runtime.Common.Models;

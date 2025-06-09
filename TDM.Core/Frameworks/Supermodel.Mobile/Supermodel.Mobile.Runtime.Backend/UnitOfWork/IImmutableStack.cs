@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Supermodel.Mobile.Runtime.Common.UnitOfWork;
+﻿namespace Supermodel.Mobile.Runtime.Common.UnitOfWork;
 
 public interface IImmutableStack<T> : IEnumerable<T>
 {

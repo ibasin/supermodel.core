@@ -2,8 +2,6 @@
 using Supermodel.Persistence.UnitOfWork;
 using System;
 using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using WebMonk;
 using WMDomain.Supermodel.Persistence;

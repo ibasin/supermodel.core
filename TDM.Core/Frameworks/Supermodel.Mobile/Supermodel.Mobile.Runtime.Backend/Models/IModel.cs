@@ -1,7 +1,5 @@
 ﻿using Supermodel.DataAnnotations.Validations;
-using System;
 using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using System.Collections.Generic;
 
 namespace Supermodel.Mobile.Runtime.Common.Models;
 

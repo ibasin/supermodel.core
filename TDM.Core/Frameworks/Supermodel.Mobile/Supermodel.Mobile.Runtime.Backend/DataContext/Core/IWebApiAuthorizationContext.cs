@@ -1,5 +1,4 @@
 ﻿using Supermodel.Encryptor;
-using System.Threading.Tasks;
 using Supermodel.Mobile.Runtime.Common.Models;
 using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
 

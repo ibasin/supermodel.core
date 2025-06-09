@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
 using SQLite;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.Mobile.Runtime.Common.DataContext.Core;
 using Supermodel.Mobile.Runtime.Common.Models;
 using Supermodel.DataAnnotations.LogicalContext;
-using Supermodel.Mobile.Runtime.Common.PersistentDict;
 using Supermodel.Mobile.Runtime.Common.Services;
 using Supermodel.Mobile.Runtime.Common.UnitOfWork;
+using Supermodel.Mobile.Runtime.Backend.PersistentProps;
 
 namespace Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
 
@@ -26,7 +21,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
     //#endregion
 
     #region ISqlQueryProvider implemetation
-    public virtual object GetIndex<TModel>(int idxNum0To29, TModel model)
+    public virtual object? GetIndex<TModel>(int idxNum0To29, TModel model)
     {
         if (idxNum0To29 < 0 || idxNum0To29 > 29) throw new SupermodelException("Only Indexes 0-29 are allowed");
         // ReSharper disable ConditionIsAlwaysTrueOrFalse
@@ -38,7 +33,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
     }
     // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Global
     // ReSharper disable UnusedParameter.Global
-    public virtual string GetStringIndex<TModel>(int idxNum0To9, TModel model)
+    public virtual string? GetStringIndex<TModel>(int idxNum0To9, TModel model)
     {
         if (idxNum0To9 < 0 || idxNum0To9 > 9) throw new SupermodelException("Only Indexes 0-9 are allowed");
         return null;
@@ -55,7 +50,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
     }
     // ReSharper restore UnusedParameter.Global
     // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Global
-    public virtual string GetWhereClause<TModel>(object searchBy, string sortBy)
+    public virtual string? GetWhereClause<TModel>(object searchBy, string sortBy)
     {
         return null;
     }
@@ -573,8 +568,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         await ResetDatabaseAsync();
 
         //we do this because, in a case when db is deleted but LastSyncDateTimeUtc is set, all records on the server will be deleted
-        Properties.Dict.Remove("smLastSyncDateTimeUtc");
-        await Properties.Dict.SaveToDiskAsync();
+        await Properties.Props.RemoveAsync("smLastSyncDateTimeUtc");
 
         return true;
     }
