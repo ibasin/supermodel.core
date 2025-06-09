@@ -11,7 +11,7 @@ class StudentMvcModel
     public string LastName { get; set; } = "";
     public double? GPA { get; set; }
     public AddressMvcModel Address { get; set; } = new AddressMvcModel();
-    [RMapTo(".Address.Zip")] public string StudentZip { get; set; } = "";
+    [RMapsTo(".Address.Zip")] public string StudentZip { get; set; } = "";
     public List<GradeMvcModel> Grades {get; set;} = new List<GradeMvcModel>();
 
 }

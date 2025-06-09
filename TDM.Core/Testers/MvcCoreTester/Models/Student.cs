@@ -92,7 +92,7 @@ public class StudentDetailMvcModel : Bs4.MvcModelForEntity<Student>
     [Required, ListColumn(OrderBy = nameof(LastName)), DisplayName("Surname")] public Bs4.TextBoxMvcModel LastName { get; set; } = new();
     public Bs4.PasswordTextBoxMvcModel SocialSecurity { get; set; } = new();
     [Required, ListColumn(OrderBy = nameof(Age))] public Bs4.TextBoxMvcModel Age { get; set; } = new();
-    [RMapTo(".Image"), NotRMappedTo] public Bs4.ImageMvcModel Picture { get; set; } = new() { HtmlAttributesAsObj = new { width = 200 } };
+    [RMapsTo(".Image"), NotRMappedTo] public Bs4.ImageMvcModel Picture { get; set; } = new() { HtmlAttributesAsObj = new { width = 200 } };
     [HideLabel(KeepLabelSpace = true)] public Bs4.BinaryFileMvcModel Image { get; set; } = new();
     //[Required, RMapTo(".Gender")] public Super.Bs4.DropdownMvcModelUsingEnum<GenderEnum> Gender2 { get; set; } = new Super.Bs4.DropdownMvcModelUsingEnum<GenderEnum>();
     [Required, ListColumn(OrderBy = nameof(Gender))] public Bs4.RadioSelectMvcModelUsingEnum<GenderEnum> Gender { get; set; } = new();
