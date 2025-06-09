@@ -20,10 +20,10 @@ public class SupermodelDataContextValidationException : SupermodelException
                 foreach (var memberName in validationResult.MemberNames)
                 {
                     var existingError = this.SingleOrDefault(x => x.Name == memberName);
-                    if (existingError != null) existingError.ErrorMessages.Add(validationResult.ErrorMessage);
-                    else Add(new Error (memberName, validationResult.ErrorMessage) );
+                    if (existingError != null) existingError.ErrorMessages.Add(validationResult.ErrorMessage ?? "");
+                    else Add(new Error(memberName, validationResult.ErrorMessage ?? ""));
                 }
-                if (!validationResult.MemberNames.Any()) Add(new Error("", validationResult.ErrorMessage));
+                if (!validationResult.MemberNames.Any()) Add(new Error("", validationResult.ErrorMessage ?? ""));
             }
             FailedAction = failedAction;
             Message = message;
@@ -42,16 +42,16 @@ public class SupermodelDataContextValidationException : SupermodelException
             public Error(string name, string errorMessage)
             {
                 Name = name;
-                ErrorMessages = new List<string>{ errorMessage };
+                ErrorMessages = [errorMessage];
             }
             public Error()
             {
-                ErrorMessages = new List<string>();
+                ErrorMessages = [];
             }
             #endregion
 
             #region Properties
-            public string Name { get; set; }
+            public string? Name { get; set; }
             public List<string> ErrorMessages { get; set; }
             #endregion
         }
@@ -67,7 +67,7 @@ public class SupermodelDataContextValidationException : SupermodelException
     #region Constructors
     public SupermodelDataContextValidationException(ValidationError validationError)
     {
-        _validationErrors = new List<ValidationError>{validationError};
+        _validationErrors = [validationError];
     }
     public SupermodelDataContextValidationException(List<ValidationError> validationErrors)
     {
@@ -85,10 +85,10 @@ public class SupermodelDataContextValidationException : SupermodelException
             foreach (var error in validationError)
             {
                 if (error.Name == "id") continue;
-                if (error.Name.StartsWith("apiModelItem.")) error.Name = error.Name.Split('.').Last();
+                if (error.Name!.StartsWith("apiModelItem.")) error.Name = error.Name.Split('.').Last();
                 foreach (var errorMessage in error.ErrorMessages)
                 {
-                    var vr = new ValidationResult(errorMessage, new[] { error.Name });
+                    var vr = new ValidationResult(errorMessage, [error.Name]);
                     if (!VrlContainsVr(vrl, vr)) vrl.Add(vr);
                 }
             }

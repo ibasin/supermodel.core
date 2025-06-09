@@ -11,7 +11,7 @@ public class Range
     #region Constructors
     public Range()
     {
-        _simpleRanges = Array.Empty<SimpleRange>();
+        _simpleRanges = [];
     }
     public Range(params SimpleRange[] simpleRanges)
     {

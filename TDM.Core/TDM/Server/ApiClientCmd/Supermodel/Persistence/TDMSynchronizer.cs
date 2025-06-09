@@ -20,7 +20,7 @@ public class TDMSynchronizer : Synchronizer<ToDoList, TDMWebApiDataContext, TDMS
     protected override void SetUpWebApiContext(TDMWebApiDataContext context)
     {
         context.CustomValues["InSynchronizer"] = true; 
-        context.AuthHeader = new TDMSecureAuthHeaderGenerator("ilya.basin@noblis.org", "0", Array.Empty<byte>()).CreateAuthHeader();
+        context.AuthHeader = new TDMSecureAuthHeaderGenerator("ilya.basin@noblis.org", "0", []).CreateAuthHeader();
     }
 
     protected override void SetUpSqliteContext(TDMSqliteDataContext context)

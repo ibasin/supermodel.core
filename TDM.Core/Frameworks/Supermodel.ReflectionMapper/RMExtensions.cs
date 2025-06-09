@@ -72,14 +72,16 @@ public static class RMExtensions
     public static Task<object> MapFromAsync(this object me, object passive, Type passiveType, bool forceShallowForAllProps = false)
     {
         var myType = me.GetType();
-        var task = ReflectionHelper.ExecuteStaticGenericMethod(typeof(RMExtensions), nameof(MapFromAsync), new[] { myType, passiveType }, me, passive, forceShallowForAllProps || myType.IsMarkedForShallowCopyFrom());
+        var task = ReflectionHelper.ExecuteStaticGenericMethod(typeof(RMExtensions), nameof(MapFromAsync), [myType, passiveType
+        ], me, passive, forceShallowForAllProps || myType.IsMarkedForShallowCopyFrom());
         if (task == null) throw new SystemException("MapFromAsync: task == null");
         return task.GetResultAsObjectAsync();
     }
     public static Task<object> MapToAsync(this object me, object passive, Type passiveType, bool forceShallowForAllProps = false)
     {
         var myType = me.GetType();
-        var task = ReflectionHelper.ExecuteStaticGenericMethod(typeof(RMExtensions), nameof(MapToAsync), new[] { myType, passiveType }, me, passive, forceShallowForAllProps || myType.IsMarkedForShallowCopyTo());
+        var task = ReflectionHelper.ExecuteStaticGenericMethod(typeof(RMExtensions), nameof(MapToAsync), [myType, passiveType
+        ], me, passive, forceShallowForAllProps || myType.IsMarkedForShallowCopyTo());
         if (task == null) throw new SystemException("MapToAsync: task == null");
         return task.GetResultAsObjectAsync();
     }
@@ -204,7 +206,8 @@ public static class RMExtensions
                     if (myProperty is IRMapperCustom myPropertyRMCustom)
                     {
                         //the below is equivalent of await myPropertyRMCustom.MapFromCustomAsync(otherProperty); but we need passive property to go in as <T>
-                        var task = myPropertyRMCustom.ExecuteGenericMethod(nameof(IRMapperCustom.MapFromCustomAsync), new []{ otherPropertyMeta.PropertyInfo.PropertyType}, otherProperty);  
+                        var task = myPropertyRMCustom.ExecuteGenericMethod(nameof(IRMapperCustom.MapFromCustomAsync),
+                            [otherPropertyMeta.PropertyInfo.PropertyType], otherProperty);  
                         if (task == null) throw new SystemException("MapFromCustomAsync: task == null");
                         await task.GetResultAsObjectAsync();
 
@@ -220,7 +223,8 @@ public static class RMExtensions
                     foreach (var validationResult in ex.ValidationResultList)
                     {
                         if (validationResult.MemberNames.Any(x => !string.IsNullOrWhiteSpace(x))) vr.Add(validationResult);
-                        else vr.Add(new ValidationResult(validationResult.ErrorMessage, new[] { myPropertyMeta.PropertyInfo.Name }));
+                        else vr.Add(new ValidationResult(validationResult.ErrorMessage, [myPropertyMeta.PropertyInfo.Name
+                        ]));
                     }
                     throw new ValidationResultException(vr);
                 }
@@ -433,7 +437,8 @@ public static class RMExtensions
                 try
                 {
                     //the below is equivalent of otherProperty = await myPropertyRMCustom.MapToCustomAsync(otherProperty); but we need passive property to go in as <T>
-                    var task = myPropertyRMCustom.ExecuteGenericMethod(nameof(IRMapperCustom.MapToCustomAsync), new[] { otherPropertyMeta.PropertyInfo.PropertyType }, otherProperty);
+                    var task = myPropertyRMCustom.ExecuteGenericMethod(nameof(IRMapperCustom.MapToCustomAsync),
+                        [otherPropertyMeta.PropertyInfo.PropertyType], otherProperty);
                     if (task == null) throw new SystemException("MapToCustomAsync: task == null");
                     otherProperty = await task.GetResultAsObjectAsync();
                     otherPropertyMeta.Set(otherProperty, true);
@@ -444,7 +449,8 @@ public static class RMExtensions
                     foreach (var validationResult in ex.ValidationResultList)
                     {
                         if (validationResult.MemberNames.Any(x => !string.IsNullOrWhiteSpace(x))) vr.Add(validationResult);
-                        else vr.Add(new ValidationResult(validationResult.ErrorMessage, new[] { myPropertyMeta.PropertyInfo.Name }));
+                        else vr.Add(new ValidationResult(validationResult.ErrorMessage, [myPropertyMeta.PropertyInfo.Name
+                        ]));
                     }
                     throw new ValidationResultException(vr);
                 }

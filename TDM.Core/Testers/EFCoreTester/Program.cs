@@ -45,8 +45,12 @@ class Program
 
             var books = new[]
             {
-                new Book { Title = "War and peace", Author = authors[0], Price = 30, Content = new BinaryFile { FileName = "WarAndPeace.pdf", BinaryContent = new byte[] { 0x10, 0x11, 0x12 } } },
-                new Book { Title = "Adventures of Huckleberry Finn", Author = authors[1], Price = 20, Content = new BinaryFile { FileName = "AdventuresOfHuckFinn.pdf", BinaryContent = new byte[] { 0x20, 0x21, 0x22 } } }
+                new Book { Title = "War and peace", Author = authors[0], Price = 30, Content = new BinaryFile { FileName = "WarAndPeace.pdf", BinaryContent =
+                    [0x10, 0x11, 0x12]
+                } },
+                new Book { Title = "Adventures of Huckleberry Finn", Author = authors[1], Price = 20, Content = new BinaryFile { FileName = "AdventuresOfHuckFinn.pdf", BinaryContent =
+                    [0x20, 0x21, 0x22]
+                } }
             };
             foreach (var book in books) book.Add();
 

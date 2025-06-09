@@ -9,7 +9,7 @@ class Program
     static void Main()
     {
         //var modelGenerator = new ModelGen(new[] { typeof(Web.Controllers.ToDoItemController).Assembly });
-        var modelGenerator = new ModelGen(new[] { typeof(WMWeb.Mvc.ToDoItemPage.ToDoItemMvcController).Assembly });
+        var modelGenerator = new ModelGen([typeof(WMWeb.Mvc.ToDoItemPage.ToDoItemMvcController).Assembly]);
         var sb = modelGenerator.GenerateModels();
         var code = sb.ToString();
         File.WriteAllText(@"..\..\..\Supermodel.Mobile.ModelsForRuntime.cs", code);

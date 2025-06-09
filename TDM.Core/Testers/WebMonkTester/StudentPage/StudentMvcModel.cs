@@ -25,7 +25,7 @@ public class StudentMvcModel : Bs4.MvcModel  //ISelfModelBinder
 
     public bool MinorityStudent { get; set; } = true;
         
-    [Required] public byte[] Picture { get; set; } = Array.Empty<byte>();
+    [Required] public byte[] Picture { get; set; } = [];
     [ScaffoldColumn(false)] public string PictureFileName { get; set; } = "";
 
     public AddressMvcModel Address { get; set; } = new()
@@ -36,9 +36,10 @@ public class StudentMvcModel : Bs4.MvcModel  //ISelfModelBinder
         Zip = new Bs4.TextBoxMvcModel { Value = "22181", Type = "text" },
     };
 
-    public List<string> Classes { get; set; } = new() { "Math", "Science", "English" };
-    public string[] ClassesArr { get; set; } = new string[] { "Math", "Science", "English" };
-    public List<HobbyMvcModel> Hobbies { get; set; } = new() { new HobbyMvcModel { Name = "Model Airplanes" }, { new HobbyMvcModel { Name = "Stamp Collecting" } } };
+    public List<string> Classes { get; set; } = ["Math", "Science", "English"];
+    public string[] ClassesArr { get; set; } = ["Math", "Science", "English"];
+    public List<HobbyMvcModel> Hobbies { get; set; } =
+        [new HobbyMvcModel { Name = "Model Airplanes" }, new HobbyMvcModel { Name = "Stamp Collecting" }];
     public Dictionary<string, string> Dict { get; set; }  = new() { { "A", "Alpha" }, { "B", "Beta"} };
     #endregion
 }

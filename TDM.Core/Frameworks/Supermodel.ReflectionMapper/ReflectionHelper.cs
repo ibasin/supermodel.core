@@ -83,7 +83,7 @@ public static class ReflectionHelper
     }
     public static object CreateGenericType(Type genericType, Type innerType, params object?[] args)
     {
-        return CreateGenericType(genericType, new[] {innerType}, args);
+        return CreateGenericType(genericType, [innerType], args);
     }
         
     public static object? PropertyGet(this object me, string propertyName, object[]? index = null)
@@ -103,7 +103,7 @@ public static class ReflectionHelper
         var setMethod = myProperty.GetSetMethod(true);
         if (setMethod != null)
         {
-            setMethod.Invoke(me, new[] {newValue});
+            setMethod.Invoke(me, [newValue]);
         }
         else
         {

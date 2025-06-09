@@ -12,7 +12,7 @@ class StudentMvcModel
     public double? GPA { get; set; }
     public AddressMvcModel Address { get; set; } = new AddressMvcModel();
     [RMapsTo(".Address.Zip")] public string StudentZip { get; set; } = "";
-    public List<GradeMvcModel> Grades {get; set;} = new List<GradeMvcModel>();
+    public List<GradeMvcModel> Grades {get; set;} = [];
 
 }
 
@@ -36,7 +36,7 @@ class Student
     public string LastName { get; set; } = "";
     public double? GPA { get; set; }
     public Address Address { get; set; } = new Address();
-    public List<Grade> Grades {get; set;} = new List<Grade>();
+    public List<Grade> Grades {get; set;} = [];
 }
 
 class Address
@@ -76,18 +76,18 @@ class Program
                 State = "VA",
                 Zip = "22181"
             },
-            Grades = new List<Grade> 
-            { 
-                new Grade{ Subject = "Math", Score = 4.0},
-                new Grade{ Subject = "Biology", Score = 3.0},
-                new Grade{ Subject = "PE", Score = 2.0},
-            }
+            Grades =
+            [
+                new Grade { Subject = "Math", Score = 4.0 },
+                new Grade { Subject = "Biology", Score = 3.0 },
+                new Grade { Subject = "PE", Score = 2.0 }
+            ]
         };
         var students = new List<Student> { student };
         var studentMvcModels = new List<StudentMvcModel>();
 
         await studentMvcModels.MapFromAsync(students);
-        students = new List<Student>();
+        students = [];
         await studentMvcModels.MapToAsync(students);
 
 

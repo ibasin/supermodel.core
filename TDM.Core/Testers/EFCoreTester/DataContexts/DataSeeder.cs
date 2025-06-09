@@ -45,7 +45,7 @@ public static class DataSeeder
                 Content = new BinaryFile
                 {
                     FileName = "WarAndPeace.pdf",
-                    BinaryContent = new byte[] { 0x10, 0x11, 0x12 }
+                    BinaryContent = [0x10, 0x11, 0x12]
                 }
             },
             new Book
@@ -57,7 +57,7 @@ public static class DataSeeder
                 Content = new BinaryFile
                 {
                     FileName = "AdventuresOfHuckFinn.pdf",
-                    BinaryContent = new byte[] { 0x20, 0x21, 0x22 }
+                    BinaryContent = [0x20, 0x21, 0x22]
                 }
             }
         };

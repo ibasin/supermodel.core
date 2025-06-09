@@ -54,7 +54,7 @@ public class AuthorizeAttribute : ActionFilterAttribute
                     var response = HttpContext.Current.HttpListenerContext.Response;
                     response.StatusCode = (int)HttpStatusCode.Redirect;
                     response.RedirectLocation = loginUrl;
-                    await response.OutputStream.WriteAsync(Array.Empty<byte>(), 0, 0).ConfigureAwait(false);
+                    await response.OutputStream.WriteAsync([], 0, 0).ConfigureAwait(false);
                 }));
             }
             else

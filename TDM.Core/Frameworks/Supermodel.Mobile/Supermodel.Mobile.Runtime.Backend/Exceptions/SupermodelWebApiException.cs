@@ -11,7 +11,7 @@ public class SupermodelWebApiException : SupermodelException
     private class JsonMessage
     {
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        public string Message { get; set; }
+        public string? Message { get; set; }
     }
     #endregion
 
@@ -23,5 +23,5 @@ public class SupermodelWebApiException : SupermodelException
 
     public HttpStatusCode StatusCode { get; }
     public string Content { get; }
-    public string ContentJsonMessage => JsonConvert.DeserializeObject<JsonMessage>(Content)!.Message;
+    public string? ContentJsonMessage => JsonConvert.DeserializeObject<JsonMessage>(Content)!.Message;
 }

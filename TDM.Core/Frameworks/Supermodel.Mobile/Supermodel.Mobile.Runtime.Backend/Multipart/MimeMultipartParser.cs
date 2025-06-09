@@ -21,7 +21,7 @@ public class MimeMultipartParser
     private const byte LF = 0x0A;
     // ReSharper restore InconsistentNaming
     private const byte Dash = 0x2D;
-    private static readonly ArraySegment<byte> _emptyBodyPart = new ArraySegment<byte>(Array.Empty<byte>());
+    private static readonly ArraySegment<byte> _emptyBodyPart = new ArraySegment<byte>([]);
 
     private long _totalBytesConsumed;
     private readonly long _maxMessageSize;

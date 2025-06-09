@@ -38,7 +38,7 @@ public class MultipartContent : HttpContent, IEnumerable<HttpContent>
         {
             Parameters = { new NameValueHeaderValue("boundary", str) }
         };
-        _nestedContent = new List<HttpContent>();
+        _nestedContent = [];
     }
 
     public virtual void Add(HttpContent content)
@@ -94,7 +94,7 @@ public class MultipartContent : HttpContent, IEnumerable<HttpContent>
             // ReSharper disable once ConvertToConstant.Local
             var length1 = 0L;
             var methodInfo = httpContent.GetType().GetMethod("TryComputeLength", BindingFlags.Instance | BindingFlags.NonPublic);
-            var result = (bool)methodInfo!.Invoke(httpContent, new[] {/*out*/(object)length1}); 
+            var result = (bool)methodInfo!.Invoke(httpContent, [ /*out*/(object)length1]); 
             if (result)
             {
                 length = 0L;

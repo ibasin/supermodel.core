@@ -34,7 +34,7 @@ public abstract class PathRedirectorHttpRequestHandlerBase : IHttpRequestHandler
                 var response = HttpContext.Current.HttpListenerContext.Response;
                 response.StatusCode = (int)HttpStatusCode.Redirect;
                 response.RedirectLocation = RedirectTo;
-                await response.OutputStream.WriteAsync(Array.Empty<byte>(), 0, 0, cancellationToken).ConfigureAwait(false);
+                await response.OutputStream.WriteAsync([], 0, 0, cancellationToken).ConfigureAwait(false);
             });
         }
         return Task.FromResult(result);

@@ -102,7 +102,8 @@ public class StudentMvcView : MvcView
                     },
                     new Div(new { @class="col-sm-10" })
                     {
-                        Render.DropdownListFor(student, x => x.LastName, new []{ SelectListItem.Empty, new SelectListItem("Basin", "Basin", "1"), new SelectListItem("Satanovsky", "Satanovsky", "2") }, new { @class="form-control" }),
+                        Render.DropdownListFor(student, x => x.LastName, [SelectListItem.Empty, new SelectListItem("Basin", "Basin", "1"), new SelectListItem("Satanovsky", "Satanovsky", "2")
+                        ], new { @class="form-control" }),
                         Render.ValidationMessageFor(student, x => x.LastName, new { @class="invalid-feedback d-block" }),
                     },
                 },

@@ -16,7 +16,7 @@ class Program
         Console.ReadLine();
 
         //var authHeaderGenerator = new BasicAuthHeaderGenerator("ilya.basin@gmail.org", "0");
-        var authHeaderGenerator = new SecureAuthHeaderGenerator("ilya.basin@gmail.org", "0", Array.Empty<byte>());
+        var authHeaderGenerator = new SecureAuthHeaderGenerator("ilya.basin@gmail.org", "0", []);
 
         await using (new UnitOfWork<TestWebApiDataContext>())
         {

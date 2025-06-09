@@ -892,7 +892,7 @@ public static class Render
         if (@checked) tag.Attributes.Add("checked", "on");
         tag.AddOrUpdateAttr(attributes);
 
-        return new Tags { tag, new Input(new { type="hidden", name, value="false" }) };
+        return [tag, new Input(new { type = "hidden", name, value = "false" })];
     }
 
     public static Input FilePickerForModel(byte[]? model, object? attributes = null)

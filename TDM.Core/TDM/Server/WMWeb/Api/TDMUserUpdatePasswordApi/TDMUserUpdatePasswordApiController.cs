@@ -25,7 +25,7 @@ public class TDMUserUpdatePasswordApiController : CRUDApiController<TDMUser, TDM
             var error = new ValidationErrorsApiModel.Error
             {
                 Name = "OldPassword",
-                ErrorMessages = new List<string> {"Incorrect Old Password!"}
+                ErrorMessages = ["Incorrect Old Password!"]
             };
             var validationErrors = new ValidationErrorsApiModel { error };
             return new JsonApiResult(validationErrors, HttpStatusCode.ExpectationFailed);

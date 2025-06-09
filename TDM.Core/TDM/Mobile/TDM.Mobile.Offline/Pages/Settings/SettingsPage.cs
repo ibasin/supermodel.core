@@ -25,11 +25,14 @@ public class SettingsPage : ContentPage
         {
             if (!FormsApplication<TDMApp>.RunningApp.AuthHeaderGenerator.UserId.HasValue) throw new Exception("AuthHeaderGenerator.UserId must have value");
             var model = new TDMUserUpdatePassword { Id = FormsApplication<TDMApp>.RunningApp.AuthHeaderGenerator.UserId.Value };
-            await FormsApplication<TDMApp>.RunningApp.LoginPage.Navigation.PushAsync(await new ChangePasswordPage().InitAsync(new ObservableCollection<TDMUserUpdatePassword> { model }, "Change Password", model));
+            await FormsApplication<TDMApp>.RunningApp.LoginPage.Navigation.PushAsync(await new ChangePasswordPage().InitAsync(
+                [model], "Change Password", model));
         };
         section.Add(cell);
 
-        Content = new ViewWithActivityIndicator<TableView>(new TableView { Intent = TableIntent.Form, HasUnevenRows = true, Root = new TableRoot{ section } });
+        Content = new ViewWithActivityIndicator<TableView>(new TableView { Intent = TableIntent.Form, HasUnevenRows = true, Root =
+            [section]
+        });
     }
     #endregion
 }

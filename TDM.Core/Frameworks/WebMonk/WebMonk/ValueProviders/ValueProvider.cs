@@ -271,7 +271,7 @@ public abstract class ValueProvider : IValueProvider
         if (s == null) return null;
         return s.IndexOf(char.MinValue) > -1 ? s.Replace("\0", string.Empty) : s;
     }
-    private static char[] StartingChars { get; } =  { '<', '&' };
+    private static char[] StartingChars { get; } = ['<', '&'];
     #endregion
 
     #region Protected Helpers

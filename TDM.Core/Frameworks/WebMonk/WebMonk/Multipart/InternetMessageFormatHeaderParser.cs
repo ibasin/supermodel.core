@@ -224,7 +224,7 @@ public class InternetMessageFormatHeaderParser
         private const int DefaultFieldNameAllocation = 128;
         private const int DefaultFieldValueAllocation = 2 * 1024;
 
-        private static readonly char[] _linearWhiteSpace = { ' ', '\t' };
+        private static readonly char[] _linearWhiteSpace = [' ', '\t'];
 
         private readonly StringBuilder _name = new(DefaultFieldNameAllocation);
         private readonly StringBuilder _value = new(DefaultFieldValueAllocation);

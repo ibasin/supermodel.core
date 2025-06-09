@@ -349,12 +349,13 @@ public class PendingAction
             case OperationEnum.DelayedGetWhere:
             {
                 //var whereClause = sqlQueryProvider.GetWhereClause(SearchBy, SortBy);
-                var whereClause = (string)sqlQueryProvider.ExecuteGenericMethod("GetWhereClause", new[] { ModelType }, SearchBy, SortBy);
+                var whereClause = (string)sqlQueryProvider.ExecuteGenericMethod("GetWhereClause", [ModelType], SearchBy, SortBy);
 
                 if (whereClause == null) throw new SupermodelException("Must override GetWhereClause before running queries on localDb");
 
                 //var fullWhereClause = whereClause + sqlQueryProvider.GetSkipAndTakeForWhereClause(Skip, Take);
-                var fullWhereClause = whereClause + sqlQueryProvider.ExecuteGenericMethod("GetSkipAndTakeForWhereClause", new[] { ModelType }, Skip, Take);
+                var fullWhereClause = whereClause + sqlQueryProvider.ExecuteGenericMethod("GetSkipAndTakeForWhereClause",
+                    [ModelType], Skip, Take);
 
                 return $"SELECT * FROM [{dataTableName}] WHERE ModelTypeLogicalName = '{DataContextBase.GetModelTypeLogicalName(ModelType)}' {fullWhereClause}";
             }
@@ -365,12 +366,13 @@ public class PendingAction
             case OperationEnum.DelayedGetCountWhere:
             {
                 //var whereClause = sqlQueryProvider.GetWhereClause(SearchBy, SortBy);
-                var whereClause = (string)sqlQueryProvider.ExecuteGenericMethod("GetWhereClause", new[] { ModelType }, SearchBy, SortBy);
+                var whereClause = (string)sqlQueryProvider.ExecuteGenericMethod("GetWhereClause", [ModelType], SearchBy, SortBy);
 
                 if (whereClause == null) throw new SupermodelException("Must override GetWhereClause before running queries on localDb");
 
                 //var fullWhereClause = whereClause + sqlQueryProvider.GetSkipAndTakeForWhereClause(Skip, Take);
-                var fullWhereClause = whereClause + sqlQueryProvider.ExecuteGenericMethod("GetSkipAndTakeForWhereClause", new[] { ModelType }, Skip, Take);
+                var fullWhereClause = whereClause + sqlQueryProvider.ExecuteGenericMethod("GetSkipAndTakeForWhereClause",
+                    [ModelType], Skip, Take);
 
                 return $"SELECT COUNT(*) FROM [{dataTableName}] WHERE ModelTypeLogicalName = '{DataContextBase.GetModelTypeLogicalName(ModelType)}' AND {fullWhereClause}";
             }

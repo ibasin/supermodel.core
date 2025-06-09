@@ -344,15 +344,16 @@ public abstract class WebSocketServer
     protected static ushort ReadUShort(byte[] request, bool isLittleEndian = false)
     {
         byte[] buffer;
-        if (isLittleEndian) buffer = new[] { request[2], request[3] };
-        else buffer = new[] { request[3], request[2] };
+        if (isLittleEndian) buffer = [request[2], request[3]];
+        else buffer = [request[3], request[2]];
         return BitConverter.ToUInt16(buffer, 0);
     }
     protected static ulong ReadULong(byte[] request, bool isLittleEndian = false)
     {
         byte[] buffer;
-        if (isLittleEndian) buffer = new[] { request[2], request[4], request[5], request[6], request[7], request[8], request[9], request[10] };
-        else buffer = new[] { request[8], request[8], request[7], request[6], request[5], request[4], request[3], request[2] };
+        if (isLittleEndian) buffer = [request[2], request[4], request[5], request[6], request[7], request[8], request[9], request[10]
+        ];
+        else buffer = [request[8], request[8], request[7], request[6], request[5], request[4], request[3], request[2]];
         return BitConverter.ToUInt16(buffer, 0);
     }
     #endregion
@@ -365,7 +366,7 @@ public abstract class WebSocketServer
     public IPAddress IP { get; }
     public int Port { get; }
 
-    public List<TcpClient> Clients { get; set; } = new();
+    public List<TcpClient> Clients { get; set; } = [];
 
     private bool _stop;
     #endregion

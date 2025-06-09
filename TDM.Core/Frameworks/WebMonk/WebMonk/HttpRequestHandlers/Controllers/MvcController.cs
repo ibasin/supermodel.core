@@ -112,7 +112,7 @@ public abstract class MvcController : ControllerBase
                     }
                     catch (WebMonkInvalidFormatException)
                     {
-                        return (false, Array.Empty<object?>());
+                        return (false, []);
                     }
                 }
             }
@@ -123,7 +123,7 @@ public abstract class MvcController : ControllerBase
             }
             else if (parameterValue == Type.Missing)
             {
-                if (!parameterInfo.IsOptional) return(false, Array.Empty<object?>());
+                if (!parameterInfo.IsOptional) return(false, []);
             }
             else
             {

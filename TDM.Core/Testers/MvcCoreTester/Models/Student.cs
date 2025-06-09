@@ -56,10 +56,10 @@ public class StudentSearchMvcModel : Bs4.MvcModel//, IAsyncValidatableObject
     //#endregion
 
     #region Properties
-    [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; } = new()
-    {
-        new Bs4.AccordionPanel("Filter", "Filter", 100, 100, false),
-    };
+    [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; } =
+    [
+        new Bs4.AccordionPanel("Filter", "Filter", 100, 100, false)
+    ];
 
     //[Email] public Super.Bs4.TextBoxMvcModel Email { get; set; } = new Super.Bs4.TextBoxMvcModel();
     public Bs4.AutocompleteTextBoxMvcModel<Student, StudentAutocompleteApiController, DataContext> Name { get; set; } = new ();
@@ -82,11 +82,11 @@ public class StudentDetailMvcModel : Bs4.MvcModelForEntity<Student>
     #endregion
 
     #region Properties
-    [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; set; } = new()
-    {
+    [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; set; } =
+    [
         new Bs4.AccordionPanel("General", "General", 100, 100, true),
         new Bs4.AccordionPanel("Security", "Security", 200, 200, false)
-    };
+    ];
         
     [Required, ListColumn(OrderBy = nameof(FirstName))] public Bs4.TextBoxMvcModel FirstName { get; set; } = new();
     [Required, ListColumn(OrderBy = nameof(LastName)), DisplayName("Surname")] public Bs4.TextBoxMvcModel LastName { get; set; } = new();
@@ -103,7 +103,7 @@ public class StudentDetailMvcModel : Bs4.MvcModelForEntity<Student>
     //[Required, ListColumn(OrderBy = nameof(DateOfBirthday))] public Bs4.DateTimeMvcModel DateOfBirthday { get; set; } = new Bs4.DateTimeMvcModel();
     [ScreenOrder(200)] public Bs4.CheckboxMvcModel SecurityClearance { get; set; } = new();
 
-    public virtual ListViewModel<ClassMvcModel, Class> Classes { get; set; } = new();
+    public virtual ListViewModel<ClassMvcModel, Class> Classes { get; set; } = [];
     #endregion
 }
 
@@ -158,6 +158,6 @@ public class Student : Entity
     // ReSharper disable once InconsistentNaming
     [Required] public DateTime? DateOfBirthday { get; set; }
 
-    public virtual List<Class> Classes { get; set; } = new();
+    public virtual List<Class> Classes { get; set; } = [];
     #endregion
 }

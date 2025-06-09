@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public static class HttpUtilities
 {
     //internal static readonly Version DefaultVersion = HttpVersion.Version11;
-    internal static readonly byte[] EmptyByteArray = Array.Empty<byte>();
+    internal static readonly byte[] EmptyByteArray = [];
 
     static HttpUtilities() { }
 

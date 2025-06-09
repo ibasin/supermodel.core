@@ -20,11 +20,10 @@ public class AuthMvcController : MvcController
             
         if (login.Username == "ilya.basin@gmail.com" && login.Password == "1234")
         {
-            HttpContext.Current.AuthenticateSessionWithClaims(new[]
-            {
+            HttpContext.Current.AuthenticateSessionWithClaims([
                 new Claim(ClaimTypes.NameIdentifier, 1.ToString(), ClaimValueTypes.Integer64),
-                new Claim(ClaimTypes.Role, "Admin"),
-            });
+                new Claim(ClaimTypes.Role, "Admin")
+            ]);
             return RedirectToLocal(returnUrl);
         }
         else

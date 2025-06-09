@@ -35,33 +35,33 @@ public class Program
             user.ToDoLists.Add(new ToDoList
             {
                 Name = "List #1",
-                ToDoItems = new List<ToDoItem>
-                {
-                    new() { Name = "Item 1"},
-                    new() { Name = "Item 2"},
-                }
+                ToDoItems =
+                [
+                    new() { Name = "Item 1" },
+                    new() { Name = "Item 2" }
+                ]
             });
 
             user.ToDoLists.Add(new ToDoList
             {
                 Name = "Groceries",
-                ToDoItems = new List<ToDoItem>
-                {
-                    new() { Name = "Bread"},
-                    new() { Name = "Eggs"},
-                    new() { Name = "Milk"},
-                }
+                ToDoItems =
+                [
+                    new() { Name = "Bread" },
+                    new() { Name = "Eggs" },
+                    new() { Name = "Milk" }
+                ]
             });
 
             user.ToDoLists.Add(new ToDoList
             {
                 Name = "Supplies",
-                ToDoItems = new List<ToDoItem>
-                {
-                    new() { Name = "Pens"},
-                    new() { Name = "Pencils"},
-                    new() { Name = "Staplers"},
-                }
+                ToDoItems =
+                [
+                    new() { Name = "Pens" },
+                    new() { Name = "Pencils" },
+                    new() { Name = "Staplers" }
+                ]
             });
         }
     }

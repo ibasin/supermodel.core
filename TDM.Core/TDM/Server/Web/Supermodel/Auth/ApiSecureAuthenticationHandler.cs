@@ -19,7 +19,8 @@ namespace Web.Supermodel.Auth;
 public class ApiSecureAuthenticationHandler: SupermodelApiAuthenticationHandlerBase
 {
     #region Shared Constants
-    public static readonly byte[] Key = { 0xAA, 0x68, 0x12, 0xB1, 0x35, 0x22, 0x51, 0xA0, 0xB2, 0x41, 0x27, 0x5C, 0x23, 0x9C, 0xF0, 0xDD };
+    public static readonly byte[] Key = [0xAA, 0x68, 0x12, 0xB1, 0x35, 0x22, 0x51, 0xA0, 0xB2, 0x41, 0x27, 0x5C, 0x23, 0x9C, 0xF0, 0xDD
+    ];
     public static readonly string HeaderName = "X-TDM-Authorization";
     // ReSharper disable StringLiteralTypo
     public static readonly string SecretToken = "[SECRET_TOKEN]";
@@ -37,7 +38,7 @@ public class ApiSecureAuthenticationHandler: SupermodelApiAuthenticationHandlerB
     }
     protected override async Task<List<Claim>> AuthenticateEncryptedAndGetClaimsAsync(string[] args)
     {
-        if (args.Length != 4) return new List<Claim>();
+        if (args.Length != 4) return [];
 
         await using (new UnitOfWork<DataContext>(ReadOnly.Yes))
         {
@@ -74,7 +75,7 @@ public class ApiSecureAuthenticationHandler: SupermodelApiAuthenticationHandlerB
             }
             else
             {
-                return new List<Claim>();
+                return [];
             }
         }
     }

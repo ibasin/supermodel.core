@@ -9,7 +9,7 @@ class Program
 {
     static void Main()
     {
-        var modelGenerator = new ModelGen(new[] { typeof(School).Assembly });
+        var modelGenerator = new ModelGen([typeof(School).Assembly]);
         var sb = modelGenerator.GenerateModels();
         File.WriteAllText(@"..\..\..\" + "Supermodel.Mobile.ModelsForRuntime.cs", sb.ToString());
         File.WriteAllText(@"..\..\..\..\XFormsTester\XFormsTester\Supermodel\Runtime\Supermodel.Mobile.ModelsForRuntime.cs", sb.ToString());
