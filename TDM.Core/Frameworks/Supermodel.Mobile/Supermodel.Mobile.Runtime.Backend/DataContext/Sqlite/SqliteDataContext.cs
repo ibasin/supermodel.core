@@ -592,8 +592,8 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         DbFileName);
 
     // ReSharper disable InconsistentNaming
-    private static readonly HashSet<Type> _finishedInitializingSqlLiteContext = new HashSet<Type>();
-    private static readonly HashSet<Type> _startedInitializingSqlLiteContext = new HashSet<Type>();
+    private static readonly HashSet<Type> _finishedInitializingSqlLiteContext = new();
+    private static readonly HashSet<Type> _startedInitializingSqlLiteContext = new();
     // ReSharper restore InconsistentNaming
     #endregion
 }

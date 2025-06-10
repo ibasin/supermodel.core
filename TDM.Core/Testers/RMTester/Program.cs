@@ -10,7 +10,7 @@ class StudentMvcModel
     public string FirstName { get; set; } = "";
     public string LastName { get; set; } = "";
     public double? GPA { get; set; }
-    public AddressMvcModel Address { get; set; } = new AddressMvcModel();
+    public AddressMvcModel Address { get; set; } = new();
     [RMapsTo(".Address.Zip")] public string StudentZip { get; set; } = "";
     public List<GradeMvcModel> Grades {get; set;} = [];
 
@@ -35,7 +35,7 @@ class Student
     public string FirstName { get; set; } = "";
     public string LastName { get; set; } = "";
     public double? GPA { get; set; }
-    public Address Address { get; set; } = new Address();
+    public Address Address { get; set; } = new();
     public List<Grade> Grades {get; set;} = [];
 }
 

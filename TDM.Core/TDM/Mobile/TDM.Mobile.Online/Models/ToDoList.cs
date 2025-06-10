@@ -46,10 +46,10 @@ public class ToDoListXFModel : XFModelForModel<ToDoList>
     #endregion
 
     #region Properties
-    [Required] public TextBoxXFModel Name { get; set; } = new TextBoxXFModel();
+    [Required] public TextBoxXFModel Name { get; set; } = new();
     //[ScaffoldColumn(false)/*, RMCopyShallow*/] public ListViewModel<ToDoItem> ToDoItems { get; set; } = new ListViewModel<ToDoItem>();
     //[ScaffoldColumn(false), RMCopyShallow] public List<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
-    [ScaffoldColumn(false)] public List<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
+    [ScaffoldColumn(false)] public List<ToDoItem> ToDoItems { get; set; } = new();
     #endregion
 }
 

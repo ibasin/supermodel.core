@@ -29,7 +29,7 @@ namespace Supermodel.ApiClient.Models
 	public partial class DeleteAllBeforeInput
 	{
 		#region Properties
-		public DateTime OlderThanUtc { get; set; } = new DateTime();
+		public DateTime OlderThanUtc { get; set; } = new();
 		#endregion
 	}
 	// ReSharper disable once PartialTypeWithSinglePart
@@ -60,11 +60,11 @@ namespace Supermodel.ApiClient.Models
 	public partial class ToDoList : Model
 	{
 		#region Properties
-		public DateTime CreatedOnUtc { get; set; } = new DateTime();
-		public DateTime ModifiedOnUtc { get; set; } = new DateTime();
+		public DateTime CreatedOnUtc { get; set; } = new();
+		public DateTime ModifiedOnUtc { get; set; } = new();
 		public Int64 ListOwnerId { get; set; }
 		public String Name { get; set; } = "";
-		public List<ToDoItem> ToDoItems { get; set; } = new List<ToDoItem>();
+		public List<ToDoItem> ToDoItems { get; set; } = new();
 		#endregion
 	}
 	

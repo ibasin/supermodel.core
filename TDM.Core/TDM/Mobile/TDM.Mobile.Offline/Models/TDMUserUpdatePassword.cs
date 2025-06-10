@@ -27,9 +27,9 @@ public class TDMUserUpdatePasswordXFModel : XFModelForModel<TDMUserUpdatePasswor
     #endregion
 
     #region Properties
-    [ForceRequiredLabel] public TextBoxXFModel OldPassword { get; set; } = new TextBoxXFModel { TextEntry = { IsPassword = true } };
-    [ForceRequiredLabel] public TextBoxXFModel NewPassword { get; set; } = new TextBoxXFModel { TextEntry = { IsPassword = true } };
-    [ForceRequiredLabel] public TextBoxXFModel ConfirmPassword { get; set; } = new TextBoxXFModel{ TextEntry = { IsPassword = true } };
+    [ForceRequiredLabel] public TextBoxXFModel OldPassword { get; set; } = new() { TextEntry = { IsPassword = true } };
+    [ForceRequiredLabel] public TextBoxXFModel NewPassword { get; set; } = new() { TextEntry = { IsPassword = true } };
+    [ForceRequiredLabel] public TextBoxXFModel ConfirmPassword { get; set; } = new() { TextEntry = { IsPassword = true } };
     #endregion
 }
 

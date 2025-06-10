@@ -104,6 +104,6 @@ public static class SharedService
     #endregion
 
     #region Properties
-    public static ConcurrentDictionary<Type, object> Singletons { get; } = new ConcurrentDictionary<Type, object>();
+    public static ConcurrentDictionary<Type, object> Singletons { get; } = new();
     #endregion
 }

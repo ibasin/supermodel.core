@@ -52,9 +52,9 @@ namespace Supermodel.ApiClient.Models
 		public String LastName { get; set; } = "";
 		public String SocialSecurity { get; set; } = "";
 		public Int32? Age { get; set; }
-		public BinaryFile Image { get; set; } = new BinaryFile();
+		public BinaryFile Image { get; set; } = new();
 		public GenderEnum? Gender { get; set; }
-		public School School { get; set; } = new School();
+		public School School { get; set; } = new();
 		public String Notes { get; set; } = "";
 		public Boolean? SecurityClearance { get; set; }
 		public DateTime? DateOfBirthday { get; set; }

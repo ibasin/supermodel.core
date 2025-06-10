@@ -58,7 +58,7 @@ public class StudentSearchMvcModel : Bs4.MvcModel//, IAsyncValidatableObject
     #region Properties
     [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; } =
     [
-        new Bs4.AccordionPanel("Filter", "Filter", 100, 100, false)
+        new("Filter", "Filter", 100, 100, false)
     ];
 
     //[Email] public Super.Bs4.TextBoxMvcModel Email { get; set; } = new Super.Bs4.TextBoxMvcModel();
@@ -84,8 +84,8 @@ public class StudentDetailMvcModel : Bs4.MvcModelForEntity<Student>
     #region Properties
     [NotRMapped] public List<Bs4.AccordionPanel> Panels { get; set; } =
     [
-        new Bs4.AccordionPanel("General", "General", 100, 100, true),
-        new Bs4.AccordionPanel("Security", "Security", 200, 200, false)
+        new("General", "General", 100, 100, true),
+        new("Security", "Security", 200, 200, false)
     ];
         
     [Required, ListColumn(OrderBy = nameof(FirstName))] public Bs4.TextBoxMvcModel FirstName { get; set; } = new();

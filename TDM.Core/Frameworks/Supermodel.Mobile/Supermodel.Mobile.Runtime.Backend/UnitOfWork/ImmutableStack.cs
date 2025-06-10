@@ -198,7 +198,7 @@ public sealed class ImmutableStack<T> : IImmutableStack<T>
     #region Fields and Properties
     private readonly T _head;
     private readonly ImmutableStack<T> _tail;
-    public static ImmutableStack<T> Empty { get; } = new ImmutableStack<T>();
+    public static ImmutableStack<T> Empty { get; } = new();
     public bool IsEmpty => _tail == null;
     #endregion
 }

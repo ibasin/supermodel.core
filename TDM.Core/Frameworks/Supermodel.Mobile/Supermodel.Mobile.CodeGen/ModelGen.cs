@@ -493,7 +493,7 @@ public class ModelGen
     public IEnumerable<Assembly> Assemblies { get; }
     public string NameSpace { get; }
 
-    private readonly HashSet<Type> _globalCustomTypesDefined = new HashSet<Type>();
+    private readonly HashSet<Type> _globalCustomTypesDefined = new();
 
     //private readonly Type _ApiControllerBaseType = typeof(ApiControllerBase);
     private readonly Type _enhancedCrudApiControllerType = typeof(Presentation.Mvc.Controllers.Api.EnhancedCRUDApiController<,,,,>);

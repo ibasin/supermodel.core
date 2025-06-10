@@ -20,10 +20,10 @@ public class ToDoListItemXFModel : XFModelForChildModel<ToDoList, ToDoItem>
     #endregion
 
     #region Properties
-    [Required] public TextBoxXFModel Name { get; set; } = new TextBoxXFModel();
-    public DateXFModel DueOn { get; set; } = new DateXFModel();
-    public DropdownXFModelUsingEnum<PriorityEnum> Priority { get; set; } = new DropdownXFModelUsingEnum<PriorityEnum>();
-    public ToggleSwitchXFModel Completed { get; set; } = new ToggleSwitchXFModel
+    [Required] public TextBoxXFModel Name { get; set; } = new();
+    public DateXFModel DueOn { get; set; } = new();
+    public DropdownXFModelUsingEnum<PriorityEnum> Priority { get; set; } = new();
+    public ToggleSwitchXFModel Completed { get; set; } = new()
     {
         OnChanged = page =>
         {
