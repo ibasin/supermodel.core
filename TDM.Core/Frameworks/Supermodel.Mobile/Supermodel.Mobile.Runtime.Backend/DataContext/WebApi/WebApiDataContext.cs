@@ -174,7 +174,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
                         }
                         else if (dataResponse.StatusCode == HttpStatusCode.ExpectationFailed) //If validation error(s)
                         {
-                            var validationError = JsonConvert.DeserializeObject<SupermodelDataContextValidationException.ValidationError>(dataResponseContentStr);
+                            var validationError = JsonConvert.DeserializeObject<SupermodelDataContextValidationException.ValidationError>(dataResponseContentStr)!;
                             validationErrors.Add(validationError);
                         }
                         else
@@ -244,30 +244,30 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
         using (var httpClient = CreateHttpClient())
         {
             var dataResponse = await httpClient.GetAsync(url);
-            var responseContentStr = dataResponse.Content != null ? await dataResponse.Content.ReadAsStringAsync () : "";
+            var responseContentStr = await dataResponse.Content.ReadAsStringAsync ();
             if (!dataResponse.IsSuccessStatusCode) throw new SupermodelWebApiException(dataResponse.StatusCode, responseContentStr);
-            var models = JsonConvert.DeserializeObject<List<T>>(responseContentStr);
+            var models = JsonConvert.DeserializeObject<List<T>>(responseContentStr)!;
             return models;
         }
     }
-    protected async Task<T> GetJsonAnyObjectAsync<T>(string url)  where T: class
+    protected async Task<T?> GetJsonAnyObjectAsync<T>(string url)  where T: class
     {
         using (var httpClient = CreateHttpClient())
         {
             var dataResponse = await httpClient.GetAsync(url);
             if (dataResponse.StatusCode == HttpStatusCode.NotFound) return null;
-            var dataResponseContentStr = dataResponse.Content != null ? await dataResponse.Content.ReadAsStringAsync () : "";
+            var dataResponseContentStr = await dataResponse.Content.ReadAsStringAsync ();
             if (!dataResponse.IsSuccessStatusCode) throw new SupermodelWebApiException (dataResponse.StatusCode, dataResponseContentStr);
             var model = JsonConvert.DeserializeObject<T>(dataResponseContentStr);
             return model;
         }
     }
-    protected async Task<TScalarValue> GetScalarValueAsync<TScalarValue>(string url)
+    protected async Task<TScalarValue?> GetScalarValueAsync<TScalarValue>(string url)
     {
         using (var httpClient = CreateHttpClient())
         {
             var dataResponse = await httpClient.GetAsync(url);
-            var dataResponseContentStr = dataResponse.Content != null ? await dataResponse.Content.ReadAsStringAsync () : "";
+            var dataResponseContentStr = await dataResponse.Content.ReadAsStringAsync ();
             if (!dataResponse.IsSuccessStatusCode) throw new SupermodelWebApiException(dataResponse.StatusCode, dataResponseContentStr);
             var count = JsonConvert.DeserializeObject<TScalarValue>(dataResponseContentStr);
             return count;

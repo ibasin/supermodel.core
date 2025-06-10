@@ -50,7 +50,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
     }
     // ReSharper restore UnusedParameter.Global
     // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Global
-    public virtual string? GetWhereClause<TModel>(object searchBy, string sortBy)
+    public virtual string? GetWhereClause<TModel>(object? searchBy, string? sortBy)
     {
         return null;
     }
@@ -112,7 +112,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
     #endregion
 
     #region DataContext Queries
-    public override async Task<List<TModel>> GetWhereAsync<TModel>(object searchBy, string sortBy = null, int? skip = null, int? take = null)
+    public override async Task<List<TModel>> GetWhereAsync<TModel>(object? searchBy, string? sortBy = null, int? skip = null, int? take = null)
     {
         if (await InitDbAsync()) return new List<TModel>();
 
@@ -221,7 +221,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
                         // ReSharper disable once StringLiteralTypo
                         var nextIdCommandText = $"SELECT IFNULL(MIN(ModelId), 0)-1 FROM {DataTableName} WHERE ModelId < 0 AND ModelTypeLogicalName='{GetModelTypeLogicalName(pendingAction.ModelType)}'";
                         var nextId = transaction.ExecuteScalar<long>(nextIdCommandText);
-                        pendingAction.Model.Id = nextId;
+                        pendingAction.Model!.Id = nextId;
                     }
 
                     var commandText = pendingAction.GenerateSql(DataTableName, this);
@@ -257,7 +257,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         catch (Exception)
         {
             //Rollback already happened by now
-            foreach (var pendingAction in pendingActions.Where(x => x.Operation == PendingAction.OperationEnum.GenerateIdAndAdd)) pendingAction.Model.Id = 0;
+            foreach (var pendingAction in pendingActions.Where(x => x.Operation == PendingAction.OperationEnum.GenerateIdAndAdd)) pendingAction.Model!.Id = 0;
             throw;
         }
     }
@@ -313,7 +313,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         var results = await db.QueryAsync<DataRow>(commandText);
         if (results.Count == 0) return null;
         if (results.Count > 1) return null;
-        var dbSchemaVersion = int.Parse(results.Single().Json);
+        var dbSchemaVersion = int.Parse(results.Single().Json!);
         return dbSchemaVersion;
     }
     public virtual async Task<bool> InitDbAsync()
@@ -588,7 +588,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         Pick.ForPlatform(
             Environment.GetFolderPath(Environment.SpecialFolder.Personal), 
             Environment.GetFolderPath(Environment.SpecialFolder.Personal),
-            Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName)), 
+            Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName))!, 
         DbFileName);
 
     // ReSharper disable InconsistentNaming

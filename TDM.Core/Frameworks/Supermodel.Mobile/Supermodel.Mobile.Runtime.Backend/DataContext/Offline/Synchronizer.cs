@@ -113,7 +113,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 {
                     foreach (var localModel in localModels)
                     {
-                        var matchingDelayedMasterModel = delayedMasterModels.Values.SingleOrDefault(x => x.Id == localModel.Id);
+                        var matchingDelayedMasterModel = delayedMasterModels.Values!.SingleOrDefault(x => x.Id == localModel.Id);
                         if (matchingDelayedMasterModel != null) await CopyModel1IntoModel2Async(matchingDelayedMasterModel, localModel);
                     }
                 }

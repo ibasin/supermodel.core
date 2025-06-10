@@ -242,7 +242,7 @@ public class PendingAction
             }
             case OperationEnum.GenerateIdAndAdd:
             {
-                Model!.Id = long.Parse(responseContentStr);
+                Model!.Id = long.Parse(responseContentStr!);
                 Model.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
                 break;
             }
@@ -264,8 +264,8 @@ public class PendingAction
                 }
                 else
                 {
-                    var model = (IModel)JsonConvert.DeserializeObject(responseContentStr, ModelType);
-                    model!.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
+                    var model = (IModel)JsonConvert.DeserializeObject(responseContentStr, ModelType!)!;
+                    model.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
                     model.AfterLoad();
                     DelayedValue!.SetValue(model);
                 }
@@ -279,8 +279,8 @@ public class PendingAction
                 }
                 else
                 {
-                    var model = (IModel)JsonConvert.DeserializeObject(responseContentStr, ModelType);
-                    model!.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
+                    var model = (IModel)JsonConvert.DeserializeObject(responseContentStr, ModelType!)!;
+                    model.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
                     model.AfterLoad();
                     DelayedValue!.SetValue(model);
                 }
@@ -289,20 +289,20 @@ public class PendingAction
             case OperationEnum.DelayedGetAll:
             case OperationEnum.DelayedGetWhere:
             {
-                var models = (IEnumerable<IModel>)JsonConvert.DeserializeObject(responseContentStr, typeof(List<>).MakeGenericType(ModelType));
-                foreach (var model in models!)
+                var models = (IEnumerable<IModel>)JsonConvert.DeserializeObject(responseContentStr!, typeof(List<>).MakeGenericType(ModelType!))!;
+                foreach (var model in models)
                 {
                     model.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
                     model.AfterLoad();
                 }
-                DelayedValue.SetValue(models);
+                DelayedValue!.SetValue(models);
                 break;
             }
             case OperationEnum.DelayedGetCountAll:
             case OperationEnum.DelayedGetCountWhere:
             {
-                var count = JsonConvert.DeserializeObject<long>(responseContentStr);
-                DelayedValue.SetValue(count);
+                var count = JsonConvert.DeserializeObject<long>(responseContentStr!);
+                DelayedValue!.SetValue(count);
                 break;
             }
             // ReSharper disable once RedundantCaseLabel
@@ -323,15 +323,15 @@ public class PendingAction
             case OperationEnum.AddWithExistingId:
             case OperationEnum.GenerateIdAndAdd:
             {
-                return new DataRow(Model, OriginalModelId, sqlQueryProvider).GenerateSqlInsert(dataTableName);
+                return new DataRow(Model!, OriginalModelId, sqlQueryProvider).GenerateSqlInsert(dataTableName);
             }
             case OperationEnum.AddOrUpdate:
             {
-                return new DataRow(Model, OriginalModelId, sqlQueryProvider).GenerateSqlInsertOrReplace(dataTableName);
+                return new DataRow(Model!, OriginalModelId, sqlQueryProvider).GenerateSqlInsertOrReplace(dataTableName);
             }
             case OperationEnum.Update:
             {
-                return new DataRow(Model, OriginalModelId, sqlQueryProvider).GenerateSqlUpdate(dataTableName);
+                return new DataRow(Model!, OriginalModelId, sqlQueryProvider).GenerateSqlUpdate(dataTableName);
             }
             case OperationEnum.Delete:
             {
@@ -349,13 +349,12 @@ public class PendingAction
             case OperationEnum.DelayedGetWhere:
             {
                 //var whereClause = sqlQueryProvider.GetWhereClause(SearchBy, SortBy);
-                var whereClause = (string)sqlQueryProvider.ExecuteGenericMethod("GetWhereClause", [ModelType], SearchBy, SortBy);
+                var whereClause = (string?)sqlQueryProvider.ExecuteGenericMethod("GetWhereClause", [ModelType!], SearchBy, SortBy);
 
                 if (whereClause == null) throw new SupermodelException("Must override GetWhereClause before running queries on localDb");
 
                 //var fullWhereClause = whereClause + sqlQueryProvider.GetSkipAndTakeForWhereClause(Skip, Take);
-                var fullWhereClause = whereClause + sqlQueryProvider.ExecuteGenericMethod("GetSkipAndTakeForWhereClause",
-                    [ModelType], Skip, Take);
+                var fullWhereClause = whereClause + sqlQueryProvider.ExecuteGenericMethod("GetSkipAndTakeForWhereClause", [ModelType!], Skip, Take);
 
                 return $"SELECT * FROM [{dataTableName}] WHERE ModelTypeLogicalName = '{DataContextBase.GetModelTypeLogicalName(ModelType)}' {fullWhereClause}";
             }
@@ -366,13 +365,12 @@ public class PendingAction
             case OperationEnum.DelayedGetCountWhere:
             {
                 //var whereClause = sqlQueryProvider.GetWhereClause(SearchBy, SortBy);
-                var whereClause = (string)sqlQueryProvider.ExecuteGenericMethod("GetWhereClause", [ModelType], SearchBy, SortBy);
+                var whereClause = (string?)sqlQueryProvider.ExecuteGenericMethod("GetWhereClause", [ModelType!], SearchBy, SortBy);
 
                 if (whereClause == null) throw new SupermodelException("Must override GetWhereClause before running queries on localDb");
 
                 //var fullWhereClause = whereClause + sqlQueryProvider.GetSkipAndTakeForWhereClause(Skip, Take);
-                var fullWhereClause = whereClause + sqlQueryProvider.ExecuteGenericMethod("GetSkipAndTakeForWhereClause",
-                    [ModelType], Skip, Take);
+                var fullWhereClause = whereClause + sqlQueryProvider.ExecuteGenericMethod("GetSkipAndTakeForWhereClause", [ModelType!], Skip, Take);
 
                 return $"SELECT COUNT(*) FROM [{dataTableName}] WHERE ModelTypeLogicalName = '{DataContextBase.GetModelTypeLogicalName(ModelType)}' AND {fullWhereClause}";
             }
@@ -382,7 +380,9 @@ public class PendingAction
             }
         }
     }
-    public void ProcessDatabaseResponseAsync(string dataTableName, object response, ISqlQueryProvider sqlQueryProvider)
+    // ReSharper disable UnusedParameter.Global
+    public void ProcessDatabaseResponseAsync(string dataTableName, object? response, ISqlQueryProvider sqlQueryProvider) 
+    // ReSharper restore UnusedParameter.Global
     {
         switch (Operation)
         {
@@ -398,36 +398,36 @@ public class PendingAction
             case OperationEnum.DelayedGetById:
             case OperationEnum.DelayedGetByIdOrDefault:
             {
-                var results = (List<DataRow>)response;
+                var results = (List<DataRow>)response!;
                 if (results.Count == 0)
                 {
                     if (Operation == OperationEnum.DelayedGetById) throw new SupermodelException("DelayedGetById: no object exists with id = " + ModelId);
-                    DelayedValue.SetValue(null);
+                    DelayedValue!.SetValue(null);
                     return;
                 }
                 if (results.Count > 1) throw new Exception("GetByIdOrAsync or GetByIdOrDefaultAsync brought back more than one record");
-                var model = results.Single().GetModel(ModelType);
-                DelayedValue.SetValue(model);
+                var model = results.Single().GetModel(ModelType!);
+                DelayedValue!.SetValue(model);
                 return;
             }
             case OperationEnum.DelayedGetAll:
             case OperationEnum.DelayedGetWhere:
             {
-                var results = (List<DataRow>)response;
-                var models = ReflectionHelper.CreateGenericType(typeof (List<>), ModelType);
+                var results = (List<DataRow>)response!;
+                var models = ReflectionHelper.CreateGenericType(typeof (List<>), ModelType!);
                 foreach (var result in results)
                 {
-                    var model = result.GetModel(ModelType);
+                    var model = result.GetModel(ModelType!);
                     models.ExecuteMethod("Add", model);
                 }
-                DelayedValue.SetValue(models);
+                DelayedValue!.SetValue(models);
                 return;
             }
             case OperationEnum.DelayedGetCountAll:
             case OperationEnum.DelayedGetCountWhere:
             {
-                var responseLong = (long)response;
-                DelayedValue.SetValue(responseLong);
+                var responseLong = (long)response!;
+                DelayedValue!.SetValue(responseLong);
                 return;
             }
             default:
