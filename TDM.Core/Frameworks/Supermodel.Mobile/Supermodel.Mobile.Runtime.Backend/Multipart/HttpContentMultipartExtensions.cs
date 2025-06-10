@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.Contracts;
+﻿#nullable disable
+
+using System.Diagnostics.Contracts;
 
 namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 
@@ -9,16 +11,16 @@ public static class HttpContentMultipartExtensions
 
     public static bool IsMimeMultipartContent(this HttpContent content)
     {
-        if (content == null) throw new ArgumentNullException("content");
+        if (content == null) throw new ArgumentNullException(nameof(content));
         return MimeMultipartBodyPartParser.IsMimeMultipartContent(content);
     }
 
     public static bool IsMimeMultipartContent(this HttpContent content, string subtype)
     {
-        if (string.IsNullOrWhiteSpace(subtype)) throw new ArgumentNullException("subtype");
+        if (string.IsNullOrWhiteSpace(subtype)) throw new ArgumentNullException(nameof(subtype));
         if (IsMimeMultipartContent(content))
         {
-            if (content.Headers.ContentType!.MediaType!.Equals("multipart/" + subtype, StringComparison.OrdinalIgnoreCase)) return true;
+            if (content.Headers.ContentType.MediaType.Equals("multipart/" + subtype, StringComparison.OrdinalIgnoreCase)) return true;
         }
 
         return false;
@@ -51,10 +53,10 @@ public static class HttpContentMultipartExtensions
 
     public static async Task<T> ReadAsMultipartAsync<T>(this HttpContent content, T streamProvider, int bufferSize, CancellationToken cancellationToken) where T : MultipartStreamProvider
     {
-        if (content == null) throw new ArgumentNullException("content");
-        if (streamProvider == null) throw new ArgumentNullException("streamProvider");
+        if (content == null) throw new ArgumentNullException(nameof(content));
+        if (streamProvider == null) throw new ArgumentNullException(nameof(streamProvider));
 
-        if (bufferSize < MinBufferSize) throw new ArgumentOutOfRangeException("bufferSize");
+        if (bufferSize < MinBufferSize) throw new ArgumentOutOfRangeException(nameof(bufferSize));
 
         Stream stream;
         try

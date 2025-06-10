@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.Contracts;
+﻿#nullable disable
+
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Net.Http.Headers;
 
@@ -25,7 +27,7 @@ public static class HttpContentMessageExtensions
 
     public static bool IsHttpResponseMessageContent(this HttpContent content)
     {
-        if (content == null) throw new ArgumentNullException("content");
+        if (content == null) throw new ArgumentNullException(nameof(content));
         try
         {
             return HttpMessageContent.ValidateHttpMessageContent(content, false, false);
@@ -68,11 +70,11 @@ public static class HttpContentMessageExtensions
 
     public static Task<HttpRequestMessage> ReadAsHttpRequestMessageAsync(this HttpContent content, string uriScheme, int bufferSize, int maxHeaderSize, CancellationToken cancellationToken)
     {
-        if (content == null) throw new ArgumentNullException("content");
-        if (uriScheme == null) throw new ArgumentNullException("uriScheme");
-        if (!Uri.CheckSchemeName(uriScheme)) throw new ArgumentException("HttpMessageParserInvalidUriScheme", "uriScheme");
-        if (bufferSize < MinBufferSize) throw new ArgumentOutOfRangeException("bufferSize");
-        if (maxHeaderSize < InternetMessageFormatHeaderParser.MinHeaderSize) throw new ArgumentOutOfRangeException("maxHeaderSize");
+        if (content == null) throw new ArgumentNullException(nameof(content));
+        if (uriScheme == null) throw new ArgumentNullException(nameof(uriScheme));
+        if (!Uri.CheckSchemeName(uriScheme)) throw new ArgumentException("HttpMessageParserInvalidUriScheme", nameof(uriScheme));
+        if (bufferSize < MinBufferSize) throw new ArgumentOutOfRangeException(nameof(bufferSize));
+        if (maxHeaderSize < InternetMessageFormatHeaderParser.MinHeaderSize) throw new ArgumentOutOfRangeException(nameof(maxHeaderSize));
 
         HttpMessageContent.ValidateHttpMessageContent(content, true, true);
 
@@ -146,9 +148,9 @@ public static class HttpContentMessageExtensions
 
     public static Task<HttpResponseMessage> ReadAsHttpResponseMessageAsync(this HttpContent content, int bufferSize, int maxHeaderSize, CancellationToken cancellationToken)
     {
-        if (content == null) throw new ArgumentNullException("content");
-        if (bufferSize < MinBufferSize) throw new ArgumentOutOfRangeException("bufferSize");
-        if (maxHeaderSize < InternetMessageFormatHeaderParser.MinHeaderSize) throw new ArgumentOutOfRangeException("maxHeaderSize");
+        if (content == null) throw new ArgumentNullException(nameof(content));
+        if (bufferSize < MinBufferSize) throw new ArgumentOutOfRangeException(nameof(bufferSize));
+        if (maxHeaderSize < InternetMessageFormatHeaderParser.MinHeaderSize) throw new ArgumentOutOfRangeException(nameof(maxHeaderSize));
         HttpMessageContent.ValidateHttpMessageContent(content, false, true);
 
         return content.ReadAsHttpResponseMessageAsyncCore(bufferSize, maxHeaderSize, cancellationToken);
@@ -198,7 +200,8 @@ public static class HttpContentMessageExtensions
         Contract.Assert(httpRequest != null, "httpRequest cannot be null.");
         Contract.Assert(uriScheme != null, "uriScheme cannot be null");
 
-        if (httpRequest.HttpHeaders.TryGetValues(FormattingUtilities.HttpHostHeader, out var hostValues))
+        IEnumerable<string> hostValues;
+        if (httpRequest.HttpHeaders.TryGetValues(FormattingUtilities.HttpHostHeader, out hostValues))
         {
             // ReSharper disable once PossibleMultipleEnumeration
             var hostCount = hostValues.Count();
@@ -216,13 +219,13 @@ public static class HttpContentMessageExtensions
     }
 
     // ReSharper disable once ParameterTypeCanBeEnumerable.Local
-    private static HttpContent? CreateHeaderFields(HttpHeaders source, HttpHeaders destination, Stream contentStream, int rewind)
+    private static HttpContent CreateHeaderFields(HttpHeaders source, HttpHeaders destination, Stream contentStream, int rewind)
     {
         Contract.Assert(source != null, "source headers cannot be null");
         Contract.Assert(destination != null, "destination headers cannot be null");
         Contract.Assert(contentStream != null, "contentStream must be non null");
-        HttpContentHeaders? contentHeaders = null;
-        HttpContent? content = null;
+        HttpContentHeaders contentHeaders = null;
+        HttpContent content = null;
 
         // Set the header fields
         foreach (KeyValuePair<string, IEnumerable<string>> header in source)

@@ -46,7 +46,7 @@ public class InternetMessageFormatHeaderParser
         int bytesReady,
         ref int bytesConsumed)
     {
-        if (buffer == null) throw new ArgumentNullException("buffer");
+        if (buffer == null) throw new ArgumentNullException(nameof(buffer));
         var parseStatus = ParserState.NeedMoreData;
 
         if (bytesConsumed >= bytesReady) return parseStatus;  // We already can tell we need more data

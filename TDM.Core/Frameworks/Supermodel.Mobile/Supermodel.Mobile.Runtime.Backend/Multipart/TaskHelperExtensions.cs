@@ -1,15 +1,16 @@
-﻿
+﻿#nullable disable
+
 namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 
 public static class TaskHelperExtensions
 {
-    public static async Task<object?> CastToObject(this Task task)
+    public static async Task<object> CastToObject(this Task task)
     {
         await task;
         return null;
     }
 
-    public static async Task<object?> CastToObject<T>(this Task<T> task)
+    public static async Task<object> CastToObject<T>(this Task<T> task)
     {
         return await task;
     }
@@ -27,7 +28,7 @@ public static class TaskHelperExtensions
             return true;
         }
 
-        result = default!;
+        result = default(TResult);
         return false;
     }
 }

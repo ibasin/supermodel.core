@@ -133,7 +133,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         }
         return models;
     }
-    public override async Task<long> GetCountWhereAsync<TModel>(object searchBy, int? skip = null, int? take = null)
+    public override async Task<long> GetCountWhereAsync<TModel>(object? searchBy, int? skip = null, int? take = null)
     {
         if (await InitDbAsync()) return 0;
 

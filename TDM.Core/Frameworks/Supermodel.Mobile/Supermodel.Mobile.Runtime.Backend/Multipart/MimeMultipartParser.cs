@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿#nullable disable
+
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Globalization;
@@ -19,7 +21,7 @@ public class MimeMultipartParser
     private const byte LF = 0x0A;
     // ReSharper restore InconsistentNaming
     private const byte Dash = 0x2D;
-    private static readonly ArraySegment<byte> _emptyBodyPart = new([]);
+    private static readonly ArraySegment<byte> _emptyBodyPart = new ArraySegment<byte>(Array.Empty<byte>());
 
     private long _totalBytesConsumed;
     private readonly long _maxMessageSize;
@@ -30,10 +32,10 @@ public class MimeMultipartParser
     public MimeMultipartParser(string boundary, long maxMessageSize)
     {
         // The minimum length which would be an empty message terminated by CRLF
-        if (maxMessageSize < MinMessageSize) throw new ArgumentOutOfRangeException("maxMessageSize");
-        if (string.IsNullOrWhiteSpace(boundary)) throw new ArgumentNullException("boundary");
-        if (boundary.Length > MaxBoundarySize - 10) throw new ArgumentOutOfRangeException("boundary");
-        if (boundary.EndsWith(" ", StringComparison.Ordinal)) throw new ArgumentException("MimeMultipartParserBadBoundary", "boundary");
+        if (maxMessageSize < MinMessageSize) throw new ArgumentOutOfRangeException(nameof(maxMessageSize));
+        if (string.IsNullOrWhiteSpace(boundary)) throw new ArgumentNullException(nameof(boundary));
+        if (boundary.Length > MaxBoundarySize - 10) throw new ArgumentOutOfRangeException(nameof(boundary));
+        if (boundary.EndsWith(" ", StringComparison.Ordinal)) throw new ArgumentException("MimeMultipartParserBadBoundary", nameof(boundary));
 
         _maxMessageSize = maxMessageSize;
         _currentBoundary = new CurrentBodyPartStore(boundary);
@@ -127,7 +129,7 @@ public class MimeMultipartParser
         out ArraySegment<byte> bodyPart,
         out bool isFinalBodyPart)
     {
-        if (buffer == null) throw new ArgumentNullException("buffer");
+        if (buffer == null) throw new ArgumentNullException(nameof(buffer));
 
         State parseStatus;
         isFinalBodyPart = false;

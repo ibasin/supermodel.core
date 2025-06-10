@@ -77,7 +77,7 @@ public class DataRepo<TModel> : IDataRepo<TModel> where TModel : class, IModel, 
     #endregion
 
     #region Delayed Queries
-    public virtual void DelayedGetWhere(out DelayedModels<TModel> models, object searchBy, string sortBy = null, int? skip = null, int? take = null)
+    public virtual void DelayedGetWhere(out DelayedModels<TModel> models, object searchBy, string? sortBy = null, int? skip = null, int? take = null)
     {
         var context = UnitOfWorkContextCore.CurrentDataContext;
         if (!(context is IQueryableReadableDataContext)) throw new SupermodelException("Current DataContext does not support DelayedGetWhere operation");

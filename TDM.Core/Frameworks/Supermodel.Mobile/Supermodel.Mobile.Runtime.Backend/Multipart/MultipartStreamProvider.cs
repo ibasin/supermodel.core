@@ -1,4 +1,5 @@
-﻿
+﻿#nullable disable
+
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 
@@ -8,21 +9,20 @@ public abstract class MultipartStreamProvider
 {
     private struct AsyncVoid{}
         
-    private readonly Collection<HttpContent> _contents = new();
+    private readonly Collection<HttpContent> _contents = new Collection<HttpContent>();
 
     public Collection<HttpContent> Contents
     {
         get { return _contents; }
     }
 
-    public abstract Stream GetStream(HttpContent? parent, HttpContentHeaders headers);
+    public abstract Stream GetStream(HttpContent parent, HttpContentHeaders headers);
 
     public virtual Task ExecutePostProcessingAsync()
     {
         return Task.FromResult(default(AsyncVoid));
     }
 
-    // ReSharper disable once UnusedParameter.Global
     public virtual Task ExecutePostProcessingAsync(CancellationToken cancellationToken)
     {
         // Call the other overload to maintain backward compatibility.

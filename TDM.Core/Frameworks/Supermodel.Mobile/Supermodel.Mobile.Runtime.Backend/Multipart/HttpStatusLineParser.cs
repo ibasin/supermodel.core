@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.Contracts;
+﻿#nullable disable
+
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Net;
 using System.Text;
@@ -16,13 +18,13 @@ public class HttpStatusLineParser
 
     private HttpStatusLineState _statusLineState;
     private HttpUnsortedResponse _httpResponse;
-    private readonly StringBuilder _currentToken = new(DefaultTokenAllocation);
+    private readonly StringBuilder _currentToken = new StringBuilder(DefaultTokenAllocation);
 
     public HttpStatusLineParser(HttpUnsortedResponse httpResponse, int maxStatusLineSize)
     {
         // The minimum length which would be an empty header terminated by CRLF
-        if (maxStatusLineSize < MinStatusLineSize) throw new ArgumentOutOfRangeException("maxStatusLineSize");
-        if (httpResponse == null) throw new ArgumentNullException("httpResponse");
+        if (maxStatusLineSize < MinStatusLineSize) throw new ArgumentOutOfRangeException(nameof(maxStatusLineSize));
+        if (httpResponse == null) throw new ArgumentNullException(nameof(httpResponse));
 
         _httpResponse = httpResponse;
         _maximumHeaderLength = maxStatusLineSize;
@@ -43,7 +45,7 @@ public class HttpStatusLineParser
         int bytesReady,
         ref int bytesConsumed)
     {
-        if (buffer == null) throw new ArgumentNullException("buffer");
+        if (buffer == null) throw new ArgumentNullException(nameof(buffer));
 
         var parseStatus = ParserState.NeedMoreData;
 

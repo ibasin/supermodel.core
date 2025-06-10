@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.Contracts;
+﻿#nullable disable
+
+using System.Diagnostics.Contracts;
 using System.Net.Http.Headers;
 
 namespace Supermodel.Mobile.Runtime.Backend.Multipart;

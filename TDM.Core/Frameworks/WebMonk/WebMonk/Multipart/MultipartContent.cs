@@ -43,7 +43,7 @@ public class MultipartContent : HttpContent, IEnumerable<HttpContent>
 
     public virtual void Add(HttpContent content)
     {
-        if (content == null) throw new ArgumentNullException("content");
+        if (content == null) throw new ArgumentNullException(nameof(content));
         _nestedContent.Add(content);
     }
 
@@ -111,9 +111,9 @@ public class MultipartContent : HttpContent, IEnumerable<HttpContent>
     private static void ValidateBoundary(string boundary)
     {
         if (string.IsNullOrWhiteSpace(boundary)) throw new ArgumentException("boundary");
-        if (boundary.Length > 70) throw new ArgumentOutOfRangeException("boundary", "boundary is longer than 70 characters");
-        if (boundary.EndsWith(" ", StringComparison.Ordinal)) throw new ArgumentException("boundary ends with blank", "boundary");
-        if (boundary.Any(ch => (48 > ch || ch > 57) && (97 > ch || ch > 122) && ((65 > ch || ch > 90) && "'()+_,-./:=? ".IndexOf(ch) < 0))) throw new ArgumentException("boundary contains invalid characters", "boundary");
+        if (boundary.Length > 70) throw new ArgumentOutOfRangeException(nameof(boundary), "boundary is longer than 70 characters");
+        if (boundary.EndsWith(" ", StringComparison.Ordinal)) throw new ArgumentException("boundary ends with blank", nameof(boundary));
+        if (boundary.Any(ch => (48 > ch || ch > 57) && (97 > ch || ch > 122) && ((65 > ch || ch > 90) && "'()+_,-./:=? ".IndexOf(ch) < 0))) throw new ArgumentException("boundary contains invalid characters", nameof(boundary));
     }
 
     private static string GetDefaultBoundary()

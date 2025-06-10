@@ -1,9 +1,11 @@
-﻿namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+﻿#nullable disable
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 
 public static class HttpUtilities
 {
     //internal static readonly Version DefaultVersion = HttpVersion.Version11;
-    internal static readonly byte[] EmptyByteArray = [];
+    internal static readonly byte[] EmptyByteArray = Array.Empty<byte>();
 
     static HttpUtilities() { }
 

@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.Contracts;
+﻿#nullable disable
+
+using System.Diagnostics.Contracts;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
@@ -26,7 +28,7 @@ public class HttpMessageContent : HttpContent
     //private const string DefaultResponseMediaType = DefaultMediaType + "; " + MsgTypeParameter + "=" + DefaultResponseMsgType;
 
     // Set of header fields that only support single values such as Set-Cookie.
-    private static readonly HashSet<string> _singleValueHeaderFields = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly HashSet<string> _singleValueHeaderFields = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
         "Cookie",
         "Set-Cookie",
@@ -34,13 +36,13 @@ public class HttpMessageContent : HttpContent
     };
 
     // Set of header fields that should get serialized as space-separated values such as User-Agent.
-    private static readonly HashSet<string> _spaceSeparatedValueHeaderFields = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly HashSet<string> _spaceSeparatedValueHeaderFields = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
         "User-Agent",
     };
 
     private bool _contentConsumed;
-    private Lazy<Task<Stream>>? _streamTask;
+    private Lazy<Task<Stream>> _streamTask;
 
     public HttpMessageContent(HttpRequestMessage httpRequest)
     {
@@ -64,7 +66,7 @@ public class HttpMessageContent : HttpContent
         InitializeStreamTask();
     }
 
-    private HttpContent? Content
+    private HttpContent Content
     {
         get { return HttpRequestMessage != null ? HttpRequestMessage.Content : HttpResponseMessage.Content; }
     }
@@ -80,7 +82,7 @@ public class HttpMessageContent : HttpContent
 
     public static bool ValidateHttpMessageContent(HttpContent content, bool isRequest, bool throwOnError)
     {
-        if (content == null) throw new ArgumentNullException("content");
+        if (content == null) throw new ArgumentNullException(nameof(content));
 
         var contentType = content.Headers.ContentType;
         if (contentType != null)
@@ -113,7 +115,7 @@ public class HttpMessageContent : HttpContent
 
     protected override async Task SerializeToStreamAsync(Stream stream, TransportContext context)
     {
-        if (stream == null) throw new ArgumentNullException("stream");
+        if (stream == null) throw new ArgumentNullException(nameof(stream));
 
         var header = SerializeHeader();
         await stream.WriteAsync(header, 0, header.Length);
@@ -145,7 +147,7 @@ public class HttpMessageContent : HttpContent
         if (hasContent)
         {
             Stream readStream;
-            if (!_streamTask!.Value!.TryGetResult(out readStream) /* Case #1 */ || readStream == null || !readStream.CanSeek /* Case #2 */) 
+            if (!_streamTask.Value.TryGetResult(out readStream) /* Case #1 */ || readStream == null || !readStream.CanSeek /* Case #2 */) 
             {
                 length = -1;
                 return false;

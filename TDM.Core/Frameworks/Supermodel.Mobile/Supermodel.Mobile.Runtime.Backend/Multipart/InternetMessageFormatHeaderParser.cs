@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.Contracts;
+﻿#nullable disable
+
+using System.Diagnostics.Contracts;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -26,8 +28,8 @@ public class InternetMessageFormatHeaderParser
     public InternetMessageFormatHeaderParser(HttpHeaders headers, int maxHeaderSize)
     {
         // The minimum length which would be an empty header terminated by CRLF
-        if (maxHeaderSize < MinHeaderSize) throw new ArgumentOutOfRangeException("maxHeaderSize");
-        if (headers == null) throw new ArgumentNullException("headers");
+        if (maxHeaderSize < MinHeaderSize) throw new ArgumentOutOfRangeException(nameof(maxHeaderSize));
+        if (headers == null) throw new ArgumentNullException(nameof(headers));
         _headers = headers;
         _maxHeaderSize = maxHeaderSize;
         _currentHeader = new CurrentHeaderFieldStore();
@@ -46,7 +48,7 @@ public class InternetMessageFormatHeaderParser
         int bytesReady,
         ref int bytesConsumed)
     {
-        if (buffer == null) throw new ArgumentNullException("buffer");
+        if (buffer == null) throw new ArgumentNullException(nameof(buffer));
         var parseStatus = ParserState.NeedMoreData;
 
         if (bytesConsumed >= bytesReady) return parseStatus;  // We already can tell we need more data
@@ -224,10 +226,10 @@ public class InternetMessageFormatHeaderParser
         private const int DefaultFieldNameAllocation = 128;
         private const int DefaultFieldValueAllocation = 2 * 1024;
 
-        private static readonly char[] _linearWhiteSpace = [' ', '\t'];
+        private static readonly char[] _linearWhiteSpace = { ' ', '\t' };
 
-        private readonly StringBuilder _name = new(DefaultFieldNameAllocation);
-        private readonly StringBuilder _value = new(DefaultFieldValueAllocation);
+        private readonly StringBuilder _name = new StringBuilder(DefaultFieldNameAllocation);
+        private readonly StringBuilder _value = new StringBuilder(DefaultFieldValueAllocation);
 
         public StringBuilder Name
         {

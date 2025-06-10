@@ -1,4 +1,5 @@
-﻿
+﻿#nullable disable
+
 namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 
 public class HttpRequestHeaderParser
@@ -13,7 +14,7 @@ public class HttpRequestHeaderParser
 
     public HttpRequestHeaderParser(HttpUnsortedRequest httpRequest, int maxRequestLineSize = DefaultMaxRequestLineSize, int maxHeaderSize = DefaultMaxHeaderSize)
     {
-        if (httpRequest == null) throw new ArgumentNullException("httpRequest");
+        if (httpRequest == null) throw new ArgumentNullException(nameof(httpRequest));
 
         HttpUnsortedRequest httpRequest1 = httpRequest;
 
@@ -32,7 +33,7 @@ public class HttpRequestHeaderParser
 
     public ParserState ParseBuffer(byte[] buffer, int bytesReady, ref int bytesConsumed)
     {
-        if (buffer == null) throw new ArgumentNullException("buffer");
+        if (buffer == null) throw new ArgumentNullException(nameof(buffer));
 
         var parseStatus = ParserState.NeedMoreData;
         ParserState subParseStatus;
