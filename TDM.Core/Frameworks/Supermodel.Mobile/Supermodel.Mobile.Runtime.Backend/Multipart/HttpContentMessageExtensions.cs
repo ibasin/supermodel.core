@@ -198,8 +198,7 @@ public static class HttpContentMessageExtensions
         Contract.Assert(httpRequest != null, "httpRequest cannot be null.");
         Contract.Assert(uriScheme != null, "uriScheme cannot be null");
 
-        IEnumerable<string> hostValues;
-        if (httpRequest.HttpHeaders.TryGetValues(FormattingUtilities.HttpHostHeader, out hostValues))
+        if (httpRequest.HttpHeaders.TryGetValues(FormattingUtilities.HttpHostHeader, out var hostValues))
         {
             // ReSharper disable once PossibleMultipleEnumeration
             var hostCount = hostValues.Count();
@@ -217,13 +216,13 @@ public static class HttpContentMessageExtensions
     }
 
     // ReSharper disable once ParameterTypeCanBeEnumerable.Local
-    private static HttpContent CreateHeaderFields(HttpHeaders source, HttpHeaders destination, Stream contentStream, int rewind)
+    private static HttpContent? CreateHeaderFields(HttpHeaders source, HttpHeaders destination, Stream contentStream, int rewind)
     {
         Contract.Assert(source != null, "source headers cannot be null");
         Contract.Assert(destination != null, "destination headers cannot be null");
         Contract.Assert(contentStream != null, "contentStream must be non null");
-        HttpContentHeaders contentHeaders = null;
-        HttpContent content = null;
+        HttpContentHeaders? contentHeaders = null;
+        HttpContent? content = null;
 
         // Set the header fields
         foreach (KeyValuePair<string, IEnumerable<string>> header in source)

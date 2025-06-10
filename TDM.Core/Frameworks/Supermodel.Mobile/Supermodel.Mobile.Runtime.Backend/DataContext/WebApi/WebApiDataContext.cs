@@ -217,7 +217,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
         }
         return models;
     }
-    protected async Task<TModel> GetJsonObjectAsync<TModel>(string url) where TModel : class, IModel, new()
+    protected async Task<TModel?> GetJsonObjectAsync<TModel>(string url) where TModel : class, IModel, new()
     {
         var model = await GetJsonAnyObjectAsync<TModel>(url);
         if (model != null)
@@ -233,7 +233,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
         using (var httpClient = CreateHttpClient())
         {
             var dataResponse = await httpClient.GetAsync(url);
-            var dataResponseContentStr = dataResponse.Content != null ? await dataResponse.Content.ReadAsStringAsync () : "";
+            var dataResponseContentStr = await dataResponse.Content.ReadAsStringAsync ();
             if (!dataResponse.IsSuccessStatusCode) throw new SupermodelWebApiException(dataResponse.StatusCode, dataResponseContentStr);
             var count = JsonConvert.DeserializeObject<long>(dataResponseContentStr);
             return count;

@@ -14,7 +14,7 @@ public class DataRepo<TModel> : IDataRepo<TModel> where TModel : class, IModel, 
         if (!(context is IReadableDataContext)) throw new SupermodelException("Current DataContext does not support GetByIdAsync operation");
         return ((IReadableDataContext) context).GetByIdAsync<TModel>(id);
     }
-    public virtual Task<TModel> GetByIdOrDefaultAsync(long id)
+    public virtual Task<TModel?> GetByIdOrDefaultAsync(long id)
     {
         var context = UnitOfWorkContextCore.CurrentDataContext;
         if (!(context is IReadableDataContext)) throw new SupermodelException("Current DataContext does not support GetByIdOrDefaultAsync operation");
@@ -62,7 +62,7 @@ public class DataRepo<TModel> : IDataRepo<TModel> where TModel : class, IModel, 
     #endregion
 
     #region Queries
-    public virtual Task<List<TModel>> GetWhereAsync(object searchBy, string sortBy = null, int? skip = null, int? take = null)
+    public virtual Task<List<TModel>> GetWhereAsync(object? searchBy, string? sortBy = null, int? skip = null, int? take = null)
     {
         var context = UnitOfWorkContextCore.CurrentDataContext;
         if (!(context is IQueryableReadableDataContext)) throw new SupermodelException("Current DataContext does not support GetWhereAsync operation");

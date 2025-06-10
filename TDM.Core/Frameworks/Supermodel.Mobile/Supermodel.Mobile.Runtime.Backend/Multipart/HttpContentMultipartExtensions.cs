@@ -18,7 +18,7 @@ public static class HttpContentMultipartExtensions
         if (string.IsNullOrWhiteSpace(subtype)) throw new ArgumentNullException("subtype");
         if (IsMimeMultipartContent(content))
         {
-            if (content.Headers.ContentType.MediaType.Equals("multipart/" + subtype, StringComparison.OrdinalIgnoreCase)) return true;
+            if (content.Headers.ContentType!.MediaType!.Equals("multipart/" + subtype, StringComparison.OrdinalIgnoreCase)) return true;
         }
 
         return false;

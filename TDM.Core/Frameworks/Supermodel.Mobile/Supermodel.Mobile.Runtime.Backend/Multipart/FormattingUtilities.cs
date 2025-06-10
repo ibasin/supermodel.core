@@ -52,7 +52,7 @@ public static class FormattingUtilities
     }
     public static HttpContentHeaders CreateEmptyContentHeaders()
     {
-        HttpContent tempContent = null;
+        HttpContent? tempContent = null;
         HttpContentHeaders contentHeaders;
         try
         {
@@ -75,7 +75,7 @@ public static class FormattingUtilities
         return token;
     }
 
-    public static bool ValidateHeaderToken(string token)
+    public static bool ValidateHeaderToken(string? token)
     {
         if (token == null) return false;
         foreach (var c in token)

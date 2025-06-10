@@ -15,13 +15,14 @@ public abstract class MultipartStreamProvider
         get { return _contents; }
     }
 
-    public abstract Stream GetStream(HttpContent parent, HttpContentHeaders headers);
+    public abstract Stream GetStream(HttpContent? parent, HttpContentHeaders headers);
 
     public virtual Task ExecutePostProcessingAsync()
     {
         return Task.FromResult(default(AsyncVoid));
     }
 
+    // ReSharper disable once UnusedParameter.Global
     public virtual Task ExecutePostProcessingAsync(CancellationToken cancellationToken)
     {
         // Call the other overload to maintain backward compatibility.

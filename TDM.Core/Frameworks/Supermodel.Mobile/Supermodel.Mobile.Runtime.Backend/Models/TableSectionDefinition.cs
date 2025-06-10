@@ -14,7 +14,7 @@ public class TableSectionDefinition
     #endregion
 
     #region Properties
-    public string Title { get; set; }
+    public string? Title { get; set; }
     public int ScreenOrderFrom { get; set; }
     public int ScreenOrderTo { get; set; }
     #endregion

@@ -81,7 +81,7 @@ public abstract class Model : IModel, ISupermodelListTemplate
     #endregion
 
     #region ISupermodelListTemplate implemetation
-    public virtual DataTemplate GetListCellDataTemplate(EventHandler selectItemHandler, EventHandler deleteItemHandler)
+    public virtual DataTemplate GetListCellDataTemplate(EventHandler? selectItemHandler, EventHandler? deleteItemHandler)
     {
         var dataTemplate = new DataTemplate(() =>
         {
@@ -111,13 +111,14 @@ public abstract class Model : IModel, ISupermodelListTemplate
         var msg = $"In order to use '{GetType().Name}' class with CRUD features, you must override ReturnACell() and SetUpBindings() methods!";
         throw new SupermodelException(msg);
     }
+    // ReSharper disable once UnusedParameter.Global
     public virtual void SetUpBindings(DataTemplate dataTemplate)
     {
         var msg = $"In order to use '{GetType().Name}' class with CRUD features, you must override ReturnACell() and SetUpBindings() methods!";
         throw new SupermodelException(msg);
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
     public virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

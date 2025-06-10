@@ -326,7 +326,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
                     case PendingAction.OperationEnum.DelayedGetAll:
                     case PendingAction.OperationEnum.DelayedGetWhere:
                     {
-                        var models = (IEnumerable<IModel>)pendingAction.DelayedValue!.GetValue();
+                        var models = (IEnumerable<IModel>)pendingAction.DelayedValue!.GetValue()!;
                         foreach (var model in models)
                         {
                             UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("AddOrUpdate", [pendingAction.ModelType!], model);

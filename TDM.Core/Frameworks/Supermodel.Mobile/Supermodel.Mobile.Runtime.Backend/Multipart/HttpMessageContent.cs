@@ -44,7 +44,7 @@ public class HttpMessageContent : HttpContent
 
     public HttpMessageContent(HttpRequestMessage httpRequest)
     {
-        if (httpRequest == null) throw new ArgumentNullException("httpRequest");
+        if (httpRequest == null) throw new ArgumentNullException(nameof(httpRequest));
 
         HttpRequestMessage = httpRequest;
         Headers.ContentType = new MediaTypeHeaderValue(DefaultMediaType);
@@ -55,7 +55,7 @@ public class HttpMessageContent : HttpContent
 
     public HttpMessageContent(HttpResponseMessage httpResponse)
     {
-        if (httpResponse == null) throw new ArgumentNullException("httpResponse");
+        if (httpResponse == null) throw new ArgumentNullException(nameof(httpResponse));
 
         HttpResponseMessage = httpResponse;
         Headers.ContentType = new MediaTypeHeaderValue(DefaultMediaType);

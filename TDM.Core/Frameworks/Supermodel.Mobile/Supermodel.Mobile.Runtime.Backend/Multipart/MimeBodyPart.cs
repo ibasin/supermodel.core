@@ -6,10 +6,10 @@ namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 public class MimeBodyPart : IDisposable
 {
     //private static readonly Type _streamType = typeof(Stream);
-    private Stream _outputStream;
+    private Stream? _outputStream;
     private MultipartStreamProvider _streamProvider;
-    private HttpContent _parentContent;
-    private HttpContent _content;
+    private HttpContent? _parentContent;
+    private HttpContent? _content;
     private HttpContentHeaders _headers;
 
     public MimeBodyPart(MultipartStreamProvider streamProvider, int maxBodyPartHeaderSize, HttpContent parentContent)
@@ -25,7 +25,7 @@ public class MimeBodyPart : IDisposable
 
     public InternetMessageFormatHeaderParser HeaderParser { get; private set; }
 
-    public HttpContent GetCompletedHttpContent()
+    public HttpContent? GetCompletedHttpContent()
     {
         Contract.Assert(IsComplete);
         if (_content == null) return null;
@@ -42,7 +42,7 @@ public class MimeBodyPart : IDisposable
     public async Task WriteSegment(ArraySegment<byte> segment, CancellationToken cancellationToken)
     {
         var stream = GetOutputStream();
-        await stream.WriteAsync(segment.Array, segment.Offset, segment.Count, cancellationToken);
+        await stream.WriteAsync(segment.Array!, segment.Offset, segment.Count, cancellationToken);
     }
 
     private Stream GetOutputStream()
