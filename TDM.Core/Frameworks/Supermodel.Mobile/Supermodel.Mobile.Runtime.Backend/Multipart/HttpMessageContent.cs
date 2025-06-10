@@ -40,7 +40,7 @@ public class HttpMessageContent : HttpContent
     };
 
     private bool _contentConsumed;
-    private Lazy<Task<Stream>> _streamTask;
+    private Lazy<Task<Stream>>? _streamTask;
 
     public HttpMessageContent(HttpRequestMessage httpRequest)
     {
@@ -64,7 +64,7 @@ public class HttpMessageContent : HttpContent
         InitializeStreamTask();
     }
 
-    private HttpContent Content
+    private HttpContent? Content
     {
         get { return HttpRequestMessage != null ? HttpRequestMessage.Content : HttpResponseMessage.Content; }
     }
@@ -145,7 +145,7 @@ public class HttpMessageContent : HttpContent
         if (hasContent)
         {
             Stream readStream;
-            if (!_streamTask.Value.TryGetResult(out readStream) /* Case #1 */ || readStream == null || !readStream.CanSeek /* Case #2 */) 
+            if (!_streamTask!.Value!.TryGetResult(out readStream) /* Case #1 */ || readStream == null || !readStream.CanSeek /* Case #2 */) 
             {
                 length = -1;
                 return false;
