@@ -178,7 +178,7 @@ public class MimeMultipartBodyPartParser : IDisposable
             else return null;
         }
 
-        if (!contentType.MediaType.StartsWith("multipart", StringComparison.OrdinalIgnoreCase))
+        if (!contentType.MediaType!.StartsWith("multipart", StringComparison.OrdinalIgnoreCase))
         {
             if (throwOnError) throw new ArgumentException("ReadAsMimeMultipartArgumentNoMultipart", nameof(content));
             else return null;

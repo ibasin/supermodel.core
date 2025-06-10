@@ -175,7 +175,7 @@ public abstract class DataContextBase : IQueryableReadableDataContext, IWritable
             SortBy = sortBy
         }.Validate());
     }
-    public void DelayedGetCountWhere<TModel>(out DelayedCount count, object searchBy) where TModel : class, IModel, new()
+    public void DelayedGetCountWhere<TModel>(out DelayedCount count, object? searchBy) where TModel : class, IModel, new()
     {
         count = new DelayedCount();
 

@@ -194,7 +194,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
     #endregion
 
     #region DataContext Queries
-    public override async Task<List<TModel>> GetWhereAsync<TModel>(object searchBy, string? sortBy = null, int? skip = null, int? take = null)
+    public override async Task<List<TModel>> GetWhereAsync<TModel>(object? searchBy, string? sortBy = null, int? skip = null, int? take = null)
     {
         //if we get here, we need to get the data from web api service
         List<TModel> masterModels;
@@ -222,7 +222,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
 
         return masterModels;
     }
-    public override async Task<long> GetCountWhereAsync<TModel>(object searchBy, int? skip = null, int? take = null)
+    public override async Task<long> GetCountWhereAsync<TModel>(object? searchBy, int? skip = null, int? take = null)
     {
         await using (new UnitOfWork<TWebApiDataContext>())
         {

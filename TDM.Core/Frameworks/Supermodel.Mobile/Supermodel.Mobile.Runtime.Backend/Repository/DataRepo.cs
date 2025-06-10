@@ -68,7 +68,7 @@ public class DataRepo<TModel> : IDataRepo<TModel> where TModel : class, IModel, 
         if (!(context is IQueryableReadableDataContext)) throw new SupermodelException("Current DataContext does not support GetWhereAsync operation");
         return ((IQueryableReadableDataContext) context).GetWhereAsync<TModel>(searchBy, sortBy, skip, take);
     }
-    public virtual Task<long> GetCountWhereAsync(object searchBy)
+    public virtual Task<long> GetCountWhereAsync(object? searchBy)
     {
         var context = UnitOfWorkContextCore.CurrentDataContext;
         if (!(context is IQueryableReadableDataContext)) throw new SupermodelException("Current DataContext does not support GetCountWhereAsync operation");
@@ -77,13 +77,13 @@ public class DataRepo<TModel> : IDataRepo<TModel> where TModel : class, IModel, 
     #endregion
 
     #region Delayed Queries
-    public virtual void DelayedGetWhere(out DelayedModels<TModel> models, object searchBy, string? sortBy = null, int? skip = null, int? take = null)
+    public virtual void DelayedGetWhere(out DelayedModels<TModel> models, object? searchBy, string? sortBy = null, int? skip = null, int? take = null)
     {
         var context = UnitOfWorkContextCore.CurrentDataContext;
         if (!(context is IQueryableReadableDataContext)) throw new SupermodelException("Current DataContext does not support DelayedGetWhere operation");
         ((IQueryableReadableDataContext) context).DelayedGetWhere(out models, searchBy, sortBy, skip, take);
     }
-    public virtual void DelayedGetCountWhere(out DelayedCount count, object searchBy)
+    public virtual void DelayedGetCountWhere(out DelayedCount count, object? searchBy)
     {
         var context = UnitOfWorkContextCore.CurrentDataContext;
         if (!(context is IQueryableReadableDataContext)) throw new SupermodelException("Current DataContext does not support DelayedGetCountWhere operation");

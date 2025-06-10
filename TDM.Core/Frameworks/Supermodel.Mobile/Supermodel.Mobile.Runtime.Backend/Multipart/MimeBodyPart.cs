@@ -44,7 +44,7 @@ public class MimeBodyPart : IDisposable
     public async Task WriteSegment(ArraySegment<byte> segment, CancellationToken cancellationToken)
     {
         var stream = GetOutputStream();
-        await stream.WriteAsync(segment.Array, segment.Offset, segment.Count, cancellationToken);
+        await stream.WriteAsync(segment.Array!, segment.Offset, segment.Count, cancellationToken);
     }
 
     private Stream GetOutputStream()

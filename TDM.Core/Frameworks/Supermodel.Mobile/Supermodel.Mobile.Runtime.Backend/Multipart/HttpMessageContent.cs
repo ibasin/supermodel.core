@@ -87,7 +87,7 @@ public class HttpMessageContent : HttpContent
         var contentType = content.Headers.ContentType;
         if (contentType != null)
         {
-            if (!contentType.MediaType.Equals(DefaultMediaType, StringComparison.OrdinalIgnoreCase))
+            if (!contentType.MediaType!.Equals(DefaultMediaType, StringComparison.OrdinalIgnoreCase))
             {
                 if (throwOnError) throw new ArgumentException("content");
                 return false;
@@ -187,7 +187,8 @@ public class HttpMessageContent : HttpContent
     {
         Contract.Assert(message != null, "message cannot be null");
         message.Append(httpRequest.Method + SP);
-        message.Append(httpRequest.RequestUri.PathAndQuery + SP);
+        message.Append(httpRequest.RequestUri!.PathAndQuery + SP);
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         message.Append(FormattingUtilities.HttpVersionToken + "/" + (httpRequest.Version != null ? httpRequest.Version.ToString(2) : "1.1") + CRLF);
 
         // Only insert host header if not already present.
@@ -200,6 +201,7 @@ public class HttpMessageContent : HttpContent
     private static void SerializeStatusLine(StringBuilder message, HttpResponseMessage httpResponse)
     {
         Contract.Assert(message != null, "message cannot be null");
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         message.Append(FormattingUtilities.HttpVersionToken + "/" + (httpResponse.Version != null ? httpResponse.Version.ToString(2) : "1.1") + SP);
         message.Append((int)httpResponse.StatusCode + SP);
         message.Append(httpResponse.ReasonPhrase + CRLF);

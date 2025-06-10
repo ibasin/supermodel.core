@@ -20,13 +20,13 @@ public interface IDataRepo<TModel> where TModel : class, IModel, new()
     #endregion
 
     #region Queries
-    Task<List<TModel>> GetWhereAsync(object searchBy, string? sortBy = null, int? skip = null, int? take = null);
-    Task<long> GetCountWhereAsync(object searchBy);
+    Task<List<TModel>> GetWhereAsync(object? searchBy, string? sortBy = null, int? skip = null, int? take = null);
+    Task<long> GetCountWhereAsync(object? searchBy);
     #endregion
 
     #region Batch Queries
-    void DelayedGetWhere(out DelayedModels<TModel> models, object searchBy, string? sortBy = null, int? skip = null, int? take = null);
-    void DelayedGetCountWhere(out DelayedCount count, object searchBy);
+    void DelayedGetWhere(out DelayedModels<TModel> models, object? searchBy, string? sortBy = null, int? skip = null, int? take = null);
+    void DelayedGetCountWhere(out DelayedCount count, object? searchBy);
     #endregion
 
     #region Writes
