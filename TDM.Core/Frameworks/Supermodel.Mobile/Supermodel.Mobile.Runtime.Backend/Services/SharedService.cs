@@ -46,7 +46,7 @@ public static class SharedService
         }
         else
         {
-            if (!Singletons.ContainsKey(interfaceType)) Singletons[interfaceType] = InstantiateByType<TInterface>(typeName, paramObjects);
+            if (!Singletons.ContainsKey(interfaceType)) Singletons[interfaceType] = InstantiateByType<TInterface>(typeName, paramObjects)!;
             return (TInterface)Singletons[interfaceType];
         }
     }

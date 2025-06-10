@@ -8,6 +8,8 @@ public static class SearchByHelper
 {
     public static string ToQueryString<T>(this T me)
     {
+        if (me == null) throw new NullReferenceException(nameof(me));
+        
         var sb = new StringBuilder();
 
         var firstColumn = true;

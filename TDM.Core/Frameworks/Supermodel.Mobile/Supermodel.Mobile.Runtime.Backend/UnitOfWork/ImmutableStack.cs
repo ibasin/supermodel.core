@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#nullable disable
+
+using System.Collections;
 using Validation;
 
 namespace Supermodel.Mobile.Runtime.Backend.UnitOfWork;

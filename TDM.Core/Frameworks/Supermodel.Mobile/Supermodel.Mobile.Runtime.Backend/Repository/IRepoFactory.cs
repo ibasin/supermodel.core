@@ -4,5 +4,5 @@ namespace Supermodel.Mobile.Runtime.Backend.Repository;
 
 public interface IRepoFactory
 {
-    IDataRepo<TModel> CreateRepo<TModel>() where TModel : class, IModel, new();
+    IDataRepo<TModel>? CreateRepo<TModel>() where TModel : class, IModel, new();
 }

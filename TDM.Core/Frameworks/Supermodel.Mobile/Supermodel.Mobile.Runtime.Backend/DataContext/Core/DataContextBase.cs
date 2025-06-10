@@ -30,7 +30,7 @@ public abstract class DataContextBase : IQueryableReadableDataContext, IWritable
     {
         return GetModelTypeLogicalName(typeof(TModel));
     }
-    public static string GetModelTypeLogicalName(Type type)
+    public static string GetModelTypeLogicalName(Type? type)
     {
         if (!typeof(IModel).IsAssignableFrom(type)) throw new SupermodelException("GetModelTypeLogicalName can only be called for types that implement IModel");
         //var restUrlAttribute = type.GetCustomAttributes(typeof(RestUrlAttribute), true).FirstOrDefault() as RestUrlAttribute;
@@ -153,12 +153,12 @@ public abstract class DataContextBase : IQueryableReadableDataContext, IWritable
     #endregion
 
     #region DataContext Queries
-    public abstract Task<List<TModel>> GetWhereAsync<TModel>(object searchBy, string sortBy = null, int? skip = null, int? take = null) where TModel : class, IModel, new();
+    public abstract Task<List<TModel>> GetWhereAsync<TModel>(object searchBy, string? sortBy = null, int? skip = null, int? take = null) where TModel : class, IModel, new();
     public abstract Task<long> GetCountWhereAsync<TModel>(object searchBy, int? skip = null, int? take = null) where TModel : class, IModel, new();
     #endregion
 
     #region DataContext Delayed Queries
-    public void DelayedGetWhere<TModel>(out DelayedModels<TModel> models, object searchBy, string sortBy = null, int? skip = null, int? take = null) where TModel : class, IModel, new()
+    public void DelayedGetWhere<TModel>(out DelayedModels<TModel> models, object searchBy, string? sortBy = null, int? skip = null, int? take = null) where TModel : class, IModel, new()
     {
         models = new DelayedModels<TModel>();
         PendingActions.Add(new PendingAction
@@ -277,7 +277,7 @@ public abstract class DataContextBase : IQueryableReadableDataContext, IWritable
         }
         return new DataRepo<TModel>();
     }
-    protected List<IRepoFactory> CustomRepoFactoryList => null;
+    protected List<IRepoFactory>? CustomRepoFactoryList => null;
 
     #endregion
 

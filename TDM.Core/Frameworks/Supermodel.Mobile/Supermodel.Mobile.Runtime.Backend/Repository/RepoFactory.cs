@@ -10,7 +10,7 @@ public static class RepoFactory
     {
         return UnitOfWorkContextCore.CurrentDataContext.CreateRepo<TModel>();
     }
-    public static object CreateForRuntimeType(Type modelType)
+    public static object? CreateForRuntimeType(Type modelType)
     {
         return ReflectionHelper.ExecuteStaticGenericMethod(typeof(RepoFactory), "Create", new[] { modelType });
     }

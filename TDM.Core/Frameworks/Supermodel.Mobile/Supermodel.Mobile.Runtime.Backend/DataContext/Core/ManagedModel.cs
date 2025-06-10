@@ -29,7 +29,7 @@ public class ManagedModel
     #region Properties
     public IModel Model { get; set; }
     public long OriginalModelId { get; set; }
-    protected string OriginalModelHash { get; set; }
+    protected string? OriginalModelHash { get; set; }
     public bool ForceUpdate { get; set; }
     #endregion
 }

@@ -38,7 +38,7 @@ public static class UnitOfWorkContext
         get => UnitOfWorkContextCore.CurrentDataContext.CommitOnDispose;
         set => UnitOfWorkContextCore.CurrentDataContext.CommitOnDispose = value;
     }
-    public static AuthHeader AuthHeader
+    public static AuthHeader? AuthHeader
     {
         get
         {
@@ -69,7 +69,7 @@ public static class UnitOfWorkContext
             ((ICachedDataContext)UnitOfWorkContextCore.CurrentDataContext).CacheAgeToleranceInSeconds = value;
         }
     }
-    public static Task PurgeCacheAsync(int? cacheExpirationAgeInSeconds = null, Type modelType = null)
+    public static Task PurgeCacheAsync(int? cacheExpirationAgeInSeconds = null, Type? modelType = null)
     {
         if (!(UnitOfWorkContextCore.CurrentDataContext is ICachedDataContext)) throw new SupermodelException("CacheAgeToleranceInSeconds is only accessible for ICachedDataContext");
         return ((ICachedDataContext)UnitOfWorkContextCore.CurrentDataContext).PurgeCacheAsync(cacheExpirationAgeInSeconds, modelType);

@@ -441,15 +441,15 @@ public class PendingAction
     #region Properties and Constants
     public bool Disabled { get; set; }
     public OperationEnum Operation { get; set; }
-    public Type ModelType { get; set; }
+    public Type? ModelType { get; set; }
     public long ModelId { get; set; }
     public long OriginalModelId { get; set; }
     public IModel? Model { get; set; }
-    public DelayedValue DelayedValue { get; set; }
-    public object SearchBy { get; set; }
+    public DelayedValue? DelayedValue { get; set; }
+    public object? SearchBy { get; set; }
     public int? Skip { get; set; }
     public int? Take { get; set; }
-    public string SortBy { get; set; }
+    public string? SortBy { get; set; }
 
     public const string ContentType = "application/json";
     #endregion
