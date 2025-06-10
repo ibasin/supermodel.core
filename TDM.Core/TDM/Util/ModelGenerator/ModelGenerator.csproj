@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Mobile\Supermodel.Mobile.CodeGen\Supermodel.Mobile.CodeGen.csproj" />
+    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Client\Supermodel.Mobile.CodeGen\Supermodel.Mobile.CodeGen.csproj" />
     <ProjectReference Include="..\..\Server\Web\Web.csproj" />
     <ProjectReference Include="..\..\Server\WMWeb\WMWeb.csproj" />
   </ItemGroup>

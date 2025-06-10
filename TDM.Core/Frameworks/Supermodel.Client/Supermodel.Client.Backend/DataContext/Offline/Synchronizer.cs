@@ -301,14 +301,14 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
     {
         get
         {
-            if (!Properties.Props.ContainsKey("smLastSyncDateTimeUtc")) return null;
-            return Properties.Props.Get<DateTime>("smLastSyncDateTimeUtc");
+            if (!Properties.Data.ContainsKey("smLastSyncDateTimeUtc")) return null;
+            return Properties.Data.Get<DateTime>("smLastSyncDateTimeUtc");
         }
         set
         {
             if (value == null) throw new ArgumentNullException(nameof(value));
             #pragma warning disable 4014
-            Properties.Props.SetAsync("smLastSyncDateTimeUtc", value);
+            Properties.Data.SetAsync("smLastSyncDateTimeUtc", value);
             #pragma warning restore 4014
         }
     }

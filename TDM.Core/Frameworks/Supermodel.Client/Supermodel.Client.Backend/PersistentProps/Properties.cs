@@ -5,22 +5,22 @@ namespace Supermodel.Client.Backend.PersistentProps;
 public static class Properties
 {
     #region Methods
-    public static IPersistentProps Props
+    public static IPersistentProps Data
     {
         get
         {
-            if (_dict == null)
+            if (_props == null)
             {
-                _dict = Pick.ForPlatform<IPersistentProps>(new PersistentPropsAsMauiPreferences(),
+                _props = Pick.ForPlatform<IPersistentProps>(new PersistentPropsAsMauiPreferences(),
                     new PersistentPropsAsMauiPreferences(),
                     new PersistentPropsAsJsonFile("props.json"));
             }
-            return _dict;
+            return _props;
         }
     }
     #endregion
 
     #region Propeties
-    private static IPersistentProps? _dict;
+    private static IPersistentProps? _props;
     #endregion
 }

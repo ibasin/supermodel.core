@@ -12,10 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Mobile\Supermodel.Mobile.Runtime.Common\Supermodel.Mobile.Runtime.Common.csproj" />
+    <Folder Include="Supermodel\Runtime\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Supermodel\Runtime\" />
+    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Client\Supermodel.Mobile.Runtime.Common\Supermodel.Mobile.Runtime.Common.csproj" />
   </ItemGroup>
 </Project>
