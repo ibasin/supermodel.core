@@ -25,7 +25,7 @@ public abstract class Model : IModel, ISupermodelListTemplate
         if (child == null) throw new InvalidOperationException("No element satisfies the condition in predicate.");
         return child;
     }
-    public virtual TChildModel GetChildOrDefault<TChildModel>(Guid childGuidIdentity, params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new()
+    public virtual TChildModel? GetChildOrDefault<TChildModel>(Guid childGuidIdentity, params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new()
     {
         if (parentGuidIdentities == null) throw new ArgumentNullException(nameof(parentGuidIdentities), "Override AfterLoad() on root Model and assign parent identities for each child");
         var child = GetChildList<TChildModel>(parentGuidIdentities).SingleOrDefault(x => x.ChildGuidIdentity == childGuidIdentity);
