@@ -96,7 +96,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
     #endregion
 
     #region DataContext Reads
-    public override async Task<TModel> GetByIdOrDefaultAsync<TModel>(long id)
+    public override async Task<TModel?> GetByIdOrDefaultAsync<TModel>(long id) where TModel : class
     {
         //First check local cache
         await using (new UnitOfWork<TSqliteDataContext>())
@@ -123,7 +123,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
         }
 
         //if we get here, we need to get the data from web api service
-        TModel masterModel;
+        TModel? masterModel;
         await using (new UnitOfWork<TWebApiDataContext>())
         {
             UnitOfWorkContext<TWebApiDataContext>.CurrentDataContext.MakeReadOnly();
@@ -194,7 +194,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
     #endregion
 
     #region DataContext Queries
-    public override async Task<List<TModel>> GetWhereAsync<TModel>(object searchBy, string sortBy = null, int? skip = null, int? take = null)
+    public override async Task<List<TModel>> GetWhereAsync<TModel>(object searchBy, string? sortBy = null, int? skip = null, int? take = null)
     {
         //if we get here, we need to get the data from web api service
         List<TModel> masterModels;
@@ -253,8 +253,7 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
                     case PendingAction.OperationEnum.DelayedGetById:
                     case PendingAction.OperationEnum.DelayedGetByIdOrDefault:
                     {
-                        UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("Delete",
-                            [pendingAction.ModelType], pendingAction.ModelId);
+                        UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("Delete", [pendingAction.ModelType!], pendingAction.ModelId);
                         break;
                     }
                     case PendingAction.OperationEnum.DelayedGetAll:
@@ -306,35 +305,31 @@ public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : D
                     case PendingAction.OperationEnum.Update:
                     case PendingAction.OperationEnum.AddOrUpdate:
                     {
-                        UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("AddOrUpdate",
-                            [pendingAction.ModelType], pendingAction.Model);
+                        UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("AddOrUpdate", [pendingAction.ModelType!], pendingAction.Model);
                         break;
                     }
                     case PendingAction.OperationEnum.Delete: //we need to delete again because we could have read data with delayed read
                     {
-                        UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("Delete",
-                            [pendingAction.ModelType], pendingAction.ModelId);
+                        UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("Delete", [pendingAction.ModelType!], pendingAction.ModelId);
                         break;
                     }
                     case PendingAction.OperationEnum.DelayedGetById:
                     case PendingAction.OperationEnum.DelayedGetByIdOrDefault:
                     {
-                        var model = (IModel)pendingAction.DelayedValue.GetValue();
+                        var model = (IModel?)pendingAction.DelayedValue!.GetValue();
                         if (model != null)
                         {
-                            UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("AddOrUpdate",
-                                [pendingAction.ModelType], model);
+                            UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("AddOrUpdate", [pendingAction.ModelType!], model);
                         }
                         break;
                     }
                     case PendingAction.OperationEnum.DelayedGetAll:
                     case PendingAction.OperationEnum.DelayedGetWhere:
                     {
-                        var models = (IEnumerable<IModel>)pendingAction.DelayedValue.GetValue();
+                        var models = (IEnumerable<IModel>)pendingAction.DelayedValue!.GetValue();
                         foreach (var model in models)
                         {
-                            UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("AddOrUpdate",
-                                [pendingAction.ModelType], model);
+                            UnitOfWorkContext<TSqliteDataContext>.CurrentDataContext.ExecuteGenericMethod("AddOrUpdate", [pendingAction.ModelType!], model);
                         }
                         break;
                     }

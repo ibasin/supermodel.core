@@ -2,5 +2,5 @@
 
 public interface IQueryStringProvider
 {
-    string GetQueryString(object searchBy, int? skip, int? take, string sortBy);
+    string GetQueryString(object? searchBy, int? skip, int? take, string? sortBy);
 }

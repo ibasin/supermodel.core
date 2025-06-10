@@ -4,55 +4,55 @@ namespace Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
 public abstract class DelayedValue
 {
-    public abstract void SetValue(object value);
-    public abstract object GetValue();
+    public abstract void SetValue(object? value);
+    public abstract object? GetValue();
 }
     
 public class DelayedModel<TModel> : DelayedValue where TModel : class, IModel, new() 
 {
     #region Overrides
-    public override void SetValue(object value)
+    public override void SetValue(object? value)
     {
-        Value = (TModel)value;
+        Value = (TModel?)value;
     }
 
-    public override object GetValue()
+    public override object? GetValue()
     {
         return Value;
     }
     #endregion
 
     #region Properties
-    public TModel Value { get; set; }
+    public TModel? Value { get; set; }
     #endregion
 }
 
 public class DelayedModels<TModel> : DelayedValue where TModel : class, IModel, new()
 {
     #region Overrides
-    public override void SetValue(object value)
+    public override void SetValue(object? value)
     {
-        Values = (List<TModel>)value;
+        Values = (List<TModel>?)value;
     }
-    public override object GetValue()
+    public override object? GetValue()
     {
         return Values;
     }
     #endregion
 
     #region Properties
-    public List<TModel> Values { get; set; }
+    public List<TModel>? Values { get; set; }
     #endregion
 }
 
 public class DelayedCount : DelayedValue
 {
     #region Overrides
-    public override void SetValue(object value)
+    public override void SetValue(object? value)
     {
         Value = (long?) value;
     }
-    public override object GetValue()
+    public override object? GetValue()
     {
         return Value;
     }

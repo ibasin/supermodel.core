@@ -314,7 +314,7 @@ public abstract class DataContextBase : IQueryableReadableDataContext, IWritable
                 pendingAction.Operation == PendingAction.OperationEnum.AddWithExistingId ||
                 pendingAction.Operation == PendingAction.OperationEnum.Update ||
                 pendingAction.Operation == PendingAction.OperationEnum.Delete ||
-                pendingAction.Operation == PendingAction.OperationEnum.GenerateIdAndAdd) pendingAction.Model.BeforeSave(pendingAction.Operation);
+                pendingAction.Operation == PendingAction.OperationEnum.GenerateIdAndAdd) pendingAction.Model!.BeforeSave(pendingAction.Operation);
         }
 
         OptimizePendingActions();          
@@ -335,7 +335,7 @@ public abstract class DataContextBase : IQueryableReadableDataContext, IWritable
     #region Private Helpers
     protected void PrepareForThrowingException()
     {
-        foreach (var pendingAction in PendingActions.Where(x => x.Operation == PendingAction.OperationEnum.GenerateIdAndAdd)) pendingAction.Model.Id = 0;
+        foreach (var pendingAction in PendingActions.Where(x => x.Operation == PendingAction.OperationEnum.GenerateIdAndAdd)) pendingAction.Model!.Id = 0;
         MakeCompletedAndFinalized();
     }
     protected void ThrowSupermodelValidationException(SupermodelDataContextValidationException.ValidationError validationError)
@@ -367,7 +367,7 @@ public abstract class DataContextBase : IQueryableReadableDataContext, IWritable
         foreach (var pendingAction in PendingActions.Where(x => x.Model != null))
         {
             var vr = new ValidationResultList();
-            if (!await AsyncValidator.TryValidateObjectAsync(pendingAction.Model, new ValidationContext(pendingAction.Model), vr))
+            if (!await AsyncValidator.TryValidateObjectAsync(pendingAction.Model!, new ValidationContext(pendingAction.Model!), vr))
             {
                 var validationError = new SupermodelDataContextValidationException.ValidationError(vr, pendingAction, "There are some Model Validation Errors");
                 validationErrors.Add(validationError);

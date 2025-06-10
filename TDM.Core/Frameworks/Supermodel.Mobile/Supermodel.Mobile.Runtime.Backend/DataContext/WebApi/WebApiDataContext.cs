@@ -16,14 +16,14 @@ namespace Supermodel.Mobile.Runtime.Backend.DataContext.WebApi;
 public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider, IWebApiAuthorizationContext
 {
     #region Contructors
-    protected WebApiDataContext(AuthHeader authHeader = null)
+    protected WebApiDataContext(AuthHeader? authHeader = null)
     {
         AuthHeader = authHeader;
     }
     #endregion
 
     #region IQueryStringProvider implemetation
-    public string GetQueryString(object searchBy, int? skip, int? take, string sortBy)
+    public string GetQueryString(object? searchBy, int? skip, int? take, string? sortBy)
     {
         var qs = new StringBuilder();
         qs.Append(searchBy.ToQueryString());
@@ -41,7 +41,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
         {
             var url = $"{GetModelTypeLogicalName<TModel>()}/ValidateLogin";
             var dataResponse = await httpClient.GetAsync(url);
-            var dataResponseContentStr = dataResponse.Content != null ? await dataResponse.Content.ReadAsStringAsync () : "";
+            var dataResponseContentStr = await dataResponse.Content.ReadAsStringAsync ();
             if (dataResponse.IsSuccessStatusCode)
             {
                 var validateLoginResponse = JsonConvert.DeserializeObject<ValidateLoginResponse>(dataResponseContentStr);
@@ -54,7 +54,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
     #endregion
 
     #region DataContext Commands
-    public async Task<TOutput> ExecutePostAsync<TInput, TOutput>(string url, TInput input)
+    public async Task<TOutput?> ExecutePostAsync<TInput, TOutput>(string url, TInput input)
         where TInput : class, new()
         where TOutput : class, new()
     {
@@ -65,7 +65,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
                 Content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8, "application/json")
             };
             var response = await httpClient.SendAsync(request);
-            var responseContentStr = response.Content != null ? await response.Content.ReadAsStringAsync() : "";
+            var responseContentStr = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode) ThrowSupermodelWebApiException(response.StatusCode, responseContentStr);
             var output = JsonConvert.DeserializeObject<TOutput>(responseContentStr);
             return output;
@@ -74,7 +74,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
     #endregion
 
     #region DataContext Reads
-    public override async Task<TModel> GetByIdOrDefaultAsync<TModel>(long id)
+    public override async Task<TModel?> GetByIdOrDefaultAsync<TModel>(long id) where TModel : class
     {
         var url = $"{GetModelTypeLogicalName<TModel>()}/{id}";
         return await GetJsonObjectAsync<TModel>(url);
@@ -96,7 +96,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
     #endregion
 
     #region DataContext Queries
-    public override async Task<List<TModel>> GetWhereAsync<TModel>(object searchBy, string sortBy = null, int? skip = null, int? take = null)
+    public override async Task<List<TModel>> GetWhereAsync<TModel>(object? searchBy, string? sortBy = null, int? skip = null, int? take = null)
     {
         var url = $"{GetModelTypeLogicalName<TModel>()}/Where?{searchBy.ToQueryString()}";
         if (sortBy != null) url += "&smSortBy=" + sortBy;
@@ -104,7 +104,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
         if (take != null) url += "&smTake=" + take;
         return await GetJsonObjectsAsync<TModel>(url);
     }
-    public override async Task<long> GetCountWhereAsync<TModel>(object searchBy, int? skip = null, int? take = null)
+    public override async Task<long> GetCountWhereAsync<TModel>(object? searchBy, int? skip = null, int? take = null)
     {
         var url = $"{GetModelTypeLogicalName<TModel>()}/CountWhere?{searchBy.ToQueryString()}";
         if (skip != null) url += "&smSkip=" + skip;
@@ -130,13 +130,13 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
             }
 
             var response = await httpClient.SendAsync(request);
-            var responseContentStr = response.Content != null ? await response.Content.ReadAsStringAsync() : "";
+            var responseContentStr = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
                 //this is a special case for when an object does not exist and it's ok
                 if (response.StatusCode == HttpStatusCode.NotFound && pendingActions.Count == 1 && pendingActions.Single().Operation == PendingAction.OperationEnum.DelayedGetByIdOrDefault)
                 {
-                    //by this we indicate that this is not an transport error - it's an indication that object with id does not exists
+                    //by this we indicate that this is not an transport error - it's an indication that object with id does not exist
                     responseContentStr = null;
                 }
                 else if (response.StatusCode == HttpStatusCode.ExpectationFailed) //If validation error(s)

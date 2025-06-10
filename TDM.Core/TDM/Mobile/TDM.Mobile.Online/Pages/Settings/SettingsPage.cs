@@ -1,5 +1,4 @@
 using System;
-using System.Collections.ObjectModel;
 using Supermodel.ApiClient.Models;
 using Supermodel.Mobile.Runtime.Common.XForms.App;
 using Supermodel.Mobile.Runtime.Common.XForms.Views;

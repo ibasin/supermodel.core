@@ -3,7 +3,7 @@ namespace Supermodel.Mobile.Runtime.Backend.DataContext.WebApi;
 public class LoginResult
 {
     #region Contructors
-    public LoginResult(bool loginSuccessful, long? userId, string userLabel)
+    public LoginResult(bool loginSuccessful, long? userId, string? userLabel)
     {
         LoginSuccessful = loginSuccessful;
         if (loginSuccessful)
@@ -23,6 +23,6 @@ public class LoginResult
     #region Properties
     public bool LoginSuccessful { get; set; }
     public long? UserId { get; set; }
-    public string UserLabel { get; set; }
+    public string? UserLabel { get; set; }
     #endregion
 }

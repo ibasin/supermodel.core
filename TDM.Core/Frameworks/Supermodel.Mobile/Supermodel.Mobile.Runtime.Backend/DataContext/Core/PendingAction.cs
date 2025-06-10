@@ -168,7 +168,7 @@ public class PendingAction
             }
             case OperationEnum.GenerateIdAndAdd:
             {
-                if (ModelId != 0 || Model.Id != 0) throw new SupermodelException("When adding a new Model Id must be equal 0.");
+                if (ModelId != 0 || Model!.Id != 0) throw new SupermodelException("When adding a new Model Id must be equal 0.");
                 message = new HttpRequestMessage(HttpMethod.Post, $"{baseUrl}{DataContextBase.GetModelTypeLogicalName(ModelType)}")
                 {
                     //Content = new StringContent(JsonConvert.SerializeObject(Model.PerpareForSerializingForMasterDb()), Encoding.UTF8, ContentType)
@@ -178,7 +178,7 @@ public class PendingAction
             }
             case OperationEnum.Update:
             {
-                if (ModelId == 0 || Model.Id == 0 || ModelId != Model.Id) throw new SupermodelException("When updating a ModelIds must be not equal 0 and equal to each other");
+                if (ModelId == 0 || Model!.Id == 0 || ModelId != Model.Id) throw new SupermodelException("When updating a ModelIds must be not equal 0 and equal to each other");
                 message = new HttpRequestMessage(HttpMethod.Put, $"{baseUrl}{DataContextBase.GetModelTypeLogicalName(ModelType)}/{ModelId}")
                 {
                     //Content = new StringContent(JsonConvert.SerializeObject(Model.PerpareForSerializingForMasterDb()), Encoding.UTF8, ContentType)
@@ -242,13 +242,13 @@ public class PendingAction
             }
             case OperationEnum.GenerateIdAndAdd:
             {
-                Model.Id = long.Parse(responseContentStr);
+                Model!.Id = long.Parse(responseContentStr);
                 Model.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
                 break;
             }
             case OperationEnum.Update:
             {
-                Model.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
+                Model!.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
                 break;
             }
             case OperationEnum.Delete:
@@ -267,7 +267,7 @@ public class PendingAction
                     var model = (IModel)JsonConvert.DeserializeObject(responseContentStr, ModelType);
                     model!.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
                     model.AfterLoad();
-                    DelayedValue.SetValue(model);
+                    DelayedValue!.SetValue(model);
                 }
                 break;
             }
@@ -275,14 +275,14 @@ public class PendingAction
             {
                 if (string.IsNullOrEmpty(responseContentStr))
                 {
-                    DelayedValue.SetValue(null);
+                    DelayedValue!.SetValue(null);
                 }
                 else
                 {
                     var model = (IModel)JsonConvert.DeserializeObject(responseContentStr, ModelType);
                     model!.BroughtFromMasterDbOnUtc = DateTime.UtcNow;
                     model.AfterLoad();
-                    DelayedValue.SetValue(model);
+                    DelayedValue!.SetValue(model);
                 }
                 break;
             }
