@@ -1,9 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.Versioning;
 using Supermodel.DataAnnotations.Exceptions;
-//using Xamarin.Forms;
 
-namespace Supermodel.Mobile.Runtime.Common.Services;
+namespace Supermodel.Mobile.Runtime.Backend.Services;
 
 public static class Pick
 {

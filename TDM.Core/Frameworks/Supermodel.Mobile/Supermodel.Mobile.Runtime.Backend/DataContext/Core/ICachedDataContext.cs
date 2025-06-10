@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
+﻿namespace Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
 public interface ICachedDataContext
 {

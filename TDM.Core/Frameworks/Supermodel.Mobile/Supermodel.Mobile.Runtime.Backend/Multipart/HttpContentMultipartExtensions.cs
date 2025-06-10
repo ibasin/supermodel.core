@@ -1,14 +1,7 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
+﻿using System.Diagnostics.Contracts;
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-    
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public static class HttpContentMultipartExtensions
 {
     private const int MinBufferSize = 256;

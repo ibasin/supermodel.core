@@ -1,8 +1,8 @@
-﻿using System.Reflection;
+﻿using System.Net;
+using System.Reflection;
 using System.Text;
-using System.Net;
 
-namespace Supermodel.Mobile.Runtime.Common.Utils;
+namespace Supermodel.Mobile.Runtime.Backend.Utils;
 
 public static class SearchByHelper
 {

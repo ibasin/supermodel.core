@@ -1,12 +1,10 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text;
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 
 public class MimeMultipartParser
 {

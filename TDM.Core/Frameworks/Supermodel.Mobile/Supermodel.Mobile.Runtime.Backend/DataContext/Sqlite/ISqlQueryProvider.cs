@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
+﻿namespace Supermodel.Mobile.Runtime.Backend.DataContext.Sqlite;
 
 public interface ISqlQueryProvider
 {

@@ -1,12 +1,10 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Diagnostics.Contracts;
+﻿using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Net;
 using System.Text;
-    
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public class HttpStatusLineParser
 {
     public const int MinStatusLineSize = 15;

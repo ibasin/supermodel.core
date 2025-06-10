@@ -1,7 +1,7 @@
-﻿using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.Models;
+﻿using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.Models;
 
-namespace Supermodel.Mobile.Runtime.Common.Repository;
+namespace Supermodel.Mobile.Runtime.Backend.Repository;
 
 public interface IDataRepo<TModel> where TModel : class, IModel, new()
 {

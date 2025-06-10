@@ -2,14 +2,14 @@
 using System.Text;
 using SQLite;
 using Supermodel.DataAnnotations.Exceptions;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.Models;
 using Supermodel.DataAnnotations.LogicalContext;
-using Supermodel.Mobile.Runtime.Common.Services;
-using Supermodel.Mobile.Runtime.Common.UnitOfWork;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.Models;
 using Supermodel.Mobile.Runtime.Backend.PersistentProps;
+using Supermodel.Mobile.Runtime.Backend.Services;
+using Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.Sqlite;
 
 public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
 {

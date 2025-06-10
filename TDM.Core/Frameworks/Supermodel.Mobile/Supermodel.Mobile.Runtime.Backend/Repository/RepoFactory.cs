@@ -1,8 +1,8 @@
-﻿using Supermodel.Mobile.Runtime.Common.Models;
+﻿using Supermodel.Mobile.Runtime.Backend.Models;
+using Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 using Supermodel.ReflectionMapper;
-using Supermodel.Mobile.Runtime.Common.UnitOfWork;
 
-namespace Supermodel.Mobile.Runtime.Common.Repository;
+namespace Supermodel.Mobile.Runtime.Backend.Repository;
 
 public static class RepoFactory
 {

@@ -1,10 +1,10 @@
-﻿using Supermodel.DataAnnotations.Validations;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Supermodel.DataAnnotations.Exceptions;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
+using Supermodel.DataAnnotations.Validations;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
-namespace Supermodel.Mobile.Runtime.Common.Exceptions;
+namespace Supermodel.Mobile.Runtime.Backend.Exceptions;
 
 public class SupermodelDataContextValidationException : SupermodelException
 {

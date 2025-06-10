@@ -1,15 +1,15 @@
 ﻿using Supermodel.DataAnnotations.Exceptions;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Sqlite;
+using Supermodel.Mobile.Runtime.Backend.DataContext.WebApi;
+using Supermodel.Mobile.Runtime.Backend.Exceptions;
+using Supermodel.Mobile.Runtime.Backend.Models;
 using Supermodel.Mobile.Runtime.Backend.PersistentProps;
-using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
-using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
-using Supermodel.Mobile.Runtime.Common.Exceptions;
-using Supermodel.Mobile.Runtime.Common.Models;
+using Supermodel.Mobile.Runtime.Backend.Repository;
+using Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 using Supermodel.ReflectionMapper;
-using Supermodel.Mobile.Runtime.Common.Repository;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.UnitOfWork;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Offline;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.Offline;
 
 public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContext> 
     where TModel : class, IModel, new()

@@ -1,13 +1,8 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Globalization;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 
 public static class FormattingUtilities
 {

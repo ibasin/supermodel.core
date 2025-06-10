@@ -1,13 +1,13 @@
-﻿using Supermodel.DataAnnotations.Validations;
-using System.ComponentModel.DataAnnotations;
-using Supermodel.Mobile.Runtime.Common.Exceptions;
-using Supermodel.Mobile.Runtime.Common.Models;
-using Supermodel.Mobile.Runtime.Common.Repository;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Supermodel.DataAnnotations.Attributes;
 using Supermodel.DataAnnotations.Exceptions;
+using Supermodel.DataAnnotations.Validations;
+using Supermodel.Mobile.Runtime.Backend.Exceptions;
+using Supermodel.Mobile.Runtime.Backend.Models;
+using Supermodel.Mobile.Runtime.Backend.Repository;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
 public abstract class DataContextBase : IQueryableReadableDataContext, IWritableDataContext
 {

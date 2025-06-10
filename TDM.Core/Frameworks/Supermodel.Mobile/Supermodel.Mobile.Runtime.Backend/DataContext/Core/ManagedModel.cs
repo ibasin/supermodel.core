@@ -1,8 +1,8 @@
-﻿using Supermodel.Mobile.Runtime.Common.Models;
+﻿using Newtonsoft.Json;
 using Supermodel.Encryptor;
-using Newtonsoft.Json;
+using Supermodel.Mobile.Runtime.Backend.Models;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
 public class ManagedModel
 {

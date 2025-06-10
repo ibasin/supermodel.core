@@ -1,17 +1,17 @@
-﻿using Supermodel.ReflectionMapper;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Newtonsoft.Json;
 using Supermodel.DataAnnotations.Exceptions;
+using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Mobile.Runtime.Common.Models;
+namespace Supermodel.Mobile.Runtime.Backend.Models;
 
 public abstract class ChildModel: ISupermodelListTemplate
 {
     #region Overrides
-    [JsonIgnore, NotRCompared] public virtual Guid[] ParentGuidIdentities { get; set; }
+    [JsonIgnore, NotRCompared] public virtual Guid[] ParentGuidIdentities { get; set; } = [];
     [JsonIgnore, NotRCompared] public virtual Guid ChildGuidIdentity { get; set; } = Guid.NewGuid();
 
-    public virtual DataTemplate GetListCellDataTemplate(EventHandler selectItemHandler, EventHandler deleteItemHandler)
+    public virtual DataTemplate GetListCellDataTemplate(EventHandler? selectItemHandler, EventHandler? deleteItemHandler)
     {
         var dataTemplate = new DataTemplate(() =>
         {
@@ -48,7 +48,7 @@ public abstract class ChildModel: ISupermodelListTemplate
         throw new SupermodelException(msg);
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
     public virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

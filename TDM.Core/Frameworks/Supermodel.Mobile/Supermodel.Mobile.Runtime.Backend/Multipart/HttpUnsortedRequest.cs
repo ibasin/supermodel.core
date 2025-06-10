@@ -1,10 +1,7 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
+﻿using System.Net.Http.Headers;
 
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-    
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public class HttpUnsortedRequest
 {
     public HttpUnsortedRequest()

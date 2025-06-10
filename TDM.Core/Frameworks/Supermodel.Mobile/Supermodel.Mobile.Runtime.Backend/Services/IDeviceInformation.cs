@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.Services;
+﻿namespace Supermodel.Mobile.Runtime.Backend.Services;
 
 [SharedService.Singleton]
 //[SharedService.ImplementedBy("Supermodel.Mobile.Runtime.iOS.Services.DeviceInformation, Supermodel.Mobile.Runtime.iOS", "Supermodel.Mobile.Runtime.Droid.Services.DeviceInformation, Supermodel.Mobile.Runtime.Droid")]

@@ -1,10 +1,8 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
+﻿using Supermodel.Mobile.Runtime.Backend.Models;
+using Supermodel.Mobile.Runtime.Backend.Repository;
 
-using System;
-using Models;
-using Repository;
-using System.Collections.Generic;
-    
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+
 public interface IDataContext : IAsyncDisposable
 {
     #region Configuration

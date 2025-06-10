@@ -1,7 +1,7 @@
 ﻿using Supermodel.DataAnnotations.Validations;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
-namespace Supermodel.Mobile.Runtime.Common.Models;
+namespace Supermodel.Mobile.Runtime.Backend.Models;
 
 public interface IModel : IHaveIdentity, IAsyncValidatableObject
 {

@@ -1,4 +1,4 @@
-namespace Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.WebApi;
 
 public class LoginResult
 {

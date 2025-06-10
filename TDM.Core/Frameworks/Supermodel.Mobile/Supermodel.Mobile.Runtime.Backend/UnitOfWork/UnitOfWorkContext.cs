@@ -1,12 +1,12 @@
-﻿using Supermodel.Encryptor;
-using Supermodel.Mobile.Runtime.Common.Models;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
-using Supermodel.DataAnnotations.Exceptions;
+﻿using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.DataAnnotations.LogicalContext;
-using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
+using Supermodel.Encryptor;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Sqlite;
+using Supermodel.Mobile.Runtime.Backend.DataContext.WebApi;
+using Supermodel.Mobile.Runtime.Backend.Models;
 
-namespace Supermodel.Mobile.Runtime.Common.UnitOfWork;
+namespace Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 
 //Shortcuts for the most often used Context methods
 public static class UnitOfWorkContext

@@ -1,15 +1,8 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
-using System.Net.Http;
+﻿using System.Diagnostics.Contracts;
 using System.Net.Http.Headers;
-using System.Threading;
-using System.Threading.Tasks;
-    
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public class MimeBodyPart : IDisposable
 {
     //private static readonly Type _streamType = typeof(Stream);

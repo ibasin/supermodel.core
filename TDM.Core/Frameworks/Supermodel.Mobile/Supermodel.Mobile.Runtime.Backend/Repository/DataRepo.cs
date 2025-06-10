@@ -1,9 +1,9 @@
 ﻿using Supermodel.DataAnnotations.Exceptions;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.Models;
-using Supermodel.Mobile.Runtime.Common.UnitOfWork;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.Models;
+using Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 
-namespace Supermodel.Mobile.Runtime.Common.Repository;
+namespace Supermodel.Mobile.Runtime.Backend.Repository;
 
 public class DataRepo<TModel> : IDataRepo<TModel> where TModel : class, IModel, new()
 {

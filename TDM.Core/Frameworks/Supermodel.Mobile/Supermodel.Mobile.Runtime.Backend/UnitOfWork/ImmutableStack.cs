@@ -1,7 +1,7 @@
-﻿using Validation;
-using System.Collections;
+﻿using System.Collections;
+using Validation;
 
-namespace Supermodel.Mobile.Runtime.Common.UnitOfWork;
+namespace Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 
 public static class ImmutableStack
 {

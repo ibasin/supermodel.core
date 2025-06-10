@@ -1,8 +1,6 @@
 ﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 
-using System.Threading.Tasks;
-    
 public static class TaskHelperExtensions
 {
     public static async Task<object> CastToObject(this Task task)

@@ -1,6 +1,4 @@
-﻿using Supermodel.Mobile.Runtime.Backend.PersistentProps;
-
-namespace Supermodel.Mobile.Runtime.Common.PersistentDict;
+﻿namespace Supermodel.Mobile.Runtime.Backend.PersistentProps;
 
 public class PersistentPropsAsMauiPreferences : IPersistentProps
 {

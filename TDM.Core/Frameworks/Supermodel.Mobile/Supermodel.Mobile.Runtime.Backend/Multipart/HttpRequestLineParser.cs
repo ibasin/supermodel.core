@@ -1,11 +1,8 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Diagnostics.Contracts;
-using System.Net.Http;
+﻿using System.Diagnostics.Contracts;
 using System.Text;
-    
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public class HttpRequestLineParser
 {
     public const int MinRequestLineSize = 14;

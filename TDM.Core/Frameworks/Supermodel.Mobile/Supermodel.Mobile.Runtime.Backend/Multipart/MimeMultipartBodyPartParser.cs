@@ -1,13 +1,8 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
-using System.Net.Http;
+﻿using System.Diagnostics.Contracts;
 using System.Net.Http.Headers;
-    
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public class MimeMultipartBodyPartParser : IDisposable
 {
     public const long DefaultMaxMessageSize = long.MaxValue;

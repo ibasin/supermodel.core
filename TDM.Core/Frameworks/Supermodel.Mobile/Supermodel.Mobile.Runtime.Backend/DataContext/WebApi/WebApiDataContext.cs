@@ -1,17 +1,17 @@
-﻿using Supermodel.Mobile.Runtime.Common.Multipart;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.Exceptions;
-using Supermodel.Mobile.Runtime.Common.Models;
-using Supermodel.Encryptor;
-using Supermodel.Mobile.Runtime.Common.Utils;
+﻿using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
-using System.Net;
-using System.Net.Http.Headers;
 using Supermodel.DataAnnotations.Exceptions;
-using MultipartContent = Supermodel.Mobile.Runtime.Common.Multipart.MultipartContent;
+using Supermodel.Encryptor;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.Exceptions;
+using Supermodel.Mobile.Runtime.Backend.Models;
+using Supermodel.Mobile.Runtime.Backend.Multipart;
+using Supermodel.Mobile.Runtime.Backend.Utils;
+using MultipartContent = Supermodel.Mobile.Runtime.Backend.Multipart.MultipartContent;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.WebApi;
 
 public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider, IWebApiAuthorizationContext
 {

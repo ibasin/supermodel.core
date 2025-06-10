@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Supermodel.Mobile.Runtime.Common.Misc;
+namespace Supermodel.Mobile.Runtime.Backend.Misc;
 
 public class RegexHelper
 {

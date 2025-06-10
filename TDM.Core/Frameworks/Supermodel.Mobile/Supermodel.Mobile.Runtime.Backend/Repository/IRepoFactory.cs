@@ -1,6 +1,6 @@
-﻿using Supermodel.Mobile.Runtime.Common.Models;
+﻿using Supermodel.Mobile.Runtime.Backend.Models;
 
-namespace Supermodel.Mobile.Runtime.Common.Repository;
+namespace Supermodel.Mobile.Runtime.Backend.Repository;
 
 public interface IRepoFactory
 {

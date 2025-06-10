@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Supermodel.Mobile.Runtime.Common.Utils;
+namespace Supermodel.Mobile.Runtime.Backend.Utils;
 
 public static class ObservableCollectionExtensions
 {

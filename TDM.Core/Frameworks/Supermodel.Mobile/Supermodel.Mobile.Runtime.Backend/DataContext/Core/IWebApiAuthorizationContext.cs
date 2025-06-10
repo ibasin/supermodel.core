@@ -1,8 +1,8 @@
 ﻿using Supermodel.Encryptor;
-using Supermodel.Mobile.Runtime.Common.Models;
-using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
+using Supermodel.Mobile.Runtime.Backend.DataContext.WebApi;
+using Supermodel.Mobile.Runtime.Backend.Models;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
 public interface IWebApiAuthorizationContext
 {

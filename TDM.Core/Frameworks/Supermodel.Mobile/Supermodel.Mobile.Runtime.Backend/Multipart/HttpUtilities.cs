@@ -1,8 +1,4 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿namespace Supermodel.Mobile.Runtime.Backend.Multipart;
 
 public static class HttpUtilities
 {

@@ -1,16 +1,15 @@
-﻿using Supermodel.DataAnnotations.Validations;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using Supermodel.Mobile.Runtime.Common.Repository;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.ReflectionMapper;
-using System.ComponentModel;
-//using Xamarin.Forms;
-using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
-using Supermodel.Mobile.Runtime.Common.UnitOfWork;
 using Supermodel.DataAnnotations.Exceptions;
+using Supermodel.DataAnnotations.Validations;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Sqlite;
+using Supermodel.Mobile.Runtime.Backend.Repository;
+using Supermodel.Mobile.Runtime.Backend.UnitOfWork;
+using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Mobile.Runtime.Common.Models;
+namespace Supermodel.Mobile.Runtime.Backend.Models;
 
 public abstract class Model : IModel, ISupermodelListTemplate
 {

@@ -1,11 +1,9 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Diagnostics.Contracts;
+﻿using System.Diagnostics.Contracts;
 using System.Net.Http.Headers;
 using System.Text;
-    
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public enum ParserState
 {
     NeedMoreData,

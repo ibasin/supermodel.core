@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.UnitOfWork;
+﻿namespace Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 
 public enum ReadOnly
 {

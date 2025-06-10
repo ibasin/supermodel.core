@@ -1,10 +1,8 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+﻿using System.Diagnostics.Contracts;
 using System.Net.Http.Headers;
-    
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public static class HttpHeaderExtensions
 {
     public static void CopyTo(this HttpContentHeaders fromHeaders, HttpContentHeaders toHeaders)

@@ -1,16 +1,16 @@
-﻿using Supermodel.Encryptor;
-using System.Text;
+﻿using System.Text;
 using SQLite;
 using Supermodel.DataAnnotations.Exceptions;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
-using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;
-using Supermodel.Mobile.Runtime.Common.Models;
-using Supermodel.Mobile.Runtime.Common.Repository;
-using Supermodel.Mobile.Runtime.Common.UnitOfWork;
+using Supermodel.Encryptor;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Sqlite;
+using Supermodel.Mobile.Runtime.Backend.DataContext.WebApi;
+using Supermodel.Mobile.Runtime.Backend.Models;
+using Supermodel.Mobile.Runtime.Backend.Repository;
+using Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.CachedWebApi;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.CachedWebApi;
 
 public class CachedWebApiDataContext<TWebApiDataContext, TSqliteDataContext> : DataContextBase, IWebApiAuthorizationContext, ICachedDataContext
     where TWebApiDataContext : WebApiDataContext, new()

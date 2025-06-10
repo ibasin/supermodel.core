@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.Models;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.Models;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.Sqlite;
 
 public class DataRow<TModel> : DataRow where TModel : class, IModel, new()
 {

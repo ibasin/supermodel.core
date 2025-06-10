@@ -1,7 +1,4 @@
-
-//using Xamarin.Forms;
-
-namespace Supermodel.Mobile.Runtime.Common.Models;
+namespace Supermodel.Mobile.Runtime.Backend.Models;
 
 public interface ISupermodelListTemplate : ISupermodelNotifyPropertyChanged
 {

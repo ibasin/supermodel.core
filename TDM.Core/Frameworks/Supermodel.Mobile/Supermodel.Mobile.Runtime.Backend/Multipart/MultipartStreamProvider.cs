@@ -1,13 +1,9 @@
 ﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading;
-using System.Threading.Tasks;
-    
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public abstract class MultipartStreamProvider
 {
     private struct AsyncVoid{}

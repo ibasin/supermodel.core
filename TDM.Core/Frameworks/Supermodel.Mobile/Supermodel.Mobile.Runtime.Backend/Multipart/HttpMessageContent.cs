@@ -1,16 +1,10 @@
-﻿
-namespace Supermodel.Mobile.Runtime.Common.Multipart;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
+﻿using System.Diagnostics.Contracts;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
-    
+
+namespace Supermodel.Mobile.Runtime.Backend.Multipart;
+
 public class HttpMessageContent : HttpContent
 {
     // ReSharper disable InconsistentNaming

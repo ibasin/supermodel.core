@@ -1,7 +1,7 @@
 ﻿using Supermodel.DataAnnotations.Exceptions;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
+using Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
-namespace Supermodel.Mobile.Runtime.Common.UnitOfWork;
+namespace Supermodel.Mobile.Runtime.Backend.UnitOfWork;
 
 public class UnitOfWork<TDataContext> : IAsyncDisposable where TDataContext : class, IDataContext, new()
 {

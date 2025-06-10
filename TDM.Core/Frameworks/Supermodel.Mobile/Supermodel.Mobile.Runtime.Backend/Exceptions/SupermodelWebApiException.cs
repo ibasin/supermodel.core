@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
+using Newtonsoft.Json;
 using Supermodel.DataAnnotations.Exceptions;
 
-namespace Supermodel.Mobile.Runtime.Common.Exceptions;
+namespace Supermodel.Mobile.Runtime.Backend.Exceptions;
 
 public class SupermodelWebApiException : SupermodelException
 {

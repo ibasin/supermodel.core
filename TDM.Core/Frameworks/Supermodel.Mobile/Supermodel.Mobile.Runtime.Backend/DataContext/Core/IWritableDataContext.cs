@@ -1,6 +1,6 @@
-﻿using Supermodel.Mobile.Runtime.Common.Models;
+﻿using Supermodel.Mobile.Runtime.Backend.Models;
 
-namespace Supermodel.Mobile.Runtime.Common.DataContext.Core;
+namespace Supermodel.Mobile.Runtime.Backend.DataContext.Core;
 
 public interface IWritableDataContext : IDataContext
 {

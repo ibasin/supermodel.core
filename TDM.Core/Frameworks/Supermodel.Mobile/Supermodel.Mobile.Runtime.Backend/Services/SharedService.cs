@@ -3,7 +3,7 @@ using System.Reflection;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Mobile.Runtime.Common.Services;
+namespace Supermodel.Mobile.Runtime.Backend.Services;
 
 public static class SharedService
 {

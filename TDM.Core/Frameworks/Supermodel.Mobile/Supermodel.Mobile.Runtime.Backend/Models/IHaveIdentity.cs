@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Mobile.Runtime.Common.Models;
+﻿namespace Supermodel.Mobile.Runtime.Backend.Models;
 
 public interface IHaveIdentity
 {
