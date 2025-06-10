@@ -22,10 +22,10 @@ public interface IModel : IHaveIdentity, IAsyncValidatableObject
 
     // ReSharper disable once UnusedMemberInSuper.Global
     // ReSharper disable UnusedParameter.Global
-    List<TChildModel> GetChildList<TChildModel>(params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new();
-    TChildModel GetChild<TChildModel>(Guid childGuidIdentity, params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new();
-    TChildModel? GetChildOrDefault<TChildModel>(Guid childGuidIdentity, params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new();
-    void AddChild<TChildModel>(TChildModel child, int? index = null) where TChildModel : ChildModel, new();
-    int DeleteChild<TChildModel>(TChildModel child) where TChildModel : ChildModel, new();
+    //List<TChildModel> GetChildList<TChildModel>(params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new();
+    //TChildModel GetChild<TChildModel>(Guid childGuidIdentity, params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new();
+    //TChildModel? GetChildOrDefault<TChildModel>(Guid childGuidIdentity, params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new();
+    //void AddChild<TChildModel>(TChildModel child, int? index = null) where TChildModel : ChildModel, new();
+    //int DeleteChild<TChildModel>(TChildModel child) where TChildModel : ChildModel, new();
     // ReSharper restore UnusedParameter.Global
 }
