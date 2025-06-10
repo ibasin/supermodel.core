@@ -136,7 +136,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
                 //this is a special case for when an object does not exist and it's ok
                 if (response.StatusCode == HttpStatusCode.NotFound && pendingActions.Count == 1 && pendingActions.Single().Operation == PendingAction.OperationEnum.DelayedGetByIdOrDefault)
                 {
-                    //by this we indicate that this is not an transport error - it's an indication that object with id does not exist
+                    //by this we indicate that this is not a transport error - it's an indication that object with id does not exist
                     responseContentStr = null;
                 }
                 else if (response.StatusCode == HttpStatusCode.ExpectationFailed) //If validation error(s)
@@ -163,7 +163,7 @@ public abstract class WebApiDataContext : DataContextBase, IQueryStringProvider,
                 for (var i = 0; i < pendingActions.Count; i++)
                 {
                     var dataResponse = await streamProvider.Contents[i].ReadAsHttpResponseMessageAsync();
-                    var dataResponseContentStr = dataResponse.Content != null ? await dataResponse.Content.ReadAsStringAsync() : "";
+                    var dataResponseContentStr = await dataResponse.Content.ReadAsStringAsync();
                     if (!dataResponse.IsSuccessStatusCode)
                     {
                         //this is a special case for when an object does not exists and it's ok

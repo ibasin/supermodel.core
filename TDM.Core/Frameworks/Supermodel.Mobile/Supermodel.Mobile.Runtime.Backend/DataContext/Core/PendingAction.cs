@@ -232,7 +232,7 @@ public class PendingAction
             
         return message;
     }
-    public void ProcessHttpResponse(string responseContentStr)
+    public void ProcessHttpResponse(string? responseContentStr)
     {
         switch (Operation)
         {
