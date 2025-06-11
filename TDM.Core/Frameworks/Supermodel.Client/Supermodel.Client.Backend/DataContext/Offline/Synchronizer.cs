@@ -298,7 +298,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
     {
         return _lastSyncDateTimeUtc ??= await GetLastSyncDateTimeUtcInternalAsync();
     }
-    public virtual async Task SetLastSyncDateTimeUtcAsync(DateTime? value)
+    public virtual async Task SetLastSyncDateTimeUtcAsync(DateTime value)
     {
         _lastSyncDateTimeUtc = value;
         await SetLastSyncDateTimeUtcInternalAsync(value);
@@ -316,26 +316,127 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
         var lastSyncDateTimeUtc = DateTime.Parse(results.Single().Json!);
         return lastSyncDateTimeUtc;
     }
-    protected virtual async Task SetLastSyncDateTimeUtcInternalAsync(DateTime? value)
+    protected virtual async Task SetLastSyncDateTimeUtcInternalAsync(DateTime value)
     {
         var sqLiteDbContext = new TSqliteDataContext();
-        if (await sqLiteDbContext.InitDbAsync()) return null;
-
-        //var db = new SQLiteAsyncConnection(DatabaseFilePath);
-        //var modelTypeLogicalName = GetModelTypeLogicalName(typeof(TModel));
-        //var commandText = $"SELECT * FROM [{DataTableName}] WHERE ModelTypeLogicalName = '{modelTypeLogicalName}' AND ModelId = {id}";
-        //var results = await db.QueryAsync<DataRow<TModel>>(commandText);
-        //if (results.Count == 0) return null;
-        //if (results.Count > 1) throw new Exception("GetByIdOrDefaultAsync brought back more than one record");
-        //var model = results.Single().GetModel();
-        //ManagedModels.Add(new ManagedModel(model));
-        //return model;
-
-
-        if (value == null) throw new ArgumentNullException(nameof(value));
-        #pragma warning disable 4014
-        Properties.Data.SetAsync("smLastSyncDateTimeUtc", value);
-        #pragma warning restore 4014
+        var db = new SQLiteAsyncConnection(sqLiteDbContext.DatabaseFilePath);
+        string commandText;
+        if (await GetLastSyncDateTimeUtcAsync() == null)
+        {
+            //insert
+            commandText = 
+                $@"INSERT INTO [{sqLiteDbContext.DataTableName}] (
+                    ModelTypeLogicalName, 
+                    ModelId, 
+                    Json, 
+                    BroughtFromMasterDbOnUtcTicks, 
+                    Index0, 
+                    Index1, 
+                    Index2, 
+                    Index3, 
+                    Index4,
+                    Index5, 
+                    Index6, 
+                    Index7, 
+                    Index8, 
+                    Index9,
+                    Index10, 
+                    Index11, 
+                    Index12, 
+                    Index13, 
+                    Index14,
+                    Index15, 
+                    Index16, 
+                    Index17, 
+                    Index18, 
+                    Index19,
+                    Index20, 
+                    Index21, 
+                    Index22, 
+                    Index23, 
+                    Index24,
+                    Index25, 
+                    Index26, 
+                    Index27, 
+                    Index28, 
+                    Index29) 
+			        VALUES (
+                    '{sqLiteDbContext.DataTableName + SchemaVersionModelTypeSuffix}', 
+                    0, 
+                    '{value}', 
+                    {DateTime.UtcNow.Ticks}, 
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL,
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL,
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL,
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL,
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL,
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL, 
+                    NULL)";
+        }
+        else
+        {
+            //update
+            commandText = 
+                $@"UPDATE [{sqLiteDbContext.DataTableName}]
+                SET 
+                    Json = '{value}', 
+                    BroughtFromMasterDbOnUtcTicks = {DateTime.UtcNow.Ticks},
+                    Index0 = NULL, 
+                    Index1 = NULL, 
+                    Index2 = NULL, 
+                    Index3 = NULL, 
+                    Index4 = NULL,
+                    Index5 = NULL, 
+                    Index6 = NULL, 
+                    Index7 = NULL, 
+                    Index8 = NULL, 
+                    Index9 = NULL,
+                    Index10 = NULL, 
+                    Index11 = NULL, 
+                    Index12 = NULL, 
+                    Index13 = NULL, 
+                    Index14 = NULL,
+                    Index15 = NULL, 
+                    Index16 = NULL, 
+                    Index17 = NULL, 
+                    Index18 = NULL, 
+                    Index19 = NULL,
+                    Index20 = NULL, 
+                    Index21 = NULL, 
+                    Index22 = NULL, 
+                    Index23 = NULL, 
+                    Index24 = NULL,
+                    Index25 = NULL, 
+                    Index26 = NULL, 
+                    Index27 = NULL, 
+                    Index28 = NULL, 
+                    Index29 = NULL
+                WHERE ModelTypeLogicalName = '{sqLiteDbContext.DataTableName + SchemaVersionModelTypeSuffix}' AND ModelId = 0";
+        }
+        await db.ExecuteAsync(commandText);
     }
     public string SchemaVersionModelTypeSuffix => ".LocalDb.lastSyncDateTimeUtc";
     #endregion
