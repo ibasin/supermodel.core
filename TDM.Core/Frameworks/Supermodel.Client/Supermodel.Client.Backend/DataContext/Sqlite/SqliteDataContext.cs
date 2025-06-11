@@ -4,9 +4,6 @@ using Supermodel.Client.Backend.Models;
 using Supermodel.Client.Backend.UnitOfWork;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.DataAnnotations.LogicalContext;
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.Versioning;
 using System.Text;
 
 namespace Supermodel.Client.Backend.DataContext.Sqlite;
@@ -570,25 +567,11 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
     public const string SupermodelSqliteMigrationInProgressOnThisThread = "SupermodelSqliteMigrationInProgressOnThisThread";
     public string SchemaVersionModelType => DataTableName + ".LocalDb.SchemaVersion";
 
-    public virtual string DbFileName => "Supermodel.Mobile.Runtime.Common.db3";
     public virtual string DataTableName => "Data";
-    public virtual string DatabaseFilePath
-    {
-        get
-        {
-            var framework = Assembly.GetEntryAssembly()?.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName;
-            if (framework != null && framework.StartsWith(".NETCoreApp", StringComparison.Ordinal))
-            {
-                //.net
-                return Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName)!, DbFileName);
-            }
-            else
-            {
-                //iOS and Android
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), DbFileName);
-            }
-        }
-    }
+
+    //For MAUI apps return Path.Combine(FileSystem.Current.AppDataDirectory, "<filename>.db");
+    //For .Net clients return Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName)!, "<filename>.db");
+    public abstract string DatabaseFilePath { get; }
 
     // ReSharper disable InconsistentNaming
     private static readonly HashSet<Type> _finishedInitializingSqlLiteContext = new();
