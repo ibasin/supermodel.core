@@ -556,12 +556,8 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
     public virtual async Task<bool> CreateDatabaseIfNotExistsAsync()
     {
         if (await DataTableExistsAsync()) return false;
+        
         await ResetDatabaseAsync();
-
-        //we do this because, in a case when db is deleted but LastSyncDateTimeUtc is set, all records on the server will be deleted
-        //await Properties.Data.RemoveAsync("smLastSyncDateTimeUtc");
-        //we now store last sync time in db, so no need for separate clean-up, remove this block of code later
-
         return true;
     }
     public virtual async Task MigrateDbAsync(int? fromVersion, int toVersion)
