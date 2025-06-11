@@ -1,4 +1,5 @@
-﻿using Supermodel.Client.Backend.DataContext.Core;
+﻿using SQLite;
+using Supermodel.Client.Backend.DataContext.Core;
 using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Backend.DataContext.WebApi;
 using Supermodel.Client.Backend.Exceptions;
@@ -18,7 +19,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
     #region Constructiors
     protected Synchronizer()
     {
-        RefreshFromMasterAfterSynch = true;
+        RefreshFromMasterAfterSync = true;
     }
     #endregion
 
@@ -36,13 +37,13 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 //----------------------------------------------------------------------------------------
                 //Load all the models to synchronize
                 //----------------------------------------------------------------------------------------
-                var masterModels = await LoadAllSynchFromMasterAsync();
-                var localModels = await LoadAllSynchFromLocalAsync();
+                var masterModels = await LoadAllSyncFromMasterAsync();
+                var localModels = await LoadAllSyncFromLocalAsync();
                     
                 //----------------------------------------------------------------------------------------
-                //Run the synching algorithm
+                //Run the syncing algorithm
                 //----------------------------------------------------------------------------------------
-                await SynchListsAsync(masterModels, localModels);
+                await SyncListsAsync(masterModels, localModels);
 
                 //----------------------------------------------------------------------------------------
                 //Let's try to validate all the models that are to be saved locally
@@ -71,12 +72,12 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 //----------------------------------------------------------------------------------------
 
                 DelayedModels<TModel>? delayedMasterModels = null;
-                if (RefreshFromMasterAfterSynch)
+                if (RefreshFromMasterAfterSync)
                 {
                     var sqliteDataContext = UnitOfWorkContext<TSqliteDataContext>.PopDbContext();
                     UnitOfWorkContext.DetectUpdates();
                     UnitOfWorkContext<TSqliteDataContext>.PushDbContext(sqliteDataContext);
-                    RegisterDelayedLoadAllSynchFromMaster(out delayedMasterModels);
+                    RegisterDelayedLoadAllSyncFromMaster(out delayedMasterModels);
                 }
 
                 //----------------------------------------------------------------------------------------
@@ -120,19 +121,20 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 //----------------------------------------------------------------------------------------
                 //If that succeeds, then we save changes to the local db, should not have any more validation errors, since we already checked
                 //----------------------------------------------------------------------------------------
-                LastSyncDateTimeUtc = DateTime.UtcNow;
+                await SetLastSyncDateTimeUtcAsync(DateTime.UtcNow);
                 //await UnitOfWorkContext.FinalSaveChangesAsync();
             }
         }
     }
-    public bool IsUploadPending(TModel model)
+    public async Task<bool> IsUploadPendingAsync(TModel model)
     {
-        return LastSyncDateTimeUtc == null || GetModifiedDateTimeUtc(model) > LastSyncDateTimeUtc;
+        var lastSyncDateTimeUtc = await GetLastSyncDateTimeUtcAsync();
+        return lastSyncDateTimeUtc == null || GetModifiedDateTimeUtc(model) > lastSyncDateTimeUtc;
     }
     #endregion
 
     #region Main Algorithm
-    protected virtual async Task SynchListsAsync(List<TModel> masterModels, List<TModel> localModels)
+    protected virtual async Task SyncListsAsync(List<TModel> masterModels, List<TModel> localModels)
     {
         //find updated on the server, update locally
         //find updated on the client, update on the server
@@ -144,7 +146,8 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
             var matchingLocalModel = localModels.SingleOrDefault(x => x.Id == masterModel.Id);
             if (matchingLocalModel != null) //if we found one
             {
-                if (GetModifiedDateTimeUtc(masterModel) > LastSyncDateTimeUtc && GetModifiedDateTimeUtc(matchingLocalModel) > LastSyncDateTimeUtc)
+                var lastSyncDateTimeUtc = await GetLastSyncDateTimeUtcAsync();
+                if (GetModifiedDateTimeUtc(masterModel) > lastSyncDateTimeUtc && GetModifiedDateTimeUtc(matchingLocalModel) > lastSyncDateTimeUtc)
                 {
                     //if model was updated on both server and client, call the hook to let the user resolve conflict
                     await HandleModelUpdatedOnServerAndDeviceAsync(masterModel, matchingLocalModel);
@@ -157,8 +160,9 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
             }
             else //if not, there could be two scenarios:
             {
-                //If the model on the server was created after our last synch or if we never synched before
-                if (GetCreatedDateTimeUtc(masterModel) > LastSyncDateTimeUtc || LastSyncDateTimeUtc == null)
+                //If the model on the server was created after our last sync or if we never synced before
+                var lastSyncDateTimeUtc = await GetLastSyncDateTimeUtcAsync();
+                if (GetCreatedDateTimeUtc(masterModel) > lastSyncDateTimeUtc || lastSyncDateTimeUtc == null)
                 {
                     //we need to add the master model to our local storage
                     //var localModel = new TModel();
@@ -169,9 +173,9 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 else
                 {
                     //otherwise it means that we deleted the model on the client and now we need to delete it from the server
-                    if (GetModifiedDateTimeUtc(masterModel) > LastSyncDateTimeUtc)
+                    if (GetModifiedDateTimeUtc(masterModel) > lastSyncDateTimeUtc)
                     {
-                        //if since our last synch the model was modified on the server and deleted on the client, call the hook to let the user resolve conflict
+                        //if since our last sync the model was modified on the server and deleted on the client, call the hook to let the user resolve conflict
                         HandleModelUpdatedOnServerDeletedOnDevice(masterModel);
                     }
                     else
@@ -203,7 +207,8 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
                 if (matchingServerModel == null) //if one exists, we already updated it and need not worry
                 {
                     //otherwise, it means that the model was deleted on the server
-                    if (GetModifiedDateTimeUtc(localModel) > LastSyncDateTimeUtc)
+                    var lastSyncDateTimeUtc = await GetLastSyncDateTimeUtcAsync();
+                    if (GetModifiedDateTimeUtc(localModel) > lastSyncDateTimeUtc)
                     {
                         //if since our last synch the model was modified on the device and deleted on the client, call the hook to let the user resolve conflict
                         HandleModelUpdatedOnDeviceDeletedOnServer(localModel);
@@ -256,20 +261,20 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
     #endregion
 
     #region Helpers that are Meant to be Overriden for Customization
-    protected virtual void RegisterDelayedLoadAllSynchFromMaster(out DelayedModels<TModel> delayedMasterModels)
+    protected virtual void RegisterDelayedLoadAllSyncFromMaster(out DelayedModels<TModel> delayedMasterModels)
     {
         var sqliteDataContext = UnitOfWorkContext<TSqliteDataContext>.PopDbContext();
         RepoFactory.Create<TModel>().DelayedGetAll(out delayedMasterModels);
         UnitOfWorkContext<TSqliteDataContext>.PushDbContext(sqliteDataContext);
     }
-    protected virtual Task<List<TModel>> LoadAllSynchFromMasterAsync()
+    protected virtual Task<List<TModel>> LoadAllSyncFromMasterAsync()
     {
         var sqliteDataContext = UnitOfWorkContext<TSqliteDataContext>.PopDbContext();
         var result = RepoFactory.Create<TModel>().GetAllAsync();
         UnitOfWorkContext<TSqliteDataContext>.PushDbContext(sqliteDataContext);
         return result;
     }
-    protected virtual Task<List<TModel>> LoadAllSynchFromLocalAsync()
+    protected virtual Task<List<TModel>> LoadAllSyncFromLocalAsync()
     {
         return RepoFactory.Create<TModel>().GetAllAsync();
     }
@@ -289,31 +294,62 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
     #endregion
 
     #region LastSynch DateTime Handling
-    public virtual DateTime? LastSyncDateTimeUtc
+    public virtual async Task<DateTime?> GetLastSyncDateTimeUtcAsync()
     {
-        get => _lastSyncDateTimeUtc ??= LastSyncDateTimeUtcInternal;
-        set => _lastSyncDateTimeUtc = LastSyncDateTimeUtcInternal = value;
+        return _lastSyncDateTimeUtc ??= await GetLastSyncDateTimeUtcInternalAsync();
+    }
+    public virtual async Task SetLastSyncDateTimeUtcAsync(DateTime? value)
+    {
+        _lastSyncDateTimeUtc = value;
+        await SetLastSyncDateTimeUtcInternalAsync(value);
     }
     private DateTime? _lastSyncDateTimeUtc;
         
-    protected virtual DateTime? LastSyncDateTimeUtcInternal
+    protected virtual async Task<DateTime?> GetLastSyncDateTimeUtcInternalAsync()
     {
-        get
-        {
-            if (!Properties.Data.ContainsKey("smLastSyncDateTimeUtc")) return null;
-            return Properties.Data.Get<DateTime>("smLastSyncDateTimeUtc");
-        }
-        set
-        {
-            if (value == null) throw new ArgumentNullException(nameof(value));
-            #pragma warning disable 4014
-            Properties.Data.SetAsync("smLastSyncDateTimeUtc", value);
-            #pragma warning restore 4014
-        }
+        await using()
+        
+        var sqLiteDbContext = new TSqliteDataContext();
+        if (await sqLiteDbContext.InitDbAsync()) return null;
+
+        //var db = new SQLiteAsyncConnection(DatabaseFilePath);
+        //var modelTypeLogicalName = GetModelTypeLogicalName(typeof(TModel));
+        //var commandText = $"SELECT * FROM [{DataTableName}] WHERE ModelTypeLogicalName = '{modelTypeLogicalName}' AND ModelId = {id}";
+        //var results = await db.QueryAsync<DataRow<TModel>>(commandText);
+        //if (results.Count == 0) return null;
+        //if (results.Count > 1) throw new Exception("GetByIdOrDefaultAsync brought back more than one record");
+        //var model = results.Single().GetModel();
+        //ManagedModels.Add(new ManagedModel(model));
+        //return model;
+
+
+        if (!Properties.Data.ContainsKey("smLastSyncDateTimeUtc")) return null;
+        return Properties.Data.Get<DateTime>("smLastSyncDateTimeUtc");
+    }
+    protected virtual async Task SetLastSyncDateTimeUtcInternalAsync(DateTime? value)
+    {
+        var sqLiteDbContext = new TSqliteDataContext();
+        if (await sqLiteDbContext.InitDbAsync()) return null;
+
+        //var db = new SQLiteAsyncConnection(DatabaseFilePath);
+        //var modelTypeLogicalName = GetModelTypeLogicalName(typeof(TModel));
+        //var commandText = $"SELECT * FROM [{DataTableName}] WHERE ModelTypeLogicalName = '{modelTypeLogicalName}' AND ModelId = {id}";
+        //var results = await db.QueryAsync<DataRow<TModel>>(commandText);
+        //if (results.Count == 0) return null;
+        //if (results.Count > 1) throw new Exception("GetByIdOrDefaultAsync brought back more than one record");
+        //var model = results.Single().GetModel();
+        //ManagedModels.Add(new ManagedModel(model));
+        //return model;
+
+
+        if (value == null) throw new ArgumentNullException(nameof(value));
+        #pragma warning disable 4014
+        Properties.Data.SetAsync("smLastSyncDateTimeUtc", value);
+        #pragma warning restore 4014
     }
     #endregion
 
     #region Properties
-    public bool RefreshFromMasterAfterSynch { get; set; }
+    public bool RefreshFromMasterAfterSync { get; set; }
     #endregion
 }

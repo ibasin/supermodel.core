@@ -1,17 +1,20 @@
-﻿using System.Diagnostics;
-using System.Text;
-using SQLite;
+﻿using SQLite;
 using Supermodel.Client.Backend.DataContext.Core;
 using Supermodel.Client.Backend.Models;
 using Supermodel.Client.Backend.UnitOfWork;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.DataAnnotations.LogicalContext;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.Versioning;
+using System.Text;
 
 namespace Supermodel.Client.Backend.DataContext.Sqlite;
 
 public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
 {
     #region ISqlQueryProvider implemetation
+    // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Global
     public virtual object? GetIndex<TModel>(int idxNum0To29, TModel model)
     {
         if (idxNum0To29 < 0 || idxNum0To29 > 29) throw new SupermodelException("Only Indexes 0-29 are allowed");
@@ -22,8 +25,6 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         // ReSharper restore ConditionIsAlwaysTrueOrFalse
         return null;
     }
-    // ReSharper disable ParameterOnlyUsedForPreconditionCheck.Global
-    // ReSharper disable UnusedParameter.Global
     public virtual string? GetStringIndex<TModel>(int idxNum0To9, TModel model)
     {
         if (idxNum0To9 < 0 || idxNum0To9 > 9) throw new SupermodelException("Only Indexes 0-9 are allowed");
@@ -39,8 +40,6 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         if (idxNum0To9 < 0 || idxNum0To9 > 9) throw new SupermodelException("Only Indexes 0-9 are allowed");
         return null;
     }
-    // ReSharper restore UnusedParameter.Global
-    // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Global
     public virtual string? GetWhereClause<TModel>(object? searchBy, string? sortBy)
     {
         return null;
@@ -52,6 +51,7 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         if (skip != null) sb.Append(" OFFSET " + skip);
         return sb.ToString();
     }
+    // ReSharper restore ParameterOnlyUsedForPreconditionCheck.Global
     #endregion
 
     #region DataContext Reads
@@ -503,8 +503,8 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
                     NULL, 
                     NULL, 
                     NULL, 
-                    NULL)"; 
-                           
+                    NULL)";
+
             await db.ExecuteAsync(commandText1);
             await db.ExecuteAsync(commandText2);
             await db.ExecuteAsync(commandText3);
@@ -559,7 +559,8 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
         await ResetDatabaseAsync();
 
         //we do this because, in a case when db is deleted but LastSyncDateTimeUtc is set, all records on the server will be deleted
-        await Properties.Data.RemoveAsync("smLastSyncDateTimeUtc");
+        //await Properties.Data.RemoveAsync("smLastSyncDateTimeUtc");
+        //we now store last sync time in db, so no need for separate clean-up, remove this block of code later
 
         return true;
     }
@@ -575,12 +576,23 @@ public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
 
     public virtual string DbFileName => "Supermodel.Mobile.Runtime.Common.db3";
     public virtual string DataTableName => "Data";
-    public virtual string DatabaseFilePath => Path.Combine(
-        Pick.ForPlatform(
-            Environment.GetFolderPath(Environment.SpecialFolder.Personal), 
-            Environment.GetFolderPath(Environment.SpecialFolder.Personal),
-            Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName))!, 
-        DbFileName);
+    public virtual string DatabaseFilePath
+    {
+        get
+        {
+            var framework = Assembly.GetEntryAssembly()?.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName;
+            if (framework != null && framework.StartsWith(".NETCoreApp", StringComparison.Ordinal))
+            {
+                //.net
+                return Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName)!, DbFileName);
+            }
+            else
+            {
+                //iOS and Android
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), DbFileName);
+            }
+        }
+    }
 
     // ReSharper disable InconsistentNaming
     private static readonly HashSet<Type> _finishedInitializingSqlLiteContext = new();
