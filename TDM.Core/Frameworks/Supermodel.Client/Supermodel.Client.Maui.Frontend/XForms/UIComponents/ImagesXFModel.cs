@@ -1,4 +1,8 @@
-﻿using Supermodel.Client.Maui.Frontend.XForms.UIComponents.Base;
+﻿using Android.Hardware.Camera2;
+using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Layouts;
+using Supermodel.Client.Maui.Frontend.Services;
+using Supermodel.Client.Maui.Frontend.XForms.UIComponents.Base;
 using Supermodel.Client.Maui.Frontend.XForms.UIComponents.CustomCells;
 using Supermodel.Client.Maui.Frontend.XForms.ViewModels;
 using Supermodel.Client.Maui.Frontend.XForms.Views;

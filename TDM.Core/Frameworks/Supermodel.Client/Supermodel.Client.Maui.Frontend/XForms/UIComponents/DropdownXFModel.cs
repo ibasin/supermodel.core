@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Supermodel.Client.Maui.Frontend.Services;
 using Supermodel.Client.Maui.Frontend.XForms.Pages.CRUDDetail;
 using Supermodel.Client.Maui.Frontend.XForms.UIComponents.Base;
 using Supermodel.Client.Maui.Frontend.XForms.UIComponents.CustomControls;

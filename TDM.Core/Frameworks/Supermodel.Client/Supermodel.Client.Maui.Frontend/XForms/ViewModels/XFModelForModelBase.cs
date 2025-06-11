@@ -1,6 +1,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using System.Reflection;
+using Supermodel.Client.Backend.DataContext.Core;
+using Supermodel.Client.Backend.Exceptions;
+using Supermodel.Client.Backend.Models;
+using Supermodel.Client.Backend.UnitOfWork;
+using Supermodel.Client.Backend.Utils;
+using Supermodel.Client.Maui.Frontend.Models;
 using Supermodel.Client.Maui.Frontend.XForms.App;
 using Supermodel.Client.Maui.Frontend.XForms.Pages.CRUDDetail;
 using Supermodel.Client.Maui.Frontend.XForms.Views;
@@ -108,7 +115,7 @@ public abstract class XFModelForModelBase<TModel> : XFModel, IRMapperCustom wher
                             }
                             else if (ex1.StatusCode == HttpStatusCode.NotFound)
                             {
-                                parentModels.RemoveAll(x => x == Model);
+                                parentModels.RemoveAllWhere(x => x == Model);
                                 await crudPage.DisplayAlert("Not Found", "Item you are trying to update no longer exists.", "Ok");
                             }
                             else if (ex1.StatusCode == HttpStatusCode.Conflict)

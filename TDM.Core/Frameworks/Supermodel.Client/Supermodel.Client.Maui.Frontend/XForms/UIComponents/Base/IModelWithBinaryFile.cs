@@ -1,4 +1,6 @@
-﻿namespace Supermodel.Client.Maui.Frontend.XForms.UIComponents.Base;
+﻿using Supermodel.Client.Backend.Models;
+
+namespace Supermodel.Client.Maui.Frontend.XForms.UIComponents.Base;
 
 public interface IModelWithBinaryFile
 {

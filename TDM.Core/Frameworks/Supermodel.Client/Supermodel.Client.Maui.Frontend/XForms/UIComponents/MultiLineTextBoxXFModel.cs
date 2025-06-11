@@ -1,4 +1,5 @@
-﻿using Supermodel.Client.Maui.Frontend.XForms.Pages.CRUDDetail;
+﻿using Supermodel.Client.Maui.Frontend.Services;
+using Supermodel.Client.Maui.Frontend.XForms.Pages.CRUDDetail;
 using Supermodel.Client.Maui.Frontend.XForms.UIComponents.Base;
 
 namespace Supermodel.Client.Maui.Frontend.XForms.UIComponents;

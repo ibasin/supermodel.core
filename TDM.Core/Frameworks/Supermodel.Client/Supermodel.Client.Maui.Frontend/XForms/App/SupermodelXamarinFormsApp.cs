@@ -11,7 +11,7 @@ public abstract class SupermodelXamarinFormsApp : Application
         FormsApplication.SetRunningApp(this); 
     }
 
-    public IAuthHeaderGenerator AuthHeaderGenerator { get; set; }
+    public IAuthHeaderGenerator? AuthHeaderGenerator { get; set; }
     public virtual UnitOfWork<TDataContext> NewUnitOfWork<TDataContext>(ReadOnly readOnly = ReadOnly.No) where TDataContext : class, IDataContext, new()
     {
         var unitOfWork = new UnitOfWork<TDataContext>(readOnly);

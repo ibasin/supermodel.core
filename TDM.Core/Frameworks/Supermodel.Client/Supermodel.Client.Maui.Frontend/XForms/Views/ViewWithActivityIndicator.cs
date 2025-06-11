@@ -1,4 +1,8 @@
-﻿namespace Supermodel.Client.Maui.Frontend.XForms.Views;
+﻿using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Layouts;
+using Supermodel.Client.Maui.Frontend.Services;
+
+namespace Supermodel.Client.Maui.Frontend.XForms.Views;
 
 public class ViewWithActivityIndicator<TContentView> : AbsoluteLayout, IHaveActivityIndicator where TContentView : View
 {

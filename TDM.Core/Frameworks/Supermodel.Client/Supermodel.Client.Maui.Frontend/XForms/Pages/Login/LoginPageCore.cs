@@ -51,11 +51,11 @@ public abstract class LoginPageCore<TLoginViewModel, TLoginView> : ContentPage, 
                             FormsApplication.GetRunningApp().AuthHeaderGenerator.UserLabel = loginResult.UserLabel;
 
                             await Task.Delay(800); //short delay so that the message can be read
-                            if (await DoLoginAsync(true, false)) await FormsApplication.GetRunningApp().AuthHeaderGenerator.SaveToAppPropertiesAsync();
+                            if (await DoLoginAsync(true, false)) FormsApplication.GetRunningApp().AuthHeaderGenerator.SaveToPreferences();
                         }
                         else
                         {
-                            await authHeaderGenerator.ClearAndSaveToPreferences();
+                            authHeaderGenerator.ClearAndSaveToPreferences();
                             FormsApplication.GetRunningApp().AuthHeaderGenerator = null;
                         }
                     }
@@ -135,12 +135,12 @@ public abstract class LoginPageCore<TLoginViewModel, TLoginView> : ContentPage, 
         base.OnDisappearing();
         PageActive = false;
     }
-    protected virtual async Task<bool> OnConfirmedLogOutAsync()
+    protected virtual Task<bool> OnConfirmedLogOutAsync()
     {
-        await FormsApplication.GetRunningApp().AuthHeaderGenerator.ClearAndSaveToPreferences();
+        FormsApplication.GetRunningApp().AuthHeaderGenerator?.ClearAndSaveToPreferences();
         FormsApplication.GetRunningApp().AuthHeaderGenerator = null;
         _loggedIn = false;
-        return true;
+        return Task.FromResult(true);
     }
     protected virtual async Task<bool> DoLoginAsync(bool autoLogin, bool isJumpBack)
     {
@@ -200,11 +200,11 @@ public abstract class LoginPageCore<TLoginViewModel, TLoginView> : ContentPage, 
                     {
                         if (!string.IsNullOrEmpty(loginResult.UserLabel)) activityIndicator.Element.Message = "Welcome, " + loginResult.UserLabel + "!";
 
-                        FormsApplication.GetRunningApp().AuthHeaderGenerator.UserId = loginResult.UserId; 
-                        FormsApplication.GetRunningApp().AuthHeaderGenerator.UserLabel = loginResult.UserLabel;
+                        FormsApplication.GetRunningApp().AuthHeaderGenerator!.UserId = loginResult.UserId; 
+                        FormsApplication.GetRunningApp().AuthHeaderGenerator!.UserLabel = loginResult.UserLabel;
 
                         await Task.Delay(800); //short delay so that the message can be read
-                        if (await DoLoginAsync(false, false)) await FormsApplication.GetRunningApp().AuthHeaderGenerator.SaveToAppPropertiesAsync();
+                        if (await DoLoginAsync(false, false)) FormsApplication.GetRunningApp().AuthHeaderGenerator!.SaveToPreferences();
                     }
                     else
                     {

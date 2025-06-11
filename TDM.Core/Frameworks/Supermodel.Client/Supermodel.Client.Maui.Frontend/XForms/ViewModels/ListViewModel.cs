@@ -1,4 +1,5 @@
-﻿using Supermodel.ReflectionMapper;
+﻿using Supermodel.Client.Maui.Frontend.Models;
+using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Maui.Frontend.XForms.ViewModels;
 
