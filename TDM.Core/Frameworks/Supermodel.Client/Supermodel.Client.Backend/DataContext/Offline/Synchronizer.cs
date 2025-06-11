@@ -1,5 +1,4 @@
-﻿using SQLite;
-using Supermodel.Client.Backend.DataContext.Core;
+﻿using Supermodel.Client.Backend.DataContext.Core;
 using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Backend.DataContext.WebApi;
 using Supermodel.Client.Backend.Exceptions;
@@ -293,7 +292,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
     protected abstract void SetUpSqliteContext(TSqliteDataContext context);
     #endregion
 
-    #region LastSynch DateTime Handling
+    #region LastSync DateTime Handling
     public virtual async Task<DateTime?> GetLastSyncDateTimeUtcAsync()
     {
         return _lastSyncDateTimeUtc ??= await GetLastSyncDateTimeUtcInternalAsync();
