@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Client.Backend.Services;
+﻿namespace Supermodel.Client.Maui.Frontend.Services;
 
 [SharedService.Singleton]
 //[SharedService.ImplementedBy("Supermodel.Mobile.Runtime.iOS.Services.DeviceInformation, Supermodel.Mobile.Runtime.iOS", "Supermodel.Mobile.Runtime.Droid.Services.DeviceInformation, Supermodel.Mobile.Runtime.Droid")]

@@ -3,7 +3,6 @@ using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Backend.DataContext.WebApi;
 using Supermodel.Client.Backend.Exceptions;
 using Supermodel.Client.Backend.Models;
-using Supermodel.Client.Backend.PersistentProps;
 using Supermodel.Client.Backend.Repository;
 using Supermodel.Client.Backend.UnitOfWork;
 using Supermodel.DataAnnotations.Exceptions;

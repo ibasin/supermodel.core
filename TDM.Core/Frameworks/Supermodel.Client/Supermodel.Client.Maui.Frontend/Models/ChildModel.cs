@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Client.Backend.Models;
+namespace Supermodel.Client.Maui.Frontend.Models;
 
 public abstract class ChildModel: ISupermodelListTemplate
 {

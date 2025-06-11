@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Client.Backend.PersistentProps;
+﻿namespace Supermodel.Client.Maui.Frontend.PersistentProps;
 
 public interface IPersistentProps
 {

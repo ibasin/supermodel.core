@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Client.Backend.Services;
+﻿namespace Supermodel.Client.Maui.Frontend.Services;
 
 [SharedService.Singleton]
 public interface IImageResizer

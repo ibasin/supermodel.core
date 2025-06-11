@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Client.Backend.Models;
+﻿namespace Supermodel.Client.Maui.Frontend.Models;
 
 public abstract class DirectChildModel : ChildModel
 {

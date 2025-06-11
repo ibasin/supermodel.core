@@ -3,7 +3,7 @@ using System.Reflection;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Client.Backend.Services;
+namespace Supermodel.Client.Maui.Frontend.Services;
 
 public static class SharedService
 {

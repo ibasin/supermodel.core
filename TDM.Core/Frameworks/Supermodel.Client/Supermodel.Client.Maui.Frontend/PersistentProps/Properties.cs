@@ -1,6 +1,6 @@
-﻿using Supermodel.Client.Backend.Services;
+﻿using Supermodel.Client.Maui.Frontend.Services;
 
-namespace Supermodel.Client.Backend.PersistentProps;
+namespace Supermodel.Client.Maui.Frontend.PersistentProps;
 
 public static class Properties
 {

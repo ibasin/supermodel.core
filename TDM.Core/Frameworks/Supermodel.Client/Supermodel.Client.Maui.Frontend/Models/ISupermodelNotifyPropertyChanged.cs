@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Supermodel.Client.Backend.Models;
+namespace Supermodel.Client.Maui.Frontend.Models;
 
 public interface ISupermodelNotifyPropertyChanged : INotifyPropertyChanged
 {

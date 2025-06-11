@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Supermodel.DataAnnotations.Exceptions;
 
-namespace Supermodel.Client.Backend.PersistentProps;
+namespace Supermodel.Client.Maui.Frontend.PersistentProps;
 
 public class PersistentPropsAsJsonFile : Dictionary<string, object>, IPersistentProps
 {

@@ -2,13 +2,13 @@
 using System.Runtime.Versioning;
 using Supermodel.DataAnnotations.Exceptions;
 
-namespace Supermodel.Client.Backend.Services;
+namespace Supermodel.Client.Maui.Frontend.Services;
 
 public static class Pick
 {
     public static Platform RunningPlatform()
     {
-        return ForPlatform(Platform.IOS, Platform.Droid, Platform.DotNetCore);
+        return ForPlatform(Platform.IOS, Platform.Droid, Platform.DotNet);
     }
         
     public static T ForPlatform<T>(T iOS, T droid)

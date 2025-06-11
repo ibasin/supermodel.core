@@ -3,8 +3,6 @@ using System.Text;
 using SQLite;
 using Supermodel.Client.Backend.DataContext.Core;
 using Supermodel.Client.Backend.Models;
-using Supermodel.Client.Backend.PersistentProps;
-using Supermodel.Client.Backend.Services;
 using Supermodel.Client.Backend.UnitOfWork;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.DataAnnotations.LogicalContext;
@@ -13,13 +11,6 @@ namespace Supermodel.Client.Backend.DataContext.Sqlite;
 
 public abstract class SqliteDataContext : DataContextBase, ISqlQueryProvider
 {
-    //#region Constructors
-    //protected SqliteDataContext()
-    //{
-    //    if (Pick.RunningPlatform() == Platform.DotNetCore) throw new SupermodelException("Supermodel's SqliteDataContext is only supported on mobile platforms");
-    //}
-    //#endregion
-
     #region ISqlQueryProvider implemetation
     public virtual object? GetIndex<TModel>(int idxNum0To29, TModel model)
     {

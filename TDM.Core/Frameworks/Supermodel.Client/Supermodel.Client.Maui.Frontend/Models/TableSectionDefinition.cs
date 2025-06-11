@@ -1,5 +1,5 @@
 
-namespace Supermodel.Client.Backend.Models;
+namespace Supermodel.Client.Maui.Frontend.Models;
 
 public class TableSectionDefinition
 {
