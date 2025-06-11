@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Supermodel.Client.Backend.DataContext.Core;
-using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Backend.Repository;
-using Supermodel.Client.Backend.UnitOfWork;
 using Supermodel.DataAnnotations.Validations;
 using Supermodel.ReflectionMapper;
 
@@ -12,40 +10,6 @@ namespace Supermodel.Client.Backend.Models;
 public abstract class Model : IModel
 {
     #region Methods
-    //public virtual List<TChildModel> GetChildList<TChildModel>(params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new()
-    //{
-    //    throw new SupermodelException("If Model has children, you must override GetChildList<TChildModel>");
-    //}
-    //public virtual TChildModel GetChild<TChildModel>(Guid childGuidIdentity, params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new()
-    //{
-    //    if (parentGuidIdentities == null) throw new ArgumentNullException(nameof(parentGuidIdentities), "Override AfterLoad() on root Model and assign parent identities for each child");
-    //    var child = GetChildOrDefault<TChildModel>(childGuidIdentity, parentGuidIdentities);
-    //    if (child == null) throw new InvalidOperationException("No element satisfies the condition in predicate.");
-    //    return child;
-    //}
-    //public virtual TChildModel? GetChildOrDefault<TChildModel>(Guid childGuidIdentity, params Guid[] parentGuidIdentities) where TChildModel : ChildModel, new()
-    //{
-    //    if (parentGuidIdentities == null) throw new ArgumentNullException(nameof(parentGuidIdentities), "Override AfterLoad() on root Model and assign parent identities for each child");
-    //    var child = GetChildList<TChildModel>(parentGuidIdentities).SingleOrDefault(x => x.ChildGuidIdentity == childGuidIdentity);
-    //    return child;
-    //}
-    //public virtual void AddChild<TChildModel>(TChildModel child, int? index = null) where TChildModel : ChildModel, new()
-    //{
-    //    if (child == null) throw new ArgumentNullException(nameof(child));
-    //    if (child.ParentGuidIdentities == null) throw new ArgumentNullException(nameof(child.ParentGuidIdentities), "Override AfterLoad() on root Model and assign ParentIdentities for each child");
-    //    if (GetChildOrDefault<TChildModel>(child.ChildGuidIdentity, child.ParentGuidIdentities) != null) throw new SupermodelException("Model.AddChild<TChildModel>(): Attempting to add a duplicate child");
-    //    GetChildList<TChildModel>(child.ParentGuidIdentities).Add(child);
-    //}
-    //public virtual int DeleteChild<TChildModel>(TChildModel child) where TChildModel : ChildModel, new()
-    //{
-    //    if (child == null) throw new ArgumentNullException(nameof(child));
-    //    if (child.ParentGuidIdentities == null) throw new ArgumentNullException(nameof(child.ParentGuidIdentities), "Override AfterLoad() on root Model and assign ParentIdentities for each child");
-    //    var index = GetChildList<TChildModel>(child.ParentGuidIdentities).IndexOf(child);
-    //    if (index < 0) throw new SupermodelException("DeleteChild(): Element not found");
-    //    GetChildList<TChildModel>(child.ParentGuidIdentities).RemoveAt(index);
-    //    return index;
-    //}
-
     public virtual void Add()
     {
         CreateRepo().ExecuteMethod("Add", this);
@@ -80,16 +44,14 @@ public abstract class Model : IModel
 
     #region Properties
     public long Id { get; set; }
-    [NotRMapped, NotRCompared, JsonIgnore] public virtual string Identity => Id.ToString();
+    [JsonIgnore, NotRMapped] public virtual bool IsNew => Id == 0;
+    //[NotRMapped, NotRCompared, JsonIgnore] public virtual string Identity => Id.ToString();
 
     [NotRMapped] public DateTime? BroughtFromMasterDbOnUtc { get; set; }
-    public bool ShouldSerializeBroughtFromMasterDbOnUtc()
-    {
-        if (UnitOfWorkContextCore.StackCount == 0) return false;
-        return UnitOfWorkContextCore.CurrentDataContext is SqliteDataContext;
-    }
-
-    [JsonIgnore, NotRMapped] public virtual bool IsNew => Id == 0;
+    //public bool ShouldSerializeBroughtFromMasterDbOnUtc()
+    //{
+    //    if (UnitOfWorkContextCore.StackCount == 0) return false;
+    //    return UnitOfWorkContextCore.CurrentDataContext is SqliteDataContext;
+    //}
     #endregion
-        
 }
