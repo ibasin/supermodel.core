@@ -1,4 +1,5 @@
-﻿using Supermodel.Client.Backend.DataContext.Core;
+﻿using SQLite;
+using Supermodel.Client.Backend.DataContext.Core;
 using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Backend.DataContext.WebApi;
 using Supermodel.Client.Backend.Exceptions;
@@ -306,24 +307,14 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
         
     protected virtual async Task<DateTime?> GetLastSyncDateTimeUtcInternalAsync()
     {
-        await using()
-        
         var sqLiteDbContext = new TSqliteDataContext();
-        if (await sqLiteDbContext.InitDbAsync()) return null;
-
-        //var db = new SQLiteAsyncConnection(DatabaseFilePath);
-        //var modelTypeLogicalName = GetModelTypeLogicalName(typeof(TModel));
-        //var commandText = $"SELECT * FROM [{DataTableName}] WHERE ModelTypeLogicalName = '{modelTypeLogicalName}' AND ModelId = {id}";
-        //var results = await db.QueryAsync<DataRow<TModel>>(commandText);
-        //if (results.Count == 0) return null;
-        //if (results.Count > 1) throw new Exception("GetByIdOrDefaultAsync brought back more than one record");
-        //var model = results.Single().GetModel();
-        //ManagedModels.Add(new ManagedModel(model));
-        //return model;
-
-
-        if (!Properties.Data.ContainsKey("smLastSyncDateTimeUtc")) return null;
-        return Properties.Data.Get<DateTime>("smLastSyncDateTimeUtc");
+        var db = new SQLiteAsyncConnection(sqLiteDbContext.DatabaseFilePath);
+        var commandText = $"SELECT * FROM [{sqLiteDbContext.DataTableName}] WHERE ModelTypeLogicalName = '{sqLiteDbContext.DataTableName + SchemaVersionModelTypeSuffix}'";
+        var results = await db.QueryAsync<DataRow>(commandText);
+        if (results.Count == 0) return null;
+        if (results.Count > 1) return null;
+        var lastSyncDateTimeUtc = DateTime.Parse(results.Single().Json!);
+        return lastSyncDateTimeUtc;
     }
     protected virtual async Task SetLastSyncDateTimeUtcInternalAsync(DateTime? value)
     {
@@ -346,6 +337,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
         Properties.Data.SetAsync("smLastSyncDateTimeUtc", value);
         #pragma warning restore 4014
     }
+    public string SchemaVersionModelTypeSuffix => ".LocalDb.lastSyncDateTimeUtc";
     #endregion
 
     #region Properties
