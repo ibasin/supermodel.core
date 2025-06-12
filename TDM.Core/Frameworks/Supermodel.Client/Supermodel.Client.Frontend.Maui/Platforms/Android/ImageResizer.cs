@@ -3,7 +3,7 @@ using Android.Graphics;
 using Supermodel.Client.Frontend.Maui.Services;
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.Client.Frontend.Maui;
+namespace Supermodel.Client.Frontend.Maui.Android;
 
 public class ImageResizer : IImageResizer
 {
