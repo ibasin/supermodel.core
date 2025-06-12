@@ -1,7 +1,6 @@
-﻿namespace Supermodel.Client.Maui
+﻿namespace Supermodel.Client.Frontend.Maui;
+
+// All the code in this file is included in all platforms.
+public class Class1
 {
-    // All the code in this file is included in all platforms.
-    public class Class1
-    {
-    }
 }

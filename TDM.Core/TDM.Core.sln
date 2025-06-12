@@ -150,7 +150,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermodel.Client.Maui.Back
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermodel.Client.Backend", "Frameworks\Supermodel.Client\Supermodel.Client.Backend\Supermodel.Client.Backend.csproj", "{0D50797F-3A89-6232-6781-3330E19221E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermodel.Client.Maui", "Frameworks\Supermodel.Client\Supermodel.Client.Maui\Supermodel.Client.Maui.csproj", "{005FBC12-48D9-446B-ABA0-CC1DB614BF69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermodel.Client.Frontend.Maui", "Frameworks\Supermodel.Client\Supermodel.Client.Maui\Supermodel.Client.Frontend.Maui.csproj", "{005FBC12-48D9-446B-ABA0-CC1DB614BF69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

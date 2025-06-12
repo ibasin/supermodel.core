@@ -22,4 +22,8 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Supermodel.Client.Backend\Supermodel.Client.Backend.csproj" />
+	</ItemGroup>
+
 </Project>
