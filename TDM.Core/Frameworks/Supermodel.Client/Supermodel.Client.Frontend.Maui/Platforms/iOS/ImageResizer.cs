@@ -5,7 +5,7 @@ using UIKit;
 using SizeF = System.Drawing.SizeF;
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.Client.Frontend.Maui.iOS;
+namespace Supermodel.Client.Frontend.Maui;
 
 public class ImageResizer : IImageResizer
 {

@@ -3,7 +3,7 @@ using Foundation;
 using Supermodel.Client.Frontend.Maui.Services;
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.Client.Frontend.Maui.Android;
+namespace Supermodel.Client.Frontend.Maui;
 
 public class AudioService : IAudioService
 {

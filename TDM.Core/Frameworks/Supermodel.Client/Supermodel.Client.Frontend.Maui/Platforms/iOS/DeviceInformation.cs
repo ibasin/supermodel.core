@@ -4,7 +4,7 @@ using Supermodel.Client.Frontend.Maui.Services;
 using UIKit;
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.Client.Frontend.Maui.Android;
+namespace Supermodel.Client.Frontend.Maui;
 
 
 public class DeviceInformation : IDeviceInformation

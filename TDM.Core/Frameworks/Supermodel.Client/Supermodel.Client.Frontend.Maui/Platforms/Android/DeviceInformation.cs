@@ -3,7 +3,7 @@ using Android.App;
 using Supermodel.Client.Frontend.Maui.Services;
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.Client.Frontend.Maui.Android;
+namespace Supermodel.Client.Frontend.Maui;
 
 public class DeviceInformation : IDeviceInformation
 {
@@ -14,7 +14,7 @@ public class DeviceInformation : IDeviceInformation
 
         var result = false;
 
-        using (var km = (KeyguardManager) Global::Android.App.Application.Context.GetSystemService(Global::Android.Content.Context.KeyguardService)!)
+        using (var km = (KeyguardManager) Android.App.Application.Context.GetSystemService(Android.Content.Context.KeyguardService)!)
         {
             // ReSharper disable once PossibleNullReferenceException
             if (km.IsKeyguardSecure) result = true;
