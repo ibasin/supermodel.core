@@ -26,4 +26,9 @@
 	  <ProjectReference Include="..\Supermodel.Client.Backend\Supermodel.Client.Backend.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Platforms\MacCatalyst\" />
+	  <Folder Include="Platforms\Windows\" />
+	</ItemGroup>
+
 </Project>
