@@ -15,7 +15,7 @@ public static class SharedService
     public class ImplementedByAttribute : Attribute
     {
         #region Constructors
-        public ImplementedByAttribute(string iosType, string androidType, string? dotNetType, string macType)
+        public ImplementedByAttribute(string iosType, string androidType, string? dotNetType = null, string? macType = null)
         {
             IOSType = iosType ?? throw new ArgumentNullException(nameof(iosType));
             DroidType = androidType ?? throw new ArgumentNullException(nameof(androidType));
