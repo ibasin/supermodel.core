@@ -1,7 +1,7 @@
 ﻿namespace Supermodel.Client.Frontend.Maui.Services;
 
 [SharedService.Singleton]
-//[SharedService.ImplementedBy("Supermodel.Mobile.Runtime.iOS.Services.DeviceInformation, Supermodel.Mobile.Runtime.iOS", "Supermodel.Mobile.Runtime.Droid.Services.DeviceInformation, Supermodel.Mobile.Runtime.Droid")]
+[SharedService.ImplementedBy("", "")]
 public interface IDeviceInformation
 {
     bool IsRunningOnEmulator();
