@@ -1,3 +1,4 @@
+using Supermodel.Client.Frontend.Maui.ViewModels;
 using ILayout = Microsoft.Maui.Controls.ILayout;
 
 namespace Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
