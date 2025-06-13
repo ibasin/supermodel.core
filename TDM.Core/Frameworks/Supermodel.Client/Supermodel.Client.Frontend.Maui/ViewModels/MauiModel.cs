@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using Supermodel.Client.Frontend.Maui.UIComponents.Base;
 using Supermodel.DataAnnotations.Attributes;
 using Supermodel.DataAnnotations.Validations;
 using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.ViewModels;
 
-public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatableObject 
+public abstract class MauiModel : ISupermodelMobileDetailTemplate, IAsyncValidatableObject 
 {
     #region ISupermodelMobileDetailTemplate
     public virtual List<Cell> RenderDetail(Page parentPage, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
@@ -25,7 +26,7 @@ public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatab
                 }
 
                 //Set up display name and Required
-                if (propertyObj is IReadOnlyUIComponentXFModel uiReadOnlyComponent)
+                if (propertyObj is IReadOnlyUIComponentMauiModel uiReadOnlyComponent)
                 {
                     //Set up display name if not already set
                     if (string.IsNullOrEmpty(uiReadOnlyComponent.DisplayNameIfApplies)) uiReadOnlyComponent.DisplayNameIfApplies = GetType().GetDisplayNameForProperty(property.Name);
@@ -35,14 +36,14 @@ public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatab
                     var noRequiredLabelAttribute = property.GetCustomAttributes(typeof(NoRequiredLabelAttribute), true).SingleOrDefault() != null;
                     var forceRequiredLabelAttribute = property.GetCustomAttributes(typeof(ForceRequiredLabelAttribute), true).SingleOrDefault() != null;
 
-                    if (uiReadOnlyComponent is IWritableUIComponentXFModel uiComponent)
+                    if (uiReadOnlyComponent is IWritableUIComponentMauiModel uiComponent)
                     {
                         uiComponent.Required = (requiredAttribute || forceRequiredLabelAttribute) && ! noRequiredLabelAttribute;
                     }
                 }
 
                 // ReSharper disable once PossibleNullReferenceException
-                cells.AddRange((propertyObj as ISupermodelMobileDetailTemplate).RenderDetail(parentPage));
+                cells.AddRange(((ISupermodelMobileDetailTemplate)propertyObj).RenderDetail(parentPage));
             }
             else
             {
@@ -60,15 +61,15 @@ public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatab
     #endregion
 
     #region Methods
-    public virtual bool AreWritableFieldsEqual(XFModel xfModel)
+    public virtual bool AreWritableFieldsEqual(MauiModel mauiModel)
     {
         foreach (var property in GetPropertiesInOrder())
         {
-            if (this.PropertyGet(property.Name) is IWritableUIComponentXFModel uiComponent)
+            if (this.PropertyGet(property.Name) is IWritableUIComponentMauiModel uiComponent)
             {
                 var mine = uiComponent.WrappedValue;
                 // ReSharper disable once SuspiciousTypeConversion.Global
-                var theirs = ((IWritableUIComponentXFModel)xfModel.PropertyGet(property.Name))!.WrappedValue;
+                var theirs = ((IWritableUIComponentMauiModel)mauiModel.PropertyGet(property.Name)!).WrappedValue;
                 if (mine != null)
                 {
                     if (!mine.Equals(theirs)) return false;
@@ -85,7 +86,7 @@ public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatab
     {
         foreach (var property in GetPropertiesInOrder())
         {
-            if (this.PropertyGet(property.Name) is IWritableUIComponentXFModel uiComponent) uiComponent.ErrorMessage = null;
+            if (this.PropertyGet(property.Name) is IWritableUIComponentMauiModel uiComponent) uiComponent.ErrorMessage = null;
         }
     }
     public virtual void ShowValidationErrors(IEnumerable<ValidationResult>? vr)
@@ -94,7 +95,7 @@ public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatab
         foreach (var property in GetPropertiesInOrder())
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (this.PropertyGet(property.Name) is IWritableUIComponentXFModel uiComponent)
+            if (this.PropertyGet(property.Name) is IWritableUIComponentMauiModel uiComponent)
             {
                 uiComponent.ErrorMessage = null;
                 var errors = vr.Where(x => x.MemberNames.Any(y => y == property.Name)).ToList();
@@ -120,7 +121,7 @@ public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatab
     {
         foreach (var property in GetPropertiesInOrder())
         {
-            var uiComponent = this.PropertyGet(property.Name) as IWritableUIComponentXFModel;
+            var uiComponent = this.PropertyGet(property.Name) as IWritableUIComponentMauiModel;
             if (uiComponent?.ErrorMessage != null) return true;
         }
         return false;
@@ -136,7 +137,7 @@ public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatab
             var propertyObj = this.PropertyGet(property.Name);
 
             //Check all required UIComponents
-            if (propertyObj is IWritableUIComponentXFModel uiComponent && property.GetCustomAttributes(typeof(RequiredAttribute), true).SingleOrDefault() != null)
+            if (propertyObj is IWritableUIComponentMauiModel uiComponent && property.GetCustomAttributes(typeof(RequiredAttribute), true).SingleOrDefault() != null)
             {
                 var preparedError = new ValidationResult("The " + GetType().GetDisplayNameForProperty(property.Name) + " field is required", new [] { property.Name });
 
@@ -159,10 +160,10 @@ public abstract class XFModel : ISupermodelMobileDetailTemplate, IAsyncValidatab
     protected virtual IEnumerable<PropertyInfo> GetPropertiesInOrder(int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
     {
         return GetType().GetProperties()
-            .Where(x => x.GetCustomAttribute<ScaffoldColumnAttribute>() == null || x.GetCustomAttribute<ScaffoldColumnAttribute>().Scaffold)
-            .Where(x => (x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>().Order : 100) >= screenOrderFrom)
-            .Where(x => (x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>().Order : 100) <= screenOrderTo)
-            .OrderBy(x => x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>().Order : 100);
+            .Where(x => x.GetCustomAttribute<ScaffoldColumnAttribute>() == null || x.GetCustomAttribute<ScaffoldColumnAttribute>()!.Scaffold)
+            .Where(x => (x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100) >= screenOrderFrom)
+            .Where(x => (x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100) <= screenOrderTo)
+            .OrderBy(x => x.GetCustomAttribute<ScreenOrderAttribute>() != null ? x.GetCustomAttribute<ScreenOrderAttribute>()!.Order : 100);
     }
     #endregion
 }

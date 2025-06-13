@@ -8,8 +8,8 @@ public interface IBasicCRUDDetailPage : ILayout, IPageController, IElementConfig
     void InitContent();
 
     CRUDDetailView DetailView { get; set; }
-    XFModel GetXFModel();
-    T GetXFModel<T>() where T : XFModel;
+    MauiModel GetXFModel();
+    T GetXFModel<T>() where T : MauiModel;
 
     Task DisplayAlert(string title, string message, string cancel);
     Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
