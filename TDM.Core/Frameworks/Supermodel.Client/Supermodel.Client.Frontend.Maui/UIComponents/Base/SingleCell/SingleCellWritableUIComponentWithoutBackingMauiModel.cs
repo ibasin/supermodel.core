@@ -5,14 +5,15 @@ public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : Sin
     #region Constructors
     protected SingleCellWritableUIComponentWithoutBackingMauiModel()
     {
-        ValidationErrorIndicator = new Button{ Text = "!", TextColor = Color.Red };
-        ValidationErrorIndicator.Clicked += ValidationIndicatorClicked;
+        ValidationErrorIndicator = new Button{ Text = "!", TextColor = Colors.Red };
+        ValidationErrorIndicator.Clicked += ValidationIndicatorClicked!;
 
         RequiredFieldIndicator = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = MauiSettings.RequiredAsteriskColor, Text = "*" };
     }
     #endregion
 
     #region Event Handlers
+    // ReSharper disable once AsyncVoidMethod
     public async void ValidationIndicatorClicked(object sender, EventArgs args)
     {
         if (ParentPage != null) await ParentPage.DisplayAlert("", ErrorMessage, "Ok");
@@ -27,14 +28,20 @@ public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : Sin
         get => _required;
         set
         {
-            if (!_required && value) LabelView.Children.Insert(1, RequiredFieldIndicator);
-            if (_required && !value) LabelView.Children.Remove(RequiredFieldIndicator);
+            if (!_required && value)
+            {
+                LabelView.Children.Insert(1, RequiredFieldIndicator);
+            }
+            if (_required && !value)
+            {
+                LabelView.Children.Remove(RequiredFieldIndicator);
+            }
             _required = value;
         }
     }
     private bool _required;
         
-    public string ErrorMessage
+    public string? ErrorMessage
     {
         get => _errorMessage;
         set
@@ -48,7 +55,7 @@ public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : Sin
             _errorMessage = value;
         }
     }
-    private string _errorMessage;
+    private string? _errorMessage;
 
     public abstract object WrappedValue { get; }
     #endregion    
