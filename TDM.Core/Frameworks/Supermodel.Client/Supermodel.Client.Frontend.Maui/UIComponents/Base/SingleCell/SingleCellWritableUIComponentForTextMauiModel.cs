@@ -1,4 +1,4 @@
-﻿namespace Supermodel.Client.Frontend.Maui.UIComponents.Base;
+﻿namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
 public abstract class SingleCellWritableUIComponentForTextMauiModel : SingleCellWritableUIComponentMauiModel, IHaveTextProperty
 {

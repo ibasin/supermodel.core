@@ -1,4 +1,4 @@
-﻿using Supermodel.Client.Frontend.Maui.UIComponents.Base;
+﻿using Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents;
 

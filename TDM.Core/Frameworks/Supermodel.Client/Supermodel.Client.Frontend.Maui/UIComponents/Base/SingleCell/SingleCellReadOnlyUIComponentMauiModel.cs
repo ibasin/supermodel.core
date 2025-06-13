@@ -1,6 +1,6 @@
 ﻿using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Client.Frontend.Maui.UIComponents.Base;
+namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
 public abstract class SingleCellReadOnlyUIComponentMauiModel : SingleCellReadOnlyUIComponentWithoutBackingMauiModel, IRMapperCustom
 {

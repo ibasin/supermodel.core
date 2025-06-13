@@ -1,7 +1,7 @@
 using Supermodel.DataAnnotations.Validations;
 using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Client.Frontend.Maui.UIComponents.Base;
+namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
 public static class SingleCellUIComponentForTextMauiModelCommonLibrary
 {
