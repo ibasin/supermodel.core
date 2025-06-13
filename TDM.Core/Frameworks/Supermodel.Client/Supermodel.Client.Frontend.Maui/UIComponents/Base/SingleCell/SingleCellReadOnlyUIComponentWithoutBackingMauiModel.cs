@@ -51,8 +51,8 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
             }
             else
             {
-                Grid.RemoveAt(Grid.IndexOf(DisplayNameLabel));
                 Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Star)];
+                Grid.RemoveAt(Grid.IndexOf(DisplayNameLabel));
             }
             _showDisplayNameIfApplies = value;
         }

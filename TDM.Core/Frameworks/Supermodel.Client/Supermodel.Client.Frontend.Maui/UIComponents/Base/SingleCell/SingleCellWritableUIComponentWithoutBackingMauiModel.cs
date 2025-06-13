@@ -1,6 +1,6 @@
 ﻿namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
-public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : SingleCellReadOnlyUIComponentWithoutBackingMauiModel, IWritableUIComponentXFModel
+public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : SingleCellReadOnlyUIComponentWithoutBackingMauiModel, IWritableUIComponentMauiModel
 {
     #region Constructors
     protected SingleCellWritableUIComponentWithoutBackingMauiModel()
@@ -30,11 +30,13 @@ public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : Sin
         {
             if (!_required && value)
             {
-                LabelView.Children.Insert(1, RequiredFieldIndicator);
+                Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Star)];
+                Grid.InsertLogicalChild(1, DisplayNameLabel);
             }
             if (_required && !value)
             {
-                LabelView.Children.Remove(RequiredFieldIndicator);
+                Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Star)];
+                Grid.RemoveAt(Grid.IndexOf(RequiredFieldIndicator));
             }
             _required = value;
         }
