@@ -8,7 +8,7 @@ public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : Sin
         ValidationErrorIndicator = new Button{ Text = "!", TextColor = Color.Red };
         ValidationErrorIndicator.Clicked += ValidationIndicatorClicked;
 
-        RequiredFieldIndicator = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = XFormsSettings.RequiredAsteriskColor, Text = "*" };
+        RequiredFieldIndicator = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = MauiSettings.RequiredAsteriskColor, Text = "*" };
     }
     #endregion
 

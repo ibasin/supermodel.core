@@ -5,28 +5,21 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
     #region Constructors
     protected SingleCellReadOnlyUIComponentWithoutBackingMauiModel()
     {
-        View = new StackLayout
+
+        DisplayNameLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = MauiSettings.LabelTextColor, LineBreakMode = LineBreakMode.NoWrap, FontSize = MauiSettings.LabelFontSize };
+        Grid = new Grid
         {
-            Padding = new Thickness(8, 0, 8, 0), 
-            Orientation = StackOrientation.Horizontal, 
-            VerticalOptions = LayoutOptions.CenterAndExpand, 
-            HorizontalOptions = LayoutOptions.FillAndExpand,
-            HeightRequest = 40,
+            RowDefinitions = [new RowDefinition(new GridLength(40))]
         };
-
-        DisplayNameLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = XFormsSettings.LabelTextColor, LineBreakMode = LineBreakMode.NoWrap, FontSize = XFormsSettings.LabelFontSize };
-
-        LabelView = new StackLayout
+        if (ShowDisplayNameIfApplies)
         {
-            Padding = new Thickness(0, 0, 0, 0),
-            Orientation = StackOrientation.Horizontal,
-            VerticalOptions = LayoutOptions.CenterAndExpand,
-            HorizontalOptions = LayoutOptions.Start,
-            HeightRequest = 40,
-            Children = { DisplayNameLabel }
-        };
-
-        if (ShowDisplayNameIfApplies) StackLayoutView.Children.Add(LabelView);
+            Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Star)];
+            Grid.Add(DisplayNameLabel);
+        }
+        else
+        {
+            Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Star)];
+        }
     }
     #endregion
 
@@ -34,17 +27,16 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
     public List<Cell> RenderDetail(Page parentPage, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
     {
         ParentPage = parentPage;
-        return new List<Cell> { this };
+        return [this];
     }
     #endregion
 
     #region Properties
-    public StackLayout StackLayoutView
+    public Grid Grid
     {
-        get => (StackLayout)View;
+        get => (Grid)View;
         set => View = value;
     }
-    public StackLayout LabelView { get; set; }
 
     public bool ShowDisplayNameIfApplies
     {
@@ -52,8 +44,16 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
         set
         {
             if (_showDisplayNameIfApplies == value) return;
-            if (value) StackLayoutView.Children.Insert(0, DisplayNameLabel);
-            else StackLayoutView.Children.RemoveAt(StackLayoutView.Children.IndexOf(DisplayNameLabel));
+            if (value)
+            {
+                Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Star)];
+                Grid.Add(DisplayNameLabel);
+            }
+            else
+            {
+                Grid.RemoveAt(Grid.IndexOf(DisplayNameLabel));
+                Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Star)];
+            }
             _showDisplayNameIfApplies = value;
         }
     }
@@ -66,7 +66,7 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
     }
     public Label DisplayNameLabel { get; set; }
 
-    public Page ParentPage { get; set; }
+    public Page? ParentPage { get; set; }
 
     public abstract TextAlignment TextAlignmentIfApplies { get; set; }
     #endregion    
