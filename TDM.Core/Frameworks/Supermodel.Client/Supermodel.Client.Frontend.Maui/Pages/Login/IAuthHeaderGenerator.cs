@@ -12,6 +12,4 @@ public interface IAuthHeaderGenerator
     Task ClearAndSaveToPropertiesAsync();
     bool LoadFromAppProperties();
     Task SaveToAppPropertiesAsync();
-
-    change this
 }

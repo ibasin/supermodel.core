@@ -1,16 +1,19 @@
 ﻿using Supermodel.Client.Backend.DataContext.Core;
 using Supermodel.Client.Backend.UnitOfWork;
+using Supermodel.Client.Frontend.Maui.Pages.Login;
 
 namespace Supermodel.Client.Frontend.Maui.App;
 
 public abstract class SupermodelMauiApp : Application
 {
+    #region Comstructors
     protected SupermodelMauiApp()
     {
         AppContext.SetRunningApp(this); 
     }
+    #endregion
 
-    public IAuthHeaderGenerator AuthHeaderGenerator { get; set; }
+    #region virtual and abstract 
     public virtual UnitOfWork<TDataContext> NewUnitOfWork<TDataContext>(ReadOnly readOnly = ReadOnly.No) where TDataContext : class, IDataContext, new()
     {
         var unitOfWork = new UnitOfWork<TDataContext>(readOnly);
@@ -23,4 +26,9 @@ public abstract class SupermodelMauiApp : Application
 
     public abstract void HandleUnauthorized();
     public abstract byte[] LocalStorageEncryptionKey { get; }
+    #endregion
+
+    #region Properties
+    public IAuthHeaderGenerator? AuthHeaderGenerator { get; set; }
+    #endregion
 }
