@@ -13,12 +13,12 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
         };
         if (ShowDisplayNameIfApplies)
         {
-            Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Star)];
             Grid.Add(DisplayNameLabel);
+            SetGridColumns(2);
         }
         else
         {
-            Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Star)];
+            SetGridColumns(1);
         }
     }
     #endregion
@@ -31,11 +31,23 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
     }
     #endregion
 
+    #region Helper Methods
+    protected void SetGridColumns(int count)
+    {
+        Grid.ColumnDefinitions.Clear();
+        Grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+        for (var i = 1; i < count; i++)
+        {
+            Grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
+        }
+    }
+    #endregion
+
     #region Properties
     public Grid Grid
     {
         get => (Grid)View;
-        set => View = value;
+        init => View = value;
     }
 
     public bool ShowDisplayNameIfApplies
@@ -46,13 +58,13 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
             if (_showDisplayNameIfApplies == value) return;
             if (value)
             {
-                Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Star)];
                 Grid.Add(DisplayNameLabel);
+                SetGridColumns(2);
             }
             else
             {
-                Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Star)];
                 Grid.RemoveAt(Grid.IndexOf(DisplayNameLabel));
+                SetGridColumns(1);
             }
             _showDisplayNameIfApplies = value;
         }

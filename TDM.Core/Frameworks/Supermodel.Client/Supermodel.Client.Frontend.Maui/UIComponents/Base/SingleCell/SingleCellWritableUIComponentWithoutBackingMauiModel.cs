@@ -30,13 +30,13 @@ public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : Sin
         {
             if (!_required && value)
             {
-                Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Star)];
-                Grid.InsertLogicalChild(1, DisplayNameLabel);
+                Grid.Insert(1, DisplayNameLabel);
+                SetGridColumns(Grid.ColumnDefinitions.Count + 1);
             }
             if (_required && !value)
             {
-                Grid.ColumnDefinitions = [new ColumnDefinition(GridLength.Auto), new ColumnDefinition(GridLength.Star)];
                 Grid.RemoveAt(Grid.IndexOf(RequiredFieldIndicator));
+                SetGridColumns(Grid.ColumnDefinitions.Count - 1);
             }
             _required = value;
         }
@@ -48,11 +48,18 @@ public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : Sin
         get => _errorMessage;
         set
         {
-            if (_errorMessage == null & value != null) StackLayoutView.Children.Add(ValidationErrorIndicator);
+            if (_errorMessage == null & value != null)
+            {
+                Grid.Add(ValidationErrorIndicator);
+                SetGridColumns(Grid.ColumnDefinitions.Count + 1);
+            }
             if (_errorMessage != null & value == null)
             {
                 //this throws NullReferenceException on Android, ignore it
-                try { StackLayoutView.Children.Remove(ValidationErrorIndicator); } catch (NullReferenceException) { }
+                //try { StackLayoutView.Children.Remove(ValidationErrorIndicator); } catch (NullReferenceException) { }
+
+                Grid.RemoveAt(Grid.ColumnDefinitions.Count - 1);
+                SetGridColumns(Grid.ColumnDefinitions.Count - 1);
             }
             _errorMessage = value;
         }

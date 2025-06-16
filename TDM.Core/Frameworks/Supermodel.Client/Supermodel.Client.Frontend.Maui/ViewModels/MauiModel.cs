@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using Supermodel.Client.Frontend.Maui.UIComponents;
 using Supermodel.Client.Frontend.Maui.UIComponents.Base;
 using Supermodel.DataAnnotations.Attributes;
 using Supermodel.DataAnnotations.Validations;
@@ -48,7 +49,7 @@ public abstract class MauiModel : ISupermodelMobileDetailTemplate, IAsyncValidat
             else
             {
                 if (propertyObj == null) throw new SystemException("propertyObj == null");
-                var genericCell = new TextBoxReadOnlyXFModel
+                var genericCell = new TextBoxReadOnlyMauiModel
                 {
                     DisplayNameIfApplies = GetType().GetDisplayNameForProperty(property.Name),
                     Text = propertyObj.ToString()
