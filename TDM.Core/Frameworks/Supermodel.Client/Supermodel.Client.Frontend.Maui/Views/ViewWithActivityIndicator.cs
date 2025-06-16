@@ -11,34 +11,36 @@ public class ViewWithActivityIndicator<TContentView> : AbsoluteLayout, IHaveActi
         ContentView = contentView;
         ActivityIndicator = new ActivityIndicator();
         //MessageLabel = new Label { TextColor = Pick.ForPlatform(Color.Black, Color.White, Color.Black), Text = Message };
+        
         // ReSharper disable once VirtualMemberCallInConstructor
         MessageLabel = new Label { TextColor = Pick.ForPlatform(Colors.Black, Colors.White), Text = Message };
         ActivityIndicatorAndMessageStackLayout = new StackLayout
         {
             Orientation = StackOrientation.Vertical,
-            HorizontalOptions = LayoutOptions.CenterAndExpand
+            HorizontalOptions = LayoutOptions.Center
         };
         ActivityIndicatorAndMessageStackLayout.Children.Add(ActivityIndicator);
         ActivityIndicatorAndMessageStackLayout.Children.Add(MessageLabel);
 
-        GrayOutOverlay = new BoxView { Color = new Color (0, 0, 0, 0.4) };
+        GrayOutOverlay = new BoxView { Color = new Color(0f, 0f, 0f, 0.4f) };
 
-        HorizontalOptions = LayoutOptions.FillAndExpand;
-        VerticalOptions = LayoutOptions.FillAndExpand;
+        HorizontalOptions = LayoutOptions.Fill;
+        VerticalOptions = LayoutOptions.Fill;
 
-        SetLayoutFlags(ContentView, AbsoluteLayoutFlags.All);
-        SetLayoutBounds(ContentView, new Rectangle(0, 0, 1f, 1f));
+        SetLayoutFlags((BindableObject)ContentView, AbsoluteLayoutFlags.All);
+        SetLayoutBounds((BindableObject)ContentView, new Rect(0, 0, 1f, 1f));
 
-        SetLayoutFlags(GrayOutOverlay, AbsoluteLayoutFlags.All);
-        SetLayoutBounds(GrayOutOverlay, new Rectangle(0, 0, 1f, 1f));
+        SetLayoutFlags((BindableObject)GrayOutOverlay, AbsoluteLayoutFlags.All);
+        SetLayoutBounds((BindableObject)GrayOutOverlay, new Rect(0, 0, 1f, 1f));
 
-        SetLayoutFlags(ActivityIndicatorAndMessageStackLayout, AbsoluteLayoutFlags.PositionProportional);
-        SetLayoutBounds(ActivityIndicatorAndMessageStackLayout, new Rectangle(0.5, 0.5, AutoSize, AutoSize));
+        SetLayoutFlags((BindableObject)ActivityIndicatorAndMessageStackLayout, AbsoluteLayoutFlags.PositionProportional);
+        SetLayoutBounds((BindableObject)ActivityIndicatorAndMessageStackLayout, new Rect(0.5, 0.5, AutoSize, AutoSize));
             
         Children.Add(ContentView);
         Children.Add(GrayOutOverlay);
         Children.Add(ActivityIndicatorAndMessageStackLayout);
         // ReSharper disable once VirtualMemberCallInConstructor
+        
         ActivityIndicatorOn = false;
     }
     #endregion

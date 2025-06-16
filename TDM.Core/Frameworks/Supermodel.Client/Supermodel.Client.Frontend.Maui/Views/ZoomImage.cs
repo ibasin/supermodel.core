@@ -6,15 +6,15 @@ public class ZoomImage : Image
     public ZoomImage()
     {
         var pinch = new PinchGestureRecognizer();
-        pinch.PinchUpdated += OnPinchUpdated;
+        pinch.PinchUpdated += OnPinchUpdated!;
         GestureRecognizers.Add(pinch);
 
         var pan = new PanGestureRecognizer();
-        pan.PanUpdated += OnPanUpdated;
+        pan.PanUpdated += OnPanUpdated!;
         GestureRecognizers.Add(pan);
 
         var tap = new TapGestureRecognizer { NumberOfTapsRequired = 2 };
-        tap.Tapped += OnTapped;
+        tap.Tapped += OnTapped!;
         GestureRecognizers.Add(tap);
 
         Scale = MinScale;
@@ -24,12 +24,12 @@ public class ZoomImage : Image
     #endregion
 
     #region Overrides
-    protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
+    protected override Size MeasureOverride(double widthConstraint, double heightConstraint)
     {
         Scale = MinScale;
         TranslationX = TranslationY = 0;
         AnchorX = AnchorY = 0;
-        return base.OnMeasure(widthConstraint, heightConstraint);
+        return base.MeasureOverride(widthConstraint, heightConstraint);
     }
 
     protected override void OnSizeAllocated(double width, double height)
