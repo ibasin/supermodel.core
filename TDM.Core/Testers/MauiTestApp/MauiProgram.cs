@@ -16,11 +16,11 @@ namespace MauiTestApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
+            #if DEBUG
     		builder.Logging.AddDebug();
-#endif
+            #endif
 
-            var x = SharedService.Instantiate<IImageResizer>();
+            //var x = SharedService.Instantiate<IImageResizer>();
             
             return builder.Build();
         }
