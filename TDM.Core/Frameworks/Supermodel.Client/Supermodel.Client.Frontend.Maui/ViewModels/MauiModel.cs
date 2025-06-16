@@ -52,7 +52,7 @@ public abstract class MauiModel : ISupermodelMobileDetailTemplate, IAsyncValidat
                 var genericCell = new TextBoxReadOnlyMauiModel
                 {
                     DisplayNameIfApplies = GetType().GetDisplayNameForProperty(property.Name),
-                    Text = propertyObj.ToString()
+                    Text = propertyObj.ToString() ?? ""
                 };
                 cells.Add(genericCell);
             }

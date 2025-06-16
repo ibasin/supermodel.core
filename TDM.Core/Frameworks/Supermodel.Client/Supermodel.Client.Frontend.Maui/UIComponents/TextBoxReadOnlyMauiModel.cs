@@ -1,4 +1,5 @@
 ﻿using Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
+using Supermodel.DataAnnotations.Exceptions;
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents;
 
@@ -7,8 +8,18 @@ public class TextBoxReadOnlyMauiModel : SingleCellReadOnlyUIComponentForTextMaui
     #region Constructors
     public TextBoxReadOnlyMauiModel()
     {
-        TextLabel = new Label { HorizontalOptions = LayoutOptions.EndAndExpand, VerticalOptions = LayoutOptions.Center, LineBreakMode = LineBreakMode.TailTruncation, FontSize = MauiSettings.LabelFontSize, TextColor = MauiSettings.ValueTextColor };
-        StackLayoutView.Children.Add(TextLabel);
+        TextLabel = new Label { VerticalOptions = LayoutOptions.Center, LineBreakMode = LineBreakMode.TailTruncation, FontSize = MauiSettings.LabelFontSize, TextColor = MauiSettings.ValueTextColor };
+        switch (Grid.ColumnDefinitions.Count)
+        {
+            case 1: 
+                Grid[0] = TextLabel;
+                break;
+            case 2:
+                Grid[1] = TextLabel;
+                break;
+            default:
+                throw new SupermodelException("TextBoxReadOnlyMauiModel: Grid.ColumnDefinitions.Count not 1 or 2");
+        }
     }
     #endregion
 
