@@ -32,7 +32,7 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
         Models = models;
         Model = model;
         MauiModel = xfModel;
-        OriginalXFModel = originalXFModel;
+        OriginalMauiModel = originalXFModel;
 
         return Task.FromResult(this);
     }
@@ -45,13 +45,13 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
     }
     public bool ActivityIndicatorOn
     {
-        get => DetailView.ActivityIndicatorOn;
-        set => DetailView.ActivityIndicatorOn = value;
+        get => DetailView!.ActivityIndicatorOn;
+        set => DetailView!.ActivityIndicatorOn = value;
     }
     public string Message
     {
-        get => DetailView.Message;
-        set => DetailView.Message = value;
+        get => DetailView!.Message;
+        set => DetailView!.Message = value;
     }
     #endregion
 
@@ -62,7 +62,7 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
         base.OnAppearing();
         InitContent();
         PageActive = true;
-        if (MauiModel.ContainsValidationErrros()) await DisplayAlert("Validation Errors", "Please correct problems with fields marked with '!'", "Ok");
+        if (MauiModel!.ContainsValidationErrros()) await DisplayAlert("Validation Errors", "Please correct problems with fields marked with '!'", "Ok");
     }
     protected override async void OnDisappearing()
     {
@@ -87,18 +87,18 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
         while (navigationStack.Count == navStackCount) await Task.Delay(100);
 
         var blankXFModel = await GetBlankXFModelAsync();
-        if (DisappearingBecauseOfCancellation || (goingBack && MauiModel.AreWritableFieldsEqual(blankXFModel))) return;
+        if (DisappearingBecauseOfCancellation || (goingBack && MauiModel!.AreWritableFieldsEqual(blankXFModel))) return;
 
         //Try to validate locally. We validate even if the hash did not change since we only calculate hash to persistent fields
         var localVr = new ValidationResultList();
-        if (!await AsyncValidator.TryValidateObjectAsync(MauiModel, new ValidationContext(MauiModel, new Dictionary<object,object?> { { "CanBeCancellation", goingBack } }), localVr))
+        if (!await AsyncValidator.TryValidateObjectAsync(MauiModel!, new ValidationContext(MauiModel!, new Dictionary<object,object?> { { "CanBeCancellation", goingBack } }), localVr))
         {
             //if we had local validation errors
-            MauiModel.ShowValidationErrors(localVr);
+            MauiModel!.ShowValidationErrors(localVr);
             if (goingBack)
             {
                 var page = (CRUDDetailPageBase<TModel, TMauiModel, TDataContext>)ReflectionHelper.CreateType(GetType());
-                await parentPage.Navigation.PushAsync(await page.InitAsync(Models, Title, Model, MauiModel, OriginalXFModel));
+                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, MauiModel, OriginalMauiModel!));
             }
             else
             {
@@ -108,7 +108,7 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
         }
 
         //Map to Model
-        var originalModelHash = ComputeModelHash(Model);
+        var originalModelHash = ComputeModelHash(Model!);
         ValidationResultList? mappingVr = null;
         try
         {
@@ -122,13 +122,13 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
         if (mappingVr != null && mappingVr.Any())
         {
             //if we had mapping validation errors
-            Model = await OriginalXFModel.MapToAsync(Model);
+            Model = await OriginalMauiModel.MapToAsync(Model);
             if (pageShowing is IBasicCRUDDetailPage basicCRUDPageShowing) basicCRUDPageShowing.InitContent(); //we do this because on Android page appears before page disappears
-            MauiModel.ShowValidationErrors(mappingVr);
+            MauiModel!.ShowValidationErrors(mappingVr);
             if (goingBack)
             {
                 var page = (CRUDDetailPageBase<TModel, TMauiModel, TDataContext>)ReflectionHelper.CreateType(GetType());
-                await parentPage.Navigation.PushAsync(await page.InitAsync(Models, Title, Model, MauiModel, OriginalXFModel));
+                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, MauiModel, OriginalMauiModel!));
             }
             else
             {
@@ -138,16 +138,16 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
         }
 
         //if Model did not change, we don't need to save it
-        if (ComputeModelHash(Model) == originalModelHash) 
+        if (ComputeModelHash(Model!) == originalModelHash) 
         {
             //This is in case we had validation errors in the MauiModel to begin with
-            MauiModel.ClearValidationErrors();
+            MauiModel!.ClearValidationErrors();
             return;
         }
 
         //Try to save to DataContext
         bool connectionLost;
-        ValidationResultList serverVr = null;
+        ValidationResultList? serverVr = null;
         do
         {
             connectionLost = false;
@@ -160,14 +160,14 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
                         //var t1 = Task.Delay(250); //short delay so that saving indicator could be shown
                         //var t2 = SaveItemInternalAsync(Model);
                         //await Task.WhenAll(t1, t2);
-                        await SaveItemInternalAsync(Model);
+                        await SaveItemInternalAsync(Model!);
                     }
                 }
                 else
                 {
-                    await SaveItemInternalAsync(Model);
+                    await SaveItemInternalAsync(Model!);
                 }
-                if (!Model.IsNew && Models.All(x => x.Id != Model.Id)) Models.Add(Model);
+                if (!Model!.IsNew && Models!.All(x => x.Id != Model.Id)) Models!.Add(Model);
             }
             catch (SupermodelWebApiException ex1)
             {
@@ -177,8 +177,8 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
                 }
                 else if (ex1.StatusCode == HttpStatusCode.NotFound)
                 {
-                    Models.RemoveAllWhere(x => x == Model);
-                    await pageShowing.DisplayAlert("Not Found", "Item you are trying to update no longer exists.", "Ok");
+                    Models!.RemoveAllWhere(x => x == Model);
+                    await pageShowing!.DisplayAlert("Not Found", "Item you are trying to update no longer exists.", "Ok");
                 }
                 else if (ex1.StatusCode == HttpStatusCode.Conflict)
                 {
@@ -192,7 +192,7 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
                 else
                 {
                     connectionLost = true;
-                    await pageShowing.DisplayAlert("Connection Lost", "Connection to the cloud cannot be established.", "Try again");
+                    await pageShowing!.DisplayAlert("Connection Lost", "Connection to the cloud cannot be established.", "Try again");
                 }
             }
             catch (SupermodelDataContextValidationException ex2)
@@ -205,7 +205,7 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
             catch (Exception netEx) when (netEx is HttpRequestException || netEx is IOException || netEx is WebException)
             {
                 connectionLost = true;
-                await pageShowing.DisplayAlert("Connection Lost", "Connection to the cloud cannot be established.", "Try again");
+                await pageShowing!.DisplayAlert("Connection Lost", "Connection to the cloud cannot be established.", "Try again");
             }
             catch (Exception ex3)
             {
@@ -218,13 +218,13 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
         if (serverVr != null && serverVr.Any())
         {
             //if we had any validation errors while trying to save to DataContext
-            Model = await OriginalXFModel.MapToAsync(Model); 
-            MauiModel.ShowValidationErrors(serverVr);
+            Model = await OriginalMauiModel.MapToAsync(Model); 
+            MauiModel!.ShowValidationErrors(serverVr);
 
             if (goingBack)
             {
                 var page = (CRUDDetailPageBase<TModel, TMauiModel, TDataContext>)ReflectionHelper.CreateType(GetType());
-                await parentPage.Navigation.PushAsync(await page.InitAsync(Models, Title, Model, MauiModel, OriginalXFModel));
+                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, MauiModel, OriginalMauiModel!));
             }
             else
             {
@@ -234,16 +234,16 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
         }
         //If no validation issues, mark all properties as changed. This way the list will always update
         //foreach (var property in Model.GetType().GetTypeInfo().DeclaredProperties) Model.OnPropertyChanged(property.Name);
-        MarkAllPropertiesChanged(Model);
+        MarkAllPropertiesChanged(Model!);
 
         //This is in case we had validation errors in the MauiModel to begin with
-        MauiModel.ClearValidationErrors();
+        MauiModel!.ClearValidationErrors();
     }
     protected void MarkAllPropertiesChanged(ISupermodelNotifyPropertyChanged model)
     {
         foreach (var property in model.GetType().GetTypeInfo().DeclaredProperties)
         {
-            Model.OnPropertyChanged(property.Name);
+            Model!.OnPropertyChanged(property.Name);
             var propertyValue = model.PropertyGet(property.Name);
             if (propertyValue is ISupermodelNotifyPropertyChanged propertyValueChangedObj) MarkAllPropertiesChanged(propertyValueChangedObj);
             if (property.PropertyType != typeof(string) && propertyValue is IEnumerable propertyValueIEnumerableChanged)

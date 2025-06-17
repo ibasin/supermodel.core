@@ -50,7 +50,7 @@ public abstract class CRUDDetailPageCore<TModel, TMauiModel> : ContentPage, IBas
         //    InitDetailView();
         //}
         DetailView = new CRUDDetailView();
-        Content = StackLayout = new StackLayout { Children = { DetailView } };
+        Content = Grid = [DetailView];
 
         OnLoad();
         InitDetailView();
@@ -61,7 +61,7 @@ public abstract class CRUDDetailPageCore<TModel, TMauiModel> : ContentPage, IBas
         // ReSharper disable once SuspiciousTypeConversion.Global
         var sectionResolver = MauiModel as IHaveSectionNames;
 
-        var lastCell = MauiModel.RenderDetail(this)?.LastOrDefault();
+        var lastCell = MauiModel!.RenderDetail(this).LastOrDefault();
         if (lastCell != null)
         {
             var sectionNum = 0;
@@ -72,7 +72,7 @@ public abstract class CRUDDetailPageCore<TModel, TMauiModel> : ContentPage, IBas
                 {
                     var sectionName = sectionResolver?.GetSectionName(sectionNum);
                     var section = string.IsNullOrEmpty(sectionName) ? new TableSection() : new TableSection(sectionName);
-                    DetailView.ContentView.Root.Add(section);
+                    DetailView!.ContentView.Root.Add(section);
                     foreach (var cell in cells) section.Add(cell);
                 }
                 if (cells.Contains(lastCell)) break;
@@ -84,19 +84,19 @@ public abstract class CRUDDetailPageCore<TModel, TMauiModel> : ContentPage, IBas
     #endregion
 
     #region Properties
-    public StackLayout StackLayout { get; set; }
-    public CRUDDetailView DetailView { get; set; }
-    public ObservableCollection<TModel> Models { get; set; } 
-    public TModel Model { get; set; }
-    public TMauiModel MauiModel { get; set; }
-    public MauiModel GetMauiModel() { return MauiModel; }
+    public Grid? Grid { get; set; }
+    public CRUDDetailView? DetailView { get; set; }
+    public ObservableCollection<TModel>? Models { get; set; } 
+    public TModel? Model { get; set; }
+    public TMauiModel? MauiModel { get; set; }
+    public MauiModel? GetMauiModel() { return MauiModel; }
 
-    public T GetXFModel<T>() where T : MauiModel { return (T)(MauiModel)MauiModel; } //This is property in spirit
+    public T? GetXFModel<T>() where T : MauiModel { return (T?)(MauiModel?)MauiModel; } //This is property in spirit
 
-    public TMauiModel OriginalXFModel { get; set; }
+    public TMauiModel? OriginalMauiModel { get; set; }
 
     protected virtual bool CancelButton => false;
-    protected virtual string CancelBtnIconFilename => null;
+    protected virtual string? CancelBtnIconFilename => null;
     protected bool DisappearingBecauseOfCancellation { get; set; } //default is false
     #endregion
 }
