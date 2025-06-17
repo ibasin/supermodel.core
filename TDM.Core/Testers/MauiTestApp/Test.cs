@@ -1,7 +1,7 @@
 ﻿using Supermodel.Client.Frontend.Maui.ViewModels;
-using Supermodel.Client.Backend.Models;
 using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
+using Supermodel.Client.Frontend.Maui.Models;
 
 namespace MauiTestApp
 {
@@ -16,7 +16,7 @@ namespace MauiTestApp
         public string LastName { get; set; } = "";
     }
 
-    public class TestModel : Model
+    public class TestModel : ModelForMaui
     {
         public string FirstName { get; set; } = "Ilya";
         public string LastName { get; set; } = "Basin";
@@ -25,10 +25,11 @@ namespace MauiTestApp
     public class TestSqliteDataContext : SqliteDataContext
     {
         #region Overrides
-        //Optionally: Put your DbFileName here. For exmample if you need use multiple dbs 
-        // ReSharper disable once RedundantOverriddenMember
-        //public override string DbFileName => base.DbFileName;
-        public override string DatabaseFilePath => Path.Combine(FileSystem.Current.AppDataDirectory, "<filename>.db");
+        //Put your Database file location and name here.
+        //Good options are:
+        //- for MAUI apps return Path.Combine(FileSystem.Current.AppDataDirectory, "<filename>.db");
+        //- for .Net clients return Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName)!, "<filename>.db");
+        public override string DatabaseFilePath => Path.Combine(FileSystem.Current.AppDataDirectory, "Test.db");
 
         //Optionally: Put your schema version here 
         // ReSharper disable once RedundantOverriddenMember

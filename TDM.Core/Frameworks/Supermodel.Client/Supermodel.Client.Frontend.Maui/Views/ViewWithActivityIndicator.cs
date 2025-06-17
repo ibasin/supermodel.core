@@ -13,7 +13,7 @@ public class ViewWithActivityIndicator<TContentView> : AbsoluteLayout, IHaveActi
         //MessageLabel = new Label { TextColor = Pick.ForPlatform(Color.Black, Color.White, Color.Black), Text = Message };
         
         // ReSharper disable once VirtualMemberCallInConstructor
-        MessageLabel = new Label { TextColor = Pick.ForPlatform(Colors.Black, Colors.White), Text = Message };
+        MessageLabel = new Label { TextColor = Pick.ForPlatform(Colors.Black, Colors.White, Colors.Black), Text = Message };
         ActivityIndicatorAndMessageStackLayout = new StackLayout
         {
             Orientation = StackOrientation.Vertical,
