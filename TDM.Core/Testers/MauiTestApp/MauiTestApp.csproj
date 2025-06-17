@@ -65,6 +65,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Frameworks\Supermodel.Client\Supermodel.Client.Backend\Supermodel.Client.Backend.csproj" />
 	  <ProjectReference Include="..\..\Frameworks\Supermodel.Client\Supermodel.Client.Frontend.Maui\Supermodel.Client.Frontend.Maui.csproj" />
 	</ItemGroup>
 
