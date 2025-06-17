@@ -23,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Supermodel.ReflectionMapper\Supermodel.ReflectionMapper.csproj" />
 	  <ProjectReference Include="..\Supermodel.Client.Backend\Supermodel.Client.Backend.csproj" />
 	</ItemGroup>
 
