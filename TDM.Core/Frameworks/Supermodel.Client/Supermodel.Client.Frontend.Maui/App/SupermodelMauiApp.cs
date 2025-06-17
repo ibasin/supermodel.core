@@ -9,7 +9,7 @@ public abstract class SupermodelMauiApp : Application
     #region Comstructors
     protected SupermodelMauiApp()
     {
-        AppContext.SetRunningApp(this); 
+        ApplicationContext.SetRunningApp(this); 
     }
     #endregion
 

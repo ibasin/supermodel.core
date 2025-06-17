@@ -91,7 +91,7 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
 
         //Try to validate locally. We validate even if the hash did not change since we only calculate hash to persistent fields
         var localVr = new ValidationResultList();
-        if (!await AsyncValidator.TryValidateObjectAsync(MauiModel, new ValidationContext(MauiModel, new Dictionary<object,object> { { "CanBeCancellation", goingBack } }), localVr))
+        if (!await AsyncValidator.TryValidateObjectAsync(MauiModel, new ValidationContext(MauiModel, new Dictionary<object,object?> { { "CanBeCancellation", goingBack } }), localVr))
         {
             //if we had local validation errors
             MauiModel.ShowValidationErrors(localVr);
@@ -109,7 +109,7 @@ public abstract class CRUDDetailPageBase<TModel, TMauiModel, TDataContext> : CRU
 
         //Map to Model
         var originalModelHash = ComputeModelHash(Model);
-        ValidationResultList mappingVr = null;
+        ValidationResultList? mappingVr = null;
         try
         {
             Model = await MauiModel.MapToAsync(Model);
