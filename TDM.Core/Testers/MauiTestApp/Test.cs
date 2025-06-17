@@ -1,12 +1,16 @@
 ﻿using Supermodel.Client.Frontend.Maui.ViewModels;
 using Supermodel.Client.Backend.Models;
 using Supermodel.Client.Backend.DataContext.Sqlite;
+using Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 
 namespace MauiTestApp
 {
-    public class TestPage : CRUDDetailPage<>
+    public class TestPage : CRUDDetailPage<TestModel, TestViewModelForMaui, TestSqliteDataContext>
+    {
+
+    }
     
-    public class TestMauiModel : MauiModel
+    public class TestViewModelForMaui : ViewModelForMauiFor<TestModel>
     {
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";

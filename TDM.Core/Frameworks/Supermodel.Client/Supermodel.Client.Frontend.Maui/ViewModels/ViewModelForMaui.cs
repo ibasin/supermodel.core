@@ -8,7 +8,7 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.ViewModels;
 
-public abstract class MauiModel : ISupermodelMobileDetailTemplate, IAsyncValidatableObject 
+public abstract class ViewModelForMaui : ISupermodelMobileDetailTemplate, IAsyncValidatableObject 
 {
     #region ISupermodelMobileDetailTemplate
     public virtual List<Cell> RenderDetail(Page parentPage, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
@@ -62,7 +62,7 @@ public abstract class MauiModel : ISupermodelMobileDetailTemplate, IAsyncValidat
     #endregion
 
     #region Methods
-    public virtual bool AreWritableFieldsEqual(MauiModel mauiModel)
+    public virtual bool AreWritableFieldsEqual(ViewModelForMaui viewModelForMaui)
     {
         foreach (var property in GetPropertiesInOrder())
         {
@@ -70,7 +70,7 @@ public abstract class MauiModel : ISupermodelMobileDetailTemplate, IAsyncValidat
             {
                 var mine = uiComponent.WrappedValue;
                 // ReSharper disable once SuspiciousTypeConversion.Global
-                var theirs = ((IWritableUIComponentMauiModel)mauiModel.PropertyGet(property.Name)!).WrappedValue;
+                var theirs = ((IWritableUIComponentMauiModel)viewModelForMaui.PropertyGet(property.Name)!).WrappedValue;
                 if (mine != null)
                 {
                     if (!mine.Equals(theirs)) return false;

@@ -6,7 +6,7 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.ViewModels;
 
-public abstract class MauiModelForModelBase<TModel> : MauiModel, IRMapperCustom where TModel : class, IModel, ISupermodelNotifyPropertyChanged, new()
+public abstract class ViewModelForMauiForBase<TModel> : ViewModelForMaui, IRMapperCustom where TModel : class, IModel, ISupermodelNotifyPropertyChanged, new()
 {
     #region ICustomMapper implementation
     public virtual Task MapFromCustomAsync<T>(T other)
@@ -125,7 +125,7 @@ public abstract class MauiModelForModelBase<TModel> : MauiModel, IRMapperCustom 
     //                    {
     //                        var vrl = ex2.ValidationErrors;
     //                        if (vrl.Count != 1) throw new SupermodelException("vrl.Count != 1. This should never happen!");
-    //                        //Model = OriginalMauiModel.MapTo(Model); //This is where we would normally restore model to the original, but not here
+    //                        //Model = OriginalViewModel.MapTo(Model); //This is where we would normally restore model to the original, but not here
     //                        if (!vrl[0].Any()) throw new SupermodelException("!vrl[0].Any(): Server returned validation error with no validation results");
     //                        crudPage.GetXFModel().ShowValidationErrors(vrl[0]);
     //                    }

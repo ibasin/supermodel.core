@@ -8,9 +8,9 @@ using Supermodel.Encryptor;
 
 namespace Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 
-public abstract class CRUDDetailPageCore<TModel, TMauiModel> : ContentPage, IBasicCRUDDetailPage
-    where TModel : class, ISupermodelNotifyPropertyChanged, IModel, new()
-    where TMauiModel : MauiModel, new()
+public abstract class CRUDDetailPageCore<TModelForMaui, TViewModelForMaui> : ContentPage, IBasicCRUDDetailPage
+    where TModelForMaui : class, ISupermodelNotifyPropertyChanged, IModel, new()
+    where TViewModelForMaui : ViewModelForMaui, new()
 {
     #region Overrides
     protected virtual void AddCancelButton()
@@ -27,7 +27,7 @@ public abstract class CRUDDetailPageCore<TModel, TMauiModel> : ContentPage, IBas
         ApplicationContext.GetRunningApp().HandleUnauthorized();
     }
     // ReSharper disable once UnusedParameter.Global
-    protected virtual string ComputeModelHash(TModel model)
+    protected virtual string ComputeModelHash(TModelForMaui model)
     {
         //We hash Json to ignore changes that do not get persisted
         //return JsonConvert.SerializeObject(Model).GetMD5Hash();
@@ -59,15 +59,15 @@ public abstract class CRUDDetailPageCore<TModel, TMauiModel> : ContentPage, IBas
     public virtual void InitDetailView()
     {
         // ReSharper disable once SuspiciousTypeConversion.Global
-        var sectionResolver = MauiModel as IHaveSectionNames;
+        var sectionResolver = ViewModel as IHaveSectionNames;
 
-        var lastCell = MauiModel!.RenderDetail(this).LastOrDefault();
+        var lastCell = ViewModel!.RenderDetail(this).LastOrDefault();
         if (lastCell != null)
         {
             var sectionNum = 0;
             while (true)
             {
-                var cells = MauiModel.RenderDetail(this, sectionNum, sectionNum + 99);
+                var cells = ViewModel.RenderDetail(this, sectionNum, sectionNum + 99);
                 if (cells.Any())
                 {
                     var sectionName = sectionResolver?.GetSectionName(sectionNum);
@@ -86,14 +86,14 @@ public abstract class CRUDDetailPageCore<TModel, TMauiModel> : ContentPage, IBas
     #region Properties
     public Grid? Grid { get; set; }
     public CRUDDetailView? DetailView { get; set; }
-    public ObservableCollection<TModel>? Models { get; set; } 
-    public TModel? Model { get; set; }
-    public TMauiModel? MauiModel { get; set; }
-    public MauiModel? GetMauiModel() { return MauiModel; }
+    public ObservableCollection<TModelForMaui>? Models { get; set; } 
+    public TModelForMaui? Model { get; set; }
+    public TViewModelForMaui? ViewModel { get; set; }
+    public ViewModelForMaui? GetViewModel() { return ViewModel; }
 
-    public T? GetXFModel<T>() where T : MauiModel { return (T?)(MauiModel?)MauiModel; } //This is property in spirit
+    public T? GetXFModel<T>() where T : ViewModelForMaui { return (T?)(ViewModelForMaui?)ViewModel; } //This is property in spirit
 
-    public TMauiModel? OriginalMauiModel { get; set; }
+    public TViewModelForMaui? OriginalViewModel { get; set; }
 
     protected virtual bool CancelButton => false;
     protected virtual string? CancelBtnIconFilename => null;

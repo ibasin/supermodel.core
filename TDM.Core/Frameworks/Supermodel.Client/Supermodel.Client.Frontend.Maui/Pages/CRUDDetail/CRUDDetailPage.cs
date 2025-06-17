@@ -7,31 +7,31 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 
-public abstract class CRUDDetailPage<TModel, TMauiModel, TDataContext> : CRUDDetailPageBase<TModel, TMauiModel, TDataContext>
-    where TModel : class, ISupermodelNotifyPropertyChanged, IModel, new()
-    where TMauiModel : MauiModelForModel<TModel>, new()
+public abstract class CRUDDetailPage<TModelForMaui, TViewModelForMaui, TDataContext> : CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TDataContext>
+    where TModelForMaui : class, ISupermodelNotifyPropertyChanged, IModel, new()
+    where TViewModelForMaui : ViewModelForMauiFor<TModelForMaui>, new()
     where TDataContext : class, IDataContext, new()
 {
     #region Initializers
-    public virtual async Task<CRUDDetailPage<TModel, TMauiModel, TDataContext>> InitAsync(ObservableCollection<TModel> models, string title, TModel model)
+    public virtual async Task<CRUDDetailPage<TModelForMaui, TViewModelForMaui, TDataContext>> InitAsync(ObservableCollection<TModelForMaui> models, string title, TModelForMaui model)
     {
-        var xfModel = new TMauiModel();
+        var xfModel = new TViewModelForMaui();
         await xfModel.InitAsync(model);
         xfModel = await xfModel.MapFromAsync(model);
 
-        var originalXFModel = new TMauiModel();
+        var originalXFModel = new TViewModelForMaui();
         await originalXFModel.InitAsync(model);
         originalXFModel = await originalXFModel.MapFromAsync(model);
 
-        return (CRUDDetailPage<TModel, TMauiModel, TDataContext>)await base.InitAsync(models, title, model, xfModel, originalXFModel);
+        return (CRUDDetailPage<TModelForMaui, TViewModelForMaui, TDataContext>)await base.InitAsync(models, title, model, xfModel, originalXFModel);
     }
     #endregion
 
     #region Overrides
-    protected override async Task<TMauiModel> GetBlankXFModelAsync()
+    protected override async Task<TViewModelForMaui> GetBlankXFModelAsync()
     {
-        var blankModel = new TModel();
-        var blankXfModel = (TMauiModel) await new TMauiModel().InitAsync(blankModel);
+        var blankModel = new TModelForMaui();
+        var blankXfModel = (TViewModelForMaui) await new TViewModelForMaui().InitAsync(blankModel);
         return blankXfModel;
     }
     #endregion
