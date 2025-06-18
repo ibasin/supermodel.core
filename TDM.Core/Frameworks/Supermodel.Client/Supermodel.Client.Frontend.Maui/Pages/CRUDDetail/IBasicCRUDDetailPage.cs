@@ -9,7 +9,7 @@ public interface IBasicCRUDDetailPage : ILayout, IPageController, IElementConfig
 
     CRUDDetailView? DetailView { get; set; }
     MauiViewModel? GetViewModel();
-    T? GetXFModel<T>() where T : MauiViewModel;
+    T? GetViewModel<T>() where T : MauiViewModel;
 
     Task DisplayAlert(string title, string message, string cancel);
     Task<bool> DisplayAlert(string title, string message, string accept, string cancel);

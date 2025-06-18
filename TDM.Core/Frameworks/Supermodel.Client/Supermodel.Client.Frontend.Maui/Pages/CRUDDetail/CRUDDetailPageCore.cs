@@ -91,7 +91,7 @@ public abstract class CRUDDetailPageCore<TMauiModel, TMauiViewModel> : ContentPa
     public TMauiViewModel? ViewModel { get; set; }
     public MauiViewModel? GetViewModel() { return ViewModel; }
 
-    public T? GetXFModel<T>() where T : MauiViewModel { return (T?)(MauiViewModel?)ViewModel; } //This is property in spirit
+    public T? GetViewModel<T>() where T : MauiViewModel { return (T?)(MauiViewModel?)ViewModel; } //This is property in spirit
 
     public TMauiViewModel? OriginalViewModel { get; set; }
 

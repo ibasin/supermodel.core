@@ -23,7 +23,7 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
     where TDataContext : class, IDataContext, new()
 {
     #region Initializers
-    protected virtual Task<CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>> InitAsync(ObservableCollection<TMauiModel> models, string title, TMauiModel model, TMauiViewModel xfModel, TMauiViewModel originalXFModel)
+    protected virtual Task<CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>> InitAsync(ObservableCollection<TMauiModel> models, string title, TMauiModel model, TMauiViewModel xfModel, TMauiViewModel originalViewModel)
     {
         Title = title;
 
@@ -32,7 +32,7 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
         Models = models;
         Model = model;
         ViewModel = xfModel;
-        OriginalViewModel = originalXFModel;
+        OriginalViewModel = originalViewModel;
 
         return Task.FromResult(this);
     }
@@ -56,7 +56,7 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
     #endregion
 
     #region Overrides
-    protected abstract Task<TMauiViewModel> GetBlankXFModelAsync();
+    protected abstract Task<TMauiViewModel> GetBlankViewModelAsync();
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -86,8 +86,8 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
         //Let the page finish disappearing from NavStack
         while (navigationStack.Count == navStackCount) await Task.Delay(100);
 
-        var blankXFModel = await GetBlankXFModelAsync();
-        if (DisappearingBecauseOfCancellation || (goingBack && ViewModel!.AreWritableFieldsEqual(blankXFModel))) return;
+        var blankViewModel = await GetBlankViewModelAsync();
+        if (DisappearingBecauseOfCancellation || (goingBack && ViewModel!.AreWritableFieldsEqual(blankViewModel))) return;
 
         //Try to validate locally. We validate even if the hash did not change since we only calculate hash to persistent fields
         var localVr = new ValidationResultList();

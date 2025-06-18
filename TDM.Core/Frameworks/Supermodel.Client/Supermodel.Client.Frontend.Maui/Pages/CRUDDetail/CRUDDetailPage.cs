@@ -19,16 +19,16 @@ public abstract class CRUDDetailPage<TMauiModel, TMauiViewModel, TDataContext> :
         await xfModel.InitAsync(model);
         xfModel = await xfModel.MapFromAsync(model);
 
-        var originalXFModel = new TMauiViewModel();
-        await originalXFModel.InitAsync(model);
-        originalXFModel = await originalXFModel.MapFromAsync(model);
+        var originalViewModel = new TMauiViewModel();
+        await originalViewModel.InitAsync(model);
+        originalViewModel = await originalViewModel.MapFromAsync(model);
 
-        return (CRUDDetailPage<TMauiModel, TMauiViewModel, TDataContext>)await base.InitAsync(models, title, model, xfModel, originalXFModel);
+        return (CRUDDetailPage<TMauiModel, TMauiViewModel, TDataContext>)await base.InitAsync(models, title, model, xfModel, originalViewModel);
     }
     #endregion
 
     #region Overrides
-    protected override async Task<TMauiViewModel> GetBlankXFModelAsync()
+    protected override async Task<TMauiViewModel> GetBlankViewModelAsync()
     {
         var blankModel = new TMauiModel();
         var blankXfModel = (TMauiViewModel) await new TMauiViewModel().InitAsync(blankModel);

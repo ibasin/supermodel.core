@@ -127,7 +127,7 @@ public abstract class MauiViewModelForBase<TModel> : MauiViewModel, IRMapperCust
     //                        if (vrl.Count != 1) throw new SupermodelException("vrl.Count != 1. This should never happen!");
     //                        //Model = OriginalViewModel.MapTo(Model); //This is where we would normally restore model to the original, but not here
     //                        if (!vrl[0].Any()) throw new SupermodelException("!vrl[0].Any(): Server returned validation error with no validation results");
-    //                        crudPage.GetXFModel().ShowValidationErrors(vrl[0]);
+    //                        crudPage.GetViewModel().ShowValidationErrors(vrl[0]);
     //                    }
     //                    catch (Exception netEx) when (netEx is HttpRequestException || netEx is IOException || netEx is WebException)
     //                    {
