@@ -20,11 +20,12 @@ public class ToggleSwitchViewModel : SingleCellWritableUIComponentViewModel
                 OnChanged?.Invoke((IBasicCRUDDetailPage)ParentPage!);
             }
         };
-        Tapped += (_, _) =>
-        {
-            Switch.Focus();
-            Switch.IsToggled = !Switch.IsToggled; //Surenra's change
-        };
+        Tapped += (_, _) => Switch.Focus();
+        //{
+        //    Switch.Focus();
+        //    Switch.IsToggled = !Switch.IsToggled; //Surenra's change
+        //};
+
         Grid.Add(Switch, 1);
     }
     #endregion

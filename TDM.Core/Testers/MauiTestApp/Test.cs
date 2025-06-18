@@ -15,6 +15,7 @@ namespace MauiTestApp
     {
         public string FirstName { get; set; } = "";
         public TextBoxReadOnlyViewModel LastName { get; set; } = new();
+        public TextBoxViewModel Position { get; set; } = new();
         public ToggleSwitchViewModel Active { get; set; } = new();
     }
 
@@ -22,6 +23,7 @@ namespace MauiTestApp
     {
         public string FirstName { get; set; } = "Ilya";
         public string LastName { get; set; } = "Basin";
+        public string Position { get; set; } = "Computer Sceince Fellow";
         public bool Active { get; set; }
     }
 
