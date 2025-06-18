@@ -8,9 +8,9 @@ using Supermodel.Encryptor;
 
 namespace Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 
-public abstract class CRUDDetailPageCore<TModelForMaui, TViewModelForMaui> : ContentPage, IBasicCRUDDetailPage
-    where TModelForMaui : class, ISupermodelNotifyPropertyChanged, IModel, new()
-    where TViewModelForMaui : ViewModelForMaui, new()
+public abstract class CRUDDetailPageCore<TMauiModel, TMauiViewModel> : ContentPage, IBasicCRUDDetailPage
+    where TMauiModel : class, ISupermodelNotifyPropertyChanged, IModel, new()
+    where TMauiViewModel : MauiViewModel, new()
 {
     #region Overrides
     protected virtual void AddCancelButton()
@@ -27,7 +27,7 @@ public abstract class CRUDDetailPageCore<TModelForMaui, TViewModelForMaui> : Con
         ApplicationContext.GetRunningApp().HandleUnauthorized();
     }
     // ReSharper disable once UnusedParameter.Global
-    protected virtual string ComputeModelHash(TModelForMaui model)
+    protected virtual string ComputeModelHash(TMauiModel model)
     {
         //We hash Json to ignore changes that do not get persisted
         //return JsonConvert.SerializeObject(Model).GetMD5Hash();
@@ -86,14 +86,14 @@ public abstract class CRUDDetailPageCore<TModelForMaui, TViewModelForMaui> : Con
     #region Properties
     public Grid? Grid { get; set; }
     public CRUDDetailView? DetailView { get; set; }
-    public ObservableCollection<TModelForMaui>? Models { get; set; } 
-    public TModelForMaui? Model { get; set; }
-    public TViewModelForMaui? ViewModel { get; set; }
-    public ViewModelForMaui? GetViewModel() { return ViewModel; }
+    public ObservableCollection<TMauiModel>? Models { get; set; } 
+    public TMauiModel? Model { get; set; }
+    public TMauiViewModel? ViewModel { get; set; }
+    public MauiViewModel? GetViewModel() { return ViewModel; }
 
-    public T? GetXFModel<T>() where T : ViewModelForMaui { return (T?)(ViewModelForMaui?)ViewModel; } //This is property in spirit
+    public T? GetXFModel<T>() where T : MauiViewModel { return (T?)(MauiViewModel?)ViewModel; } //This is property in spirit
 
-    public TViewModelForMaui? OriginalViewModel { get; set; }
+    public TMauiViewModel? OriginalViewModel { get; set; }
 
     protected virtual bool CancelButton => false;
     protected virtual string? CancelBtnIconFilename => null;

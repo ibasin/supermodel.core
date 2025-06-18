@@ -12,11 +12,11 @@ namespace MauiTestApp
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            TestModel model = new();
-            ObservableCollection<TestModel> models = [model];
+            TestMauiModel mauiModel = new();
+            ObservableCollection<TestMauiModel> models = [mauiModel];
 
             var testPage = new TestPage();
-            AsyncHelper.RunSync(() => testPage.InitAsync(models, model.IsNew ? "New List" : "Edit List", model));
+            AsyncHelper.RunSync(() => testPage.InitAsync(models, mauiModel.IsNew ? "New List" : "Edit List", mauiModel));
             return new Window(testPage);
         }
     }

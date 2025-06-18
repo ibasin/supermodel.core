@@ -6,7 +6,7 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.ViewModels;
 
-public abstract class ViewModelForMauiForBase<TModel> : ViewModelForMaui, IRMapperCustom where TModel : class, IModel, ISupermodelNotifyPropertyChanged, new()
+public abstract class MauiViewModelForBase<TModel> : MauiViewModel, IRMapperCustom where TModel : class, IModel, ISupermodelNotifyPropertyChanged, new()
 {
     #region ICustomMapper implementation
     public virtual Task MapFromCustomAsync<T>(T other)

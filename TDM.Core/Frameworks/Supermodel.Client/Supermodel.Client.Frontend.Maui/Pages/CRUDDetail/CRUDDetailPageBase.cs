@@ -17,13 +17,13 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 
-public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TDataContext> : CRUDDetailPageCore<TModelForMaui, TViewModelForMaui>, IHaveActivityIndicator
-    where TModelForMaui : class, ISupermodelNotifyPropertyChanged, IModel, new()
-    where TViewModelForMaui : ViewModelForMaui, new()
+public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext> : CRUDDetailPageCore<TMauiModel, TMauiViewModel>, IHaveActivityIndicator
+    where TMauiModel : class, ISupermodelNotifyPropertyChanged, IModel, new()
+    where TMauiViewModel : MauiViewModel, new()
     where TDataContext : class, IDataContext, new()
 {
     #region Initializers
-    protected virtual Task<CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TDataContext>> InitAsync(ObservableCollection<TModelForMaui> models, string title, TModelForMaui model, TViewModelForMaui xfModel, TViewModelForMaui originalXFModel)
+    protected virtual Task<CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>> InitAsync(ObservableCollection<TMauiModel> models, string title, TMauiModel model, TMauiViewModel xfModel, TMauiViewModel originalXFModel)
     {
         Title = title;
 
@@ -56,7 +56,7 @@ public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TData
     #endregion
 
     #region Overrides
-    protected abstract Task<TViewModelForMaui> GetBlankXFModelAsync();
+    protected abstract Task<TMauiViewModel> GetBlankXFModelAsync();
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -97,7 +97,7 @@ public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TData
             ViewModel!.ShowValidationErrors(localVr);
             if (goingBack)
             {
-                var page = (CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TDataContext>)ReflectionHelper.CreateType(GetType());
+                var page = (CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>)ReflectionHelper.CreateType(GetType());
                 await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, ViewModel, OriginalViewModel!));
             }
             else
@@ -127,7 +127,7 @@ public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TData
             ViewModel!.ShowValidationErrors(mappingVr);
             if (goingBack)
             {
-                var page = (CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TDataContext>)ReflectionHelper.CreateType(GetType());
+                var page = (CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>)ReflectionHelper.CreateType(GetType());
                 await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, ViewModel, OriginalViewModel!));
             }
             else
@@ -140,7 +140,7 @@ public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TData
         //if Model did not change, we don't need to save it
         if (ComputeModelHash(Model!) == originalModelHash) 
         {
-            //This is in case we had validation errors in the ViewModelForMaui to begin with
+            //This is in case we had validation errors in the MauiViewModel to begin with
             ViewModel!.ClearValidationErrors();
             return;
         }
@@ -223,7 +223,7 @@ public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TData
 
             if (goingBack)
             {
-                var page = (CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TDataContext>)ReflectionHelper.CreateType(GetType());
+                var page = (CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>)ReflectionHelper.CreateType(GetType());
                 await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, ViewModel, OriginalViewModel!));
             }
             else
@@ -236,7 +236,7 @@ public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TData
         //foreach (var property in Model.GetType().GetTypeInfo().DeclaredProperties) Model.OnPropertyChanged(property.Name);
         MarkAllPropertiesChanged(Model!);
 
-        //This is in case we had validation errors in the ViewModelForMaui to begin with
+        //This is in case we had validation errors in the MauiViewModel to begin with
         ViewModel!.ClearValidationErrors();
     }
     protected void MarkAllPropertiesChanged(ISupermodelNotifyPropertyChanged model)
@@ -255,7 +255,7 @@ public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TData
             }
         }
     }
-    protected virtual async Task SaveItemInternalAsync(TModelForMaui model)
+    protected virtual async Task SaveItemInternalAsync(TMauiModel model)
     {
         await using (ApplicationContext.GetRunningApp().NewUnitOfWork<TDataContext>())
         {

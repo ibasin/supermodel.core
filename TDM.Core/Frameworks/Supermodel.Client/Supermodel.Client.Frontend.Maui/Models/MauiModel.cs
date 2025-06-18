@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Supermodel.Client.Frontend.Maui.Models;
 
-public class ModelForMaui : Model, ISupermodelListTemplate
+public class MauiModel : Model, ISupermodelListTemplate
 {
     #region ISupermodelListTemplate implemetation
     public virtual DataTemplate GetListCellDataTemplate(EventHandler? selectItemHandler, EventHandler? deleteItemHandler)
