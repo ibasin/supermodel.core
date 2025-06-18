@@ -1,6 +1,6 @@
 ﻿namespace Supermodel.Client.Frontend.Maui.UIComponents.Base;
 
-public interface IWritableUIComponentMauiModel : IReadOnlyUIComponentMauiModel
+public interface IWritableUIComponentViewModel : IReadOnlyUIComponentViewModel
 {
     string? ErrorMessage { get; set; }
     bool Required { get; set; }

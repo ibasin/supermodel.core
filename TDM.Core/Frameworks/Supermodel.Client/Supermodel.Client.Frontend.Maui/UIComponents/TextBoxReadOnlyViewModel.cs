@@ -2,10 +2,10 @@
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents;
 
-public class TextBoxReadOnlyMauiModel : SingleCellReadOnlyUIComponentForTextMauiModel
+public class TextBoxReadOnlyViewModel : SingleCellReadOnlyUIComponentForTextViewModel
 {
     #region Constructors
-    public TextBoxReadOnlyMauiModel()
+    public TextBoxReadOnlyViewModel()
     {
         TextLabel = new Label { VerticalOptions = LayoutOptions.Center, LineBreakMode = LineBreakMode.TailTruncation, FontSize = MauiSettings.LabelFontSize, TextColor = MauiSettings.ValueTextColor };
         Grid.Add(TextLabel, 1);
@@ -21,7 +21,7 @@ public class TextBoxReadOnlyMauiModel : SingleCellReadOnlyUIComponentForTextMaui
         //        else Grid.Add(TextLabel);
         //        break;
         //    default:
-        //        throw new SupermodelException("TextBoxReadOnlyMauiModel: Grid.ColumnDefinitions.Count not 1 or 2");
+        //        throw new SupermodelException("TextBoxReadOnlyViewModel: Grid.ColumnDefinitions.Count not 1 or 2");
         //}
     }
     #endregion

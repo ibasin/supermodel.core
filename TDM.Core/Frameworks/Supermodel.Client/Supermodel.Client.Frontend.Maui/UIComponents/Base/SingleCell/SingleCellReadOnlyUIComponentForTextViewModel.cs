@@ -1,6 +1,6 @@
-﻿namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
+namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
-public abstract class SingleCellWritableUIComponentForTextMauiModel : SingleCellWritableUIComponentMauiModel, IHaveTextProperty
+public abstract class SingleCellReadOnlyUIComponentForTextViewModel : SingleCellReadOnlyUIComponentViewModel, IHaveTextProperty
 {
     #region ICustomMapper implemtation
     public override Task MapFromCustomAsync<T>(T other)
@@ -13,9 +13,8 @@ public abstract class SingleCellWritableUIComponentForTextMauiModel : SingleCell
         return SingleCellUIComponentForTextMauiModelCommonLibrary.MapToCustomAsync(this, other);
     }
     #endregion
-
+        
     #region Properties
     public abstract string Text { get; set; }
-    public override object WrappedValue => Text;
     #endregion
 }

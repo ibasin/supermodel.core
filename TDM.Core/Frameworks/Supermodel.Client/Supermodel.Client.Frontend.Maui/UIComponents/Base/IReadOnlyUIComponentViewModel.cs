@@ -2,7 +2,7 @@
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents.Base;
 
-public interface  IReadOnlyUIComponentMauiModel : ISupermodelMobileDetailTemplate
+public interface  IReadOnlyUIComponentViewModel : ISupermodelMobileDetailTemplate
 {
     bool ShowDisplayNameIfApplies { get; set; }
     string DisplayNameIfApplies { get; set; }

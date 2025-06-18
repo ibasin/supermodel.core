@@ -2,6 +2,7 @@
 using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 using Supermodel.Client.Frontend.Maui.Models;
+using Supermodel.Client.Frontend.Maui.UIComponents;
 
 namespace MauiTestApp
 {
@@ -13,13 +14,14 @@ namespace MauiTestApp
     public class TestMauiViewModel : MauiViewModelFor<TestMauiModel>
     {
         public string FirstName { get; set; } = "";
-        public string LastName { get; set; } = "";
+        public TextBoxReadOnlyViewModel LastName { get; set; } = new();
     }
 
     public class TestMauiModel : MauiModel
     {
         public string FirstName { get; set; } = "Ilya";
         public string LastName { get; set; } = "Basin";
+        //public bool Active { get; set; }
     }
 
     public class TestSqliteDataContext : SqliteDataContext

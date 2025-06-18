@@ -1,9 +1,9 @@
 ﻿namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
-public abstract class SingleCellWritableUIComponentWithoutBackingMauiModel : SingleCellReadOnlyUIComponentWithoutBackingMauiModel, IWritableUIComponentMauiModel
+public abstract class SingleCellWritableUIComponentWithoutBackingViewModel : SingleCellReadOnlyUIComponentWithoutBackingViewModel, IWritableUIComponentViewModel
 {
     #region Constructors
-    protected SingleCellWritableUIComponentWithoutBackingMauiModel()
+    protected SingleCellWritableUIComponentWithoutBackingViewModel()
     {
         ValidationErrorIndicator = new Button{ Text = "!", TextColor = Colors.Red };
         ValidationErrorIndicator.Clicked += ValidationIndicatorClicked!;
