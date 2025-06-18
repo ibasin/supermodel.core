@@ -7,9 +7,8 @@ public class TextBoxReadOnlyViewModel : SingleCellReadOnlyUIComponentForTextView
     #region Constructors
     public TextBoxReadOnlyViewModel()
     {
-        TextLabel = new Label { VerticalOptions = LayoutOptions.Center, LineBreakMode = LineBreakMode.TailTruncation, FontSize = MauiSettings.LabelFontSize, TextColor = MauiSettings.ValueTextColor };
+        TextLabel = new Label { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.End, LineBreakMode = LineBreakMode.TailTruncation, FontSize = MauiSettings.LabelFontSize, TextColor = MauiSettings.ValueTextColor };
         Grid.Add(TextLabel, 1);
-
         //switch (Grid.ColumnDefinitions.Count)
         //{
         //    case 1: 

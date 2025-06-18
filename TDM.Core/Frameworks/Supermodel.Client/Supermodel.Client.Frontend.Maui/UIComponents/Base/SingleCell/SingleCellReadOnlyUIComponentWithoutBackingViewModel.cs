@@ -10,7 +10,9 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingViewModel : Vie
         Grid = new Grid
         {
             RowDefinitions = [new RowDefinition(new GridLength(40))],
-            ColumnSpacing = 5
+            ColumnSpacing = 5,
+            HorizontalOptions = LayoutOptions.Fill,
+            Padding = new Thickness(5, 0),
         };
         if (ShowDisplayNameIfApplies)
         {

@@ -15,13 +15,14 @@ namespace MauiTestApp
     {
         public string FirstName { get; set; } = "";
         public TextBoxReadOnlyViewModel LastName { get; set; } = new();
+        public ToggleSwitchViewModel Active { get; set; } = new();
     }
 
     public class TestMauiModel : MauiModel
     {
         public string FirstName { get; set; } = "Ilya";
         public string LastName { get; set; } = "Basin";
-        //public bool Active { get; set; }
+        public bool Active { get; set; }
     }
 
     public class TestSqliteDataContext : SqliteDataContext
