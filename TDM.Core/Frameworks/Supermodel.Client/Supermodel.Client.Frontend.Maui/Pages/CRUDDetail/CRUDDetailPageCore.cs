@@ -60,25 +60,24 @@ public abstract class CRUDDetailPageCore<TModelForMaui, TViewModelForMaui> : Con
     {
         // ReSharper disable once SuspiciousTypeConversion.Global
         var sectionResolver = ViewModel as IHaveSectionNames;
+        var sectionNum = 0;
 
-        var lastCell = ViewModel!.RenderDetail(this).LastOrDefault();
-        if (lastCell != null)
+        var totalCellCount = ViewModel!.RenderDetail(this).Count;
+        while (totalCellCount > 0)
         {
-            var sectionNum = 0;
-            while (true)
+            var cells = ViewModel.RenderDetail(this, sectionNum, sectionNum + 99);
+            if (cells.Any())
             {
-                var cells = ViewModel.RenderDetail(this, sectionNum, sectionNum + 99);
-                if (cells.Any())
+                var sectionName = sectionResolver?.GetSectionName(sectionNum);
+                var section = string.IsNullOrEmpty(sectionName) ? new TableSection() : new TableSection(sectionName);
+                DetailView!.ContentView.Root.Add(section);
+                foreach (var cell in cells)
                 {
-                    var sectionName = sectionResolver?.GetSectionName(sectionNum);
-                    var section = string.IsNullOrEmpty(sectionName) ? new TableSection() : new TableSection(sectionName);
-                    DetailView!.ContentView.Root.Add(section);
-                    foreach (var cell in cells) section.Add(cell);
-                    break; //TODO: remove this break
+                    section.Add(cell);
+                    totalCellCount--;
                 }
-                if (cells.Contains(lastCell)) break;
-                sectionNum += 100;
             }
+            sectionNum += 100;
         }
     }
     public virtual void OnLoad(){}

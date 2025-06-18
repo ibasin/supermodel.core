@@ -62,7 +62,7 @@ public abstract class CRUDDetailPageBase<TModelForMaui, TViewModelForMaui, TData
         base.OnAppearing();
         InitContent();
         PageActive = true;
-        if (ViewModel!.ContainsValidationErrros()) await DisplayAlert("Validation Errors", "Please correct problems with fields marked with '!'", "Ok");
+        if (ViewModel!.ContainsValidationErrors()) await DisplayAlert("Validation Errors", "Please correct problems with fields marked with '!'", "Ok");
     }
     protected override async void OnDisappearing()
     {

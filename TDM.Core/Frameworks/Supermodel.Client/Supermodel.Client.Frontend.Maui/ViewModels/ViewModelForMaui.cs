@@ -118,7 +118,7 @@ public abstract class ViewModelForMaui : ISupermodelMobileDetailTemplate, IAsync
             // ReSharper restore PossibleMultipleEnumeration
         }
     }
-    public virtual bool ContainsValidationErrros()
+    public virtual bool ContainsValidationErrors()
     {
         foreach (var property in GetPropertiesInOrder())
         {
