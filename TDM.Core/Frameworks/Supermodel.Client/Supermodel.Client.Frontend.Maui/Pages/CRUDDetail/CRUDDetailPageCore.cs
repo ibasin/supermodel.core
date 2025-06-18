@@ -74,6 +74,7 @@ public abstract class CRUDDetailPageCore<TModelForMaui, TViewModelForMaui> : Con
                     var section = string.IsNullOrEmpty(sectionName) ? new TableSection() : new TableSection(sectionName);
                     DetailView!.ContentView.Root.Add(section);
                     foreach (var cell in cells) section.Add(cell);
+                    break; //TODO: remove this break
                 }
                 if (cells.Contains(lastCell)) break;
                 sectionNum += 100;
