@@ -9,7 +9,8 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingMauiModel : Vie
         DisplayNameLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = MauiSettings.LabelTextColor, LineBreakMode = LineBreakMode.NoWrap, FontSize = MauiSettings.LabelFontSize };
         Grid = new Grid
         {
-            RowDefinitions = [new RowDefinition(new GridLength(40))]
+            RowDefinitions = [new RowDefinition(new GridLength(40))],
+            ColumnSpacing = 5
         };
         if (ShowDisplayNameIfApplies)
         {

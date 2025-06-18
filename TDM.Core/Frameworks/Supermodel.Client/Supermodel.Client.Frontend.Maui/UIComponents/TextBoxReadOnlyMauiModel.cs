@@ -8,7 +8,7 @@ public class TextBoxReadOnlyMauiModel : SingleCellReadOnlyUIComponentForTextMaui
     public TextBoxReadOnlyMauiModel()
     {
         TextLabel = new Label { VerticalOptions = LayoutOptions.Center, LineBreakMode = LineBreakMode.TailTruncation, FontSize = MauiSettings.LabelFontSize, TextColor = MauiSettings.ValueTextColor };
-        Grid.Add(TextLabel);
+        Grid.Add(TextLabel, 1);
 
         //switch (Grid.ColumnDefinitions.Count)
         //{
