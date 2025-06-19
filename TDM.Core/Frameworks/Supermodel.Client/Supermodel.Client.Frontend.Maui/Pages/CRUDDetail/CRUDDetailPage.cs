@@ -15,15 +15,15 @@ public abstract class CRUDDetailPage<TMauiModel, TMauiViewModel, TDataContext> :
     #region Initializers
     public virtual async Task<CRUDDetailPage<TMauiModel, TMauiViewModel, TDataContext>> InitAsync(ObservableCollection<TMauiModel> models, string title, TMauiModel model)
     {
-        var xfModel = new TMauiViewModel();
-        await xfModel.InitAsync(model);
-        xfModel = await xfModel.MapFromAsync(model);
+        var viewModel = new TMauiViewModel();
+        await viewModel.InitAsync(model);
+        viewModel = await viewModel.MapFromAsync(model);
 
         var originalViewModel = new TMauiViewModel();
         await originalViewModel.InitAsync(model);
         originalViewModel = await originalViewModel.MapFromAsync(model);
 
-        return (CRUDDetailPage<TMauiModel, TMauiViewModel, TDataContext>)await base.InitAsync(models, title, model, xfModel, originalViewModel);
+        return (CRUDDetailPage<TMauiModel, TMauiViewModel, TDataContext>)await base.InitAsync(models, title, model, viewModel, originalViewModel);
     }
     #endregion
 
@@ -31,8 +31,8 @@ public abstract class CRUDDetailPage<TMauiModel, TMauiViewModel, TDataContext> :
     protected override async Task<TMauiViewModel> GetBlankViewModelAsync()
     {
         var blankModel = new TMauiModel();
-        var blankXfModel = (TMauiViewModel) await new TMauiViewModel().InitAsync(blankModel);
-        return blankXfModel;
+        var blankViewModel = (TMauiViewModel) await new TMauiViewModel().InitAsync(blankModel);
+        return blankViewModel;
     }
     #endregion
 }

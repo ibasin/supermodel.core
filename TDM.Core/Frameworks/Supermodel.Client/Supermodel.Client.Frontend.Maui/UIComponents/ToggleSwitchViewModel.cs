@@ -35,7 +35,7 @@ public class ToggleSwitchViewModel : SingleCellWritableUIComponentViewModel
     {
         if (typeof(T) != typeof(bool) && typeof(T) != typeof(bool?))
         {
-            throw new PropertyCantBeAutomappedException($"{GetType().Name} can't be automapped to {typeof(T).Name}");
+            throw new PropertyCantBeAutomappedException($"{GetType().Name} can't be auto-mapped to {typeof(T).Name}");
         }
 
         if (other is bool) IsToggled = (bool)(object)other;

@@ -23,7 +23,7 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
     where TDataContext : class, IDataContext, new()
 {
     #region Initializers
-    protected virtual Task<CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>> InitAsync(ObservableCollection<TMauiModel> models, string title, TMauiModel model, TMauiViewModel xfModel, TMauiViewModel originalViewModel)
+    protected virtual Task<CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>> InitAsync(ObservableCollection<TMauiModel> models, string title, TMauiModel model, TMauiViewModel viewModel, TMauiViewModel originalViewModel)
     {
         Title = title;
 
@@ -31,7 +31,7 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
 
         Models = models;
         Model = model;
-        ViewModel = xfModel;
+        ViewModel = viewModel;
         OriginalViewModel = originalViewModel;
 
         return Task.FromResult(this);
