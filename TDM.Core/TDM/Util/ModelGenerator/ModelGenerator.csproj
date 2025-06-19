@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Client\Supermodel.Client.CodeGen\Supermodel.Client.CodeGen.csproj" />
     <ProjectReference Include="..\..\Server\Web\Web.csproj" />
     <ProjectReference Include="..\..\Server\WMWeb\WMWeb.csproj" />
   </ItemGroup>

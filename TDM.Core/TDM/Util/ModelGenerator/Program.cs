@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Supermodel.Mobile.CodeGen;
+using Supermodel.Client.CodeGen;
 
 namespace ModelGenerator;
 

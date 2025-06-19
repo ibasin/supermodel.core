@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using MvcCoreTester.Models;
-using Supermodel.Mobile.CodeGen;
+using Supermodel.Client.CodeGen;
 
 namespace ModelGeneratorTester;
 

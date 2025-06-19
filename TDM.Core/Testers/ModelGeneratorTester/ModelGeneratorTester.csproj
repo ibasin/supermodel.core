@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frameworks\Supermodel.Client\Supermodel.Client.CodeGen\Supermodel.Client.CodeGen.csproj" />
     <ProjectReference Include="..\..\Frameworks\Supermodel.Client\Supermodel.Mobile.Runtime.Common\Supermodel.Mobile.Runtime.Common.csproj" />
     <ProjectReference Include="..\MvcCoreTester\MvcCoreTester.csproj" />
   </ItemGroup>
