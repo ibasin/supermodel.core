@@ -14,7 +14,7 @@ public class ToggleSwitchFormModel : SingleCellWritableUIComponentFormModel
         {
             HorizontalOptions = LayoutOptions.End, 
             VerticalOptions = LayoutOptions.Center, 
-            OnColor = MauiSettings.SwitchOnColor
+            OnColor = FormsSettings.SwitchOnColor
         };
         Switch.SetBinding(Switch.IsToggledProperty, "IsToggled");
         Switch.PropertyChanged += (_, _) =>
@@ -117,9 +117,9 @@ public class ToggleSwitchFormModel : SingleCellWritableUIComponentFormModel
         {
             if (_active == value) return;
             _active = IsEnabled = value;
-            DisplayNameLabel.TextColor = value ? MauiSettings.LabelTextColor : MauiSettings.DisabledTextColor;
-            Switch.OnColor = value ? MauiSettings.SwitchOnColor : MauiSettings.DisabledTextColor;
-            RequiredFieldIndicator.TextColor = value ? MauiSettings.RequiredAsteriskColor : MauiSettings.DisabledTextColor;
+            DisplayNameLabel.TextColor = value ? FormsSettings.LabelTextColor : FormsSettings.DisabledTextColor;
+            Switch.OnColor = value ? FormsSettings.SwitchOnColor : FormsSettings.DisabledTextColor;
+            RequiredFieldIndicator.TextColor = value ? FormsSettings.RequiredAsteriskColor : FormsSettings.DisabledTextColor;
         }
     }
     private bool _active = true;

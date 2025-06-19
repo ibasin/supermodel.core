@@ -6,7 +6,7 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingFormModel : Vie
     protected SingleCellReadOnlyUIComponentWithoutBackingFormModel()
     {
 
-        DisplayNameLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = MauiSettings.LabelTextColor, LineBreakMode = LineBreakMode.NoWrap, FontSize = MauiSettings.LabelFontSize };
+        DisplayNameLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = FormsSettings.LabelTextColor, LineBreakMode = LineBreakMode.NoWrap, FontSize = FormsSettings.LabelFontSize };
         Grid = new Grid
         {
             RowDefinitions = [new RowDefinition(new GridLength(40))],

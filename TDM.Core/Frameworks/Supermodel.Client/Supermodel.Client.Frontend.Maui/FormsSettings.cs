@@ -1,6 +1,6 @@
 ﻿namespace Supermodel.Client.Frontend.Maui;
 
-public static class MauiSettings
+public static class FormsSettings
 {
     public static int LabelFontSize { get; set; } = 14;
     public static Color LabelTextColor { get; set; } = Colors.RoyalBlue;

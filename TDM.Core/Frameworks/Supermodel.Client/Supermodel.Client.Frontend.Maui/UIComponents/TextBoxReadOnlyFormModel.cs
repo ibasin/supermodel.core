@@ -12,8 +12,8 @@ public class TextBoxReadOnlyFormModel : SingleCellReadOnlyUIComponentForTextForm
             VerticalOptions = LayoutOptions.Center, 
             HorizontalOptions = LayoutOptions.End, 
             LineBreakMode = LineBreakMode.TailTruncation, 
-            FontSize = MauiSettings.LabelFontSize, 
-            TextColor = MauiSettings.ValueTextColor
+            FontSize = FormsSettings.LabelFontSize, 
+            TextColor = FormsSettings.ValueTextColor
         };
         Grid.Add(TextLabel, 1);
         //switch (Grid.ColumnDefinitions.Count)

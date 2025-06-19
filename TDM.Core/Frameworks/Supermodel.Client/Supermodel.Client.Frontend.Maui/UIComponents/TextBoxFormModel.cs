@@ -19,8 +19,8 @@ public class TextBoxFormModel : SingleCellWritableUIComponentForTextFormModel
             VerticalOptions = LayoutOptions.Center, 
             Border = false, 
             HorizontalTextAlignment = TextAlignment.End, 
-            FontSize = MauiSettings.LabelFontSize, 
-            TextColor = MauiSettings.ValueTextColor
+            FontSize = FormsSettings.LabelFontSize, 
+            TextColor = FormsSettings.ValueTextColor
         };
         TextEntry.SetBinding(Entry.TextProperty, "Text");
         TextEntry.PropertyChanged += (_, _) =>
@@ -69,9 +69,9 @@ public class TextBoxFormModel : SingleCellWritableUIComponentForTextFormModel
         {
             if (_active == value) return;
             _active = IsEnabled = value;
-            DisplayNameLabel.TextColor = value ? MauiSettings.LabelTextColor : MauiSettings.DisabledTextColor;
-            TextEntry.TextColor = value ? MauiSettings.ValueTextColor : MauiSettings.DisabledTextColor;
-            RequiredFieldIndicator.TextColor = value ? MauiSettings.RequiredAsteriskColor : MauiSettings.DisabledTextColor;
+            DisplayNameLabel.TextColor = value ? FormsSettings.LabelTextColor : FormsSettings.DisabledTextColor;
+            TextEntry.TextColor = value ? FormsSettings.ValueTextColor : FormsSettings.DisabledTextColor;
+            RequiredFieldIndicator.TextColor = value ? FormsSettings.RequiredAsteriskColor : FormsSettings.DisabledTextColor;
         }
     }
     private bool _active = true;

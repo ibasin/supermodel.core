@@ -9,9 +9,8 @@ public class MultiLineTextBoxReadOnlyFormModel : SingleCellReadOnlyUIComponentFo
     {
         TextLabel = new Label
         {
-            FontSize = MauiSettings.LabelFontSize,
-            TextColor = MauiSettings.ValueTextColor,
-            // ReSharper disable once VirtualMemberCallInConstructor
+            FontSize = FormsSettings.LabelFontSize,
+            TextColor = FormsSettings.ValueTextColor,
             HorizontalTextAlignment = TextAlignmentIfApplies,
         };
         TextLabel.SetBinding(Entry.TextProperty, "Text");
@@ -38,6 +37,6 @@ public class MultiLineTextBoxReadOnlyFormModel : SingleCellReadOnlyUIComponentFo
         }
     }
     public Label TextLabel { get; }
-    public override TextAlignment TextAlignmentIfApplies { get; set; } = TextAlignment.Start;
+    public sealed override TextAlignment TextAlignmentIfApplies { get; set; } = TextAlignment.Start;
     #endregion
 }
