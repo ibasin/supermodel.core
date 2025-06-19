@@ -17,6 +17,7 @@ namespace MauiTestApp
         public TextBoxReadOnlyViewModel LastName { get; set; } = new();
         public TextBoxViewModel Position { get; set; } = new();
         public ToggleSwitchViewModel Active { get; set; } = new();
+        public MultiLineTextBoxReadOnlyViewModel LongText { get; set; } = new();
     }
 
     public class TestMauiModel : MauiModel
@@ -25,6 +26,7 @@ namespace MauiTestApp
         public string LastName { get; set; } = "Basin";
         public string Position { get; set; } = "Computer Sceince Fellow";
         public bool Active { get; set; }
+        public string LongText { get; set; } = "The only downside?\nSo many products are on sale right now that you might be scratching your head over what’s actually worth buying. Fret not; I’ve been tracking Apple deals and reviewing everything from iPhones to Apple Watches for more than a decade and have whittled things down to a list of true essentials.";
     }
 
     public class TestSqliteDataContext : SqliteDataContext
