@@ -1,8 +1,13 @@
-﻿//using Supermodel.ReflectionMapper;
+﻿//using Android.Hardware.Camera2;
+//using Microsoft.Maui.Layouts;
+//using Supermodel.Client.Frontend.Maui.Services;
+//using Supermodel.Client.Frontend.Maui.UIComponents.Base;
+//using Supermodel.Client.Frontend.Maui.Views;
+//using Supermodel.ReflectionMapper;
 
 //namespace Supermodel.Client.Frontend.Maui.UIComponents;
 
-//public class ImagesFormModel : BinaryFilesWritableXFModel
+//public class ImagesFormModel : BinaryFilesWritableFormModel
 //{
 //    #region EmbeddedTypes
 //    public enum ImageViewModeEnum { ImageZoomEnabled, SwipingThroughImagesEnabled }
@@ -21,7 +26,7 @@
 //        ParentPage = parentPage;
 //        Cells.Clear();
 //        var imageIndex = 0;
-//        foreach (var imageFile in ModelsWithBinaryFileXFModels)
+//        foreach (var imageFile in ModelsWithBinaryFileFormModels)
 //        {
 //            var file = imageFile;
 //            var index = imageIndex;
@@ -70,27 +75,27 @@
 //            switch (action)
 //            {
 //                case "Photo Library":
-//                {
-//                    mediaFile = await CrossMedia.Current.PickPhotoAsync();
-//                    break;
-//                }
-//                case "Take Photo":
-//                {
-//                    var storeCameraMediaOptions = new StoreCameraMediaOptions
 //                    {
-//                        DefaultCamera = CameraDevice.Rear,
-//                        SaveToAlbum = false,
-//                        Directory = "Media",
-//                        Name = "pic.jpg"
-//                    };
-//                    mediaFile = await CrossMedia.Current.TakePhotoAsync(storeCameraMediaOptions);
-//                    break;
-//                }
+//                        mediaFile = await CrossMedia.Current.PickPhotoAsync();
+//                        break;
+//                    }
+//                case "Take Photo":
+//                    {
+//                        var storeCameraMediaOptions = new StoreCameraMediaOptions
+//                        {
+//                            DefaultCamera = CameraDevice.Rear,
+//                            SaveToAlbum = false,
+//                            Directory = "Media",
+//                            Name = "pic.jpg"
+//                        };
+//                        mediaFile = await CrossMedia.Current.TakePhotoAsync(storeCameraMediaOptions);
+//                        break;
+//                    }
 //                case "Cancel":
-//                {
-//                    mediaFile = null;
-//                    break;
-//                }
+//                    {
+//                        mediaFile = null;
+//                        break;
+//                    }
 //                default: throw new Exception("Invalid photo option. This should never happen");
 //            }
 //            if (mediaFile != null)
@@ -99,8 +104,8 @@
 //                binaryContent = await SharedService.Instantiate<IImageResizer>().ResizeImageAsync(binaryContent, 1024, 1024);
 
 //                //Insert image into ModelsWithBinaryFileXFModels list
-//                var file = new ModelWithBinaryFileXFModel { Id = 0, Title = "", BinaryFile = new BinaryFileXFModel { BinaryContent = binaryContent, FileName = "image.png" } };
-//                ModelsWithBinaryFileXFModels.Add(file);
+//                var file = new ModelWithBinaryFileFormModel { Id = 0, Title = "", BinaryFile = new BinaryFileXFModel { BinaryContent = binaryContent, FileName = "image.png" } };
+//                ModelsWithBinaryFileFormModels.Add(file);
 
 //                //Insert image cell
 //                var cell = new ImageCellWithEditableText
@@ -132,9 +137,9 @@
 //        // ReSharper disable once EmptyGeneralCatchClause
 //        catch (Exception) { }
 //    }
-//    public virtual void ImageDeletedHandler(ModelWithBinaryFileXFModel file, Cell cell)
+//    public virtual void ImageDeletedHandler(ModelWithBinaryFileFormModel file, Cell cell)
 //    {
-//        ModelsWithBinaryFileXFModels.Remove(file);
+//        ModelsWithBinaryFileFormModels.Remove(file);
 
 //        var tableView = (ViewWithActivityIndicator<TableView>)ParentPage.PropertyGet("DetailView");
 //        if (tableView == null) throw new SystemException("tableView == null");
@@ -145,7 +150,7 @@
 //        if (ImageViewMode == ImageViewModeEnum.SwipingThroughImagesEnabled)
 //        {
 //            var imagesCarouselPage = new CarouselPage();
-//            foreach (var imageFile in ModelsWithBinaryFileXFModels)
+//            foreach (var imageFile in ModelsWithBinaryFileFormModels)
 //            {
 //                var imagePage = CreateSingleImagePage(imageFile, false);
 //                imagesCarouselPage.Children.Add(imagePage);
@@ -155,7 +160,7 @@
 //        }
 //        else
 //        {
-//            var imagePage = CreateSingleImagePage(ModelsWithBinaryFileXFModels[imageIndex], true);
+//            var imagePage = CreateSingleImagePage(ModelsWithBinaryFileFormModels[imageIndex], true);
 //            await ParentPage.Navigation.PushModalAsync(imagePage);
 //        }
 //    }
@@ -171,7 +176,7 @@
 //        }
 //    }
 
-//    protected virtual ContentPage CreateSingleImagePage(ModelWithBinaryFileXFModel imageFile, bool withZoom)
+//    protected virtual ContentPage CreateSingleImagePage(ModelWithBinaryFileFormModel imageFile, bool withZoom)
 //    {
 //        Image image;
 //        if (withZoom)
@@ -194,7 +199,7 @@
 //        }
 
 //        AbsoluteLayout.SetLayoutFlags(image, AbsoluteLayoutFlags.All);
-//        AbsoluteLayout.SetLayoutBounds(image, new Rectangle(0f, 0f, 1f, 1f));
+//        AbsoluteLayout.SetLayoutBounds(image, new Rect(0f, 0f, 1f, 1f));
 
 //        var button = new Button
 //        {
@@ -211,7 +216,7 @@
 //            await ParentPage.Navigation.PopModalAsync(true);
 //        };
 //        AbsoluteLayout.SetLayoutFlags(button, AbsoluteLayoutFlags.All);
-//        AbsoluteLayout.SetLayoutBounds(button, new Rectangle(0.975f, 0.025f, 0.1f, 0.1f));
+//        AbsoluteLayout.SetLayoutBounds(button, new Rect(0.975f, 0.025f, 0.1f, 0.1f));
 
 //        var imagePage = new ContentPage
 //        {

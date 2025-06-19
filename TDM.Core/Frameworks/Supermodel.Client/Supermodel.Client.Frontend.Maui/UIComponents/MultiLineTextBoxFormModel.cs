@@ -78,7 +78,6 @@ public class MultiLineTextBoxFormModel : SingleCellWritableUIComponentForTextFor
             _active = IsEnabled = value;
             DisplayNameLabel.TextColor = value ? FormsSettings.LabelTextColor : FormsSettings.DisabledTextColor;
             Editor.TextColor = value ? FormsSettings.ValueTextColor : FormsSettings.DisabledTextColor;
-            RequiredFieldIndicator.TextColor = value ? FormsSettings.RequiredAsteriskColor : FormsSettings.DisabledTextColor;
         }
     }
     private bool _active = true;

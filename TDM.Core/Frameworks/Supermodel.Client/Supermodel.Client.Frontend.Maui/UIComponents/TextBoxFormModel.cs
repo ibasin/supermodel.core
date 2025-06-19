@@ -71,7 +71,6 @@ public class TextBoxFormModel : SingleCellWritableUIComponentForTextFormModel
             _active = IsEnabled = value;
             DisplayNameLabel.TextColor = value ? FormsSettings.LabelTextColor : FormsSettings.DisabledTextColor;
             TextEntry.TextColor = value ? FormsSettings.ValueTextColor : FormsSettings.DisabledTextColor;
-            RequiredFieldIndicator.TextColor = value ? FormsSettings.RequiredAsteriskColor : FormsSettings.DisabledTextColor;
         }
     }
     private bool _active = true;

@@ -7,8 +7,6 @@ public abstract class SingleCellWritableUIComponentWithoutBackingFormModel : Sin
     {
         ValidationErrorIndicator = new Button{ Text = "!", TextColor = Colors.Red };
         ValidationErrorIndicator.Clicked += ValidationIndicatorClicked!;
-
-        RequiredFieldIndicator = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = FormsSettings.RequiredAsteriskColor, Text = "*" };
     }
     #endregion
 
@@ -22,22 +20,15 @@ public abstract class SingleCellWritableUIComponentWithoutBackingFormModel : Sin
 
     #region Properties
     public Button ValidationErrorIndicator { get; set; }
-    public Label RequiredFieldIndicator { get; set; }
     public bool Required
     {
         get => _required;
         set
         {
-            if (!_required && value)
-            {
-                Grid.Insert(1, DisplayNameLabel);
-                SetGridColumns(Grid.ColumnDefinitions.Count + 1);
-            }
-            if (_required && !value)
-            {
-                Grid.RemoveAt(Grid.IndexOf(RequiredFieldIndicator));
-                SetGridColumns(Grid.ColumnDefinitions.Count - 1);
-            }
+            var label = (Label)Grid[0];
+            if (value) label.TextColor = FormsSettings.RequiredLabelTextColor;
+            else label.TextColor = FormsSettings.LabelTextColor;
+
             _required = value;
         }
     }

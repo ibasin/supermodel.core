@@ -4,6 +4,7 @@ using Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 using Supermodel.Client.Frontend.Maui.UIComponents;
 using Supermodel.Client.Frontend.Maui.FormModels;
 using Supermodel.DataAnnotations.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace MauiTestApp
 {
@@ -25,10 +26,10 @@ namespace MauiTestApp
         public MultiLineTextBoxReadOnlyFormModel LongText { get; set; } = new();
         public string FirstName { get; set; } = "";
         public TextBoxReadOnlyFormModel LastName { get; set; } = new();
-        public TextBoxFormModel Position { get; set; } = new();
+        [ForceRequiredLabel] public TextBoxFormModel Position { get; set; } = new();
         
-        [ScreenOrder(200)] public ToggleSwitchFormModel Active { get; set; } = new();
-        [ScreenOrder(200)] public MultiLineTextBoxFormModel LongEditableText { get; set; } = new();
+        [ScreenOrder(200), Required] public ToggleSwitchFormModel Active { get; set; } = new();
+        [ScreenOrder(200), Required] public MultiLineTextBoxFormModel LongEditableText { get; set; } = new();
     }
 
     public class TestMauiModel : MauiModel
