@@ -1,6 +1,6 @@
 namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
-public abstract class SingleCellReadOnlyUIComponentForTextViewModel : SingleCellReadOnlyUIComponentViewModel, IHaveTextProperty
+public abstract class SingleCellReadOnlyUIComponentForTextFormModel : SingleCellReadOnlyUIComponentFormModel, IHaveTextProperty
 {
     #region ICustomMapper implemtation
     public override Task MapFromCustomAsync<T>(T other)

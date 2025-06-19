@@ -3,14 +3,14 @@ using Newtonsoft.Json;
 using Supermodel.Client.Backend.Models;
 using Supermodel.Client.Frontend.Maui.App;
 using Supermodel.Client.Frontend.Maui.Models;
-using Supermodel.Client.Frontend.Maui.ViewModels;
+using Supermodel.Client.Frontend.Maui.FormModels;
 using Supermodel.Encryptor;
 
 namespace Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 
-public abstract class CRUDDetailPageCore<TMauiModel, TMauiViewModel> : ContentPage, IBasicCRUDDetailPage
+public abstract class CRUDDetailPageCore<TMauiModel, TMauiFormModel> : ContentPage, IBasicCRUDDetailPage
     where TMauiModel : class, ISupermodelNotifyPropertyChanged, IModel, new()
-    where TMauiViewModel : MauiViewModel, new()
+    where TMauiFormModel : MauiFormModel, new()
 {
     #region Overrides
     protected virtual void AddCancelButton()
@@ -59,13 +59,13 @@ public abstract class CRUDDetailPageCore<TMauiModel, TMauiViewModel> : ContentPa
     public virtual void InitDetailView()
     {
         // ReSharper disable once SuspiciousTypeConversion.Global
-        var sectionResolver = ViewModel as IHaveSectionNames;
+        var sectionResolver = FormModel as IHaveSectionNames;
         var sectionNum = 0;
 
-        var totalCellCount = ViewModel!.RenderDetail(this).Count;
+        var totalCellCount = FormModel!.RenderDetail(this).Count;
         while (totalCellCount > 0)
         {
-            var cells = ViewModel.RenderDetail(this, sectionNum, sectionNum + 99);
+            var cells = FormModel.RenderDetail(this, sectionNum, sectionNum + 99);
             if (cells.Any())
             {
                 var sectionName = sectionResolver?.GetSectionName(sectionNum);
@@ -88,12 +88,12 @@ public abstract class CRUDDetailPageCore<TMauiModel, TMauiViewModel> : ContentPa
     public CRUDDetailView? DetailView { get; set; }
     public ObservableCollection<TMauiModel>? Models { get; set; } 
     public TMauiModel? Model { get; set; }
-    public TMauiViewModel? ViewModel { get; set; }
-    public MauiViewModel? GetViewModel() { return ViewModel; }
+    public TMauiFormModel? FormModel { get; set; }
+    public MauiFormModel? GetFormModel() { return FormModel; }
 
-    public T? GetViewModel<T>() where T : MauiViewModel { return (T?)(MauiViewModel?)ViewModel; } //This is property in spirit
+    public T? GetFormModel<T>() where T : MauiFormModel { return (T?)(MauiFormModel?)FormModel; } //This is property in spirit
 
-    public TMauiViewModel? OriginalViewModel { get; set; }
+    public TMauiFormModel? OriginalFormModel { get; set; }
 
     protected virtual bool CancelButton => false;
     protected virtual string? CancelBtnIconFilename => null;

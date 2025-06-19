@@ -4,22 +4,21 @@ using Supermodel.Client.Frontend.Maui.UIComponents.CustomControls;
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents;
 
-public class TextBoxViewModel : SingleCellWritableUIComponentForTextViewModel
+public class TextBoxFormModel : SingleCellWritableUIComponentForTextFormModel
 {
     #region Constructors
-    public TextBoxViewModel(Keyboard keyboard):this()
+    public TextBoxFormModel(Keyboard keyboard):this()
     {
         TextEntry.Keyboard = keyboard;
     }
-    public TextBoxViewModel()
+    public TextBoxFormModel()
     {
         TextEntry = new ExtEntry
         {
             HorizontalOptions = LayoutOptions.Fill, 
             VerticalOptions = LayoutOptions.Center, 
             Border = false, 
-            TextAlignment = TextAlignment.End, 
-            //WidthRequest = 1, 
+            HorizontalTextAlignment = TextAlignment.End, 
             FontSize = MauiSettings.LabelFontSize, 
             TextColor = MauiSettings.ValueTextColor
         };

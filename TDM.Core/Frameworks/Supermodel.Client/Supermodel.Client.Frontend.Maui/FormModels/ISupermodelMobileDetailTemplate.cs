@@ -1,4 +1,4 @@
-namespace Supermodel.Client.Frontend.Maui.ViewModels;
+namespace Supermodel.Client.Frontend.Maui.FormModels;
 
 public interface ISupermodelMobileDetailTemplate
 {

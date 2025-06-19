@@ -6,9 +6,9 @@ using Supermodel.DataAnnotations.Attributes;
 using Supermodel.DataAnnotations.Validations;
 using Supermodel.ReflectionMapper;
 
-namespace Supermodel.Client.Frontend.Maui.ViewModels;
+namespace Supermodel.Client.Frontend.Maui.FormModels;
 
-public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncValidatableObject 
+public abstract class MauiFormModel : ISupermodelMobileDetailTemplate, IAsyncValidatableObject 
 {
     #region ISupermodelMobileDetailTemplate
     public virtual List<Cell> RenderDetail(Page parentPage, int screenOrderFrom = int.MinValue, int screenOrderTo = int.MaxValue)
@@ -27,7 +27,7 @@ public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncVal
                 }
 
                 //Set up display name and Required
-                if (propertyObj is IReadOnlyUIComponentViewModel uiReadOnlyComponent)
+                if (propertyObj is IReadOnlyUIComponentFormModel uiReadOnlyComponent)
                 {
                     //Set up display name if not already set
                     if (string.IsNullOrEmpty(uiReadOnlyComponent.DisplayNameIfApplies)) uiReadOnlyComponent.DisplayNameIfApplies = GetType().GetDisplayNameForProperty(property.Name);
@@ -37,7 +37,7 @@ public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncVal
                     var noRequiredLabelAttribute = property.GetCustomAttributes(typeof(NoRequiredLabelAttribute), true).SingleOrDefault() != null;
                     var forceRequiredLabelAttribute = property.GetCustomAttributes(typeof(ForceRequiredLabelAttribute), true).SingleOrDefault() != null;
 
-                    if (uiReadOnlyComponent is IWritableUIComponentViewModel uiComponent)
+                    if (uiReadOnlyComponent is IWritableUIComponentFormModel uiComponent)
                     {
                         uiComponent.Required = (requiredAttribute || forceRequiredLabelAttribute) && ! noRequiredLabelAttribute;
                     }
@@ -49,7 +49,7 @@ public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncVal
             else
             {
                 if (propertyObj == null) throw new SystemException("propertyObj == null");
-                var genericCell = new TextBoxReadOnlyViewModel
+                var genericCell = new TextBoxReadOnlyFormModel
                 {
                     DisplayNameIfApplies = GetType().GetDisplayNameForProperty(property.Name),
                     Text = propertyObj.ToString() ?? ""
@@ -62,15 +62,15 @@ public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncVal
     #endregion
 
     #region Methods
-    public virtual bool AreWritableFieldsEqual(MauiViewModel mauiViewModel)
+    public virtual bool AreWritableFieldsEqual(MauiFormModel mauiFormModel)
     {
         foreach (var property in GetPropertiesInOrder())
         {
-            if (this.PropertyGet(property.Name) is IWritableUIComponentViewModel uiComponent)
+            if (this.PropertyGet(property.Name) is IWritableUIComponentFormModel uiComponent)
             {
                 var mine = uiComponent.WrappedValue;
                 // ReSharper disable once SuspiciousTypeConversion.Global
-                var theirs = ((IWritableUIComponentViewModel)mauiViewModel.PropertyGet(property.Name)!).WrappedValue;
+                var theirs = ((IWritableUIComponentFormModel)mauiFormModel.PropertyGet(property.Name)!).WrappedValue;
                 if (mine != null)
                 {
                     if (!mine.Equals(theirs)) return false;
@@ -87,7 +87,7 @@ public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncVal
     {
         foreach (var property in GetPropertiesInOrder())
         {
-            if (this.PropertyGet(property.Name) is IWritableUIComponentViewModel uiComponent) uiComponent.ErrorMessage = null;
+            if (this.PropertyGet(property.Name) is IWritableUIComponentFormModel uiComponent) uiComponent.ErrorMessage = null;
         }
     }
     public virtual void ShowValidationErrors(IEnumerable<ValidationResult>? vr)
@@ -96,7 +96,7 @@ public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncVal
         foreach (var property in GetPropertiesInOrder())
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (this.PropertyGet(property.Name) is IWritableUIComponentViewModel uiComponent)
+            if (this.PropertyGet(property.Name) is IWritableUIComponentFormModel uiComponent)
             {
                 uiComponent.ErrorMessage = null;
                 var errors = vr.Where(x => x.MemberNames.Any(y => y == property.Name)).ToList();
@@ -122,7 +122,7 @@ public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncVal
     {
         foreach (var property in GetPropertiesInOrder())
         {
-            var uiComponent = this.PropertyGet(property.Name) as IWritableUIComponentViewModel;
+            var uiComponent = this.PropertyGet(property.Name) as IWritableUIComponentFormModel;
             if (uiComponent?.ErrorMessage != null) return true;
         }
         return false;
@@ -138,7 +138,7 @@ public abstract class MauiViewModel : ISupermodelMobileDetailTemplate, IAsyncVal
             var propertyObj = this.PropertyGet(property.Name);
 
             //Check all required UIComponents
-            if (propertyObj is IWritableUIComponentViewModel uiComponent && property.GetCustomAttributes(typeof(RequiredAttribute), true).SingleOrDefault() != null)
+            if (propertyObj is IWritableUIComponentFormModel uiComponent && property.GetCustomAttributes(typeof(RequiredAttribute), true).SingleOrDefault() != null)
             {
                 var preparedError = new ValidationResult("The " + GetType().GetDisplayNameForProperty(property.Name) + " field is required", new [] { property.Name });
 

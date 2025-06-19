@@ -2,7 +2,7 @@
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
-public abstract class SingleCellReadOnlyUIComponentViewModel : SingleCellReadOnlyUIComponentWithoutBackingViewModel, IRMapperCustom
+public abstract class SingleCellReadOnlyUIComponentFormModel : SingleCellReadOnlyUIComponentWithoutBackingFormModel, IRMapperCustom
 {
     #region ICustomMapper implementation
     public abstract Task MapFromCustomAsync<T>(T other);

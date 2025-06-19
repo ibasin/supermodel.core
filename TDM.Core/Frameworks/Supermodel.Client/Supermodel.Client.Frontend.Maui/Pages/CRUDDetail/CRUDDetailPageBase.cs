@@ -9,7 +9,7 @@ using Supermodel.Client.Backend.Models;
 using Supermodel.Client.Backend.Utils;
 using Supermodel.Client.Frontend.Maui.App;
 using Supermodel.Client.Frontend.Maui.Models;
-using Supermodel.Client.Frontend.Maui.ViewModels;
+using Supermodel.Client.Frontend.Maui.FormModels;
 using Supermodel.Client.Frontend.Maui.Views;
 using Supermodel.DataAnnotations.Exceptions;
 using Supermodel.DataAnnotations.Validations;
@@ -17,13 +17,13 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 
-public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext> : CRUDDetailPageCore<TMauiModel, TMauiViewModel>, IHaveActivityIndicator
+public abstract class CRUDDetailPageBase<TMauiModel, TMauiFormModel, TDataContext> : CRUDDetailPageCore<TMauiModel, TMauiFormModel>, IHaveActivityIndicator
     where TMauiModel : class, ISupermodelNotifyPropertyChanged, IModel, new()
-    where TMauiViewModel : MauiViewModel, new()
+    where TMauiFormModel : MauiFormModel, new()
     where TDataContext : class, IDataContext, new()
 {
     #region Initializers
-    protected virtual Task<CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>> InitAsync(ObservableCollection<TMauiModel> models, string title, TMauiModel model, TMauiViewModel viewModel, TMauiViewModel originalViewModel)
+    protected virtual Task<CRUDDetailPageBase<TMauiModel, TMauiFormModel, TDataContext>> InitAsync(ObservableCollection<TMauiModel> models, string title, TMauiModel model, TMauiFormModel formModel, TMauiFormModel originalFormModel)
     {
         Title = title;
 
@@ -31,8 +31,8 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
 
         Models = models;
         Model = model;
-        ViewModel = viewModel;
-        OriginalViewModel = originalViewModel;
+        FormModel = formModel;
+        OriginalFormModel = originalFormModel;
 
         return Task.FromResult(this);
     }
@@ -56,13 +56,13 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
     #endregion
 
     #region Overrides
-    protected abstract Task<TMauiViewModel> GetBlankViewModelAsync();
+    protected abstract Task<TMauiFormModel> GetBlankFormModelAsync();
     protected override async void OnAppearing()
     {
         base.OnAppearing();
         InitContent();
         PageActive = true;
-        if (ViewModel!.ContainsValidationErrors()) await DisplayAlert("Validation Errors", "Please correct problems with fields marked with '!'", "Ok");
+        if (FormModel!.ContainsValidationErrors()) await DisplayAlert("Validation Errors", "Please correct problems with fields marked with '!'", "Ok");
     }
     protected override async void OnDisappearing()
     {
@@ -86,19 +86,19 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
         //Let the page finish disappearing from NavStack
         while (navigationStack.Count == navStackCount) await Task.Delay(100);
 
-        var blankViewModel = await GetBlankViewModelAsync();
-        if (DisappearingBecauseOfCancellation || (goingBack && ViewModel!.AreWritableFieldsEqual(blankViewModel))) return;
+        var blankFormModel = await GetBlankFormModelAsync();
+        if (DisappearingBecauseOfCancellation || (goingBack && FormModel!.AreWritableFieldsEqual(blankFormModel))) return;
 
         //Try to validate locally. We validate even if the hash did not change since we only calculate hash to persistent fields
         var localVr = new ValidationResultList();
-        if (!await AsyncValidator.TryValidateObjectAsync(ViewModel!, new ValidationContext(ViewModel!, new Dictionary<object,object?> { { "CanBeCancellation", goingBack } }), localVr))
+        if (!await AsyncValidator.TryValidateObjectAsync(FormModel!, new ValidationContext(FormModel!, new Dictionary<object,object?> { { "CanBeCancellation", goingBack } }), localVr))
         {
             //if we had local validation errors
-            ViewModel!.ShowValidationErrors(localVr);
+            FormModel!.ShowValidationErrors(localVr);
             if (goingBack)
             {
-                var page = (CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>)ReflectionHelper.CreateType(GetType());
-                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, ViewModel, OriginalViewModel!));
+                var page = (CRUDDetailPageBase<TMauiModel, TMauiFormModel, TDataContext>)ReflectionHelper.CreateType(GetType());
+                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, FormModel, OriginalFormModel!));
             }
             else
             {
@@ -112,7 +112,7 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
         ValidationResultList? mappingVr = null;
         try
         {
-            Model = await ViewModel.MapToAsync(Model);
+            Model = await FormModel.MapToAsync(Model);
             if (pageShowing is IBasicCRUDDetailPage basicCRUDPageShowing) basicCRUDPageShowing.InitContent(); //we do this because on Android page appears before page disappears
         }
         catch (ValidationResultException ex)
@@ -122,13 +122,13 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
         if (mappingVr != null && mappingVr.Any())
         {
             //if we had mapping validation errors
-            Model = await OriginalViewModel.MapToAsync(Model);
+            Model = await OriginalFormModel.MapToAsync(Model);
             if (pageShowing is IBasicCRUDDetailPage basicCRUDPageShowing) basicCRUDPageShowing.InitContent(); //we do this because on Android page appears before page disappears
-            ViewModel!.ShowValidationErrors(mappingVr);
+            FormModel!.ShowValidationErrors(mappingVr);
             if (goingBack)
             {
-                var page = (CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>)ReflectionHelper.CreateType(GetType());
-                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, ViewModel, OriginalViewModel!));
+                var page = (CRUDDetailPageBase<TMauiModel, TMauiFormModel, TDataContext>)ReflectionHelper.CreateType(GetType());
+                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, FormModel, OriginalFormModel!));
             }
             else
             {
@@ -140,8 +140,8 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
         //if Model did not change, we don't need to save it
         if (ComputeModelHash(Model!) == originalModelHash) 
         {
-            //This is in case we had validation errors in the MauiViewModel to begin with
-            ViewModel!.ClearValidationErrors();
+            //This is in case we had validation errors in the MauiFormModel to begin with
+            FormModel!.ClearValidationErrors();
             return;
         }
 
@@ -218,13 +218,13 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
         if (serverVr != null && serverVr.Any())
         {
             //if we had any validation errors while trying to save to DataContext
-            Model = await OriginalViewModel.MapToAsync(Model); 
-            ViewModel!.ShowValidationErrors(serverVr);
+            Model = await OriginalFormModel.MapToAsync(Model); 
+            FormModel!.ShowValidationErrors(serverVr);
 
             if (goingBack)
             {
-                var page = (CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContext>)ReflectionHelper.CreateType(GetType());
-                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, ViewModel, OriginalViewModel!));
+                var page = (CRUDDetailPageBase<TMauiModel, TMauiFormModel, TDataContext>)ReflectionHelper.CreateType(GetType());
+                await parentPage.Navigation.PushAsync(await page.InitAsync(Models!, Title!, Model!, FormModel, OriginalFormModel!));
             }
             else
             {
@@ -236,8 +236,8 @@ public abstract class CRUDDetailPageBase<TMauiModel, TMauiViewModel, TDataContex
         //foreach (var property in Model.GetType().GetTypeInfo().DeclaredProperties) Model.OnPropertyChanged(property.Name);
         MarkAllPropertiesChanged(Model!);
 
-        //This is in case we had validation errors in the MauiViewModel to begin with
-        ViewModel!.ClearValidationErrors();
+        //This is in case we had validation errors in the MauiFormModel to begin with
+        FormModel!.ClearValidationErrors();
     }
     protected void MarkAllPropertiesChanged(ISupermodelNotifyPropertyChanged model)
     {

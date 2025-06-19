@@ -5,10 +5,10 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents;
 
-public class ToggleSwitchViewModel : SingleCellWritableUIComponentViewModel
+public class ToggleSwitchFormModel : SingleCellWritableUIComponentFormModel
 {
     #region Constructors
-    public ToggleSwitchViewModel()
+    public ToggleSwitchFormModel()
     {
         Switch = new Switch
         {

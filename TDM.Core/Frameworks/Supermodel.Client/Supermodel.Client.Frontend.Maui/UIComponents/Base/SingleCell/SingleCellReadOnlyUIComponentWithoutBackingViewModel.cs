@@ -1,9 +1,9 @@
 namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
-public abstract class SingleCellReadOnlyUIComponentWithoutBackingViewModel : ViewCell, IReadOnlyUIComponentViewModel
+public abstract class SingleCellReadOnlyUIComponentWithoutBackingFormModel : ViewCell, IReadOnlyUIComponentFormModel
 {
     #region Constructors
-    protected SingleCellReadOnlyUIComponentWithoutBackingViewModel()
+    protected SingleCellReadOnlyUIComponentWithoutBackingFormModel()
     {
 
         DisplayNameLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = MauiSettings.LabelTextColor, LineBreakMode = LineBreakMode.NoWrap, FontSize = MauiSettings.LabelFontSize };

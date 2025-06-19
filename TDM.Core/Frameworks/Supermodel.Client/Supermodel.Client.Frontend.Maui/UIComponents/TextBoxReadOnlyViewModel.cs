@@ -2,10 +2,10 @@
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents;
 
-public class TextBoxReadOnlyViewModel : SingleCellReadOnlyUIComponentForTextViewModel
+public class TextBoxReadOnlyFormModel : SingleCellReadOnlyUIComponentForTextFormModel
 {
     #region Constructors
-    public TextBoxReadOnlyViewModel()
+    public TextBoxReadOnlyFormModel()
     {
         TextLabel = new Label
         {
@@ -27,7 +27,7 @@ public class TextBoxReadOnlyViewModel : SingleCellReadOnlyUIComponentForTextView
         //        else Grid.Add(TextLabel);
         //        break;
         //    default:
-        //        throw new SupermodelException("TextBoxReadOnlyViewModel: Grid.ColumnDefinitions.Count not 1 or 2");
+        //        throw new SupermodelException("TextBoxReadOnlyFormModel: Grid.ColumnDefinitions.Count not 1 or 2");
         //}
     }
     #endregion

@@ -2,17 +2,17 @@
 using Supermodel.Client.Frontend.Maui.Models;
 using Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 using Supermodel.Client.Frontend.Maui.UIComponents;
-using Supermodel.Client.Frontend.Maui.ViewModels;
+using Supermodel.Client.Frontend.Maui.FormModels;
 using Supermodel.DataAnnotations.Attributes;
 
 namespace MauiTestApp
 {
-    public class TestPage : CRUDDetailPage<TestMauiModel, TestMauiViewModel, TestSqliteDataContext>
+    public class TestPage : CRUDDetailPage<TestMauiModel, TestMauiFormModel, TestSqliteDataContext>
     {
 
     }
     
-    public class TestMauiViewModel : MauiViewModelFor<TestMauiModel>, IHaveSectionNames
+    public class TestMauiFormModel : MauiFormModelFor<TestMauiModel>, IHaveSectionNames
     {
         public string GetSectionName(int sectionScreenNumber)
         {
@@ -22,17 +22,17 @@ namespace MauiTestApp
             return "None!";
         }
 
-        public MultiLineTextBoxReadOnlyViewModel LongText { get; set; } = new();
+        public MultiLineTextBoxReadOnlyFormModel LongText { get; set; } = new();
         public string FirstName { get; set; } = "";
-        public TextBoxReadOnlyViewModel LastName { get; set; } = new();
-        public TextBoxViewModel Position { get; set; } = new();
+        public TextBoxReadOnlyFormModel LastName { get; set; } = new();
+        public TextBoxFormModel Position { get; set; } = new();
         
-        [ScreenOrder(200)] public ToggleSwitchViewModel Active { get; set; } = new();
+        [ScreenOrder(200)] public ToggleSwitchFormModel Active { get; set; } = new();
     }
 
     public class TestMauiModel : MauiModel
     {
-        public string LongText { get; set; } = "The only downside?\nSo many products are on sale right now that you might be scratching your head over what’s actually worth buying. Fret not; I’ve been tracking Apple deals and reviewing everything from iPhones to Apple Watches for more than a decade and have whittled things down to a list of true essentials.";
+        public string LongText { get; set; } = "The only downside?\nSo many products are on sale right now that you might be scratching your head over what’s actually worth buying. Fret not; I’ve been tracking Apple deals and reviewing everything from iPhones to Apple Watches for more than a decade and have whittled things down to a list of true essentials.The only downside?\nSo many products are on sale right now that you might be scratching your head over what’s actually worth buying. Fret not; I’ve been tracking Apple deals and reviewing everything from iPhones to Apple Watches for more than a decade and have whittled things down to a list of true essentials.The only downside?\nSo many products are on sale right now that you might be scratching your head over what’s actually worth buying. Fret not; I’ve been tracking Apple deals and reviewing everything from iPhones to Apple Watches for more than a decade and have whittled things down to a list of true essentials.";
         public string FirstName { get; set; } = "Ilya";
         public string LastName { get; set; } = "Basin";
         public string Position { get; set; } = "Computer Sceince Fellow";
