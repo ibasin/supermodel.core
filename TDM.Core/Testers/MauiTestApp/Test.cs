@@ -1,8 +1,9 @@
-﻿using Supermodel.Client.Frontend.Maui.ViewModels;
-using Supermodel.Client.Backend.DataContext.Sqlite;
-using Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
+﻿using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Frontend.Maui.Models;
+using Supermodel.Client.Frontend.Maui.Pages.CRUDDetail;
 using Supermodel.Client.Frontend.Maui.UIComponents;
+using Supermodel.Client.Frontend.Maui.ViewModels;
+using Supermodel.DataAnnotations.Attributes;
 
 namespace MauiTestApp
 {
@@ -11,22 +12,31 @@ namespace MauiTestApp
 
     }
     
-    public class TestMauiViewModel : MauiViewModelFor<TestMauiModel>
+    public class TestMauiViewModel : MauiViewModelFor<TestMauiModel>, IHaveSectionNames
     {
+        public string GetSectionName(int sectionScreenNumber)
+        {
+            if (sectionScreenNumber == 100) return "Section 1";
+            if (sectionScreenNumber == 200) return "Section 2";
+
+            return "None!";
+        }
+
+        public MultiLineTextBoxReadOnlyViewModel LongText { get; set; } = new();
         public string FirstName { get; set; } = "";
         public TextBoxReadOnlyViewModel LastName { get; set; } = new();
         public TextBoxViewModel Position { get; set; } = new();
-        public ToggleSwitchViewModel Active { get; set; } = new();
-        public MultiLineTextBoxReadOnlyViewModel LongText { get; set; } = new();
+        
+        [ScreenOrder(200)] public ToggleSwitchViewModel Active { get; set; } = new();
     }
 
     public class TestMauiModel : MauiModel
     {
+        public string LongText { get; set; } = "The only downside?\nSo many products are on sale right now that you might be scratching your head over what’s actually worth buying. Fret not; I’ve been tracking Apple deals and reviewing everything from iPhones to Apple Watches for more than a decade and have whittled things down to a list of true essentials.";
         public string FirstName { get; set; } = "Ilya";
         public string LastName { get; set; } = "Basin";
         public string Position { get; set; } = "Computer Sceince Fellow";
         public bool Active { get; set; }
-        public string LongText { get; set; } = "The only downside?\nSo many products are on sale right now that you might be scratching your head over what’s actually worth buying. Fret not; I’ve been tracking Apple deals and reviewing everything from iPhones to Apple Watches for more than a decade and have whittled things down to a list of true essentials.";
     }
 
     public class TestSqliteDataContext : SqliteDataContext

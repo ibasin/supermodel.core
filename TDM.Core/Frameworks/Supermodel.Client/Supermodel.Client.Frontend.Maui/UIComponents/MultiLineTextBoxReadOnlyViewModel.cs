@@ -9,7 +9,7 @@ public class MultiLineTextBoxReadOnlyViewModel : SingleCellReadOnlyUIComponentFo
     {
         TextLabel = new Label
         {
-            HorizontalOptions = LayoutOptions.Fill,
+            //HorizontalOptions = LayoutOptions.Fill,
             FontSize = MauiSettings.LabelFontSize,
             TextColor = MauiSettings.ValueTextColor,
             HeightRequest = MauiSettings.MultiLineTextBoxReadOnlyCellHeight - MauiSettings.MultiLineTextLabelHeight
@@ -17,20 +17,24 @@ public class MultiLineTextBoxReadOnlyViewModel : SingleCellReadOnlyUIComponentFo
         ScrollView = new ScrollView
         {
             Content = TextLabel, 
-            HorizontalOptions = LayoutOptions.Fill, 
-            VerticalOptions = LayoutOptions.Center
+            //HorizontalOptions = LayoutOptions.Fill, 
+            //VerticalOptions = LayoutOptions.FillAndExpand,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Always,
+            Orientation = ScrollOrientation.Vertical
         };
 
         TextLabel.SetBinding(Entry.TextProperty, "Text");
 
         SetGridColumns(1);
-        SetGridRows(2);
+        Grid.ColumnDefinitions[0] = new ColumnDefinition(GridLength.Star);
+        //SetGridRows(2);
+        Grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        Grid.RowDefinitions.Add(new RowDefinition(GridLength.Star));
+        //Grid.RowDefinitions[1].Height = MauiSettings.MultiLineTextBoxReadOnlyCellHeight;
 
-        Grid.Add(TextLabel, 0, 0);
         Grid.Add(ScrollView, 0, 1);
 
-        SetHeight(MauiSettings.MultiLineTextBoxReadOnlyCellHeight);
-        Grid.RowDefinitions[1].Height = MauiSettings.MultiLineTextBoxReadOnlyCellHeight;
+        //SetHeight(MauiSettings.MultiLineTextBoxReadOnlyCellHeight);
     }
     #endregion
 

@@ -50,7 +50,7 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingViewModel : Vie
         //Grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
         for (var i = 0; i < count; i++)
         {
-            Grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+            Grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
         }
     }
     #endregion
