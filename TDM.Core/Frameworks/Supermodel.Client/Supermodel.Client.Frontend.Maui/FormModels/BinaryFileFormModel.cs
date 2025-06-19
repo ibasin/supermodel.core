@@ -1,6 +1,6 @@
-﻿namespace Supermodel.Client.Backend.Models;
+﻿namespace Supermodel.Client.Frontend.Maui.FormModels;
 
-public class BinaryFile
+public class BinaryFileFormModel
 {
     public string FileName { get; set; } = "";
     public byte[] BinaryContent { get; set; } = [];
