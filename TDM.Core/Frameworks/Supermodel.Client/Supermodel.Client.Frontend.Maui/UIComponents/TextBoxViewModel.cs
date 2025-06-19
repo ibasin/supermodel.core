@@ -13,7 +13,16 @@ public class TextBoxViewModel : SingleCellWritableUIComponentForTextViewModel
     }
     public TextBoxViewModel()
     {
-        TextEntry = new ExtEntry { HorizontalOptions = LayoutOptions.Fill, VerticalOptions = LayoutOptions.Center, Border = false, TextAlignment = TextAlignment.End, WidthRequest = 1, FontSize = MauiSettings.LabelFontSize, TextColor = MauiSettings.ValueTextColor };
+        TextEntry = new ExtEntry
+        {
+            HorizontalOptions = LayoutOptions.Fill, 
+            VerticalOptions = LayoutOptions.Center, 
+            Border = false, 
+            TextAlignment = TextAlignment.End, 
+            //WidthRequest = 1, 
+            FontSize = MauiSettings.LabelFontSize, 
+            TextColor = MauiSettings.ValueTextColor
+        };
         TextEntry.SetBinding(Entry.TextProperty, "Text");
         TextEntry.PropertyChanged += (_, _) =>
         {

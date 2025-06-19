@@ -10,7 +10,12 @@ public class ToggleSwitchViewModel : SingleCellWritableUIComponentViewModel
     #region Constructors
     public ToggleSwitchViewModel()
     {
-        Switch = new Switch { HorizontalOptions = LayoutOptions.End, VerticalOptions = LayoutOptions.Center, OnColor = MauiSettings.SwitchOnColor };
+        Switch = new Switch
+        {
+            HorizontalOptions = LayoutOptions.End, 
+            VerticalOptions = LayoutOptions.Center, 
+            OnColor = MauiSettings.SwitchOnColor
+        };
         Switch.SetBinding(Switch.IsToggledProperty, "IsToggled");
         Switch.PropertyChanged += (_, _) =>
         {
