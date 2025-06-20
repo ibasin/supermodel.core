@@ -28,7 +28,7 @@ public class HttpMessageContent : HttpContent
     //private const string DefaultResponseMediaType = DefaultMediaType + "; " + MsgTypeParameter + "=" + DefaultResponseMsgType;
 
     // Set of header fields that only support single values such as Set-Cookie.
-    private static readonly HashSet<string> _singleValueHeaderFields = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    private static readonly HashSet<string> _singleValueHeaderFields = new(StringComparer.OrdinalIgnoreCase)
     {
         "Cookie",
         "Set-Cookie",
@@ -36,7 +36,7 @@ public class HttpMessageContent : HttpContent
     };
 
     // Set of header fields that should get serialized as space-separated values such as User-Agent.
-    private static readonly HashSet<string> _spaceSeparatedValueHeaderFields = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    private static readonly HashSet<string> _spaceSeparatedValueHeaderFields = new(StringComparer.OrdinalIgnoreCase)
     {
         "User-Agent",
     };

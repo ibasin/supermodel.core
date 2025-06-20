@@ -1,4 +1,6 @@
-﻿using Microsoft.Maui.Layouts;
+﻿//using Android.Hardware.Camera2;
+using Microsoft.Maui.Layouts;
+using Supermodel.Client.Frontend.Maui.FormModels;
 using Supermodel.Client.Frontend.Maui.Services;
 using Supermodel.Client.Frontend.Maui.UIComponents.Base;
 using Supermodel.Client.Frontend.Maui.UIComponents.CustomCells;
@@ -33,7 +35,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
 
             var cell = new ImageCellWithEditableText
             {
-                ImageSource = ImageSource.FromStream(() => new MemoryStream(file.BinaryFile.BinaryContent)),
+                ImageSource = ImageSource.FromStream(() => new MemoryStream(file.BinaryFile!.BinaryContent)),
                 Text = file.Title,
                 Placeholder = "Image Title",
             };
@@ -104,7 +106,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
                 binaryContent = await SharedService.Instantiate<IImageResizer>().ResizeImageAsync(binaryContent, 1024, 1024);
 
                 //Insert image into ModelsWithBinaryFileXFModels list
-                var file = new ModelWithBinaryFileFormModel { Id = 0, Title = "", BinaryFile = new BinaryFileXFModel { BinaryContent = binaryContent, FileName = "image.png" } };
+                var file = new ModelWithBinaryFileFormModel { Id = 0, Title = "", BinaryFile = new BinaryFileFormModel { BinaryContent = binaryContent, FileName = "image.png" } };
                 ModelsWithBinaryFileFormModels.Add(file);
 
                 //Insert image cell
@@ -120,7 +122,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
                 deleteAction.Clicked += (_, _) => { ImageDeletedHandler(file, cell); };
                 cell.ContextActions.Add(deleteAction);
 
-                var tableView = (ViewWithActivityIndicator<TableView>)ParentPage.PropertyGet("DetailView");
+                var tableView = (ViewWithActivityIndicator<TableView>?)ParentPage.PropertyGet("DetailView");
                 if (tableView == null) throw new SystemException("tableView == null");
                 var section = tableView.ContentView.Root.Single(x => x.Contains(AddNewCell));
                 var index = section.IndexOf(AddNewCell);
@@ -141,7 +143,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
     {
         ModelsWithBinaryFileFormModels.Remove(file);
 
-        var tableView = (ViewWithActivityIndicator<TableView>?)ParentPage.PropertyGet("DetailView");
+        var tableView = (ViewWithActivityIndicator<TableView>?)ParentPage!.PropertyGet("DetailView");
         if (tableView == null) throw new SystemException("tableView == null");
         foreach (var section in tableView.ContentView.Root) section.Remove(cell);
     }
@@ -156,12 +158,12 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
                 imagesCarouselPage.Children.Add(imagePage);
             }
             imagesCarouselPage.CurrentPage = imagesCarouselPage.Children[imageIndex];
-            await ParentPage.Navigation.PushModalAsync(imagesCarouselPage);
+            await ParentPage!.Navigation.PushModalAsync(imagesCarouselPage);
         }
         else
         {
             var imagePage = CreateSingleImagePage(ModelsWithBinaryFileFormModels[imageIndex], true);
-            await ParentPage.Navigation.PushModalAsync(imagePage);
+            await ParentPage!.Navigation.PushModalAsync(imagePage);
         }
     }
 
@@ -213,7 +215,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
 
         button.Clicked += async (_, _) =>
         {
-            await ParentPage.Navigation.PopModalAsync(true);
+            await ParentPage!.Navigation.PopModalAsync(true);
         };
         AbsoluteLayout.SetLayoutFlags(button, AbsoluteLayoutFlags.All);
         AbsoluteLayout.SetLayoutBounds(button, new Rect(0.975f, 0.025f, 0.1f, 0.1f));
@@ -231,13 +233,13 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
     #endregion
 
     #region Properties
-    public string CloseIconFileName { get; set; }
+    public string? CloseIconFileName { get; set; }
 
     public override bool ShowDisplayNameIfApplies { get; set; }
-    public override string DisplayNameIfApplies { get; set; }
+    public override string? DisplayNameIfApplies { get; set; }
     public override TextAlignment TextAlignmentIfApplies { get; set; }
 
-    protected Page ParentPage { get; set; }
+    protected Page? ParentPage { get; set; }
     protected AddNewCell AddNewCell { get; }
 
     public override string? ErrorMessage
@@ -251,7 +253,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
         set => AddNewCell.Required = value;
     }
 
-    public List<Cell> Cells { get; } = new List<Cell>();
+    public List<Cell> Cells { get; } = new();
 
     public ImageViewModeEnum ImageViewMode { get; set; } = ImageViewModeEnum.ImageZoomEnabled;
     protected bool _actionSheetOpen;

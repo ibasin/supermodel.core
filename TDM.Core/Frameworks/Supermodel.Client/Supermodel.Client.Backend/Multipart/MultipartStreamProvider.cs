@@ -9,7 +9,7 @@ public abstract class MultipartStreamProvider
 {
     private struct AsyncVoid{}
         
-    private readonly Collection<HttpContent> _contents = new Collection<HttpContent>();
+    private readonly Collection<HttpContent> _contents = new();
 
     public Collection<HttpContent> Contents
     {

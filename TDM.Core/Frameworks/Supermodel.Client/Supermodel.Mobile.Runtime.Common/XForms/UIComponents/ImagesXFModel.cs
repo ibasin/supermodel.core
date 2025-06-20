@@ -258,7 +258,7 @@ public class ImagesXFModel : BinaryFilesWritableXFModel
         set => AddNewCell.Required = value;
     }
 
-    public List<Cell> Cells { get; } = new List<Cell>();
+    public List<Cell> Cells { get; } = new();
 
     public ImageViewModeEnum ImageViewMode { get; set; } = ImageViewModeEnum.ImageZoomEnabled;
     protected bool _actionSheetOpen;

@@ -38,7 +38,7 @@ public abstract class BinaryFilesReadOnlyFormModel : IReadOnlyUIComponentFormMod
     public ObservableCollection<ModelWithBinaryFileFormModel> ModelsWithBinaryFileFormModels { get; private set; }
 
     public abstract bool ShowDisplayNameIfApplies { get; set; }
-    public abstract string DisplayNameIfApplies { get; set; }
+    public abstract string? DisplayNameIfApplies { get; set; }
     public abstract TextAlignment TextAlignmentIfApplies { get; set; }
     #endregion
 }

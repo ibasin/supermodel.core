@@ -26,8 +26,8 @@ public class DropdownXFModel : SingleCellWritableUIComponentWithoutBackingXFMode
         public string Label { get; }
         public bool IsDisabled { get; }
     }
-    public ObservableCollection<Option> Options { get; } = new ObservableCollection<Option>();
-    public List<Option> DisplayedOptions { get; protected set; } = new List<Option>();
+    public ObservableCollection<Option> Options { get; } = new();
+    public List<Option> DisplayedOptions { get; protected set; } = new();
     #endregion
 			        
     #region Constructors
@@ -67,7 +67,7 @@ public class DropdownXFModel : SingleCellWritableUIComponentWithoutBackingXFMode
     }
     protected virtual void ResetList(string selectedValue, bool setValue)
     {
-        DisplayedOptions = new List<Option> { new Option("", BlankOptionLabel) };
+        DisplayedOptions = new List<Option> { new("", BlankOptionLabel) };
         foreach (var option in Options)
         {
             if (option.IsDisabled)

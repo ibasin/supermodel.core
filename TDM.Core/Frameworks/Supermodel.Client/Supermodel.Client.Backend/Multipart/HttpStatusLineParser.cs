@@ -18,7 +18,7 @@ public class HttpStatusLineParser
 
     private HttpStatusLineState _statusLineState;
     private HttpUnsortedResponse _httpResponse;
-    private readonly StringBuilder _currentToken = new StringBuilder(DefaultTokenAllocation);
+    private readonly StringBuilder _currentToken = new(DefaultTokenAllocation);
 
     public HttpStatusLineParser(HttpUnsortedResponse httpResponse, int maxStatusLineSize)
     {

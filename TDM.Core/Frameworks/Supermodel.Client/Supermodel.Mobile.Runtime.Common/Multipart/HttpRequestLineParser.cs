@@ -16,7 +16,7 @@ public class HttpRequestLineParser
 
     private HttpRequestLineState _requestLineState;
     private HttpUnsortedRequest _httpRequest;
-    private readonly StringBuilder _currentToken = new StringBuilder(DefaultTokenAllocation);
+    private readonly StringBuilder _currentToken = new(DefaultTokenAllocation);
 
     public HttpRequestLineParser(HttpUnsortedRequest httpRequest, int maxRequestLineSize)
     {
