@@ -117,17 +117,16 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
                 var section = tableView.ContentView.Root.Single(x => x.Contains(AddNewCell));
                 var index = section.IndexOf(AddNewCell);
 
-                //This we do for Android -- otherwise the tap is not recognized
-                //This is instead of cell.Tapped += (sender, args) => { ImageTappedHandler(index); };
-                var tapGestureRecognizer = new TapGestureRecognizer();
-                tapGestureRecognizer.Tapped += (_, _) => { ImageTappedHandler(index); };
-                cell.Image.GestureRecognizers.Add(tapGestureRecognizer);
+                cell.Tapped += (_, _) => { ImageTappedHandler(index); };
+                //var tapGestureRecognizer = new TapGestureRecognizer();
+                //tapGestureRecognizer.Tapped += (_, _) => { ImageTappedHandler(index); };
+                //cell.Image.GestureRecognizers.Add(tapGestureRecognizer);
 
                 section.Insert(index, cell);
             }
         }
         // ReSharper disable once EmptyGeneralCatchClause
-        catch (Exception ex) { }
+        catch (Exception) { }
     }
     //public virtual async void AddNewTapped()
     //{
