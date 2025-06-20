@@ -14,7 +14,7 @@ namespace MauiTestApp
     {
         public override void InitContent()
         {
-            ValidationResultList vrl = [new ValidationResult("Error", ["Position"])];
+            ValidationResultList vrl = [new ValidationResult("Error 1", ["Position"]), new ValidationResult("Error 2", ["Position"])];
             FormModel!.ShowValidationErrors(vrl);
             FormModel.DisabledPosition.Active = false;
             base.InitContent();

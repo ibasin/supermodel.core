@@ -19,7 +19,7 @@ public class TextBoxFormModel : SingleCellWritableUIComponentForTextFormModel
             VerticalOptions = LayoutOptions.Center, 
             Border = false, 
             HorizontalTextAlignment = TextAlignment.End, 
-            FontSize = FormsSettings.LabelFontSize, 
+            FontSize = FormsSettings.ValueFontSize, 
             TextColor = FormsSettings.ValueTextColor
         };
         TextEntry.SetBinding(Entry.TextProperty, "Text");

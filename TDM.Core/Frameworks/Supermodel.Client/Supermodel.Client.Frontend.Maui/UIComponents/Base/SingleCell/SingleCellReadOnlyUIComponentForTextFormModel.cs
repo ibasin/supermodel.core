@@ -5,12 +5,12 @@ public abstract class SingleCellReadOnlyUIComponentForTextFormModel : SingleCell
     #region ICustomMapper implemtation
     public override Task MapFromCustomAsync<T>(T other)
     {
-        return SingleCellUIComponentForTextMauiModelCommonLibrary.MapFromCustomAsync(this, other);
+        return SingleCellUIComponentForTextFormModelCommonLibrary.MapFromCustomAsync(this, other);
     }
 
     public override Task<T> MapToCustomAsync<T>(T other)
     {
-        return SingleCellUIComponentForTextMauiModelCommonLibrary.MapToCustomAsync(this, other);
+        return SingleCellUIComponentForTextFormModelCommonLibrary.MapToCustomAsync(this, other);
     }
     #endregion
         

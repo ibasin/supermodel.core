@@ -5,31 +5,18 @@ public abstract class SingleCellWritableUIComponentWithoutBackingFormModel : Sin
     #region Constructors
     protected SingleCellWritableUIComponentWithoutBackingFormModel()
     {
-        ValidationErrorIndicator = new Button{ Text = "!", TextColor = Colors.Red };
-        ValidationErrorIndicator.Clicked += ValidationIndicatorClicked!;
-
         SetGridRows(2);
     }
     #endregion
 
-    #region Event Handlers
-    // ReSharper disable once AsyncVoidMethod
-    public async void ValidationIndicatorClicked(object sender, EventArgs args)
-    {
-        if (ParentPage != null) await ParentPage.DisplayAlert("", ErrorMessage, "Ok");
-    }
-    #endregion
-
     #region Properties
-    public Button ValidationErrorIndicator { get; set; }
     public bool Required
     {
         get => _required;
         set
         {
             var label = (Label)Grid[0];
-            if (value) label.TextColor = FormsSettings.RequiredLabelTextColor;
-            else label.TextColor = FormsSettings.LabelTextColor;
+            label.TextColor = value ? FormsSettings.RequiredLabelTextColor : FormsSettings.LabelTextColor;
 
             _required = value;
         }
@@ -41,8 +28,22 @@ public abstract class SingleCellWritableUIComponentWithoutBackingFormModel : Sin
         get => _errorMessage;
         set
         {
-            if (_errorMessage == null && value != null) Grid.Add(new Label { TextColor = FormsSettings.ValidationErrorColor, Text = value }, 1, 1);
-            if (_errorMessage != null && value == null) Grid.RemoveAt(3);
+            if (_errorMessage == value) return;
+
+            if (value != null)
+            {
+                var validationLabel = new Label
+                {
+                    Text = value,
+                    FontSize = FormsSettings.ValidationErrorFontSize,
+                    TextColor = FormsSettings.ValidationErrorColor,
+                };
+                Grid.Add(validationLabel, 1, 1);
+            }
+            else
+            {
+                Grid.RemoveAt(3);
+            }
             _errorMessage = value;
         }
     }

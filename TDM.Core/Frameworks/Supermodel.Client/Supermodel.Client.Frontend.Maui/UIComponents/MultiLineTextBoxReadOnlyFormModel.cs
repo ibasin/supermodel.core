@@ -9,7 +9,7 @@ public class MultiLineTextBoxReadOnlyFormModel : SingleCellReadOnlyUIComponentFo
     {
         TextLabel = new Label
         {
-            FontSize = FormsSettings.LabelFontSize,
+            FontSize = FormsSettings.ValueFontSize,
             TextColor = FormsSettings.ValueTextColor,
             HorizontalTextAlignment = TextAlignmentIfApplies,
         };

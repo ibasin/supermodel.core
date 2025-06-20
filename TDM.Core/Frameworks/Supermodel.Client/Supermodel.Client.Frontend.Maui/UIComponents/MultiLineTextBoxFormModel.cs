@@ -16,7 +16,7 @@ public class MultiLineTextBoxFormModel : SingleCellWritableUIComponentForTextFor
         {
             HorizontalOptions = LayoutOptions.End,
             HeightRequest = FormsSettings.MultiLineTextBoxCellHeight - FormsSettings.MultiLineTextLabelHeight,
-            FontSize = FormsSettings.LabelFontSize,
+            FontSize = FormsSettings.ValueFontSize,
             TextColor = FormsSettings.ValueTextColor,
             HorizontalTextAlignment = TextAlignmentIfApplies,
         };

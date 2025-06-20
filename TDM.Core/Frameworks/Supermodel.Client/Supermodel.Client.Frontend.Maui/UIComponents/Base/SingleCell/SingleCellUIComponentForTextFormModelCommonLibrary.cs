@@ -5,7 +5,7 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.UIComponents.Base.SingleCell;
 
-public static class SingleCellUIComponentForTextMauiModelCommonLibrary
+public static class SingleCellUIComponentForTextFormModelCommonLibrary
 {
     #region ICustomMapper Common Implemtation for Text
     public static Task MapFromCustomAsync<T>(IHaveTextProperty me, T other)
