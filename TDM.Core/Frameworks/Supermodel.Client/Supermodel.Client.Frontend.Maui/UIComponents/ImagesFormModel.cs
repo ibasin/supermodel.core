@@ -127,7 +127,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
             }
         }
         // ReSharper disable once EmptyGeneralCatchClause
-        catch (Exception) { }
+        catch (Exception ex) { }
     }
     //public virtual async void AddNewTapped()
     //{
