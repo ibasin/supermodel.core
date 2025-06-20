@@ -63,33 +63,24 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
         if (_actionSheetOpen) return;
         _actionSheetOpen = true;
 
-        await CrossMedia.Current.Initialize();
-
         var options = new List<string>();
-        if (CrossMedia.Current.IsPickPhotoSupported) options.Add("Photo Library");
-        if (CrossMedia.Current.IsTakePhotoSupported) options.Add("Take Photo");
+        options.Add("Photo Library");
+        if (MediaPicker.Default.IsCaptureSupported) options.Add("Take Photo");
         var action = await ParentPage!.DisplayActionSheet(null, "Cancel", null, options.ToArray());
         _actionSheetOpen = false;
         try
         {
-            MediaFile mediaFile;
+            FileResult? mediaFile;
             switch (action)
             {
                 case "Photo Library":
                 {
-                    mediaFile = await CrossMedia.Current.PickPhotoAsync();
+                    mediaFile = await MediaPicker.Default.PickPhotoAsync();
                     break;
                 }
                 case "Take Photo":
                 {
-                    var storeCameraMediaOptions = new StoreCameraMediaOptions
-                    {
-                        DefaultCamera = CameraDevice.Rear,
-                        SaveToAlbum = false,
-                        Directory = "Media",
-                        Name = "pic.jpg"
-                    };
-                    mediaFile = await CrossMedia.Current.TakePhotoAsync(storeCameraMediaOptions);
+                    mediaFile = await MediaPicker.Default.CapturePhotoAsync();
                     break;
                 }
                 case "Cancel":
@@ -101,7 +92,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
             }
             if (mediaFile != null)
             {
-                var binaryContent = ReadFully(mediaFile.GetStream());
+                var binaryContent = ReadFully(await mediaFile.OpenReadAsync());
                 binaryContent = await SharedService.Instantiate<IImageResizer>().ResizeImageAsync(binaryContent, 1024, 1024);
 
                 //Insert image into ModelsWithBinaryFileXFModels list
@@ -138,6 +129,86 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
         // ReSharper disable once EmptyGeneralCatchClause
         catch (Exception) { }
     }
+    //public virtual async void AddNewTapped()
+    //{
+    //    if (_actionSheetOpen) return;
+    //    _actionSheetOpen = true;
+
+    //    await CrossMedia.Current.Initialize();
+
+    //    var options = new List<string>();
+    //    if (CrossMedia.Current.IsPickPhotoSupported) options.Add("Photo Library");
+    //    if (CrossMedia.Current.IsTakePhotoSupported) options.Add("Take Photo");
+    //    var action = await ParentPage!.DisplayActionSheet(null, "Cancel", null, options.ToArray());
+    //    _actionSheetOpen = false;
+    //    try
+    //    {
+    //        MediaFile mediaFile;
+    //        switch (action)
+    //        {
+    //            case "Photo Library":
+    //                {
+    //                    mediaFile = await CrossMedia.Current.PickPhotoAsync();
+    //                    break;
+    //                }
+    //            case "Take Photo":
+    //                {
+    //                    var storeCameraMediaOptions = new StoreCameraMediaOptions
+    //                    {
+    //                        DefaultCamera = CameraDevice.Rear,
+    //                        SaveToAlbum = false,
+    //                        Directory = "Media",
+    //                        Name = "pic.jpg"
+    //                    };
+    //                    mediaFile = await CrossMedia.Current.TakePhotoAsync(storeCameraMediaOptions);
+    //                    break;
+    //                }
+    //            case "Cancel":
+    //                {
+    //                    mediaFile = null;
+    //                    break;
+    //                }
+    //            default: throw new Exception("Invalid photo option. This should never happen");
+    //        }
+    //        if (mediaFile != null)
+    //        {
+    //            var binaryContent = ReadFully(mediaFile.GetStream());
+    //            binaryContent = await SharedService.Instantiate<IImageResizer>().ResizeImageAsync(binaryContent, 1024, 1024);
+
+    //            //Insert image into ModelsWithBinaryFileXFModels list
+    //            var file = new ModelWithBinaryFileFormModel { Id = 0, Title = "", BinaryFile = new BinaryFileFormModel { BinaryContent = binaryContent, FileName = "image.png" } };
+    //            ModelsWithBinaryFileFormModels.Add(file);
+
+    //            //Insert image cell
+    //            var cell = new ImageCellWithEditableText
+    //            {
+    //                ImageSource = ImageSource.FromStream(() => new MemoryStream(file.BinaryFile.BinaryContent)),
+    //                Text = file.Title,
+    //                Placeholder = "Image Title",
+    //            };
+    //            cell.TextEntry.TextChanged += (_, _) => { file.Title = cell.Text; };
+
+    //            var deleteAction = new MenuItem { Text = "Delete", IsDestructive = true };
+    //            deleteAction.Clicked += (_, _) => { ImageDeletedHandler(file, cell); };
+    //            cell.ContextActions.Add(deleteAction);
+
+    //            var tableView = (ViewWithActivityIndicator<TableView>?)ParentPage.PropertyGet("DetailView");
+    //            if (tableView == null) throw new SystemException("tableView == null");
+    //            var section = tableView.ContentView.Root.Single(x => x.Contains(AddNewCell));
+    //            var index = section.IndexOf(AddNewCell);
+
+    //            //This we do for Android -- otherwise the tap is not recognized
+    //            //This is instead of cell.Tapped += (sender, args) => { ImageTappedHandler(index); };
+    //            var tapGestureRecognizer = new TapGestureRecognizer();
+    //            tapGestureRecognizer.Tapped += (_, _) => { ImageTappedHandler(index); };
+    //            cell.Image.GestureRecognizers.Add(tapGestureRecognizer);
+
+    //            section.Insert(index, cell);
+    //        }
+    //    }
+    //    // ReSharper disable once EmptyGeneralCatchClause
+    //    catch (Exception) { }
+    //}
     public virtual void ImageDeletedHandler(ModelWithBinaryFileFormModel file, Cell cell)
     {
         ModelsWithBinaryFileFormModels.Remove(file);

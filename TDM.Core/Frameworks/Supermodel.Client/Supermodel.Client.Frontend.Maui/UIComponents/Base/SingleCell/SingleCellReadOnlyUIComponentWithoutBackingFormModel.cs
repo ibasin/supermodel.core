@@ -6,7 +6,14 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingFormModel : Vie
     protected SingleCellReadOnlyUIComponentWithoutBackingFormModel()
     {
 
-        DisplayNameLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = FormsSettings.LabelTextColor, LineBreakMode = LineBreakMode.NoWrap, FontSize = FormsSettings.LabelFontSize };
+        DisplayNameLabel = new Label
+        {
+            HorizontalOptions = LayoutOptions.Start, 
+            VerticalOptions = LayoutOptions.Center, 
+            TextColor = FormsSettings.LabelTextColor, 
+            LineBreakMode = LineBreakMode.NoWrap, 
+            FontSize = FormsSettings.LabelFontSize
+        };
         Grid = new Grid
         {
             RowDefinitions = [new RowDefinition(new GridLength(40))],
@@ -83,10 +90,10 @@ public abstract class SingleCellReadOnlyUIComponentWithoutBackingFormModel : Vie
     }
     private bool _showDisplayNameIfApplies = true;
 
-    public string DisplayNameIfApplies
+    public string? DisplayNameIfApplies
     {
         get => DisplayNameLabel.Text;
-        set => DisplayNameLabel.Text = value;
+        set => DisplayNameLabel.Text = value ?? "";
     }
     public Label DisplayNameLabel { get; set; }
 

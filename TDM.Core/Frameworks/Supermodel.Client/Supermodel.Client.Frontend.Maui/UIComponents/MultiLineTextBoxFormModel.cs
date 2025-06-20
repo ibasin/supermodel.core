@@ -67,7 +67,7 @@ public class MultiLineTextBoxFormModel : SingleCellWritableUIComponentForTextFor
     private string _currentValue = "";
 
     public Editor Editor { get; }
-    public sealed override TextAlignment TextAlignmentIfApplies { get; set; }
+    public sealed override TextAlignment TextAlignmentIfApplies { get; set; } = TextAlignment.Start; 
 
     public bool Active
     {
