@@ -2,7 +2,6 @@
 using System.Drawing;
 using Supermodel.Client.Frontend.Maui.Services;
 using UIKit;
-using SizeF = System.Drawing.SizeF;
 
 // ReSharper disable once CheckNamespace
 namespace Supermodel.Client.Frontend.Maui;
@@ -47,7 +46,7 @@ public class ImageResizer : IImageResizer
         //
         
         #pragma warning disable CA1416
-        UIGraphics.BeginImageContext(new SizeF(width, height));
+        UIGraphics.BeginImageContext(new System.Drawing.SizeF(width, height));
         originalImage.Draw(new RectangleF(0, 0, width, height));
         var resizedImage = UIGraphics.GetImageFromCurrentImageContext();
         UIGraphics.EndImageContext();

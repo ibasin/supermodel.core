@@ -117,16 +117,16 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
                 var section = tableView.ContentView.Root.Single(x => x.Contains(AddNewCell));
                 var index = section.IndexOf(AddNewCell);
 
-                cell.Tapped += (_, _) => { ImageTappedHandler(index); };
-                //var tapGestureRecognizer = new TapGestureRecognizer();
-                //tapGestureRecognizer.Tapped += (_, _) => { ImageTappedHandler(index); };
-                //cell.Image.GestureRecognizers.Add(tapGestureRecognizer);
+                //cell.Tapped += (_, _) => { ImageTappedHandler(index); };
+                var tapGestureRecognizer = new TapGestureRecognizer();
+                tapGestureRecognizer.Tapped += (_, _) => { ImageTappedHandler(index); };
+                cell.Image.GestureRecognizers.Add(tapGestureRecognizer);
 
                 section.Insert(index, cell);
             }
         }
         // ReSharper disable once EmptyGeneralCatchClause
-        catch (Exception) { }
+        catch (Exception ex) { }
     }
     //public virtual async void AddNewTapped()
     //{
