@@ -141,7 +141,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
     {
         ModelsWithBinaryFileFormModels.Remove(file);
 
-        var tableView = (ViewWithActivityIndicator<TableView>)ParentPage.PropertyGet("DetailView");
+        var tableView = (ViewWithActivityIndicator<TableView>?)ParentPage.PropertyGet("DetailView");
         if (tableView == null) throw new SystemException("tableView == null");
         foreach (var section in tableView.ContentView.Root) section.Remove(cell);
     }
@@ -183,18 +183,18 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
         {
             image = new ZoomImage
             {
-                Source = ImageSource.FromStream(() => new MemoryStream(imageFile.BinaryFile.BinaryContent)),
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand,
+                Source = ImageSource.FromStream(() => new MemoryStream(imageFile.BinaryFile!.BinaryContent)),
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.Fill,
             };
         }
         else
         {
             image = new Image
             {
-                Source = ImageSource.FromStream(() => new MemoryStream(imageFile.BinaryFile.BinaryContent)),
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand,
+                Source = ImageSource.FromStream(() => new MemoryStream(imageFile.BinaryFile!.BinaryContent)),
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.Fill,
             };
         }
 
@@ -240,7 +240,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
     protected Page ParentPage { get; set; }
     protected AddNewCell AddNewCell { get; }
 
-    public override string ErrorMessage
+    public override string? ErrorMessage
     {
         get => AddNewCell.ErrorMessage;
         set => AddNewCell.ErrorMessage = value;
