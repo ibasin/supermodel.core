@@ -5,26 +5,50 @@ public class AddNewCell : ViewCell
     #region Constructors
     public AddNewCell(string? imageFileName)
     {
-        View = new Grid();
-
-
+        Grid = new Grid
         {
-            Padding = new Thickness(8, 0, 8, 0),
-            Orientation = StackOrientation.Horizontal,
-            VerticalOptions = LayoutOptions.CenterAndExpand,
-            HorizontalOptions = LayoutOptions.FillAndExpand,
-            HeightRequest = 40,
+            RowDefinitions = [new RowDefinition(new GridLength(40))],
+            ColumnSpacing = 5,
+            HorizontalOptions = LayoutOptions.Fill,
+            Padding = new Thickness(5, 0),
         };
 
-        if (imageFileName != null)
+        
+        if (!string.IsNullOrEmpty(imageFileName))
         {
+            SetGridColumns(2);
             AddNewImage = new Image { Source = imageFileName };
-            StackLayoutView.Children.Add(AddNewImage);
+            Grid.Add(AddNewImage, 1);
         }
+        else
+        {
+            SetGridColumns(1);
+        }
+        SetGridRows(2);
 
         AddNewLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, Text = "Add New", FontSize = FormsSettings.LabelFontSize };
-        if (Device.RuntimePlatform == Device.iOS) AddNewLabel.TextColor = Color.FromHex("#007AFF");
-        StackLayoutView.Children.Add(AddNewLabel);
+        Grid.Add(AddNewLabel, 0);
+    }
+    #endregion
+
+    #region Helper Methods
+    protected void SetGridColumns(int count)
+    {
+        Grid.ColumnDefinitions.Clear();
+        Grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+        for (var i = 1; i < count; i++)
+        {
+            Grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
+        }
+    }
+    protected void SetGridRows(int count)
+    {
+        Grid.RowDefinitions.Clear();
+        //Grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        for (var i = 0; i < count; i++)
+        {
+            Grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        }
     }
     #endregion
 
@@ -46,30 +70,41 @@ public class AddNewCell : ViewCell
     public Label AddNewLabel { get; }
     public Image? AddNewImage { get; }
 
-    //public Button ValidationErrorIndicator { get; set; }
-    //public Label RequiredFieldIndicator { get; set; }
-    //public bool Required
-    //{
-    //    get => _required;
-    //    set
-    //    {
-    //        if (!_required && value) StackLayoutView.Children.Insert(0, RequiredFieldIndicator);
-    //        if (_required && !value) StackLayoutView.Children.Remove(RequiredFieldIndicator);
-    //        _required = value;
-    //    }
-    //}
-    //private bool _required;
+    public bool Required
+    {
+        get => _required;
+        set
+        {
+            AddNewLabel.TextColor = value ? FormsSettings.RequiredLabelTextColor : FormsSettings.LabelTextColor;
+            _required = value;
+        }
+    }
+    private bool _required;
 
-    //public string? ErrorMessage
-    //{
-    //    get => _errorMessage;
-    //    set
-    //    {
-    //        if (_errorMessage == null && value != null) StackLayoutView.Children.Add(ValidationErrorIndicator);
-    //        if (_errorMessage != null && value == null) StackLayoutView.Children.Remove(ValidationErrorIndicator);
-    //        _errorMessage = value;
-    //    }
-    //}
-    //private string? _errorMessage;
+    public string? ErrorMessage
+    {
+        get => _errorMessage;
+        set
+        {
+            if (_errorMessage == value) return;
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                var validationLabel = new Label
+                {
+                    Text = value,
+                    FontSize = FormsSettings.ValidationErrorFontSize,
+                    TextColor = FormsSettings.ValidationErrorColor,
+                };
+                Grid.Add(validationLabel, 1, 1);
+            }
+            else
+            {
+                Grid.RemoveAt(3);
+            }
+            _errorMessage = value;
+        }
+    }
+    private string? _errorMessage;
     #endregion
 }

@@ -15,9 +15,7 @@ public abstract class SingleCellWritableUIComponentWithoutBackingFormModel : Sin
         get => _required;
         set
         {
-            var label = (Label)Grid[0];
-            label.TextColor = value ? FormsSettings.RequiredLabelTextColor : FormsSettings.LabelTextColor;
-
+            DisplayNameLabel.TextColor = value ? FormsSettings.RequiredLabelTextColor : FormsSettings.LabelTextColor;
             _required = value;
         }
     }
