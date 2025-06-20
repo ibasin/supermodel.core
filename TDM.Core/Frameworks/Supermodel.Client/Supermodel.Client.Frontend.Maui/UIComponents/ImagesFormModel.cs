@@ -1,5 +1,4 @@
-﻿using Android.Hardware.Camera2;
-using Microsoft.Maui.Layouts;
+﻿using Microsoft.Maui.Layouts;
 using Supermodel.Client.Frontend.Maui.Services;
 using Supermodel.Client.Frontend.Maui.UIComponents.Base;
 using Supermodel.Client.Frontend.Maui.UIComponents.CustomCells;
