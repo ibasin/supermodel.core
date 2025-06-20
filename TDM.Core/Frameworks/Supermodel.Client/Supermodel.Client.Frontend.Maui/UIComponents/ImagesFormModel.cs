@@ -1,5 +1,4 @@
-﻿//using Android.Hardware.Camera2;
-using Microsoft.Maui.Layouts;
+﻿using Microsoft.Maui.Layouts;
 using Supermodel.Client.Frontend.Maui.FormModels;
 using Supermodel.Client.Frontend.Maui.Services;
 using Supermodel.Client.Frontend.Maui.UIComponents.Base;
@@ -69,7 +68,7 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
         var options = new List<string>();
         if (CrossMedia.Current.IsPickPhotoSupported) options.Add("Photo Library");
         if (CrossMedia.Current.IsTakePhotoSupported) options.Add("Take Photo");
-        var action = await ParentPage.DisplayActionSheet(null, "Cancel", null, options.ToArray());
+        var action = await ParentPage!.DisplayActionSheet(null, "Cancel", null, options.ToArray());
         _actionSheetOpen = false;
         try
         {
@@ -77,27 +76,27 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
             switch (action)
             {
                 case "Photo Library":
-                    {
-                        mediaFile = await CrossMedia.Current.PickPhotoAsync();
-                        break;
-                    }
+                {
+                    mediaFile = await CrossMedia.Current.PickPhotoAsync();
+                    break;
+                }
                 case "Take Photo":
+                {
+                    var storeCameraMediaOptions = new StoreCameraMediaOptions
                     {
-                        var storeCameraMediaOptions = new StoreCameraMediaOptions
-                        {
-                            DefaultCamera = CameraDevice.Rear,
-                            SaveToAlbum = false,
-                            Directory = "Media",
-                            Name = "pic.jpg"
-                        };
-                        mediaFile = await CrossMedia.Current.TakePhotoAsync(storeCameraMediaOptions);
-                        break;
-                    }
+                        DefaultCamera = CameraDevice.Rear,
+                        SaveToAlbum = false,
+                        Directory = "Media",
+                        Name = "pic.jpg"
+                    };
+                    mediaFile = await CrossMedia.Current.TakePhotoAsync(storeCameraMediaOptions);
+                    break;
+                }
                 case "Cancel":
-                    {
-                        mediaFile = null;
-                        break;
-                    }
+                {
+                    mediaFile = null;
+                    break;
+                }
                 default: throw new Exception("Invalid photo option. This should never happen");
             }
             if (mediaFile != null)
@@ -149,22 +148,26 @@ public class ImagesFormModel : BinaryFilesWritableFormModel
     }
     public virtual async void ImageTappedHandler(int imageIndex)
     {
-        if (ImageViewMode == ImageViewModeEnum.SwipingThroughImagesEnabled)
-        {
-            var imagesCarouselPage = new CarouselPage();
-            foreach (var imageFile in ModelsWithBinaryFileFormModels)
-            {
-                var imagePage = CreateSingleImagePage(imageFile, false);
-                imagesCarouselPage.Children.Add(imagePage);
-            }
-            imagesCarouselPage.CurrentPage = imagesCarouselPage.Children[imageIndex];
-            await ParentPage!.Navigation.PushModalAsync(imagesCarouselPage);
-        }
-        else
-        {
-            var imagePage = CreateSingleImagePage(ModelsWithBinaryFileFormModels[imageIndex], true);
-            await ParentPage!.Navigation.PushModalAsync(imagePage);
-        }
+        //if (ImageViewMode == ImageViewModeEnum.SwipingThroughImagesEnabled)
+        //{
+        //    var imagesCarouselPage = new CarouselPage();
+        //    foreach (var imageFile in ModelsWithBinaryFileFormModels)
+        //    {
+        //        var imagePage = CreateSingleImagePage(imageFile, false);
+        //        imagesCarouselPage.Children.Add(imagePage);
+        //    }
+        //    imagesCarouselPage.CurrentPage = imagesCarouselPage.Children[imageIndex];
+        //    await ParentPage!.Navigation.PushModalAsync(imagesCarouselPage);
+        //}
+        //else
+        //{
+        //    var imagePage = CreateSingleImagePage(ModelsWithBinaryFileFormModels[imageIndex], true);
+        //    await ParentPage!.Navigation.PushModalAsync(imagePage);
+        //}
+
+        var imagePage = CreateSingleImagePage(ModelsWithBinaryFileFormModels[imageIndex], true);
+        await ParentPage!.Navigation.PushModalAsync(imagePage);
+
     }
 
     public static byte[] ReadFully(Stream input)
