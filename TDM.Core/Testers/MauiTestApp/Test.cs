@@ -6,6 +6,7 @@ using Supermodel.Client.Frontend.Maui.FormModels;
 using Supermodel.DataAnnotations.Attributes;
 using System.ComponentModel.DataAnnotations;
 using Supermodel.DataAnnotations.Validations;
+using Supermodel.ReflectionMapper;
 
 namespace MauiTestApp
 {
@@ -15,6 +16,7 @@ namespace MauiTestApp
         {
             ValidationResultList vrl = [new ValidationResult("Error", ["Position"])];
             FormModel!.ShowValidationErrors(vrl);
+            FormModel.DisabledPosition.Active = false;
             base.InitContent();
         }
     }
@@ -33,7 +35,8 @@ namespace MauiTestApp
         public string FirstName { get; set; } = "";
         public TextBoxReadOnlyFormModel LastName { get; set; } = new();
         [ForceRequiredLabel] public TextBoxFormModel Position { get; set; } = new();
-        
+        [RMapsTo(".Position")] public TextBoxFormModel DisabledPosition { get; set; } = new();
+
         [ScreenOrder(200), Required] public ToggleSwitchFormModel Active { get; set; } = new();
         [ScreenOrder(200), Required] public MultiLineTextBoxFormModel LongEditableText { get; set; } = new();
     }
