@@ -30,7 +30,7 @@ public abstract class SingleCellWritableUIComponentWithoutBackingFormModel : Sin
         {
             if (_errorMessage == value) return;
 
-            if (value != null)
+            if (!string.IsNullOrEmpty(value))
             {
                 var validationLabel = new Label
                 {
