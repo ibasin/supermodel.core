@@ -1,85 +1,75 @@
-﻿//namespace Supermodel.Client.Frontend.Maui.UIComponents.CustomCells;
+﻿namespace Supermodel.Client.Frontend.Maui.UIComponents.CustomCells;
 
-//public class AddNewCell : ViewCell
-//{
-//    #region Constructors
-//    public AddNewCell(string? imageFileName)
-//    {
-//        View = new StackLayout
-//        {
-//            Padding = new Thickness(8, 0, 8, 0), 
-//            Orientation = StackOrientation.Horizontal, 
-//            VerticalOptions = LayoutOptions.CenterAndExpand, 
-//            HorizontalOptions = LayoutOptions.FillAndExpand,
-//            HeightRequest = 40,
-//        };
+public class AddNewCell : ViewCell
+{
+    #region Constructors
+    public AddNewCell(string? imageFileName)
+    {
+        View = new Grid();
 
-//        if (imageFileName != null)
-//        {
-//            AddNewImage = new Image { Source = imageFileName };
-//            StackLayoutView.Children.Add(AddNewImage);
-//        }
 
-//        AddNewLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, Text = "Add New", FontSize = FormsSettings.LabelFontSize }; 
-//        if (Device.RuntimePlatform == Device.iOS) AddNewLabel.TextColor = Color.FromHex("#007AFF");
-//        StackLayoutView.Children.Add(AddNewLabel);
+        {
+            Padding = new Thickness(8, 0, 8, 0),
+            Orientation = StackOrientation.Horizontal,
+            VerticalOptions = LayoutOptions.CenterAndExpand,
+            HorizontalOptions = LayoutOptions.FillAndExpand,
+            HeightRequest = 40,
+        };
 
-//        ValidationErrorIndicator = new Button{ Text = "!", TextColor = Colors.Red, HorizontalOptions = LayoutOptions.EndAndExpand };
-//        ValidationErrorIndicator.Clicked += ValidationIndicatorClicked;
+        if (imageFileName != null)
+        {
+            AddNewImage = new Image { Source = imageFileName };
+            StackLayoutView.Children.Add(AddNewImage);
+        }
 
-//        RequiredFieldIndicator = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, TextColor = Colors.Red, Text = "*" };
-//    }
-//    #endregion
+        AddNewLabel = new Label { HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center, Text = "Add New", FontSize = FormsSettings.LabelFontSize };
+        if (Device.RuntimePlatform == Device.iOS) AddNewLabel.TextColor = Color.FromHex("#007AFF");
+        StackLayoutView.Children.Add(AddNewLabel);
+    }
+    #endregion
 
-//    #region Event Handlers
-//    public async void ValidationIndicatorClicked(object sender, EventArgs args)
-//    {
-//        if (ParentPage != null) await ParentPage.DisplayAlert("", ErrorMessage, "Ok");
-//    }
-//    #endregion
+    #region Properties
+    public Page? ParentPage { get; set; }
 
-//    #region Properties
-//    public Page ParentPage { get; set; }
-        
-//    public Grid Grid
-//    {
-//        get => (Grid)View;
-//        set => View = value;
-//    }
+    public Grid Grid
+    {
+        get => (Grid)View;
+        set => View = value;
+    }
 
-//    public string Text
-//    {
-//        get => AddNewLabel.Text;
-//        set => AddNewLabel.Text = value;
-//    }
+    public string Text
+    {
+        get => AddNewLabel.Text;
+        set => AddNewLabel.Text = value;
+    }
 
-//    public Label AddNewLabel { get; }
-//    public Image AddNewImage { get; }
+    public Label AddNewLabel { get; }
+    public Image? AddNewImage { get; }
 
-//    public Button ValidationErrorIndicator { get; set; }
-//    public Label RequiredFieldIndicator { get; set; }
-//    public bool Required
-//    {
-//        get => _required;
-//        set
-//        {
-//            if (!_required && value) StackLayoutView.Children.Insert(0, RequiredFieldIndicator);
-//            if (_required && !value) StackLayoutView.Children.Remove(RequiredFieldIndicator);
-//            _required = value;
-//        }
-//    }
-//    private bool _required;
-        
-//    public string? ErrorMessage
-//    {
-//        get => _errorMessage;
-//        set
-//        {
-//            if (_errorMessage == null & value != null) StackLayoutView.Children.Add(ValidationErrorIndicator);
-//            if (_errorMessage != null & value == null) StackLayoutView.Children.Remove(ValidationErrorIndicator);
-//            _errorMessage = value;
-//        }
-//    }
-//    private string? _errorMessage;
-//    #endregion
-//}
+    //public Button ValidationErrorIndicator { get; set; }
+    //public Label RequiredFieldIndicator { get; set; }
+    //public bool Required
+    //{
+    //    get => _required;
+    //    set
+    //    {
+    //        if (!_required && value) StackLayoutView.Children.Insert(0, RequiredFieldIndicator);
+    //        if (_required && !value) StackLayoutView.Children.Remove(RequiredFieldIndicator);
+    //        _required = value;
+    //    }
+    //}
+    //private bool _required;
+
+    //public string? ErrorMessage
+    //{
+    //    get => _errorMessage;
+    //    set
+    //    {
+    //        if (_errorMessage == null && value != null) StackLayoutView.Children.Add(ValidationErrorIndicator);
+    //        if (_errorMessage != null && value == null) StackLayoutView.Children.Remove(ValidationErrorIndicator);
+    //        _errorMessage = value;
+    //    }
+    //}
+    //private string? _errorMessage;
+    #endregion
+}
