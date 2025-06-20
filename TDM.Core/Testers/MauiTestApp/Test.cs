@@ -39,6 +39,7 @@ namespace MauiTestApp
 
         [ScreenOrder(200), Required] public ToggleSwitchFormModel Active { get; set; } = new();
         [ScreenOrder(200), Required] public MultiLineTextBoxFormModel LongEditableText { get; set; } = new();
+        [ScreenOrder(200)] public ImagesFormModel Pictures { get; set; } = new();
     }
 
     public class TestMauiModel : MauiModel

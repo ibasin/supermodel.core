@@ -16,8 +16,7 @@ public abstract class BinaryFilesReadOnlyFormModel : IReadOnlyUIComponentFormMod
     #region Custom Mapper implementation
     public virtual async Task MapFromCustomAsync<T>(T other)
     {
-        if (!(other is IEnumerable<IHaveBinaryFile>)) throw new SupermodelException(GetType().Name + " can only map to Lists of type that implements IHaveBinaryFile");
-        var modelsWithImage = (IEnumerable<IHaveBinaryFile>)other;
+        if (!(other is IEnumerable<IHaveBinaryFile> modelsWithImage)) throw new SupermodelException(GetType().Name + " can only map to Lists of type that implements IHaveBinaryFile");
 
         ModelsWithBinaryFileFormModels.Clear();
         foreach (var modelWithImage in modelsWithImage) ModelsWithBinaryFileFormModels.Add(await new ModelWithBinaryFileFormModel().MapFromAsync(modelWithImage));
