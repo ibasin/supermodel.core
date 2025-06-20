@@ -90,16 +90,16 @@ public abstract class MauiFormModel : ISupermodelMobileDetailTemplate, IAsyncVal
             if (this.PropertyGet(property.Name) is IWritableUIComponentFormModel uiComponent) uiComponent.ErrorMessage = null;
         }
     }
-    public virtual void ShowValidationErrors(IEnumerable<ValidationResult>? vr)
+    public virtual void ShowValidationErrors(IEnumerable<ValidationResult>? vrl)
     {
-        if (vr == null) vr = new ValidationResultList();
+        if (vrl == null) vrl = new ValidationResultList();
         foreach (var property in GetPropertiesInOrder())
         {
             // ReSharper disable PossibleMultipleEnumeration
             if (this.PropertyGet(property.Name) is IWritableUIComponentFormModel uiComponent)
             {
                 uiComponent.ErrorMessage = null;
-                var errors = vr.Where(x => x.MemberNames.Any(y => y == property.Name)).ToList();
+                var errors = vrl.Where(x => x.MemberNames.Any(y => y == property.Name)).ToList();
                     
                 var first = true;
                 foreach (var error in errors)

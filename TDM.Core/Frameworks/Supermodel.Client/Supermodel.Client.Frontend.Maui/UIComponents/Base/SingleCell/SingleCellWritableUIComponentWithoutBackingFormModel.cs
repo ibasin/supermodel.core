@@ -7,6 +7,8 @@ public abstract class SingleCellWritableUIComponentWithoutBackingFormModel : Sin
     {
         ValidationErrorIndicator = new Button{ Text = "!", TextColor = Colors.Red };
         ValidationErrorIndicator.Clicked += ValidationIndicatorClicked!;
+
+        SetGridRows(2);
     }
     #endregion
 
@@ -39,19 +41,8 @@ public abstract class SingleCellWritableUIComponentWithoutBackingFormModel : Sin
         get => _errorMessage;
         set
         {
-            if (_errorMessage == null & value != null)
-            {
-                Grid.Add(ValidationErrorIndicator);
-                SetGridColumns(Grid.ColumnDefinitions.Count + 1);
-            }
-            if (_errorMessage != null & value == null)
-            {
-                //this throws NullReferenceException on Android, ignore it
-                //try { StackLayoutView.Children.Remove(ValidationErrorIndicator); } catch (NullReferenceException) { }
-
-                Grid.RemoveAt(Grid.ColumnDefinitions.Count - 1);
-                SetGridColumns(Grid.ColumnDefinitions.Count - 1);
-            }
+            if (_errorMessage == null && value != null) Grid.Add(new Label { TextColor = FormsSettings.ValidationErrorColor, Text = value }, 1, 1);
+            if (_errorMessage != null && value == null) Grid.RemoveAt(3);
             _errorMessage = value;
         }
     }

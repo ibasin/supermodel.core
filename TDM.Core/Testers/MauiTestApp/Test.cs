@@ -5,12 +5,18 @@ using Supermodel.Client.Frontend.Maui.UIComponents;
 using Supermodel.Client.Frontend.Maui.FormModels;
 using Supermodel.DataAnnotations.Attributes;
 using System.ComponentModel.DataAnnotations;
+using Supermodel.DataAnnotations.Validations;
 
 namespace MauiTestApp
 {
     public class TestPage : CRUDDetailPage<TestMauiModel, TestMauiFormModel, TestSqliteDataContext>
     {
-
+        public override void InitContent()
+        {
+            ValidationResultList vrl = [new ValidationResult("Error", ["Position"])];
+            FormModel!.ShowValidationErrors(vrl);
+            base.InitContent();
+        }
     }
     
     public class TestMauiFormModel : MauiFormModelFor<TestMauiModel>, IHaveSectionNames

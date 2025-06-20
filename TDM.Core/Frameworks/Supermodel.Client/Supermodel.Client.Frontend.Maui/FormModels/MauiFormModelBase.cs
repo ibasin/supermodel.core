@@ -6,7 +6,7 @@ using Supermodel.ReflectionMapper;
 
 namespace Supermodel.Client.Frontend.Maui.FormModels;
 
-public abstract class MauiFormModelForBase<TModel> : MauiFormModel, IRMapperCustom where TModel : class, IModel, ISupermodelNotifyPropertyChanged, new()
+public abstract class MauiFormModelBase<TModel> : MauiFormModel, IRMapperCustom where TModel : class, IModel, ISupermodelNotifyPropertyChanged, new()
 {
     #region ICustomMapper implementation
     public virtual Task MapFromCustomAsync<T>(T other)
@@ -165,10 +165,10 @@ public abstract class MauiFormModelForBase<TModel> : MauiFormModel, IRMapperCust
     public override async Task<ValidationResultList> ValidateAsync(ValidationContext validationContext)
     {
         // ReSharper disable once ConstantNullCoalescingCondition
-        var vr = await base.ValidateAsync(validationContext);
+        var vrl = await base.ValidateAsync(validationContext);
         var tempEntityForValidation = CreateTempValidationEntity();
-        await AsyncValidator.TryValidateObjectAsync(tempEntityForValidation, new ValidationContext(tempEntityForValidation), vr); 
-        return vr;
+        await AsyncValidator.TryValidateObjectAsync(tempEntityForValidation, new ValidationContext(tempEntityForValidation), vrl); 
+        return vrl;
     }
     #endregion
 
