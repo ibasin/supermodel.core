@@ -1,4 +1,5 @@
 ﻿using System;
+using Supermodel.Client.Backend.Auth;
 using Supermodel.Encryptor;
 
 namespace BatchApiClientWM.Supermodel.Auth;

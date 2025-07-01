@@ -1,9 +1,7 @@
-﻿using Supermodel.Encryptor;
-using System.Threading.Tasks;
-using Supermodel.DataAnnotations.Exceptions;
-using Supermodel.Mobile.Runtime.Common.PersistentDict;
+﻿using Supermodel.DataAnnotations.Exceptions;
+using Supermodel.Encryptor;
 
-namespace Supermodel.Mobile.Runtime.Common.XForms.Pages.Login;
+namespace Supermodel.Client.Backend.Auth;
 
 public class BasicAuthHeaderGenerator : IAuthHeaderGenerator
 {
