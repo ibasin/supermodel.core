@@ -11,9 +11,4 @@
     <Folder Include="Supermodel\Runtime\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Client\Supermodel.Mobile.Runtime.Common\Supermodel.Mobile.Runtime.Common.csproj" />
-    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Client\Supermodel.Mobile.Runtime.NetCore\Supermodel.Mobile.Runtime.NetCore.csproj" />
-  </ItemGroup>
-
 </Project>

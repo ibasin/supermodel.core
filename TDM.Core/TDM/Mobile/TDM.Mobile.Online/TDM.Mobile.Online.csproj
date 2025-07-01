@@ -34,8 +34,4 @@
     <Folder Include="Pages\" />
     <Folder Include="Supermodel\Runtime\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Client\Supermodel.Mobile.Runtime.Common\Supermodel.Mobile.Runtime.Common.csproj" />
-  </ItemGroup>
 </Project>
