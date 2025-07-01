@@ -43,16 +43,16 @@ class Program
             Console.WriteLine($"Version {SolutionMaker.Version}");
 
             Console.WriteLine("Please Enter Solution Parameters");
-            var solutionMakerParams = SolutionMakerParams.ReadFromConsole();
+            //var solutionMakerParams = SolutionMakerParams.ReadFromConsole();
 
             //Comment this out for production, this is to speed up development and incremental testing
-            //var solutionMakerParams = new SolutionMakerParams
-            //{
-            //    SolutionName = "XYX",
-            //    SolutionDirectory = @"C:\Users\ilyabasin\Documents\Projects",
-            //    WebFramework = WebFrameworkEnum.Mvc,
-            //    Database = DatabaseEnum.SqlServer
-            //};
+            var solutionMakerParams = new SolutionMakerParams
+            {
+                SolutionName = "XYX",
+                SolutionDirectory = @"C:\Users\ilyab\Documents\Projects",
+                WebFramework = WebFrameworkEnum.Mvc,
+                Database = DatabaseEnum.SqlServer
+            };
             //End of comment out for production
 
             var path = solutionMakerParams.CalculateFullPath();

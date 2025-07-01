@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Frameworks\Supermodel.Client\Supermodel.Client.CodeGen\Supermodel.Client.CodeGen.csproj" />
-    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Mobile\Supermodel.Mobile.CodeGen\Supermodel.Mobile.CodeGen.csproj" />
     <ProjectReference Include="..\..\Server\WebWM\WebWM.csproj" />
   </ItemGroup>
 
