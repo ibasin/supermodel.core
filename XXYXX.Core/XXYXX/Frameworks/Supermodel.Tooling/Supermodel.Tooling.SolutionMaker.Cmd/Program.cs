@@ -51,7 +51,6 @@ class Program
             //    SolutionName = "XYX",
             //    SolutionDirectory = @"C:\Users\ilyabasin\Documents\Projects",
             //    WebFramework = WebFrameworkEnum.Mvc,
-            //    MobileApi = MobileApiEnum.Native,
             //    Database = DatabaseEnum.SqlServer
             //};
             //End of comment out for production
