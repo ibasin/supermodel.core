@@ -21,7 +21,7 @@ namespace Supermodel.ApiClient.Models
 	//Extension method for DeleteAllBeforeApi command
 	public static class DeleteAllBeforeApiCommandExt
 	{
-		public static async Task<DeleteAllBeforeOutput> DeleteAllBeforeApiAsync(this WebApiDataContext me, DeleteAllBeforeInput input)
+		public static async Task<DeleteAllBeforeOutput?> DeleteAllBeforeApiAsync(this WebApiDataContext me, DeleteAllBeforeInput input)
 		{
 			return await me.ExecutePostAsync<DeleteAllBeforeInput, DeleteAllBeforeOutput>("DeleteAllBeforeApi", input);
 		}

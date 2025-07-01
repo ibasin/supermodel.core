@@ -34,11 +34,6 @@ public class SolutionMakerParams : ISolutionMakerParams
             Console.WriteLine(solutionMakerParams.WebFramework.GetDescription());
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("Mobile API: ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(solutionMakerParams.MobileApi.GetDescription());
-
-            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Database: ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(solutionMakerParams.Database.GetDescription());

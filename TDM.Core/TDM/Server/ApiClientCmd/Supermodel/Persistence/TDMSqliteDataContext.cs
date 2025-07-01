@@ -44,11 +44,11 @@ public class TDMSqliteDataContext : SqliteDataContext
         }
     }
 
-    public override string GetWhereClause<TModel>(object searchBy, string sortBy)
+    public override string GetWhereClause<TModel>(object? searchBy, string? sortBy)
     {
         var result = new StringBuilder();
 
-        var searchTerm = (string?)searchBy.PropertyGet(nameof(SimpleSearch.SearchTerm));
+        var searchTerm = (string?)searchBy?.PropertyGet(nameof(SimpleSearch.SearchTerm));
         if (!string.IsNullOrEmpty(searchTerm)) result.Append($"AND Index0 LIKE '%{searchTerm}%'");
 
         if (!string.IsNullOrEmpty(sortBy)) throw new Exception("Unexpected sortBy");

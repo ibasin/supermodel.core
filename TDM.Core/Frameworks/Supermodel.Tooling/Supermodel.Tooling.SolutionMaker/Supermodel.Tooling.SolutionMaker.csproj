@@ -22,20 +22,6 @@
     <None Remove="Snippets2Delete\SolutionIfWM\snippet4.txt" />
     <None Remove="Snippets2Delete\SolutionIfWM\snippet5.txt" />
     <None Remove="Snippets2Delete\SolutionIfWM\snippet6.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetA.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetB.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetC.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetD.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetE.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetF.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetG.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetI.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetJ.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetK.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetL.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetM.txt" />
-    <None Remove="Snippets2Delete\SolutionNoMobile\snippetN.txt" />
-    <None Remove="Snippets2Delete\XXYXXMobileProjIfNativeAPI\snippet1.txt" />
     <None Remove="Snippets2Replace\DataContextIfSqlServer\replacement1.txt" />
     <None Remove="Snippets2Replace\DataContextIfSqlServer\snippet1.txt" />
   </ItemGroup>
@@ -43,20 +29,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Snippets2Delete\DomainProjIfSQLite\snippet1.txt" />
     <EmbeddedResource Include="Snippets2Delete\DomainProjIfSQLServer\snippet1.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetM.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetN.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetL.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetK.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetJ.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetI.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetG.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetF.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetE.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetD.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetC.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetB.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionNoMobile\snippetA.txt" />
-    <EmbeddedResource Include="Snippets2Delete\XXYXXMobileProjIfNativeAPI\snippet1.txt" />
   </ItemGroup>
 
   <ItemGroup>
