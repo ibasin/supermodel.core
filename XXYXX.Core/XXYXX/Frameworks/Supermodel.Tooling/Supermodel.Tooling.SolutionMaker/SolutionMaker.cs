@@ -78,115 +78,10 @@ public static class SolutionMaker
         ReplaceInDir(path, marker, solutionMakerParams.SolutionName, "SolutionMaker.cs");
     }
 
-    //private static void AdjustForMobileApi(MobileApiEnum mobileApi, string path)
-    //{
-    //    if (mobileApi == MobileApiEnum.XamarinForms)
-    //    {
-    //        //Droid
-    //        File.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.Droid\MainActivity.cs"));
-    //        File.Move(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.Droid\MainActivity.XamarinForms.cs"), CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.Droid\MainActivity.cs"));
-
-    //        //iOS
-    //        File.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.iOS\AppDelegate.cs"));
-    //        File.Move(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.iOS\AppDelegate.XamarinForms.cs"), CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.iOS\AppDelegate.cs"));
-    //    }
-    //    else //both none and native go here 
-    //    {
-    //        //Droid
-    //        File.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.Droid\MainActivity.XamarinForms.cs"));
-
-    //        //iOS
-    //        File.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile.iOS\AppDelegate.XamarinForms.cs"));
-
-    //        //Mobile
-    //        Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile\AppCore"), true);
-    //        Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile\EmbeddedResources"), true);
-    //        Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile\Models"), true);
-    //        Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile\Pages"), true);
-
-    //        //Remove icon as embedded resource
-    //        var assemblyName = typeof(SolutionMaker).Assembly.GetName().Name;
-    //        var xxyxxMobileProjFile = CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile\XXYXX.Mobile.csproj");
-    //        var xxyxxMobileProjFileContent = File.ReadAllText(xxyxxMobileProjFile);
-                
-    //        var snippet1 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.XXYXXMobileProjIfNativeAPI.snippet1.txt");
-    //        xxyxxMobileProjFileContent = xxyxxMobileProjFileContent.RemoveStrWithCheck(snippet1);
-
-    //        File.WriteAllText(xxyxxMobileProjFile, xxyxxMobileProjFileContent);
-
-    //        //if we have no mobile components, keep the files but delete projects from the solution (so we can later restore projects)
-    //        if (mobileApi == MobileApiEnum.NoMobile)
-    //        {
-    //            //model generator program.cs
-    //            var snippet = @"File.WriteAllText(@""..\..\..\..\..\Mobile\XXYXX.Mobile\Supermodel\ModelsForRuntime\Supermodel.Mobile.ModelsForRuntime.cs"", code);";
-
-    //            var modelGeneratorWMProgramFile = CombineAndAdjustPaths(path, @"XXYXX\Util\ModelGeneratorWM\Program.cs");
-    //            var modelGeneratorWMProgramFileContent = File.ReadAllText(modelGeneratorWMProgramFile);
-    //            modelGeneratorWMProgramFileContent = modelGeneratorWMProgramFileContent.ReplaceStrWithCheck(snippet, $"//{snippet}");
-    //            File.WriteAllText(modelGeneratorWMProgramFile, modelGeneratorWMProgramFileContent);
-
-    //            var modelGeneratorMvcProgramFile = CombineAndAdjustPaths(path, @"XXYXX\Util\ModelGeneratorMVC\Program.cs");
-    //            var modelGeneratorMvcProgramFileContent = File.ReadAllText(modelGeneratorMvcProgramFile);
-    //            modelGeneratorMvcProgramFileContent = modelGeneratorMvcProgramFileContent.ReplaceStrWithCheck(snippet, $"//{snippet}");
-    //            File.WriteAllText(modelGeneratorMvcProgramFile, modelGeneratorMvcProgramFileContent);
-
-    //            //solution file
-    //            var solutionFile = CombineAndAdjustPaths(path, "XXYXX.sln");
-    //            var solutionFileContent = File.ReadAllText(solutionFile);
-
-    //            var snippetA = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetA.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetA);
-
-    //            var snippetB = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetB.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetB);
-
-    //            var snippetC = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetC.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetC);
-
-    //            var snippetD = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetD.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetD);
-
-    //            var snippetE = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetE.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetE);
-
-    //            var snippetF = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetF.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetF);
-
-    //            var snippetG = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetG.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetG);
-
-    //            var snippetI = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetI.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetI);
-
-    //            var snippetJ = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetJ.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetJ);
-
-    //            var snippetK = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetK.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetK);
-
-    //            var snippetL = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetL.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetL);
-
-    //            var snippetM = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetM.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetM);
-
-    //            var snippetN = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionNoMobile.snippetN.txt");
-    //            solutionFileContent = solutionFileContent.RemoveStrWithCheck(snippetN);
-
-    //            File.WriteAllText(solutionFile, solutionFileContent);
-    //        }
-    //    }
-    //}
     private static void AdjustForWebFramework(WebFrameworkEnum webFramework, string path)
     {
         var solutionFile = CombineAndAdjustPaths(path, "XXYXX.sln");
         var solutionFileContent = File.ReadAllText(solutionFile);
-
-        var webApiDataContextFile = CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile\Supermodel\Persistence\XXYXXWebApiDataContext.cs");
-        var webApiDataContextFileContent = File.ReadAllText(webApiDataContextFile);
-
-        var mobileModelsForRuntimeFile = CombineAndAdjustPaths(path, @"XXYXX\Mobile\XXYXX.Mobile\Supermodel\ModelsForRuntime\Supermodel.Mobile.ModelsForRuntime.cs");
-        var mobileModelsForRuntimeFileContent = File.ReadAllText(mobileModelsForRuntimeFile);
 
         var assemblyName = typeof(SolutionMaker).Assembly.GetName().Name;
 
@@ -212,7 +107,7 @@ public static class SolutionMaker
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Util\ModelGeneratorMVC"), true);
 
             //Modify XXYXXWebApiDataContext.cs to have the right web api endpoint
-            webApiDataContextFileContent = webApiDataContextFileContent.RemoveStrWithCheck(@"//public override string BaseUrl => ""http://10.211.55.9:54208/""; //this one is for MVC");
+            //webApiDataContextFileContent = webApiDataContextFileContent.RemoveStrWithCheck(@"//public override string BaseUrl => ""http://10.211.55.9:54208/""; //this one is for MVC");
 
             //We do not modify runtime models to update RestUrl attribute because WM is the default
         }
@@ -236,17 +131,8 @@ public static class SolutionMaker
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\WebWM"), true);
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\BatchApiClientWM"), true);
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Util\ModelGeneratorWM"), true);
-
-            //Modify XXYXXWebApiDataContext.cs to have the right web api endpoint
-            webApiDataContextFileContent = webApiDataContextFileContent.ReplaceStrWithCheck(@"//public override string BaseUrl => ""http://10.211.55.9:54208/""; //this one is for MVC", @"public override string BaseUrl => ""http://10.211.55.9:54208/"";");
-            webApiDataContextFileContent = webApiDataContextFileContent.RemoveStrWithCheck(@"public override string BaseUrl => ""http://10.211.55.9:54208/api/""; //this one is for WM");
-
-            //Modify runtime models to update RestUrl attribute
-            mobileModelsForRuntimeFileContent = mobileModelsForRuntimeFileContent.ReplaceStrWithCheck(@"[RestUrl(""XXYXXUserUpdatePassword"")]", @"[RestUrl(""XXYXXUserUpdatePasswordApi"")]");
         }
 
-        File.WriteAllText(mobileModelsForRuntimeFile, mobileModelsForRuntimeFileContent);
-        File.WriteAllText(webApiDataContextFile, webApiDataContextFileContent);
         File.WriteAllText(solutionFile, solutionFileContent);
     }
     private static void AdjustForDatabase(DatabaseEnum database, string path)

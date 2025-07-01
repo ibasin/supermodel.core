@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <None Remove="Snippets2Delete\SolutionIfMVC\snippet1.txt" />
-    <None Remove="Snippets2Delete\SolutionIfMVC\snippet2.txt" />
-    <None Remove="Snippets2Delete\SolutionIfMVC\snippet3.txt" />
     <None Remove="Snippets2Delete\SolutionIfMVC\snippet4.txt" />
     <None Remove="Snippets2Delete\SolutionIfMVC\snippet5.txt" />
     <None Remove="Snippets2Delete\SolutionIfMVC\snippet6.txt" />
@@ -33,8 +31,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Snippets2Delete\SolutionIfMVC\snippet1.txt" />
-    <EmbeddedResource Include="Snippets2Delete\SolutionIfMVC\snippet2.txt" />
     <EmbeddedResource Include="Snippets2Delete\SolutionIfMVC\snippet3.txt" />
+    <EmbeddedResource Include="Snippets2Delete\SolutionIfMVC\snippet2.txt" />
     <EmbeddedResource Include="Snippets2Delete\SolutionIfMVC\snippet4.txt" />
     <EmbeddedResource Include="Snippets2Delete\SolutionIfMVC\snippet5.txt" />
     <EmbeddedResource Include="Snippets2Delete\SolutionIfMVC\snippet6.txt" />
