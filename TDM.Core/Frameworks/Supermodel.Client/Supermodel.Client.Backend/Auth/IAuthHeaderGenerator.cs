@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Supermodel.Encryptor;   
+﻿using Supermodel.Encryptor;
 
-namespace Supermodel.Mobile.Runtime.Common.XForms.Pages.Login;
+namespace Supermodel.Client.Backend.Auth;
 
 public interface IAuthHeaderGenerator
 {
