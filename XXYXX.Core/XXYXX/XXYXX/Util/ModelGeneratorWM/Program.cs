@@ -1,6 +1,6 @@
-﻿using Supermodel.Mobile.CodeGen;
-using System;
+﻿using System;
 using System.IO;
+using Supermodel.Client.CodeGen;
 
 namespace ModelGeneratorWM;
 
@@ -8,7 +8,7 @@ class Program
 {
     static void Main()
     {
-        var modelGenerator = new ModelGen(new[] { typeof(WebWM.Mvc.XXYXXUserUpdatePasswordPage.XXYXXUserUpdatePasswordMvcController).Assembly });
+        var modelGenerator = new ModelGen([typeof(WebWM.Mvc.XXYXXUserUpdatePasswordPage.XXYXXUserUpdatePasswordMvcController).Assembly]);
         var sb = modelGenerator.GenerateModels();
         var code = sb.ToString();
 

@@ -7,7 +7,7 @@ using Supermodel.ReflectionMapper;
 
 namespace CsvMaker.Models;
 
-public class CsvModel : ICsvMakerCustom, ICsvReaderCustom, IRMapperCustom
+public abstract class CsvModel : ICsvMakerCustom, ICsvReaderCustom, IRMapperCustom
 {
     #region ICsvMakerCustom implementation
     public virtual StringBuilder ToCsvRowCustom(StringBuilder? sb = null)

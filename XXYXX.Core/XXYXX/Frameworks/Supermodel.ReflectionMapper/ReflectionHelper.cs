@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Supermodel.DataAnnotations.Attributes;
+using Supermodel.DataAnnotations.Validations;
 
 namespace Supermodel.ReflectionMapper;
 
@@ -82,7 +83,7 @@ public static class ReflectionHelper
     }
     public static object CreateGenericType(Type genericType, Type innerType, params object?[] args)
     {
-        return CreateGenericType(genericType, new[] {innerType}, args);
+        return CreateGenericType(genericType, [innerType], args);
     }
         
     public static object? PropertyGet(this object me, string propertyName, object[]? index = null)
@@ -102,7 +103,7 @@ public static class ReflectionHelper
         var setMethod = myProperty.GetSetMethod(true);
         if (setMethod != null)
         {
-            setMethod.Invoke(me, new[] {newValue});
+            setMethod.Invoke(me, [newValue]);
         }
         else
         {
@@ -152,12 +153,16 @@ public static class ReflectionHelper
     {
         try
         {
-            var methodInfo = me.GetType().GetMethods().Single(m => m.Name == methodName && m.IsGenericMethod && m.GetParameters().Length == args.Length && m.GetParameters().Length == args.Length);
+            var methodInfo = me.GetType().GetMethods().Single(m =>
+                m.Name == methodName && m.IsGenericMethod && m.GetParameters().Length == args.Length &&
+                m.GetParameters().Length == args.Length);
             var genericMethodInfo = methodInfo.MakeGenericMethod(genericArguments);
             return genericMethodInfo.Invoke(me, args);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            if (ex.InnerException is ValidationResultException) throw ex.InnerException;
+            
             throw new ReflectionMethodCantBeInvoked(me.GetType(), methodName);
         }
     }

@@ -127,7 +127,7 @@ public abstract class ApiController : ControllerBase
                     }
                     catch (WebMonkInvalidFormatException)
                     {
-                        return (false, Array.Empty<object?>());
+                        return (false, []);
                     }
                 }
             }
@@ -138,7 +138,7 @@ public abstract class ApiController : ControllerBase
             }
             else if (parameterValue == Type.Missing)
             {
-                if (!parameterInfo.IsOptional) return(false, Array.Empty<object?>());
+                if (!parameterInfo.IsOptional) return(false, []);
             }
             else
             {

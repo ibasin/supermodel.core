@@ -10,10 +10,16 @@ namespace Supermodel.Presentation.WebMonk.Bootstrap4.Models.Base;
 public abstract class SingleSelectMvcModelUsingEnum<TEnum> : SingleSelectMvcModel where TEnum : struct, IConvertible
 {
     #region Nested Options class
-    public class EnumOption(TEnum value, string label, bool isDisabled) : Option(value.ToString(CultureInfo.InvariantCulture), label, isDisabled)
+    public class EnumOption : Option
     {
+        #region Constructors
         public EnumOption(TEnum value) : this(value, value.GetDescription(), value.IsDisabled()) { }
+        public EnumOption(TEnum value, string label, bool isDisabled) : base(value.ToString(CultureInfo.InvariantCulture), label, isDisabled) { }
+        #endregion
+
+        #region Methods
         public TEnum EnumValue => (TEnum)Enum.Parse(typeof(TEnum), Value);
+        #endregion
     }
     #endregion
         
