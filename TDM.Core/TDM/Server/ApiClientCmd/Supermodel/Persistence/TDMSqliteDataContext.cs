@@ -1,20 +1,22 @@
+using Supermodel.ApiClient.Models;
+using Supermodel.Client.Backend.DataContext.Sqlite;
+using Supermodel.Client.Backend.Repository;
+using Supermodel.Client.Backend.UnitOfWork;
+using Supermodel.ReflectionMapper;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Supermodel.ApiClient.Models;
-using Supermodel.Mobile.Runtime.Common.DataContext.Sqlite;
-using Supermodel.Mobile.Runtime.Common.Repository;
-using Supermodel.Mobile.Runtime.Common.UnitOfWork;
-using Supermodel.ReflectionMapper;
 
 namespace ApiClientCmd.Supermodel.Persistence;
 
 public class TDMSqliteDataContext : SqliteDataContext
 {
     #region Overrides
-    //Optionally: Put your DbFileName here. For exmample if you need use multiple dbs 
-    // ReSharper disable once RedundantOverriddenMember
-    public override string DbFileName => base.DbFileName;
+    //For MAUI apps return Path.Combine(FileSystem.Current.AppDataDirectory, "<filename>.db");
+    //For .Net clients return Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName)!, "<filename>.db");
+    public override string DatabaseFilePath => Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule!.FileName)!, "<filename>.db");
 
     //Optionally: Put your schema version here 
     // ReSharper disable once RedundantOverriddenMember

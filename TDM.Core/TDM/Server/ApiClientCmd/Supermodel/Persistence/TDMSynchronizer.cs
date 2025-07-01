@@ -1,7 +1,7 @@
 ﻿using System;
 using ApiClientCmd.Supermodel.Auth;
 using Supermodel.ApiClient.Models;
-using Supermodel.Mobile.Runtime.Common.DataContext.Offline;
+using Supermodel.Client.Backend.DataContext.Offline;
 
 namespace ApiClientCmd.Supermodel.Persistence;
 

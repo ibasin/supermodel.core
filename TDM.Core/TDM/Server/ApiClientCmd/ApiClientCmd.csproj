@@ -11,4 +11,8 @@
     <Folder Include="Supermodel\Runtime\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Frameworks\Supermodel.Client\Supermodel.Client.Backend\Supermodel.Client.Backend.csproj" />
+  </ItemGroup>
+
 </Project>

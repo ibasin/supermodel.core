@@ -1,6 +1,6 @@
 ﻿using System;
+using Supermodel.Client.Backend.Auth;
 using Supermodel.Encryptor;
-using Supermodel.Mobile.Runtime.Common.XForms.Pages.Login;
 
 namespace ApiClientCmd.Supermodel.Auth;
 

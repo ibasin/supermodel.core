@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using ApiClientCmd.Supermodel.Auth;
 using ApiClientCmd.Supermodel.Persistence;
 using Supermodel.ApiClient.Models;
-using Supermodel.Mobile.Runtime.Common.DataContext.Core;
-using Supermodel.Mobile.Runtime.Common.Repository;
-using Supermodel.Mobile.Runtime.Common.UnitOfWork;
+using Supermodel.Client.Backend.DataContext.Core;
+using Supermodel.Client.Backend.Repository;
+using Supermodel.Client.Backend.UnitOfWork;
 
 namespace ApiClientCmd;
 
