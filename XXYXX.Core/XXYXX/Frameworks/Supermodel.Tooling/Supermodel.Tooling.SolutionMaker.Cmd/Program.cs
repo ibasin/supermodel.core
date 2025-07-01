@@ -42,8 +42,10 @@ class Program
             Console.WriteLine("Supermodel.Core Solution Maker");
             Console.WriteLine($"Version {SolutionMaker.Version}");
 
-            Console.WriteLine("Please Enter Solution Parameters");
-            //var solutionMakerParams = SolutionMakerParams.ReadFromConsole();
+            //Comment this out for debugging, this is to speed up development and incremental testing
+            //Console.WriteLine("Please Enter Solution Parameters");
+            //var solutionMakerParams = SolutionMakerParams.ReadFromConsole(); 
+            //End of comment out for debugging
 
             //Comment this out for production, this is to speed up development and incremental testing
             var solutionMakerParams = new SolutionMakerParams
