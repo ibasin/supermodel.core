@@ -52,8 +52,8 @@ class Program
             {
                 SolutionName = "XYX",
                 SolutionDirectory = @"C:\Users\ilyab\Documents\Projects",
-                WebFramework = WebFrameworkEnum.Mvc,
-                Database = DatabaseEnum.SqlServer
+                WebFramework = WebFrameworkEnum.WebMonk,
+                Database = DatabaseEnum.Sqlite
             };
             //End of comment out for production
 
