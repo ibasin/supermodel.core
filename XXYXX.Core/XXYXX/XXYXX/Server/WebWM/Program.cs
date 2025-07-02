@@ -46,14 +46,9 @@ public class Program
         //    if (AskUserWhetherToMigrateDb())
         //    {
         //        Console.Write("Migrating the database... ");
-
         //        var sql = EmbeddedResource.ReadTextFileWithFileName(typeof(Program).Assembly, "MigrationScripts.script.sql");
-
-
         //        sql = sql.Replace("GO", "");
-
         //        await EFCoreUnitOfWorkContext.Database.ExecuteSqlAsync(FormattableStringFactory.Create(sql));
-
         //        Console.WriteLine("Done!");
         //        Console.WriteLine();
         //    }
