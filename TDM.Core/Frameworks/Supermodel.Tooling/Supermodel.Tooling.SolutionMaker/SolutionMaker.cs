@@ -100,14 +100,13 @@ public static class SolutionMaker
                 .RemoveStrWithCheck(snippet4)
                 .RemoveStrWithCheck(snippet5);
 
+            solutionFileContent = solutionFileContent.DeleteLinesContaining("{A948AEF7-8737-49A0-A47C-0652ED858D30}", 5);
+            solutionFileContent = solutionFileContent.DeleteLinesContaining("{7234523C-4609-4197-9DA5-3DC77A172D5B}", 5);
+            solutionFileContent = solutionFileContent.DeleteLinesContaining("{AF40EEB6-FADC-5F3A-7280-EEDDF7B41BBA}", 5);
+
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\WebMVC"), true);
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\BatchApiClientMVC"), true);
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Util\ModelGeneratorMVC"), true);
-
-            //Modify XXYXXWebApiDataContext.cs to have the right web api endpoint
-            //webApiDataContextFileContent = webApiDataContextFileContent.RemoveStrWithCheck(@"//public override string BaseUrl => ""http://10.211.55.9:54208/""; //this one is for MVC");
-
-            //We do not modify runtime models to update RestUrl attribute because WM is the default
         }
         else
         {
@@ -123,6 +122,10 @@ public static class SolutionMaker
                 .RemoveStrWithCheck(snippet3)
                 .RemoveStrWithCheck(snippet4)
                 .RemoveStrWithCheck(snippet5);
+
+            solutionFileContent = solutionFileContent.DeleteLinesContaining("{52339205-60DC-4289-A179-9DDE6D6DA1B3}", 5);
+            solutionFileContent = solutionFileContent.DeleteLinesContaining("{AD0DFA5F-8D59-4775-8A87-EA83F9A8437B}", 5);
+            solutionFileContent = solutionFileContent.DeleteLinesContaining("{75BD2AD6-E020-4DFC-8101-A8E5D36AED2C}", 5);
 
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\WebWM"), true);
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\BatchApiClientWM"), true);
@@ -416,6 +419,20 @@ public static class SolutionMaker
 
         if (!me.Contains(str1)) throw new Exception($"ReplaceStrWithCheck: '{str1.Substring(0, 60)}...' not found. \n" + GetStackTrace());
         return me.Replace(str1, str2);
+    }
+    private static string DeleteLinesContaining(this string me, string str, int expectedCount = -1)
+    {
+        var strLinesArr = me.Split('\n');
+        if (expectedCount > 0)
+        {
+            var count = strLinesArr.Count(x => x.Contains(str));
+            if (count != expectedCount) throw new Exception($"DeleteLinesContaining({str}): count != expectedCount");
+        }
+
+        var linesToKeep = strLinesArr.Where(x => !x.Contains(str));
+        string result = string.Join("\n", linesToKeep.ToArray());
+
+        return result;
     }
     private static string ReadResourceTextFile(string resourceName)
     {
