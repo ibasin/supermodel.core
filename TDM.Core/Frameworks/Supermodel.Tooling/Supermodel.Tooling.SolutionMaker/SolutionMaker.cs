@@ -92,17 +92,13 @@ public static class SolutionMaker
             var snippet3 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet3.txt");
             var snippet4 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet4.txt");
             var snippet5 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet5.txt");
-            var snippet6 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet6.txt");
-            var snippet7 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet7.txt");
 
             solutionFileContent = solutionFileContent
                 .RemoveStrWithCheck(snippet1)
                 .RemoveStrWithCheck(snippet2)
                 .RemoveStrWithCheck(snippet3)
                 .RemoveStrWithCheck(snippet4)
-                .RemoveStrWithCheck(snippet5)
-                .RemoveStrWithCheck(snippet6)
-                .RemoveStrWithCheck(snippet7);
+                .RemoveStrWithCheck(snippet5);
 
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\WebMVC"), true);
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\BatchApiClientMVC"), true);
@@ -120,17 +116,13 @@ public static class SolutionMaker
             var snippet3 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet3.txt");
             var snippet4 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet4.txt");
             var snippet5 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet5.txt");
-            var snippet6 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet6.txt");
-            var snippet7 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet6.txt");
 
             solutionFileContent = solutionFileContent
                 .RemoveStrWithCheck(snippet1)
                 .RemoveStrWithCheck(snippet2)
                 .RemoveStrWithCheck(snippet3)
                 .RemoveStrWithCheck(snippet4)
-                .RemoveStrWithCheck(snippet5)
-                .RemoveStrWithCheck(snippet6)
-                .RemoveStrWithCheck(snippet7);
+                .RemoveStrWithCheck(snippet5);
 
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\WebWM"), true);
             Directory.Delete(CombineAndAdjustPaths(path, @"XXYXX\Server\BatchApiClientWM"), true);
