@@ -36,7 +36,7 @@ public class Program
         Console.ReadLine();
 
         //var authHeaderGenerator = new BasicAuthHeaderGenerator("ilya.basin@noblis.org", "0");
-        var authHeaderGenerator = new TDMSecureAuthHeaderGenerator("ilya.basin@noblis.org", "0", []);
+        var authHeaderGenerator = new TDMSecureAuthHeaderGenerator("ilya.basin@noblis.org", "0");
 
         // ReSharper disable once NotAccessedVariable
         DelayedModels<ToDoList> delayedTodoLists;

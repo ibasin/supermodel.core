@@ -16,7 +16,7 @@ public class TDMSecureAuthHeaderGenerator : BasicAuthHeaderGenerator
     #endregion
 
     #region Constructors
-    public TDMSecureAuthHeaderGenerator(string username, string password, byte[] localStorageEncryptionKey) : base(username, password, localStorageEncryptionKey){}
+    public TDMSecureAuthHeaderGenerator(string username, string password) : base(username, password){}
     #endregion
 
     #region Overrides

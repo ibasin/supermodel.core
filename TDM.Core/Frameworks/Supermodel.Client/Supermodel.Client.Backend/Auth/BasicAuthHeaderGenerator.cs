@@ -5,11 +5,10 @@ namespace Supermodel.Client.Backend.Auth;
 public class BasicAuthHeaderGenerator : IAuthHeaderGenerator
 {
     #region Constructors
-    public BasicAuthHeaderGenerator(string username, string password, byte[]? localStorageEncryptionKey = null)
+    public BasicAuthHeaderGenerator(string username, string password)
     {
         Username = username;
         Password = password;
-        LocalStorageEncryptionKey = localStorageEncryptionKey;
     }
     #endregion
 				
@@ -25,7 +24,5 @@ public class BasicAuthHeaderGenerator : IAuthHeaderGenerator
     public string? UserLabel { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }
-
-    private byte[]? LocalStorageEncryptionKey { get; }
     #endregion
 }
