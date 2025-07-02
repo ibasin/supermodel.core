@@ -86,8 +86,8 @@ public class Program
             LoginUrl = "/Auth/Login",
             DefaultLayout = new MasterMvcLayout()
         };
-        //webServer.GlobalFilters.Add(new ApiSecureAuthenticateAttribute());
-        webServer.GlobalFilters.Add(new ApiBasicAuthenticateAttribute());
+        webServer.GlobalFilters.Add(new ApiSecureAuthenticateAttribute());
+        //webServer.GlobalFilters.Add(new ApiBasicAuthenticateAttribute());
         #endregion
 
         #region Start Web Server. If in Debug open the browser, otherwise just sit and listen for web requests

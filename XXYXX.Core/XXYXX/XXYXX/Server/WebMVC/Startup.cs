@@ -13,8 +13,8 @@ namespace WebMVC
         public void ConfigureServices(IServiceCollection services)
         {
             //Pick one of these for web api authentication
-            //services.AddSupermodelMvcBs4D3Services<ApiSecureAuthenticationHandler>();
-            services.AddSupermodelMvcBs4D3Services<ApiBasicAuthenticationHandler>();
+            services.AddSupermodelMvcBs4D3Services<ApiSecureAuthenticationHandler>();
+            //services.AddSupermodelMvcBs4D3Services<ApiBasicAuthenticationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
