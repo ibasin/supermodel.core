@@ -15,7 +15,7 @@ class Program
         Console.ReadLine();
             
         //var authHeaderGenerator = new BasicAuthHeaderGenerator("supermodel@noblis.org", "1234");
-        var authHeaderGenerator = new XXYXXSecureAuthHeaderGenerator("supermodel@noblis.org", "1234", new byte[0]);
+        var authHeaderGenerator = new XXYXXSecureAuthHeaderGenerator("supermodel@noblis.org", "1234");
 
         await using (new UnitOfWork<XXYXXWebApiDataContext>())
         {

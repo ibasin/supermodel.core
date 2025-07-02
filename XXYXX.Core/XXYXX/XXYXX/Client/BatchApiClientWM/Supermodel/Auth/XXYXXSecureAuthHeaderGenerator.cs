@@ -7,7 +7,7 @@ namespace BatchApiClientWM.Supermodel.Auth;
 public class XXYXXSecureAuthHeaderGenerator : BasicAuthHeaderGenerator
 {
     #region Constructors
-    public XXYXXSecureAuthHeaderGenerator(string username, string password, byte[] localStorageEncryptionKey) : base(username, password, localStorageEncryptionKey){}
+    public XXYXXSecureAuthHeaderGenerator(string username, string password) : base(username, password){}
     #endregion
 
     #region Overrides

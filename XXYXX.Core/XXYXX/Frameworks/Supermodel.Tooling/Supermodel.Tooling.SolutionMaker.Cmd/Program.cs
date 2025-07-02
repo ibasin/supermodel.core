@@ -14,26 +14,26 @@ class Program
             SolutionMaker.Version = "9.5.0-Alpha";
 
             //*******Un-comment and run this once to refresh the solution zip
-            Console.WriteLine($"v{SolutionMaker.Version}");
-            Console.WriteLine();
+            //Console.WriteLine($"v{SolutionMaker.Version}");
+            //Console.WriteLine();
 
-            Console.Write("Deleting XXYXX\\Frameworks directory... ");
-            Directory.Delete(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks", true);
-            Console.WriteLine("Done!");
+            //Console.Write("Deleting XXYXX\\Frameworks directory... ");
+            //Directory.Delete(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks", true);
+            //Console.WriteLine("Done!");
 
-            Console.Write("Copying Frameworks directory from TDM.Core to XXYXX... ");
-            CopyDirectory(@"..\..\..\..\..\..\Frameworks", @"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks");
-            Console.WriteLine("Done!");
+            //Console.Write("Copying Frameworks directory from TDM.Core to XXYXX... ");
+            //CopyDirectory(@"..\..\..\..\..\..\Frameworks", @"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\Frameworks");
+            //Console.WriteLine("Done!");
 
-            //Adjust versions in XXYXX and in TDM
-            File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
-            File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
-            Console.WriteLine("Version.txt files updated successfully!");
+            ////Adjust versions in XXYXX and in TDM
+            //File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
+            //File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
+            //Console.WriteLine("Version.txt files updated successfully!");
 
-            SolutionMaker.CreateSnapshot(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX", @"..\..\..\");
-            Console.WriteLine($"{SolutionMaker.ZipFileName} created successfully!");
+            //SolutionMaker.CreateSnapshot(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX", @"..\..\..\");
+            //Console.WriteLine($"{SolutionMaker.ZipFileName} created successfully!");
 
-            return;
+            //return;
             //********Un-comment and run this once to refresh the solution zip
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Green;
@@ -44,7 +44,7 @@ class Program
 
             //Comment this out for debugging, this is to speed up development and incremental testing
             //Console.WriteLine("Please Enter Solution Parameters");
-            //var solutionMakerParams = SolutionMakerParams.ReadFromConsole(); 
+            //var solutionMakerParams = SolutionMakerParams.ReadFromConsole();
             //End of comment out for debugging
 
             //Comment this out for production, this is to speed up development and incremental testing
@@ -52,8 +52,8 @@ class Program
             {
                 SolutionName = "XYX",
                 SolutionDirectory = @"C:\Users\ilyab\Documents\Projects",
-                WebFramework = WebFrameworkEnum.Mvc,
-                Database = DatabaseEnum.SqlServer
+                WebFramework = WebFrameworkEnum.WebMonk,
+                Database = DatabaseEnum.Sqlite
             };
             //End of comment out for production
 

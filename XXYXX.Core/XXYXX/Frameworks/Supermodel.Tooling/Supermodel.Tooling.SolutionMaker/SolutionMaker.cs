@@ -90,15 +90,11 @@ public static class SolutionMaker
             var snippet1 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet1.txt");
             var snippet2 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet2.txt");
             var snippet3 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet3.txt");
-            var snippet4 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet4.txt");
-            var snippet5 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfWM.snippet5.txt");
 
             solutionFileContent = solutionFileContent
                 .RemoveStrWithCheck(snippet1)
                 .RemoveStrWithCheck(snippet2)
-                .RemoveStrWithCheck(snippet3)
-                .RemoveStrWithCheck(snippet4)
-                .RemoveStrWithCheck(snippet5);
+                .RemoveStrWithCheck(snippet3);
 
             solutionFileContent = solutionFileContent.DeleteLinesContaining("{A948AEF7-8737-49A0-A47C-0652ED858D30}", 5);
             solutionFileContent = solutionFileContent.DeleteLinesContaining("{7234523C-4609-4197-9DA5-3DC77A172D5B}", 5);
@@ -113,15 +109,11 @@ public static class SolutionMaker
             var snippet1 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet1.txt");
             var snippet2 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet2.txt");
             var snippet3 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet3.txt");
-            var snippet4 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet4.txt");
-            var snippet5 = ReadResourceTextFile($"{assemblyName}.Snippets2Delete.SolutionIfMVC.snippet5.txt");
 
             solutionFileContent = solutionFileContent
                 .RemoveStrWithCheck(snippet1)
                 .RemoveStrWithCheck(snippet2)
-                .RemoveStrWithCheck(snippet3)
-                .RemoveStrWithCheck(snippet4)
-                .RemoveStrWithCheck(snippet5);
+                .RemoveStrWithCheck(snippet3);
 
             solutionFileContent = solutionFileContent.DeleteLinesContaining("{52339205-60DC-4289-A179-9DDE6D6DA1B3}", 5);
             solutionFileContent = solutionFileContent.DeleteLinesContaining("{AD0DFA5F-8D59-4775-8A87-EA83F9A8437B}", 5);
