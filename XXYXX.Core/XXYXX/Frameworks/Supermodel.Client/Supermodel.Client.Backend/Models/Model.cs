@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Supermodel.Client.Backend.DataContext.Core;
+using Supermodel.Client.Backend.DataContext.Sqlite;
 using Supermodel.Client.Backend.Repository;
+using Supermodel.Client.Backend.UnitOfWork;
 using Supermodel.DataAnnotations.Validations;
 using Supermodel.ReflectionMapper;
 
@@ -48,10 +50,10 @@ public abstract class Model : IModel
     //[NotRMapped, NotRCompared, JsonIgnore] public virtual string Identity => Id.ToString();
 
     [NotRMapped] public DateTime? BroughtFromMasterDbOnUtc { get; set; }
-    //public bool ShouldSerializeBroughtFromMasterDbOnUtc()
-    //{
-    //    if (UnitOfWorkContextCore.StackCount == 0) return false;
-    //    return UnitOfWorkContextCore.CurrentDataContext is SqliteDataContext;
-    //}
+    public bool ShouldSerializeBroughtFromMasterDbOnUtc()
+    {
+        if (UnitOfWorkContextCore.StackCount == 0) return false;
+        return UnitOfWorkContextCore.CurrentDataContext is SqliteDataContext;
+    }
     #endregion
 }
