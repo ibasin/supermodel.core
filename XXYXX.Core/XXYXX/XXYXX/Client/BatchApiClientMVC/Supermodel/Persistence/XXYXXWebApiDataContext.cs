@@ -5,7 +5,8 @@ namespace BatchApiClientMVC.Supermodel.Persistence;
 public class XXYXXWebApiDataContext: WebApiDataContext
 {
     #region Overrides
-    public override string BaseUrl => "http://10.211.55.9:54208/"; //this one is for MVC
+    //public override string BaseUrl => "http://10.211.55.9:54208/"; //this one is for WebMVC profile
+    public override string BaseUrl => "http://localhost:5000/"; //this one is for MVC (default)
 
     // set timeout to 10 min, so we can debug if starting server and client simultaneously 
     //protected override HttpClient CreateHttpClient()
