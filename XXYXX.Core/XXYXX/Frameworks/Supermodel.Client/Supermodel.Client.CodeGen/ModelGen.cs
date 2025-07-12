@@ -45,16 +45,14 @@ public class ModelGen
         sb.AppendLine("using System;");
         sb.AppendLine("using System.Collections.Generic;");
         sb.AppendLine("using System.Threading.Tasks;");
-        sb.AppendLine("using Supermodel.Mobile.Runtime.Common.DataContext.WebApi;");
-        sb.AppendLine("using Supermodel.Mobile.Runtime.Common.Models;");
+        sb.AppendLine("using Supermodel.Client.Backend.Models;");
         sb.AppendLine("using System.ComponentModel;");
         sb.AppendLine("using System.Runtime.Serialization;");
         sb.AppendLine("using Supermodel.DataAnnotations.Attributes;");
         sb.AppendLine("// ReSharper restore RedundantUsingDirective");
         sb.AppendLine("");
         sb.AppendLine("// ReSharper disable once CheckNamespace");
-        sb.AppendLineFormat("namespace {0}", NameSpace);
-        sb.AppendLineIndentPlus("{");
+        sb.AppendLine($"namespace {NameSpace};");
 
         var first = true;
         foreach (var controllerType in FindAllSupermodelControllers().OrderBy(x => x.Name)) //We order to always generate identical runtime
@@ -210,7 +208,6 @@ public class ModelGen
         sb = GenerateCustomTypes(customTypesDefined, sb);
         sb.AppendLine("#endregion");
 
-        sb.AppendLineIndentMinus("}");
         return sb;
     }
     #endregion
