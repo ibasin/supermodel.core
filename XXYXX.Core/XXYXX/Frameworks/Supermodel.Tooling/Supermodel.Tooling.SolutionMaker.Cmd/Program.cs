@@ -50,7 +50,7 @@ class Program
             //Comment this out for production, this is to speed up development and incremental testing
             var solutionMakerParams = new SolutionMakerParams
             {
-                SolutionName = "XYX1",
+                SolutionName = "XYX",
                 SolutionDirectory = @"C:\Users\ilyab\Documents\Projects",
                 WebFramework = WebFrameworkEnum.WebMonk,
                 Database = DatabaseEnum.Sqlite
