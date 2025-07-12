@@ -53,6 +53,7 @@ public class ModelGen
         sb.AppendLine("");
         sb.AppendLine("// ReSharper disable once CheckNamespace");
         sb.AppendLine($"namespace {NameSpace};");
+        sb.AppendLine("");
 
         var first = true;
         foreach (var controllerType in FindAllSupermodelControllers().OrderBy(x => x.Name)) //We order to always generate identical runtime
