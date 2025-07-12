@@ -52,7 +52,7 @@ class Program
             {
                 SolutionName = "XYX",
                 SolutionDirectory = @"C:\Users\ilyab\Documents\Projects",
-                WebFramework = WebFrameworkEnum.WebMonk,
+                WebFramework = WebFrameworkEnum.Mvc,
                 Database = DatabaseEnum.Sqlite
             };
             //End of comment out for production
