@@ -21,7 +21,7 @@ public class DataContext : EFCoreSQLiteDataContext
 //public class DataContext : EFCoreSQLServerDataContext
 //{
 //    #region Constructors
-//    public DataContext() : base(@"Data Source=.\SQL_DEVELOPER; Initial Catalog=TDMCoreDb; Trusted_Connection=True"){}
+//    public DataContext() : base(@"Data Source=.; Initial Catalog=TDMCoreDb; Trusted_Connection=True; TrustServerCertificate=True"){}
 //    #endregion
 
 //    #region Overrides

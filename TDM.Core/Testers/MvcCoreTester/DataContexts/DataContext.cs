@@ -4,7 +4,7 @@ using Supermodel.Persistence.EFCore.SQLite;
 namespace MvcCoreTester.DataContexts;
 //public class SqlServerDataContext : EFCoreSQLServerDataContext
 //{
-//    public SqlServerDataContext() : base(@"Data Source=.\SQL_DEVELOPER; Initial Catalog=EFCoreTesterDb; Trusted_Connection=True"){}
+//    public SqlServerDataContext() : base(@"Data Source=.; Initial Catalog=EFCoreTesterDb; Trusted_Connection=True; TrustServerCertificate=True"){}
 
 //    protected override void SeedData(ModelBuilder modelBuilder)
 //    {

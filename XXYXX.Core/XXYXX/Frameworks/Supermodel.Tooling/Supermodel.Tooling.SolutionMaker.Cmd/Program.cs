@@ -53,7 +53,7 @@ class Program
                 SolutionName = "XYX",
                 SolutionDirectory = @"C:\Users\ilyab\Documents\Projects",
                 WebFramework = WebFrameworkEnum.Mvc,
-                Database = DatabaseEnum.Sqlite
+                Database = DatabaseEnum.SqlServer
             };
             //End of comment out for production
 

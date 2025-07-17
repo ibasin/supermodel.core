@@ -6,7 +6,7 @@ namespace EFCoreTester.DataContexts;
 
 public class SqlServerDbContext : EFCoreSQLServerDataContext
 {
-    public SqlServerDbContext() : base(@"Data Source=.\SQL_DEVELOPER; Initial Catalog=EFCoreTesterDb; Trusted_Connection=True", new CustomRepoFactory()){}
+    public SqlServerDbContext() : base(@"Data Source=.; Initial Catalog=EFCoreTesterDb; Trusted_Connection=True; TrustServerCertificate=True", new CustomRepoFactory()){}
 
     public override Task SeedDataAsync()
     {
