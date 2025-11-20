@@ -298,7 +298,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
     {
         return _lastSyncDateTimeUtc ??= await GetLastSyncDateTimeUtcInternalAsync();
     }
-    public virtual async Task SetLastSyncDateTimeUtcAsync(DateTime? value)
+    public virtual async Task SetLastSyncDateTimeUtcAsync(DateTime value)
     {
         _lastSyncDateTimeUtc = value;
         await SetLastSyncDateTimeUtcInternalAsync(value);
@@ -316,7 +316,7 @@ public abstract class Synchronizer<TModel, TWebApiDataContext, TSqliteDataContex
         var lastSyncDateTimeUtc = DateTime.Parse(results.Single().Json!);
         return lastSyncDateTimeUtc;
     }
-    protected virtual async Task SetLastSyncDateTimeUtcInternalAsync(DateTime? value)
+    protected virtual async Task SetLastSyncDateTimeUtcInternalAsync(DateTime value)
     {
         var sqLiteDbContext = new TSqliteDataContext();
         var db = new SQLiteAsyncConnection(sqLiteDbContext.DatabaseFilePath);
