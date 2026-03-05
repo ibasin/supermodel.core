@@ -15,7 +15,7 @@ class Program
         //await webServer.RunAsync("/");
         //await webServer.RunAsync("Api/Student/List");
         //await webServer.RunAsync("Student/Detail");
-        await webServer.RunAsync("Student/List");
+        await webServer.RunAsync("Module/Student/List");
         //await webServer.RunAsync("Student/RedirectToDetail");
         //await webServer.RunAsync("css/site.css");
     }
