@@ -339,6 +339,7 @@ public static class ReflectionHelper
     public static bool IsComplexType(this Type me)
     {
         if (me == typeof(string)) return false;
+        //if (me == typeof(byte[])) return false;
         if (me.IsGenericType && me.GetGenericTypeDefinition() == typeof(Nullable<>)) return false;
 
         return (me.IsClass || me.IsStruct());
