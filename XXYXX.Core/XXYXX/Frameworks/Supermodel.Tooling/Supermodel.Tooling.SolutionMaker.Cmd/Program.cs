@@ -30,6 +30,11 @@ class Program
             File.WriteAllText(SolutionMaker.CombineAndAdjustPaths(@"..\..\..\..\..\..\", @"Frameworks\Version.txt"), $"Version {SolutionMaker.Version}");
             Console.WriteLine("Version.txt files updated successfully!");
 
+            //Remove .vs directory from XXYXX
+            Directory.Delete(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX\.vs", true);
+            Console.WriteLine("Done!");
+
+            //Create zip snapshot of XXYXX solution
             SolutionMaker.CreateSnapshot(@"..\..\..\..\..\..\..\XXYXX.Core\XXYXX", @"..\..\..\");
             Console.WriteLine($"{SolutionMaker.ZipFileName} created successfully!");
 
